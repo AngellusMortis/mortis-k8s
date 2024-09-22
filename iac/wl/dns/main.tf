@@ -5,9 +5,9 @@ locals {
 module "pi_2_build" {
     source = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
     attribute = "config.system.build.toplevel"
-    file = "./nix/machines/pi-2"
+    file = "./nix/pi-2"
     nix_options = {
-        builders = "@${path.cwd}/machines"
+        builders = "@${path.cwd}/nix/machines"
     }
 }
 

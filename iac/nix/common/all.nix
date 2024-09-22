@@ -61,7 +61,8 @@
     };
     nix.settings.trusted-users = [ "root" "build" ];
 
-    users.users.root.shell = pkgs.zsh;
+    users.defaultUserShell = pkgs.zsh;
+    environment.shells = with pkgs; [ zsh ];
     users.users.cbailey = {
         isNormalUser = true;
         home = "/home/cbailey";
@@ -89,30 +90,39 @@
     environment.systemPackages = with pkgs; [
         vim
         btop
+        git
         zsh
     ];
 
     programs.zsh = {
         enable = true;
         enableCompletion = true;
-        autosuggestion.enable = true;
+        enableLsColors = true;
+        enableBashCompletion = true;
+        autosuggestions.enable = true;
         syntaxHighlighting.enable = true;
 
+        shellInit = ''
+            "# testy test"
+            "# test, please ignore"
+        '';
+        interactiveShellInit = ''
+            "# interactive testy test"
+            "# interactive test, please ignore"
+        '';
+        loginShellInit = ''
+            "# login testy test"
+            "# login test, please ignore"
+        '';
         shellAliases = {
-            ll = "ls -l";
+            diff = "diff --color=auto";
+            grep = "grep --color=auto";
+            ip = "ip -color=auto";
+            la = "ls -la --color=auto";
+            ll = "ls -l --color=auto";
             update = "sudo nixos-rebuild switch";
         };
-        history = {
-            size = 10000;
-            path = "${config.xdg.dataHome}/zsh/history";
-        };
-        zplug = {
-            enable = true;
-            plugins = [
-                { name = "zsh-users/zsh-autosuggestions"; } # Simple plugin installation
-                { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; } # Installations with additional options. For the list of options, please refer to Zplug README.
-            ];
-        };
+        histSize = 10000;
     };
 
     # Some programs need SUID wrappers, can be configured further or are
