@@ -179,7 +179,6 @@
 
                     # secure / home apps
                     "birds.wl.mort.is" = "192.168.2.225";
-                    "git.wl.mort.is" = "192.168.2.225";
                     "paperless.wl.mort.is" = "192.168.2.225";
                     "power.wl.mort.is" = "192.168.2.225";
                     "solar.wl.mort.is" = "192.168.2.225";
@@ -202,8 +201,6 @@
                     # insecure / home apps
                     "home.wl.mort.is" = "192.168.3.225";
                     "protect.wl.mort.is" = "192.168.3.225";
-
-                    "ssh-git.wl.mort.is" = "192.168.3.227";
 
                     # insecure / media apps
                     "files.wl.mort.is" = "192.168.3.225";
