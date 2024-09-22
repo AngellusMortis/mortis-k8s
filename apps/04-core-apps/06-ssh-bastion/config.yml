@@ -39,9 +39,9 @@ data:
     curl -sL https://talos.dev/install | sh
 
     # install kubeseal
-    curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz"
-    tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal
-    install -m 755 kubeseal /usr/local/bin/kubeseal
+    # curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz"
+    # tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal
+    # install -m 755 kubeseal /usr/local/bin/kubeseal
 
     # install krew
     (
