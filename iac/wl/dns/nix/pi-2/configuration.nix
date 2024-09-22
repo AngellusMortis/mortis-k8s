@@ -7,12 +7,11 @@
 {
     imports = [
         <nixos-hardware/raspberry-pi/4>
-        # Include the results of the hardware scan.
-        ../../rpi4/hardware-configuration.nix
-        ../../common/all.nix
-        ../../rpi4/all.nix
-        ../../dns/blocky.nix
-        ../../dns/mysql.nix
+        ../../../../nix/common/all.nix
+        ../../../../nix/rpi4/hardware-configuration.nix
+        ../../../../nix/rpi4/all.nix
+        ../dns/blocky.nix
+        ../dns/mysql.nix
     ];
 
     networking.hostName = "pi-2";
