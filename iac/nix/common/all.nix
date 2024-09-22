@@ -150,11 +150,9 @@
             update = "sudo nixos-rebuild switch";
         };
         histSize = 10000;
-        zplug = {
+        ohMyZsh = {
             enable = true;
-            plugins = [
-                { name = "zsh-users/zsh-autosuggestions"; }
-            ];
+            plugins = ["zsh-users/zsh-autosuggestions"];
         };
     };
 
