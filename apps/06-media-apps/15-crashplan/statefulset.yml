@@ -25,6 +25,9 @@ spec:
         securityContext:
           allowPrivilegeEscalation: true
           runAsNonRoot: false
+        env:
+          - name: CRASHPLAN_SRV_MAX_MEM
+            value: 4096M
         ports:
           - containerPort: 5800
             name: crashplan-web
