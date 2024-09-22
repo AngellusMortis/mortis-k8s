@@ -5,19 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-    # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
-    boot.loader.grub.enable = false;
-    # Enables the generation of /boot/extlinux/extlinux.conf
-    boot.loader.generic-extlinux-compatible.enable = true;
-
-    hardware = {
-        raspberry-pi."4".apply-overlays-dtmerge.enable = true;
-        deviceTree = {
-        enable = true;
-            filter = "*rpi-4-*.dtb";
-        };
-    };
-
     networking.domain = "wl.mort.is";
     # networking.hostName = "pi-2"; # Define your hostname.
     # Pick only one of the below networking options.
@@ -77,6 +64,7 @@
     users.users.cbailey = {
         isNormalUser = true;
         home = "/home/cbailey";
+        shell = pkgs.zsh;
         extraGroups = [ "wheel" ];
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125"
@@ -100,7 +88,10 @@
     environment.systemPackages = with pkgs; [
         vim
         btop
+        zsh
     ];
+
+    programs.zsh.enable = true;
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

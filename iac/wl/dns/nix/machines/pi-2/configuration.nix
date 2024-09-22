@@ -9,7 +9,8 @@
         <nixos-hardware/raspberry-pi/4>
         # Include the results of the hardware scan.
         ../../rpi4/hardware-configuration.nix
-        ../../rpi4/common.nix
+        ../../common/all.nix
+        ../../rpi4/all.nix
         ../../dns/blocky.nix
         ../../dns/mysql.nix
     ];
