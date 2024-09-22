@@ -1,0 +1,187 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: cloudflare
+  namespace: ingress
+spec:
+  interval: 12h
+  url: https://cloudflare.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-cloudflare-tunnel
+  namespace: ingress
+spec:
+  releaseName: cloudflare-tunnel
+  targetNamespace: ingress
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: cloudflare-tunnel
+      version: "0.3.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: cloudflare
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: cloudflare-tunnel
+            patch: |
+              - op: replace
+                path: /spec/template/spec/containers/0/ports
+                value:
+                  - containerPort: 2000
+                    name: metrics
+  values:
+    image:
+      repository: cloudflare/cloudflared # {"$imagepolicy": "flux-system:cloudflared-policy:name"}
+      tag: "2024.9.1" # {"$imagepolicy": "flux-system:cloudflared-policy:tag"}
+    podSecurityContext:
+      sysctls:
+      - name: net.ipv4.ping_group_range
+        value: "65532       65532"
+    cloudflare:
+      # Your Cloudflare account number.
+      account: "d1a777c19cccf42e7b8b45ffb654a978"
+      # The name of the tunnel this instance will serve
+      tunnelName: "wl.mort.is"
+      # The ID of the above tunnel.
+      tunnelId: "941f561b-844f-4c13-8d3f-ebc4b48528e9"
+      # The secret for the tunnel.
+      secretName: "cf-tunnel-secret"
+      ingress:
+      # control apps
+      - hostname: network.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: network.wl.mort.is
+      - hostname: longhorn.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: longhorn.wl.mort.is
+      - hostname: auth.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: auth.wl.mort.is
+      - hostname: backup.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: backup.wl.mort.is
+      - hostname: dns-1.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: dns-1.wl.mort.is
+      - hostname: k8s.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: k8s.wl.mort.is
+      # metrics apps
+      - hostname: alerts.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: alerts.wl.mort.is
+      - hostname: monitor.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: monitor.wl.mort.is
+      - hostname: prometheus.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: prometheus.wl.mort.is
+      # home apps
+      - hostname: birds.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: birds.wl.mort.is
+      - hostname: home.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: home.wl.mort.is
+      - hostname: paperless.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: paperless.wl.mort.is
+      - hostname: power.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: power.wl.mort.is
+      - hostname: protect.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: protect.wl.mort.is
+      - hostname: solar.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: solar.wl.mort.is
+      - hostname: vacuum.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: vacuum.wl.mort.is
+      # media apps
+      - hostname: files.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: files.wl.mort.is
+      - hostname: media.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: media.wl.mort.is
+      - hostname: plex.wl.mort.is
+        service: https://ingress-nginx-insecure-controller.ingress
+        originRequest:
+          originServerName: plex.wl.mort.is
+      - hostname: sync.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: sync.wl.mort.is
+      # media ingest apps
+      - hostname: download.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: download.wl.mort.is
+      - hostname: index.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: index.wl.mort.is
+      - hostname: movies.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: television.wl.mort.is
+      - hostname: movies.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: music.wl.mort.is
+      - hostname: processing.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: processing.wl.mort.is
+      - hostname: subs.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: subs.wl.mort.is
+      - hostname: television.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: television.wl.mort.is
+      # Boundlexx
+      - hostname: api.boundlexx.app
+        service: http://ingress-nginx-insecure-controller.ingress
+      # SSH
+      - hostname: ssh.wl.mort.is
+        service: ssh://bastion.ssh.svc.cluster.local:22
+      # Misc.
+      - hostname: wl.mort.is
+        # testing
+        # - hostname: debug.wl.mort.is
+        #   service: http://ingress-nginx-insecure-controller.ingress
+        # - hostname: debug2.wl.mort.is
+        #   service: http://ingress-nginx-secure-controller.ingress
+        # - hostname: debug3.wl.mort.is
+        #   service: http://http-debug3.default
+
+        service: http_status:404

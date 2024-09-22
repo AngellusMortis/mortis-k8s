@@ -1,0 +1,67 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: arr-postgres
+  namespace: media
+spec:
+  enableSuperuserAccess: true
+  instances: 3
+  storage:
+    size: 50Gi
+  managed:
+    roles:
+    - name: autobrr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-autobrr
+    - name: prowlarr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-prowlarr
+    - name: bazarr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-bazarr
+    - name: lidarr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-lidarr
+    - name: sonarr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-sonarr
+    - name: radarr
+      ensure: present
+      login: true
+      superuser: false
+      passwordSecret:
+        name: arr-postgres-radarr
+  bootstrap:
+    initdb:
+      postInitSQL:
+        - CREATE USER autobrr;
+        - CREATE DATABASE autobrr OWNER autobrr;
+        - CREATE USER prowlarr;
+        - CREATE DATABASE "prowlarr-main" OWNER prowlarr;
+        - CREATE DATABASE "prowlarr-log" OWNER prowlarr;
+        - CREATE USER bazarr;
+        - CREATE DATABASE bazarr OWNER bazarr;
+        - CREATE USER lidarr;
+        - CREATE DATABASE "lidarr-main" OWNER lidarr;
+        - CREATE DATABASE "lidarr-log" OWNER lidarr;
+        - CREATE USER sonarr;
+        - CREATE DATABASE "sonarr-main" OWNER sonarr;
+        - CREATE DATABASE "sonarr-log" OWNER sonarr;
+        - CREATE USER radarr;
+        - CREATE DATABASE "radarr-main" OWNER radarr;
+        - CREATE DATABASE "radarr-log" OWNER radarr;

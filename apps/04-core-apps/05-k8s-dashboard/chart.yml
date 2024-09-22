@@ -1,0 +1,88 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: oauth2-proxy
+  namespace: k8s-dashboard
+spec:
+  interval: 12h
+  url: https://oauth2-proxy.github.io/manifests
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kubernetes-dashboard
+  namespace: k8s-dashboard
+spec:
+  interval: 12h
+  url: https://kubernetes.github.io/dashboard
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-oauth-proxy
+  namespace: k8s-dashboard
+spec:
+  releaseName: oauth-proxy
+  targetNamespace: k8s-dashboard
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: "7.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+  valuesFrom:
+    - kind: Secret
+      name: oauth-app
+  values:
+    config:
+      configFile: |-
+        email_domains = [ "*" ]
+        upstreams = [ "https://dashboard-kong-proxy.k8s-dashboard" ]
+    extraArgs:
+      provider: oidc
+      provider-display-name: "Authentik"
+      skip-provider-button: "true"
+      pass-authorization-header: "true"
+      cookie-refresh: 15m
+      oidc-issuer-url: https://auth.wl.mort.is/application/o/kube-apiserver/
+      ssl-upstream-insecure-skip-verify: "true"
+    ingress:
+      enabled: true
+      className: nginx-secure
+      hosts:
+        - k8s.wl.mort.is
+    sessionStorage:
+      # Can be one of the supported session storage cookie|redis
+      type: redis
+    redis:
+      # provision an instance of the redis sub-chart
+      enabled: true
+      # Redis specific helm chart settings, please see:
+      # https://github.com/bitnami/charts/tree/master/bitnami/redis#parameters
+      # redisPort: 6379
+      architecture: standalone
+      master:
+        resourcesPreset: medium
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-k8s-dashboard
+  namespace: k8s-dashboard
+spec:
+  releaseName: dashboard
+  targetNamespace: k8s-dashboard
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: kubernetes-dashboard
+      version: "7.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-dashboard

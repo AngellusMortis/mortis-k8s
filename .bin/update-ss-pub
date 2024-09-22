@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+baseDir="$(dirname "$0")"
+
+curl -sL -k https://ss.wl.mort.is/v1/cert.pem -o "$baseDir/../ss-pub.pem"

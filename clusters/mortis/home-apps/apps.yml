@@ -1,0 +1,54 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-apps-external-apps
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/05-home-apps/01-external-apps
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-apps-file-server
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/05-home-apps/02-file-server
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-apps-paperless
+  namespace: flux-system
+spec:
+  targetNamespace: paperless
+  interval: 10m0s
+  path: ./apps/05-home-apps/03-paperless
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: home-apps-birdnet
+  namespace: flux-system
+spec:
+  targetNamespace: default
+  interval: 10m0s
+  path: ./apps/05-home-apps/04-birdnet-go
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

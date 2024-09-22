@@ -1,0 +1,73 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: obeone
+  namespace: media
+spec:
+  interval: 12h
+  url: https://charts.obeone.cloud
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-nfs
+  namespace: media
+spec:
+  releaseName: nfs
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: nfs-server
+      version: "1.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: obeone
+  values:
+    env:
+      # -- Set the container timezone
+      TZ: America/New_York
+      NFS_EXPORT_0: /mnt/backup *(rw,sync,no_subtree_check,no_root_squash)
+      NFS_EXPORT_1: /mnt/download *(rw,sync,no_subtree_check,no_root_squash)
+      NFS_EXPORT_2: /mnt/syncthing *(rw,sync,no_subtree_check,no_root_squash)
+      NFS_EXPORT_3: /mnt/public *(rw,sync,no_subtree_check,no_root_squash)
+      NFS_EXPORT_4: /mnt/media *(rw,sync,no_subtree_check,no_root_squash)
+    service:
+      main:
+        enabled: true
+        primary: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "storage-192.168.3.235"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.235
+      udp:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "storage-192.168.3.235"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.235
+    persistence:
+      backup:
+        enabled: true
+        existingClaim: nas-backup
+        mountPath: /mnt/backup
+      download:
+        enabled: true
+        existingClaim: nas-nvme-download
+        mountPath: /mnt/download
+      syncthing:
+        enabled: true
+        existingClaim: nas-nvme-syncthing
+        mountPath: /mnt/syncthing
+      public:
+        enabled: true
+        existingClaim: nas-lh-public
+        mountPath: /mnt/public
+      media:
+        enabled: true
+        existingClaim: nas-media
+        mountPath: /mnt/media

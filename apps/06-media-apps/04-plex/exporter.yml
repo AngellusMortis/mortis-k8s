@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-exporter
+  namespace: media
+  labels:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex-exporter
+spec:
+  selector:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex-exporter
+  ports:
+    - name: plex-exporter
+      port: 9000
+      targetPort: plex-exporter
+  type: ClusterIP
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: plex
+    app.kubernetes.io/name: plex-exporter
+    release: prometheus
+  name: plex-exporter
+  namespace: media
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: plex-exporter
+    scheme: http
+    scrapeTimeout: 10s
+  namespaceSelector:
+    matchNames:
+    - media
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: plex
+      app.kubernetes.io/name: plex-exporter

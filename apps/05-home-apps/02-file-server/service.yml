@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: files
+  namespace: media
+spec:
+  selector:
+    app: files
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000

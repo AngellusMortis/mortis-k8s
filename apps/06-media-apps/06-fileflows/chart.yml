@@ -1,0 +1,172 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: fileflows
+  namespace: media
+spec:
+  interval: 12h
+  url: oci://tccr.io/truecharts/fileflows
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "12.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-fileflows
+  namespace: media
+spec:
+  releaseName: fileflows
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: fileflows
+  values:
+    image:
+      repository: revenz/fileflows
+      tag: 24.09@sha256:023249fca2b98c4e687192d11549145c1b804f24424b9b110ad100fe4ac92177
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              probes:
+                liveness:
+                  type: http
+                  path: /
+                readiness:
+                  type: http
+                  path: /
+                startup:
+                  type: http
+                  path: /
+              fixedEnv:
+                TZ: "America/New_York"
+              env: {}
+              resources:
+                limits:
+                  cpu: 24000m
+                  memory: 8Gi
+                requests:
+                  cpu: 8000m
+                  memory: 2Gi
+      node:
+        enabled: true
+        type: StatefulSet
+        replicas: 2
+        podSpec:
+          containers:
+            node:
+              enabled: true
+              primary: true
+              imageSelector: image
+              probes:
+                liveness:
+                  type: exec
+                  command: ["true"]
+                readiness:
+                  type: exec
+                  command: ["true"]
+                startup:
+                  type: exec
+                  command: ["true"]
+              env:
+                NVIDIA_VISIBLE_DEVICES: all
+                FFNODE: "1"
+                ServerUrl: "http://fileflows.media:10242"
+              resources:
+                limits:
+                  cpu: 10000m
+                  memory: 8Gi
+                  nvidia.com/gpu: 1
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
+                  nvidia.com/gpu: 1
+    persistence:
+      data:
+        enabled: true
+        size: 10Gi
+        mountPath: /app/Data
+      logs:
+        enabled: true
+        size: 10Gi
+        mountPath: /app/Logs
+      temp:
+        enabled: true
+        size: 10Gi
+        mountPath: /temp
+      node-data:
+        enabled: true
+        type: vct
+        size: 10Gi
+        targetSelector:
+          node:
+            node:
+              mountPath: /app/Data
+      node-logs:
+        enabled: true
+        type: vct
+        size: 10Gi
+        targetSelector:
+          node:
+            node:
+              mountPath: /app/Logs
+      node-temp:
+        enabled: true
+        type: vct
+        size: 500Gi
+        targetSelector:
+          node:
+            node:
+              mountPath: /temp
+      media:
+        enabled: true
+        type: pvc
+        existingClaim: smb-media
+        accessModes: ["ReadWriteMany"]
+        mountPath: /media
+        targetSelectAll: true
+
+      download:
+        enabled: true
+        type: pvc
+        existingClaim: smb-downloads
+        accessModes: ["ReadWriteMany"]
+        mountPath: /downloads
+        targetSelectAll: true
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "processing.wl.mort.is"
+          nginx.ingress.kubernetes.io/auth-url: |-
+              http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+              https://auth.wl.mort.is/outpost.goauthentik.io/start?rd=$scheme%3A%2F%2F$host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+              Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Host $http_host;
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.wl.mort.is"
+        ingressClassName:  "nginx-secure"
+        hosts:
+          - host: processing.wl.mort.is
+            paths:
+                - path: /
+                  pathType: Prefix
+                  overrideService:
+                    name: main
+                    port: 10242
+        integrations:
+          certManager:
+            enabled: false
+          traefik:
+            enabled: false
+          homepage:
+            enabled: false

@@ -1,0 +1,253 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-shared
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/01-shared
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+# Depends on https://github.com/siderolabs/pkgs/pull/713
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: media-apps-nfs
+#   namespace: flux-system
+# spec:
+#   targetNamespace: media
+#   interval: 10m0s
+#   path: ./apps/06-media-apps/02-nfs
+#   prune: false
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+# ---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-smb
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/03-smb
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-plex
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/04-plex
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-deluge
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/05-deluge
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-fileflows
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/06-fileflows
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-flaresolverr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/07-flaresolverr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-prowlarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/08-prowlarr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-bazarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/09-bazarr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-sonarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/10-sonarr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-radarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/11-radarr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-lidarr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/12-lidarr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-overseerr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/13-overseerr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-syncthing
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/14-syncthing
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-crashplan
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/15-crashplan
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-volsync
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/16-volsync
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-autobrr
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/17-autobrr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-emulatorjs
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/18-emulatorjs
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

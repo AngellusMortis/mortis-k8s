@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: unifi-ssh-password
+  namespace: media
+spec:
+  encryptedData:
+    # UniFi Network -> Console Settings -> SSH
+    ssh-pass: AgBo4m6kTwizdZ5HLtL1HIBAkMamlIprM1SA/BRBHUT8n+W5k1oXDjKbXX05XXLStQRng5OVAEFkHgFQi8/WXhR2PsQC+RMVaSPrcXiSjCtk1tevBF3v23xAa6LclgC9jbksgHAFPX0XqOr1f5RKWKjxXDl+SuYI/zLjkmDO6fnW87tZXHKcSk93k9xZxPLhBsT8Gs4eCbI8xV4arGg0QykqfHv7ZTG5xRckmkqMpjAjiQ+HzLoXtMPFXXg0wxuCNNiViZyAwvxg99InjTLkp3tibXtbmcQg6uAGQsgIe3hQTE4h/S85r01bA+ufUdWjO90UAeM6o2uuzR3Utlqeu6497Nl9a7sXWRYwsSgY9t8Ovgs+KMdS5rknPIUcdcwkHPW+s0Q60gys0V0IpJb814ZNHx+Xfn9uyEhU0WM5C/I2eCvonyUUnRDI+zK6g+Mjn9jU4BCAJGQW3Ca2o19kSZR/RMTxI+NJr8T+14V6Sh/Im8QLppk4a0ID4G46ejZDfjU17HoRSylDD5IwhsWqshGCAtOufM45RohHvlBj1fiKeJWEpcFZTunwIgNJAWyMgzGMs3zG9ySXg+cyaCHE4GakpuMPVFrvO7gOFYGGA6AIWygh80Lw5i1/LcTExyHIGzHpMDzvLWxDHhUWn9vBKG1y41km14zTn9RhYh1OV0KG57OEt/g2B3P8g2P7/xnlaEN4KlYwFigk/8QmFje9WXQdajAdf+F48etng/Hl4G7/fuU=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: unifi-ssh-password
+      namespace: media
+    type: Opaque

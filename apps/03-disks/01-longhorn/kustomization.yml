@@ -1,0 +1,6 @@
+resources:
+  - longhorn-config.yml
+  - namespace.yml
+  - chart.yml
+  - backup-secret-sealed.yml
+

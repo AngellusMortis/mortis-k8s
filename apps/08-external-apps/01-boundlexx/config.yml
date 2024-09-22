@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: boundlexx-config
+  namespace: boundlexx
+data:
+  # General
+  # ------------------------------------------------------------------------------
+  USE_DOCKER: "yes"
+  IPYTHONDIR: "/home/django/.ipython"
+  # protocol for the API in the API schema
+  API_PROTOCOL: "https"
+  API_RATE_LIMIT: "10"
+
+  # Huey
+  HUEY_WORKER_COUNT: "32"
+  HUEY_MAX_CONNECTIONS: "100"
+  HUEY_BOUNDLEXX_API_URL_BASE: "http://django.boundlexx:8000/api/v2/"
+
+  # Django settings
+  # ------------------------------------------------------------------------------
+  # CHANGE THIS FOR PRODUCTION
+  DJANGO_ALLOWED_HOSTS: "*"
+  DJANGO_SECURE_SSL_REDIRECT: "False"
+  TZ: "America/New_York"
+
+  # Debugging settings
+  # ------------------------------------------------------------------------------
+  # These should all be False for production
+  # REMOTE_DEBUGGING will have no effect in production
+  REMOTE_DEBUGGING: "False"
+  DJANGO_DEBUG: "False"
+  SERVE_STATIC_FILES_DEV: "False"
+
+  # Prometheus settings
+  # ------------------------------------------------------------------------------
+  ENABLE_PROMETHEUS: "True"
+
+  BOUNDLESS_MAX_WORLDS_PER_POLL: "75"
+  BOUNDLESS_MAX_PERM_WORLDS_PER_PRICE_POLL: "5"
+  BOUNDLESS_MAX_SOV_WORLDS_PER_PRICE_POLL: "50"
+  BOUNDLESS_API_WORLD_DELAY: "1"
+  BOUNDLESS_API_DS_DELAY: "0.5"
+
+  # Boundless Secrets
+  # ------------------------------------------------------------------------------
+  # Price delay config
+  BOUNDLESS_MIN_ITEM_DELAY: "20"
+  BOUNDLESS_BASE_ITEM_DELAY: "60"
+  BOUNDLESS_POPULAR_ITEM_DELAY_OFFSET: "5"
+  BOUNDLESS_INACTIVE_ITEM_DELAY_OFFSET: "30"
+  BOUNDLESS_MAX_ITEM_DELAY: "720"
+  BOUNDLESS_DEAD_ITEM_MULTIPLIER: "1"
+  # Forum posting
+  BOUNDLESS_FORUM_BASE_URL: "https://forum.playboundless.com"
+  BOUNDLESS_FORUM_POST_USER: "WorldsPoster"
+  BOUNDLESS_TRUSTED_UPLOAD_USERS: "Angellus,Gorillastomp,Kasaisaru,Soju"
+  # Should only be false if you are building against a local Creative universe
+  BOUNDLESS_DS_REQUIRES_AUTH: "True"
+  # This should point to the base URL of the Boundless discovery server
+  # for local Creative, this is the IP of the machine Boundless is running + port 8950
+  #       For Docker for Windows/Mac, `host.docker.internal` references the host machine
+  # For testing: https://ds-testing.playboundless.com:8902
+  # For live: https://ds.playboundless.com:8902
+  # BOUNDLESS_API_URL_BASE=https://ds.playboundless.com:8902
+  BOUNDLESS_API_URL_BASE: "https://ds.playboundless.com:8902"
+
+  # Production Secrets
+  # ------------------------------------------------------------------------------
+  CELERY_FLOWER_USER: "test"
+  CELERY_FLOWER_PASSWORD: "test"
+  DJANGO_SETTINGS_MODULE: "config.settings.production"

@@ -1,0 +1,27 @@
+# kubectl apply -f manifests/debug.yml
+# kubectl delete -f manifests/debug.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+spec:
+  containers:
+  - name: debug
+    image: dersimn/netutils:ubuntu
+    imagePullPolicy: IfNotPresent
+    command:
+      - sleep
+      - infinity
+    volumeMounts:
+      - name: backup
+        mountPath: /mnt/backup
+      - name: config
+        mountPath: /mnt/config
+  volumes:
+    - name: backup
+      persistentVolumeClaim:
+        claimName: nas-backup
+    - name: config
+      persistentVolumeClaim:
+        claimName: lidarr-config

@@ -1,0 +1,91 @@
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: deluge-external-sa
+  namespace: media
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deluge-external
+  namespace: media
+rules:
+  - apiGroups: ["apps", "extensions"]
+    resources: ["statefulsets"]
+    resourceNames: ["deluge-vpn"]
+    verbs: ["get", "patch", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: deluge-external
+  namespace: media
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: deluge-external
+subjects:
+  - kind: ServiceAccount
+    name: deluge-external-sa
+    namespace: media
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deluge-external-config
+  namespace: media
+data:
+  check-deluge.sh: |
+    #!/bin/bash
+
+    set -o errexit
+    set -o pipefail
+    set -o nounset
+
+    API_KEY=m797649487-3d553fc921f66dabecaf222a
+    LOG=$(curl -sL -X POST "https://api.uptimerobot.com/v2/getMonitors" -d "api_key=m797649487-3d553fc921f66dabecaf222a&logs=1&logs_limit=1" | jq -r '.monitors[0].logs[0]')
+    STATUS=$(echo "$LOG" | jq -r .type)
+    DURATION=$(echo "$LOG" | jq -r .duration)
+
+    if [[ "$STATUS" == "1" ]]; then
+      echo "Deluge has been down for $DURATION seconds"
+      if (( $DURATION > 300 )); then
+        echo "Restarting Deluge..."
+        kubectl -n media rollout restart sts/deluge-vpn
+      fi
+    else
+      echo "Deluge has been online for $DURATION seconds"
+    fi
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: deluge-external-check
+  namespace: media
+spec:
+  schedule: "*/15 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: deluge-external-sa
+          containers:
+          - name: cleanup
+            image: ghcr.io/angellusmortis/deluge-sync:v1.5.1
+            imagePullPolicy: IfNotPresent
+            command: ["bash"]
+            args:
+            - "/script/check-deluge.sh"
+            volumeMounts:
+              - name: script
+                mountPath: /script/
+          restartPolicy: Never
+          volumes:
+            - name: script
+              configMap:
+                name: deluge-external-config
+                items:
+                - key: check-deluge.sh
+                  path: check-deluge.sh

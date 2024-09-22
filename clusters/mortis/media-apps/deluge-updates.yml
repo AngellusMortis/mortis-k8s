@@ -1,0 +1,128 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: deluge
+  namespace: flux-system
+spec:
+  image: lscr.io/linuxserver/deluge
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: deluge-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: deluge
+  filterTags:
+    pattern: '^.*-ls(?P<lsVersion>\d+)$'
+    extract: '$lsVersion'
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: deluge-exporter
+  namespace: flux-system
+spec:
+  image: ngosang/deluge-exporter
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: deluge-exporter-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: deluge-exporter
+  policy:
+    semver:
+      range: "~1.x"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cross-seed
+  namespace: flux-system
+spec:
+  image: ghcr.io/cross-seed/cross-seed
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cross-seed-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cross-seed
+  policy:
+    semver:
+      range: "~6.x-0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: gluetun
+  namespace: flux-system
+spec:
+  image: ghcr.io/qdm12/gluetun
+  interval: 12h
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: gluetun-policy
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: gluetun
+  policy:
+    semver:
+      range: "~3.x"
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: deluge-update
+  namespace: flux-system
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: master
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        Automated image update
+
+        Automation name: {{ .AutomationObject }}
+
+        Files:
+        {{ range $filename, $_ := .Changed.FileChanges -}}
+        - {{ $filename }}
+        {{ end -}}
+
+        Objects:
+        {{ range $resource, $changes := .Changed.Objects -}}
+        - {{ $resource.Kind }} {{ $resource.Name }}
+          Changes:
+        {{- range $_, $change := $changes }}
+            - {{ $change.OldValue }} -> {{ $change.NewValue }}
+        {{ end -}}
+        {{ end -}}
+    push:
+      branch: master
+  update:
+    path: ./apps/06-media-apps/05-deluge
+    strategy: Setters

@@ -1,0 +1,55 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-cert-manager
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/02-ingress/01-cert-manager
+  targetNamespace: ingress
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-cert-manager-post
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/02-ingress/01-cert-manager/post
+  targetNamespace: ingress
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-nginx
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/02-ingress/02-ingress-nginx
+  targetNamespace: ingress
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ingress-cloudflare-tunnel
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/02-ingress/03-cloudflared
+  targetNamespace: ingress
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

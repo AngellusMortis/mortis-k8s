@@ -1,0 +1,128 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: satisfactory
+  namespace: games
+spec:
+  interval: 12h
+  url: oci://tccr.io/truecharts/satisfactory
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "12.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: game-servers-satisfactory
+  namespace: games
+spec:
+  releaseName: satisfactory
+  targetNamespace: games
+  interval: 10m
+  timeout: 15m
+  chartRef:
+    kind: OCIRepository
+    name: satisfactory
+  values:
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              ports:
+              - name: game
+                containerPort: 7777
+              probes:
+                liveness:
+                  enabled: true
+                  tcpSocket:
+                    port: game
+                  initialDelaySeconds: 5
+                  timeoutSeconds: 1
+                  periodSeconds: 5
+                  failureThreshold: 3
+                  successThreshold: 1
+                readiness:
+                  enabled: true
+                  exec:
+                    command:
+                    - bash
+                    - /healthcheck.sh
+                  initialDelaySeconds: 5
+                  timeoutSeconds: 1
+                  periodSeconds: 5
+                  failureThreshold: 3
+                  successThreshold: 1
+                startup:
+                  enabled: true
+                  exec:
+                    command:
+                      - sh
+                      - -c
+                      - test -f /config/gamefiles/FactoryGame/Saved/Logs/FactoryGame.log
+                  initialDelaySeconds: 10
+              env:
+                AUTOSAVENUM: "5"
+                DEBUG: "false"
+                DISABLESEASONALEVENTS: "false"
+                MAXOBJECTS: "2162688"
+                MAXPLAYERS: "4"
+                MAXTICKRATE: "30"
+                PGID: "1000"
+                PUID: "1000"
+                ROOTLESS: "true"
+                SERVERGAMEPORT: "{{ .Values.service.main.ports.main.port }}"
+                SERVERIP: "0.0.0.0"
+                SERVERSTREAMING: "true"
+                SKIPUPDATE: "false"
+                STEAMBETA: "false"
+                TIMEOUT: "30"
+                VMOVERRIDE: "false"
+              resources:
+                limits:
+                  cpu: 8000m
+                  memory: 24Gi
+                requests:
+                  cpu: 2000m
+                  memory: 16Gi
+
+    securityContext:
+      container:
+        runAsNonRoot: false
+        readOnlyRootFilesystem: false
+        runAsUser: 1000
+        runAsGroup: 1000
+
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "satifactory-192.168.3.240"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.240
+        ports:
+          main:
+            enabled: true
+            port: 7777
+            protocol: tcp
+      mainudp:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "satifactory-192.168.3.240"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.240
+        ports:
+          mainudp:
+            enabled: true
+            port: "{{ .Values.service.main.ports.main.port }}"
+            protocol: udp
+
+    persistence:
+      config:
+        enabled: true
+        size: 100Gi
+        mountPath: /config

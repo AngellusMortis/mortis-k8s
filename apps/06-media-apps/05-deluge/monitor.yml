@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: exporter
+    app.kubernetes.io/instance: deluge-vpn
+    app.kubernetes.io/name: deluge-vpn
+    app.kubernetes.io/part-of: deluge-vpn
+    release: prometheus
+  name: deluge-exporter
+  namespace: media
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: deluge-exporter
+    scheme: http
+    scrapeTimeout: 3s
+  namespaceSelector:
+    matchNames:
+    - media
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/instance: deluge-vpn
+      app.kubernetes.io/name: deluge-vpn
+      app.kubernetes.io/part-of: deluge-vpn

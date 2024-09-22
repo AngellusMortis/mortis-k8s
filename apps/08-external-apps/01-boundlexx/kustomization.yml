@@ -1,0 +1,10 @@
+resources:
+  - namespace.yml
+  # - postgres.yml
+  - config.yml
+  - pvc.yml
+  - shared-services.yml
+  - django.yml
+  - celery.yml
+  - huey.yml
+  - secrets-sealed.yml

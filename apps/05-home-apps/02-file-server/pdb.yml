@@ -1,0 +1,10 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: files-pdb
+  namespace: media
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: files

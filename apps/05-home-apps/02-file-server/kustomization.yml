@@ -1,0 +1,6 @@
+resources:
+  - config.yml
+  - deployment.yml
+  - ingress.yml
+  - pdb.yml
+  - service.yml

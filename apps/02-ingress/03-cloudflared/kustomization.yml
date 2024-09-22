@@ -1,0 +1,4 @@
+resources:
+  - chart.yml
+  - metrics.yml
+  - tunnel-secret-sealed.yml

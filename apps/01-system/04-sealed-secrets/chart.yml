@@ -1,0 +1,43 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: sealed-secrets
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://bitnami-labs.github.io/sealed-secrets
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: system-sealed-secrets
+  namespace: flux-system
+spec:
+  releaseName: sealed-secrets
+  targetNamespace: flux-system
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: sealed-secrets
+      version: "2.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: sealed-secrets
+  values:
+    metrics:
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: prometheus
+      dashboards:
+        create: true
+    pdb:
+      create: true
+    ingress:
+      enabled: true
+      ingressClassName: nginx-insecure
+      hostname: ss.wl.mort.is
+      tls: true
+      selfSigned: true

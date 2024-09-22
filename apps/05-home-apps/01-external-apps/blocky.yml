@@ -1,0 +1,46 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: pi-2-blocky
+  namespace: ingress
+  labels:
+    app.kubernetes.io/name: pi-2-blocky
+spec:
+  type: ClusterIP
+  ports:
+    - name: metrics
+      port: 4000
+      targetPort: 4000
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: pi-2-blocky
+  namespace: ingress
+  labels:
+    app.kubernetes.io/name: pi-2-blocky
+subsets:
+  - addresses:
+    - ip: 192.168.1.12
+    ports:
+      - name: metrics
+        port: 4000
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: pi-2-blocky
+    release: prometheus
+  name: pi-2-blocky
+  namespace: ingress
+spec:
+  endpoints:
+    - interval: 30s
+      port: metrics
+  namespaceSelector:
+    matchNames:
+      - ingress
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: pi-2-blocky

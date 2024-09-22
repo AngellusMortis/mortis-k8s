@@ -1,0 +1,49 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: overseerr
+  namespace: media
+spec:
+  interval: 12h
+  url: oci://tccr.io/truecharts/overseerr
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "15.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-overseerr
+  namespace: media
+spec:
+  releaseName: overseerr
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: overseerr
+  values:
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "media.wl.mort.is"
+        ingressClassName:  "nginx-insecure"
+        hosts:
+          - host: media.wl.mort.is
+            paths:
+                - path: /
+                  pathType: Prefix
+                  overrideService:
+                    name: main
+                    port: 5055
+        integrations:
+          certManager:
+            enabled: false
+          traefik:
+            enabled: false
+          homepage:
+            enabled: false

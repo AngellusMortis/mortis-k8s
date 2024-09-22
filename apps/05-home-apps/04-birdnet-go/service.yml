@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: birdnet
+  namespace: default
+  labels:
+    app.kubernetes.io/component: node
+    app.kubernetes.io/instance: birdnet
+    app.kubernetes.io/name: birdnet
+    app.kubernetes.io/part-of: birdnet
+spec:
+  selector:
+    app.kubernetes.io/component: node
+    app.kubernetes.io/instance: birdnet
+    app.kubernetes.io/name: birdnet
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

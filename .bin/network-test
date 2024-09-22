@@ -1,0 +1,37 @@
+#!/bin/bash
+
+sleep 3
+
+echo "============DNS==========="
+echo "Internal.............$(dig plex.tv +time=1 > /dev/null 2>&1 && echo true || echo false)"
+echo "External.............$(dig plex.tv +time=1 @1.1.1.1 > /dev/null 2>&1 && echo true || echo false)"
+echo "LAN..................$(dig plex.tv +time=1 @192.168.1.10 > /dev/null 2>&1 && echo true || echo false)"
+echo ""
+echo ""
+echo "=======HTTP (System)======"
+echo "External (IP)........$(curl -I --connect-timeout 1 1.1.1.1 > /dev/null 2>&1 && echo true || echo false)"
+echo "External (DNS).......$(curl -I --connect-timeout 1 https://plex.tv > /dev/null 2>&1 && echo true || echo false)"
+
+echo "Kube System (IP).....$(curl -k -I --connect-timeout 1 https://10.108.140.229 > /dev/null 2>&1 && echo true || echo false)"
+echo "Kube System (DNS)....$(curl -k -I --connect-timeout 1 https://metrics-server.kube-system > /dev/null 2>&1 && echo true || echo false)"
+
+echo "Longhorn (IP)........$(curl -I --connect-timeout 1 http://10.102.41.53 > /dev/null 2>&1 && echo true || echo false)"
+echo "Longhorn (DNS).......$(curl -I --connect-timeout 1 http://longhorn-frontend.longhorn-system > /dev/null 2>&1 && echo true || echo false)"
+
+echo "Ingress (IP).........$(curl -I --connect-timeout 1 http://10.99.152.94 > /dev/null 2>&1 && echo true || echo false)"
+echo "Ingress (DNS)........$(curl -I --connect-timeout 1 http://ingress-nginx-insecure-controller.ingress > /dev/null 2>&1 && echo true || echo false)"
+
+echo "Monitor (IP).........$(curl -I --connect-timeout 1 http://10.107.180.239 > /dev/null 2>&1 && echo true || echo false)"
+echo "Monitor (DNS)........$(curl -I --connect-timeout 1 http://prometheus-grafana.monitor > /dev/null 2>&1 && echo true || echo false)"
+echo ""
+echo ""
+echo "========HTTP (App)========"
+echo "Default (DNS)........$(curl -I --connect-timeout 1 http://birdnet.default:8080 > /dev/null 2>&1 && echo true || echo false)"
+echo "Auth (DNS)...........$(curl -I --connect-timeout 1 http://authentik-server.auth:80 > /dev/null 2>&1 && echo true || echo false)"
+echo "Media (DNS)..........$(curl -I --connect-timeout 1 http://plex-pms.media:32400 > /dev/null 2>&1 && echo true || echo false)"
+echo "Boundlexx (DNS)......$(curl -I --connect-timeout 1 http://django.boundlexx:8000 > /dev/null 2>&1 && echo true || echo false)"
+echo ""
+echo ""
+echo "===========Email=========="
+echo "SMTP.................$(nc -w 1 -vz protonmail-bridge.mail 25 > /dev/null 2>&1 && echo true || echo false)"
+echo "IMAP.................$(nc -w 1 -vz protonmail-bridge.mail 143 > /dev/null 2>&1 && echo true || echo false)"

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+function deleteShell() {
+    kubectl -n openebs-system delete pod zfs-shell
+}
+
+trap "deleteShell || true" EXIT
+
+deleteShell || true
+kubectl -n openebs-system apply -f manifests/zfs.yml
+kubectl -n openebs-system wait --for=condition=ready pod zfs-shell
+kubectl -n openebs-system exec -it zfs-shell -- ash -c "mount -o bind /host/dev /dev && mount -o bind /host/usr/local /usr/local && touch /lib/libuuid.so.1 && touch /lib/libuuid.so.1 touch /lib/libblkid.so.1 && mount -o bind /host/lib/libuuid.so.1 /lib/libuuid.so.1 && mount -o bind /host/lib/libblkid.so.1 /lib/libblkid.so.1 && ash"
+
+# kubectl -n openebs-system exec -it zfs-shell -- ash

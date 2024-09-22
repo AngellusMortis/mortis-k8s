@@ -1,0 +1,24 @@
+# for Home Assistant / Mail and Packages
+apiVersion: v1
+kind: Service
+metadata:
+  name: protonmail-bridge-external
+  namespace: mail
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.2.226
+  labels:
+    app.kubernetes.io/name: protonmail-bridge
+spec:
+  type: LoadBalancer
+  ports:
+    - name: imap
+      port: 1143
+      targetPort: 143
+      protocol: TCP
+    # - name: smtp
+    #   port: 9000
+    #   targetPort: 9000
+    #   protocol: TCP
+  selector:
+    app.kubernetes.io/instance: protonmail-bridge
+    app.kubernetes.io/name: protonmail-bridge

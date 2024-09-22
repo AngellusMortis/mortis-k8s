@@ -1,0 +1,73 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: webmaster@mort.is
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - dns01:
+        cloudflare:
+          email: cbailey@mort.is
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cert-wl-mort-is
+  namespace: ingress
+spec:
+  secretName: cert-wl-mort-is
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: wl.mort.is
+  dnsNames:
+  - wl.mort.is
+  - '*.wl.mort.is'
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: idrac-cert-update
+  namespace: ingress
+spec:
+  schedule: "0 3 * * 3"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: racadm
+            image: xfgavin/racadm:latest
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - "idracadm7 -r storage-1-idrac.wl.mort.is -u cbailey -p '?ev7toUtq@#-)yr4)Pp}' sslkeyupload -t 1 -f /etc/ssl/tls.key && idracadm7 -r storage-1-idrac.wl.mort.is -u cbailey -p '?ev7toUtq@#-)yr4)Pp}' sslcertupload -t 1 -f /etc/ssl/tls.crt && idracadm7 -r storage-1-idrac.wl.mort.is -u cbailey -p '?ev7toUtq@#-)yr4)Pp}' racreset"
+            env:
+              - name: PATH
+                value: /opt/dell/srvadmin/bin/
+            volumeMounts:
+              - name: cert
+                mountPath: "/etc/ssl"
+                readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: cert
+              secret:
+                secretName: cert-wl-mort-is
+                items:
+                - key: tls.crt
+                  path: tls.crt
+                - key: tls.key
+                  path: tls.key

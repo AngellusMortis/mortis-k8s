@@ -1,0 +1,39 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-ssd
+allowVolumeExpansion: true
+parameters:
+  recordsize: "1M"
+  compression: "lz4"
+  dedup: "on"
+  fstype: "zfs"
+  poolname: "ssd"
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
+volumeBindingMode: Immediate
+allowedTopologies:
+- matchLabelExpressions:
+  - key: openebs.io/nodename
+    values:
+      - storage-1
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: openebs-nvme
+allowVolumeExpansion: true
+parameters:
+  recordsize: "128k"
+  compression: "off"
+  dedup: "off"
+  fstype: "zfs"
+  poolname: "nvme"
+  shared: "yes"
+provisioner: zfs.csi.openebs.io
+volumeBindingMode: Immediate
+allowedTopologies:
+- matchLabelExpressions:
+  - key: openebs.io/nodename
+    values:
+      - storage-1

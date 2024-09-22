@@ -1,0 +1,4 @@
+resources:
+  - games-namespace.yml
+  - default.yml
+  - oidc.yml

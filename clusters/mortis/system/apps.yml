@@ -1,0 +1,68 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-bootstrap
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/01-system/01-bootstrap
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-nvidia
+  namespace: flux-system
+spec:
+  targetNamespace: kube-system
+  interval: 10m0s
+  path: ./apps/01-system/02-nvidia
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-metallb
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/01-system/03-metallb
+  targetNamespace: metallb-system
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-metallb-post
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/01-system/03-metallb/post
+  targetNamespace: metallb-system
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-sealed-secrets
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/01-system/04-sealed-secrets
+  targetNamespace: flux-system
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

@@ -1,0 +1,325 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: monitor
+spec:
+  interval: 12h
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: monitor
+spec:
+  interval: 12h
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-prometheus
+  namespace: monitor
+spec:
+  releaseName: prometheus
+  targetNamespace: monitor
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "62.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+  valuesFrom:
+    - kind: Secret
+      name: prom-secerts
+  values:
+    defaultRules:
+      rules:
+        kubeControllerManager: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+    alertmanager:
+      config:
+        global:
+          resolve_timeout: 5m
+        inhibit_rules:
+          - source_matchers:
+              - 'severity = critical'
+            target_matchers:
+              - 'severity =~ warning|info'
+            equal:
+              - 'namespace'
+              - 'alertname'
+          - source_matchers:
+              - 'severity = warning'
+            target_matchers:
+              - 'severity = info'
+            equal:
+              - 'namespace'
+              - 'alertname'
+          - source_matchers:
+              - 'alertname = InfoInhibitor'
+            target_matchers:
+              - 'severity = info'
+            equal:
+              - 'namespace'
+          - target_matchers:
+              - 'alertname = InfoInhibitor'
+          - target_matchers:
+              - 'alertname = Watchdog'
+          - target_matchers:
+              - 'alertname = PrometheusDuplicateTimestamps'
+          - target_matchers:
+              - 'alertname = CPUThrottlingHigh'
+          - target_matchers:
+              - 'alertname = NodeDiskIOSaturation'
+          - target_matchers:
+              - 'alertname = NodeMemoryMajorPagesFaults'
+        route:
+          group_by: ['namespace']
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 12h
+          receiver: 'discord'
+          routes:
+          - receiver: 'null'
+            matchers:
+              - alertname = "Watchdog"
+        templates:
+        - '/etc/alertmanager/config/*.tmpl'
+
+      ingress:
+        enabled: true
+        ingressClassName: nginx-secure
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "alerts.wl.mort.is"
+          nginx.ingress.kubernetes.io/auth-url: |-
+              http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+              https://auth.wl.mort.is/outpost.goauthentik.io/start?rd=$scheme%3A%2F%2F$host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+              Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Host $http_host;
+        hosts:
+          - alerts.wl.mort.is
+      service:
+        ipDualStack:
+          enabled: false
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+      alertmanagerSpec:
+        replicas: 2
+        storage:
+          volumeClaimTemplate:
+            metadata:
+              name: alertmanager-pvc
+            spec:
+              storageClassName: longhorn
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 50Gi
+        externalUrl: https://alerts.wl.mort.is/
+    grafana:
+      adminPassword: xoqzFpPJoqdpWunmpcwwqM9MWvD8fjKN
+      env:
+        GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+        GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
+        GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+        GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://auth.wl.mort.is/application/o/authorize/"
+        GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://auth.wl.mort.is/application/o/token/"
+        GF_AUTH_GENERIC_OAUTH_API_URL: "https://auth.wl.mort.is/application/o/userinfo/"
+        GF_AUTH_SIGNOUT_REDIRECT_URL: "https://auth.wl.mort.is/application/o/grafana/end-session/"
+        GF_AUTH_GENERIC_OAUTH_USE_PKCE: "true"
+        # Optionally enable auto-login (bypasses Grafana login screen)
+        GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+        # Optionally map user groups to Grafana roles
+        GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'Admin Users') && 'Admin'"
+
+      grafana.ini:
+        paths:
+          data: /var/lib/grafana/
+          logs: /var/log/grafana
+          plugins: /var/lib/grafana/plugins
+          provisioning: /etc/grafana/provisioning
+        analytics:
+          check_for_updates: true
+        log:
+          mode: console
+        grafana_net:
+          url: https://grafana.net
+        server:
+          domain: monitor.wl.mort.is
+          root_url: https://%(domain)s/
+        panels:
+          disable_sanitize_html: true
+
+      plugins:
+      - grafana-piechart-panel
+      - grafana-worldmap-panel
+      - grafana-azure-data-explorer-datasource
+      - grafana-clock-panel
+
+      ingress:
+        enabled: true
+        ingressClassName: nginx-secure
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "monitor.wl.mort.is"
+        hosts:
+          - monitor.wl.mort.is
+      persistence:
+        enabled: true
+        storageClassName: "longhorn"
+        accessModes:
+          - ReadWriteOnce
+        size: 20Gi
+        finalizers:
+          - kubernetes.io/pvc-protection
+    kubeControllerManager:
+      enabled: false
+    coreDns:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+    kubeEtcd:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+    kubeScheduler:
+      enabled: false
+      service:
+        enabled: true
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+        selector:
+          k8s-app: kube-scheduler
+      serviceMonitor:
+        selector:
+          matchLabels:
+            app: kube-prometheus-stack-kube-scheduler
+    kubeProxy:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+    prometheus-node-exporter:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+    prometheusOperator:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+      logLevel: info
+    prometheus:
+      service:
+        ipDualStack:
+          ipFamilies: ["IPv4"]
+          ipFamilyPolicy: "SingleStack"
+      ingress:
+        enabled: true
+        ingressClassName: nginx-secure
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "prometheus.wl.mort.is"
+          nginx.ingress.kubernetes.io/auth-url: |-
+              http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+              https://auth.wl.mort.is/outpost.goauthentik.io/start?rd=$scheme%3A%2F%2F$host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+              Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Host $http_host;
+        hosts:
+          - prometheus.wl.mort.is
+      prometheusSpec:
+        externalUrl: "https://prometheus.wl.mort.is/"
+        replicas: 2
+        storageSpec:
+          volumeClaimTemplate:
+            metadata:
+              name: prometheus-pvc
+            spec:
+              storageClassName: longhorn
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 100Gi
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-loki
+  namespace: monitor
+spec:
+  releaseName: loki
+  targetNamespace: monitor
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: loki
+      version: "6.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+  values:
+    loki:
+      auth_enabled: false
+      schemaConfig:
+        configs:
+          - from: "2024-04-01"
+            store: tsdb
+            object_store: s3
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
+    gateway:
+      replicas: 2
+    minio:
+      enabled: true
+      persistence:
+        size: 5Gi
+    monitoring:
+      serviceMonitor:
+        labels:
+          release: prometheus
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-promtail
+  namespace: monitor
+spec:
+  releaseName: promtail
+  targetNamespace: monitor
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: promtail
+      version: "6.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+  values:
+    serviceMonitor:
+      enabled: true
+      labels:
+        release: prometheus
+    config:
+      clients:
+        - url: http://loki-gateway.monitor/loki/api/v1/push

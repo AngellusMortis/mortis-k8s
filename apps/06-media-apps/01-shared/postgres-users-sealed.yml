@@ -1,0 +1,114 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-autobrr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgCyMTgJBCEMVlAfqrpgxpBuZNfiC7PRjtBreYZRgTpuV828/eMR90X0INbO2KbtMQloY7NeR+NmG7x6sJuQBWc/ZO0gQ0qJaAcXAf/2vuNKPZPXR/e551Q7FAJ+VQusMZc1SAcrFx1bJWKgRjxrRbes95/NbQAqPfR578GHfgqycz/FkdgBI5GUYWAloRKJV3ijU2JZVyjhvodfEVnN70HST/7V5Ob/bHLg0mqzlmq/+IVIRSkR5phZU/WrEYJ/zzdQXZEfunttMT6PNzfTrPrjUeUgPZUxorMutTKLdkxH+My5bMlh5ngEfTU160qq9ukShiCvjj0xCKJvzUsoTyb5YMf3soKQ54l6drtYhfftKMVO/rhB12wXLK6Tc8Zuy0b9S8pySdxmoR3BnquNwFaEl/3lQl1Cu4aAwnOD9K2DuDPLLD6L4aP/EJg80MjwM85UMQBUgI5II/tPLcRt/fitfOb5pM9CMSF670x32Z5FbOPtn9NT1Q/hf8b3AJiFyazvHafcnTBqFaeArG0jkzPOWPNbV7VWAmMmRKRkYE0hnwC+b8iTzeaCT9jgbnbeuzkVrL3BIu3tzJDLxdtwoXocyKjYI6n3ndH+/mxKJyZPgStgEtVD33X7agSErZzc3F9D2jZ1VzBsgaa3NCwq0UjPzvUJr1xF4w9E8mU0f8Uu5QLz1kG0lF1TK+PqC9OelXFHGJwkg1h0hHMDBM8ExF8ms1RhjiRAJ6OMqvJA6GSZWFxrwo5ECOdnJZysExcu1cg=
+    username: AgAmF0wcgZ/486TZQ5Y2qSrDTVwAETGqXlX57r6KPC/p7Hs8yDkH4pPc0xhWbx5tlHLyO9HyMqdhMu63ZOKfHUOjweWxKhxhuBo2xTPrcF8ko8HVYlM8Vfe9GZC9wtpOn3aHAlIGSZURt6g2xrQCnVwLfdvMagyyrKrSwVmHXpxGcdAPxTgBWNRn/ZhJXrBFBDR7oRKuZ/ITzdYBQyjaKz0lOh4ButnWuVFiBSRPq1IfDlUKxC6ct7HwPgBV4DPAZflm9KVQpCQEsuDq9j57JbaWlT1cnZpSwR2+enwNUiautnBsJYkF5QQgsXjr2sGsGdVUv1+u0YLZOkUwynFjSi28k8cN56Ga2yfsnxNNfuTsazczP5+B/yS8xoQaj2HAVDMTsVJChIP22H3Eqtn51Ly+FA4+GzUz5r4zu/KAFGj8pOJq1I8Y4RWw15S5+hYC7UoD6fjFaN7E3y4Y7QjNvreRQPanTnbH4FtgIH8s9Lf5V0emNvN9rGf/6P0mwTamgiiB5x0Ncw6rtdrvIo05x4qwCBwHa+nCF/CpOe0IquJKp0N6wNzQOZ7OGeUa2wTGAEody4je/nTfkVS7OqSx3IKeR87LzRBUKxvAe70gyioycl/1ph6YFdYDivxZ1nLloudeBoTzE+g/jbG1ae/alRmu8WfUP9+E6eLgDjv7Q/ZDT0wDnt7KNk2KWnS85pci8HRRpIeftgJs
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-autobrr
+      namespace: media
+    type: kubernetes.io/basic-auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-prowlarr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgA8fwtLXRs7V3Lxmq6/bIS/jwgEhxDQub2vwRWgr0BFinwVhEAhbH/7Ze6Nb8BlBH4fSXtcI99G8KvdDAl8t0tyIq/KwQFOPV9a9N7KSUOZTBjrunxJW1gD+tIVBrYbcobZVIQb5yBzB6JWoM/00nLcytCPi4IjbyiaHZ8JohmG4ybTI+XGqryyqJOIApEudWVkMOwj7rBgbSiV6/zt+syK1IfHP6anWxSbh/th7mg2eKNoKiRZ0l4l+WiU2fI7EHLYnx6kANerjxdo+Oj1iGzFb8w+7eSlhXRF9t1tS9Pt08KEY/LA3bNpAFzO4QEaTOujrlU9G7FoanLIQmj/dwM8B7DNn/m7uV3DtQ/+o9R4ia74CKmk471gP6IofugtSov6o80FgXSYsRRJKgFSpWiFOzpxWbgdi78Phpo76DayrKt9QVVc1zeFntxJR0AvvHR0AqJXIanudOBJz+Y0sXIYwlGiqNXQQemoizw14qGCa96XA3ULaWm2GtE2G3SpVuQJMYxX3uas8pSAlDGLPlL1Ikl5RdubaeO2X/alb3Eufq7EnJg5whoE53kbZX+qtGB5mrwCya4PLouNcieT2AV3MioeIP1Ww+sBBrHHl6ECkzh4wJDDtHZGQhcc0nV6AgjclmNwbJcv5ETCBq1gwgeGqjZXEOakzPt2M/h5zk+90aodNFhzIWHyrdnxCyEcA6xNH7UjI3COdYUu1iAvuQV2983Dp5WPuddI4GChVDAvqeEM1dCUA+1KAOId1WxM66Yv0PiXzCbxBFNDK7PwOhIy
+    username: AgBeus3v7KGz89RbN+9ZfJvL/UVbDIHbrv7i/NcHNuQ2sR4HlyIkQlDbaLLBkKPyLXOGNN9gaWOjHKmMM8b3WAg2As1VM7pYfmSNMpOw9pypqRrH6zkrD5VNHkCwVWZGBXchoKD9CJNMQC8nbDQh1dVORD2Ew8IX88jH2XZ1RhkN4/zEugKhkYSXjs4OtQlIHJ+0i/RoTs6YHJyfyQVC719B3H5LXFD2hbnOnalkLYJxeEX5dGUp2Q+9JSS66X49+KFjOVjYV3rvlm8/AG+ATmZ2hdoxf6ysHvenHX6pnhx9SrFumrhO2sX1dIgXdHJ79E6GgDTauYWJhVeOUK02U/dTJ5eyhkiUkrHruiL85AxEEIcu7Yb6jx2/JJm0ukQiT/ycltR69I8a80fqIc9JJ4JgEumvnHvHZT0Tz6Ud3422LlNkm6MVYlF9acAhDj+WqiBiuu4poOFsHWGSopncOOeZupS1idQShWXeQXm27qQn2RldVtRIsdsI3Ks0QCK10POLMfOmu4rhNW8t+K/5cPNEUDbfha+IBsLJyoF9ZA7XOuOk+P689PKCLvc3RL+2P93xt/F4pooC/DZ9xFXra0tGMTE4A0eSs9iio50g7+Y7HoW/acgO+jVYw6ZLSZloizsn2ntnlWQ6nNvWeJ3raELWgVqB3nyqtAUuhNJ6MPTntlK00rTufVJQO5fS4a4f+Yhb3f/2yF2toQ==
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-prowlarr
+      namespace: media
+    type: kubernetes.io/basic-auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-bazarr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgAO8zxfzPb00ACaderQ/dX/NV/nl+V/PAeIuVEZFbF3y4jdTeU+lyHsFFMMgI1TFsEdvZbOTP/MAFWaVV8cJVAHIeRirgwmGcDf/sGsSO2WGxO6Zu0n5wTclzPGnz9KeY4wCPBhrGqDMR5QMXeoz1dyiwsZnDTLOgkuibYxNQCac2gWFSzCZ0/in71SE6ZI2xGfu5CUfrzgBA39ljnUrDGXQNWYbpSNNP89uwnnJoXT8iPQ3Z140imfoRrxD8b8uvBnR+dpQV6zsJAsC7Bm1tuSFKAQPFWW+KfK237gbJlkPp+6o/HimOMAYEC6SHrgC+7L7RKeUiWLr/4RXp3FrchjQ7P3Fnqi+lYe2dckX9p6L7M2yc3G0ih+8IgjPmp4MSAGP/leXOpXuejIOIuUr0O+7ZBiSo9VNxazBqTJSv4iVt2FEow7NNLJ3IAuwdPYgBe0nlir87/qSxGpJ9QGYn3JI31BZQH9GPP3p6cGDHnC68qhlKPDNcj5Y0lDEHb5fvzM6XJnFFxogTDFRMC2BFvI23TDeGDAYR7w5gHh6YAAgUnqoXXWmzUEULg8cCnlOU1zCvyi9IqwVyyTz3W1OMTVe9z1BUoz+W5mEQTmw3SchrFFKNMY8hA4qH0IFReZhFQdTp8XWA/ylklHaQSXGNaamAUONjavd8Dna3NsivxvumH6N4hnrviB2DLExBfQRTXoKfUfIVvA1S//IyIgHIEG4g/hUpJMMnLSVBXbRuMtYJo9r8gbaFE/YU+KR9CkIb+J7cUxNBoLABbEjowflnxu
+    username: AgCJS+aSk7b0rqVHwhBFAX+pfX4ct2D7e44N8IB17DDR+8vbP/2nVaM5o6u52qHnJi0333++9kNYj6VCmafe8vGzTZQ/cwVDqdT4XliPcMBFDoUll1df2EpJWB1JF0BcDJz4blyQIsr5wSjqgCoszlFmFGjaJkvVR6ax8Yk7tix8gyLGK88voj6C61PEye0nWdrDejd/QZdyHDGiYW/dlVJXWP/dhRl1vUyrfLNDMHLBH1BuC1Mx6ME2sutnm0r70+bP+Ow+gLvDsPzlFNvksFVtw5BOte/qvCHJ2U4cTOxliFEYVCj+jIWnZDRyNMy0DDqkMObRv5JJLXtsogRPW/lXukrt0WvZs59dZBTNuVMrqNf5tkJ7j8k5UQiPwH66Q5Lb0OjXVkhnPZlgxhL7GRV2d25ujuGwi1tyIhGc7XDvPnb+w+o+S5yXEo1xFXpdp8CCcbJwG29buUf5dAvFUYtO2YEcPEk8F9GtXm1i+30wV2t+FO1KlApYsZgGXwOh/paU9iNZmE89Zx7nbAS1hNqmdkwqO0QV3kEstq6xx3jBFstOb7LsQYtROoNG3OsuZeyv91ljSiL8V11Cxv7+HWiQdafZFB1FSqusyv6xLTTtjBCy1HyoDKNXEBJdHafeS+lqO7cAbVLO37UwdH8E2bwDIP4Mb855CKBahAV5qiEuOYjpe6Tt+ebZtRkj6xH2+6pExuDbws0=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-bazarr
+      namespace: media
+    type: kubernetes.io/basic-auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-lidarr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgCWtxbFn2wkM+/m4nhxj1HSeHS0EaUi73AXHn6o3c69pDvU6d0Zsu7H1eAVnmOvNAboiETxT18z2arH03RKSCi1XfinRaXnwTsICGO+3Qgv6NKIaD3YR6psL7OJzmGGM1xH8eueLV7eYIq2kyjRVLoKALdSUSs8ifPWhEu1qGK/qJfr7QpG3634hEn/dqNDwLLyd9U7VYPh3Kypg3bV7FOYfZbcXi0LSUaAFuFye50LIli94rOgcMRbMd9mVl93PM6sXz5PL/Gp604T3uEffLb0vis0T7aDCwaa1HgBqzVj26Fr5DPK4D1jgxTjCMMnSdwMGOiK0NrYpQ+3hHyZGe1FvLW+ZPSiM+c8AO0/epSxkc8s2qWB+8NFuA5ZxBT/IQl0aPzmIcwThl2aX87drXpBJv9A70KfnKSK2F4uXY/csl8yPf0/juYGvVeD1ZweIf6VgTyPAWaiDYXKLCTQaAIMeHZZ9KFPMIThqBUu9144AVyYpmeweHEvypCDKJ15I+YFqj9Wiy0ZqKoW/Ye91lsAQBPnUFvpy/t3J6qbCX68IQT5iBsbGQkesyuWqFVEvGK+JtX/jSU4yB8za/ApKNdeGke4rZ4gsECYg+cUODKtKY5HZZUbhEAst4xgY04xjkGZZUuPWbreBhFIIbG+K3a3qVsad5RkC2bVo0EDipsu3cLrEG1Ndr1zyopT3kKzt/Wjw29GMCy7MWXrY158E6Dr6tBxbmuprmAgBAKfv7w9ISbBwvospyjCoHMdHtMvbR5rZmeizNvtkegLqQD7BZ5F
+    username: AgCdFFgLIrXVHFn3mTbqyw5xox/C8tptVAyb1d2lqq42oDyyTPrTTXGe8KBasPvR4E151kqK3jlxzBbIXl0nEdWM84bKU2B5+r22JblAYfKjN6XriHhKnEjcLtWZ9GwjnD1ne1PtNZy/vrbovBkSfc2Z2rzPUbEUBKsTLUbYHGEhhlIAbkv7jMtTNMs48rcAtZ4Qgit2xgkxkkmBWCn0FqykX87WQrOiR8DesUX3yoAi9FRYOuhzB3Z4OWr6+ZcScyMguyfHTfRrYgUqAfAMdX6T8MkBIPB6meoJ+ci7V0oRogMpjgsf7CrLI/jbplLxvldA4UXbVoOwvu/cSFSHKgPNIRVFVd66Yc3R6Bd5CyGMvQqAVlw29KWIJ3xJqQGABaoDwSp/guItD82Ekd1zyW4zrbHGWd5litbJrZFP1R4D+M5X7RbVKHQ3hueJqM8yCLEiQnMrW0yCdbzMY6lCOQ1r+ji/L3KE4g+CQ6ybhKEMcM+UrFwB/zIMvOxnZR5ZYbjl/kW49WYRaOsNS2oGwzqX3yECzmsHJLudv7kkmwNY3NOaMj3N4fzjIFisi+6gJhn/UaKqiPgicbDJPXCFUcU4L+btlSt6zoZKFuhKkwM0LW5hBRCGAcUw21ebhGM200AUJgBLa54+/Le7BXvnk24Ppbxk1lnbbyu7bUjG41j833rMQCZQPxPhdD4FqjsV0lxT1+syMxs=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-lidarr
+      namespace: media
+    type: kubernetes.io/basic-auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-sonarr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgC/yPcVEJSZDhOviFU6lNcj0d6MVrCQOMTD3aMYxDDP5peEGwehtJBaqLnFxYfWx+l+WbhAlK3ZvLKOlXb+JSZzCkSDhX7f2tM1mIfrQ3JyBwjnD2ZnRFnbDexRVGiIaUWyA6JJ1MG7ZCkxwnj26BY5o7rFElvCt6iBN0ZadHQAZcOsZyrtS186gdxJKTqPa2KGeeysf80HWUcN62crqji61foFxiFw8IpLjDwnWSoLCOsOXka48ocUGcBtGCMLhqApvVpCeBMD93zSOsFdxxFVL6LDSY/Ogvd00YL73PFCj9dWH7FKIHgmnS6qdE0pVjeiA7ERejrO0EOKwTjwJYCSMeXaeGvn9sFxrOLAPsV8mW1TG0aCLyjTzc9CJXVWS2wzVdOEEtbRYAAPV7SGDRLtS602IIBdWYxtf1Wu3YxaI+dp3JNoyTIfbmI08NtsDZeX1uen3B0m9MqsAEWF3Q4rspNMpFExRFW/UFoZI4/X7iIKR/QwTG5XVSvICoqwtYclJVpV5tuIDGlsgLd+ggyx6aYtUvlU340VVhjtpiUHlbaiFMjqh2iJCw+Za217/AlxjXvTQzVn1675ddnQ5CAJchTbeQq6Q5IifqTJIPfXrxB977LQi5HmbT2DlECIW4814CrXXSifoB+TJi+ecCU+F50PviJhanlB2BQYyvTVsfbS4e0P3Xn5xCSVPNwMZldAOtsa2M76Lm2qBD5Qz2kdx71wS5/Xt+lLco4R55ppBPvzlY0ISCdKP4dETkBj1XnWlcgkoTWgzW5GcggaGq85
+    username: AgBYwG5Z8XWVYWwxboVAfi8k/AUlKGHxlU2Qv2iS9JIZ/cNnSYr0opcmqQ8PJ9VneBuYqDgdI9azO6WeDTQFCf9MB6T/oLTOESPZnB+zDkVHDcEgMqPKi4IwgmThoYff0asF2SgjOK6d/b9faDJcBzCaYRlibbP+hUpT6W4I/9Wt0n4zFJFvdpz7SRN5bckQeDkIwr9UsKRC9xosTGT1AIB6P9HXxMNN1SBe3ll1zgp1lm7A9WKtqJDuLlf8OfSthEaA+EI91SzxD4HN2IEUmdlzEObxMMWAj9a36kpBsHmDYB7DEDEm11ANJnsAsZ2kT2rC0Seb32zHp2NMOr2S/qA4lA+x0dpPQ/KhanYdsvbXxEJQ01LLH9viuxy9qiXfE4xz9Kr7Ri/EcB9hiUKsQ9AjIXGU1jHphqVVp2lX7zxloZ+6wsVkTJNo+PgNiwZYkAj1Fg8JweMgzpoRfBCO8oLJkIk8VrO/YtBDbMmha1lJ1RAxZgCuz9IO+8tRwxPqdGK48w09SS3srORkZGavRNpGYUha+r1pCC3lIwzCt7VJDpVL1KbESkAE8NnDcKDL63KQYgSukjRsdee1OS2DWfeBLglVqGDAsuKhUzaTv68DPwk1uAkN6HD24BAgwtkkbkMbf/3bsY63/d0i1KgdLVmenQPP7roPU4PvNDSfX609Y5keZP088muzhiiebjqoegV+VcrcHeY=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-sonarr
+      namespace: media
+    type: kubernetes.io/basic-auth
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: arr-postgres-radarr
+  namespace: media
+spec:
+  encryptedData:
+    password: AgCOvA4eAHcHqL2nuMAuR9eMAjf9JxUhPMSOSXwNui6dltecRviIEexbWoJphrlsdsfNgejo79Xyq/GxUMLLrCVRNA1J9wNj8+Wm1kZtvENIcrjkCQSL3nH6hMT4x+MJDUPZeb8fi0mn6kkkMTQ83fFkVrdz/PvUSHacpT6oUAQ3SJPc9ZZet96MAInkGuliaEbJcqWUwxquewrJPj5IB0DaYbfcet8q+K18bbt5/NirpL3dipAAO6XYxqv4tsOXHW8NsDaDckJZL4KOw8M8/eWRqavEhi4Qmk8G9H1F9dfi9kGhTDLerNf4JfWRVJYBcBRmCXsQsp1VTwyRADke5AJpz+bJkLwuZOLR+CQjWcMJJF1ZEQiIhYqbRPLiuM95gpvjd6b3Noj15/3z9uF0VFi/pdIiATOjqc1j0sgcbbe5bO72egkPVDp17ocn/rGzx8gcAhQrUv0dT4rnWLzsaXJrUHQCqvtFhEGITj+CQaXXBZ6eoNo+P1y4UAFYvsuVSjNC73DfEe3taQyBcSjDUBnMrSIlOyHq9QGVfe2lOgacYwi5uCFj8uJI0rrxvVOxe1u6JBZXuSTz1OFFj0GCdG+Bioj2amCW4Qe+n3owpx6quG+x/pBWSlP9+QdFfljjuxOCIviB6sWx9rLRN2YujbYAgdM5ya9FaE/1nJwrfRP/S8LXjVtWKgIpg9wmK+e6mJRUtSJwVnsgGV/n3p7q3NnxI0rtd+/gVXRsQ2vWQsSK2U4s4ye51Ya4adVzeoydH+ftAM/UHa/zoZcuobNEVtIk
+    username: AgC1JdMjV1lnSSp4bECcETxyITZJNcoUCP/0N0dFfGGF8LFpFMrgl6Sa+yF6ZZ7dqxFYtbFc16r0L4zVHOJt+rcq031+wcufC9BJh/B2oV6XnLKT0LZUhG3ryBId7uAg6rxwvDWeQPYUIEvGHIoG3ACu4Gns4J0W8vInTxhwu3XQ/Av3NbJHRiHY+dgwGp7ZPZi238zVTzjkX8T1K76g9MJYjemY0VH15ZTmYQnnpjywgS8TBmXmPWZfI5c6RxH8skCWFnX+tr60nT4msECGpKbdPYfOiH4/ReX6xxGs0PYQ5CjMToZ2llieg8FIcAdMbMfbiLzHlDhwI0jnZQlgrj7G9nZZgmQBb9kmebXzaNv6mvTiuadM7Q4uFMXU8Dx7/vklCUNbTi69MJPs8m+ND71DudgGzZD+HKbM8HX5hQQ/D5GJk3+un+6MepvAUyWO1lokbtqWPBYumUYSxA+JwsUPgnCfCM16Dq2blt3X1KCeNFi0PRyO9Vl6rk7xRoyhoYjyIY+vtT9E4qNyOhRzk81H2Qe8e8jVnipMX2MST2OVgrzXVlare6bl66sscg4WJT/GbmD34K3SWQtDgIekCiqVPpx90f1HLsAq7MDPXn1VcZpXiEMW9y1giXIrvWgOJWBqvrZuhEUUGNPmbubdboVp04RyxLoDpvFDjs+VI2vF3eqPQgRIfKvawmXRohuZIfAbn/tM8Jw=
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        cnpg.io/reload: "true"
+      name: arr-postgres-radarr
+      namespace: media
+    type: kubernetes.io/basic-auth

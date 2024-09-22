@@ -1,0 +1,97 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: authentik
+  namespace: auth
+spec:
+  interval: 12h
+  url: https://charts.goauthentik.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-authentik
+  namespace: auth
+spec:
+  releaseName: authentik
+  targetNamespace: auth
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: authentik
+      version: "2024.8.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: authentik-worker
+            patch: |
+              - op: replace
+                path: /spec/template/spec/volumes/0
+                value:
+                  name: geoip-db
+                  persistentVolumeClaim:
+                    claimName: geoip-db
+          - target:
+              kind: Deployment
+              name: authentik-server
+            patch: |
+              - op: replace
+                path: /spec/template/spec/volumes/0
+                value:
+                  name: geoip-db
+                  persistentVolumeClaim:
+                    claimName: geoip-db
+  valuesFrom:
+    - kind: Secret
+      name: authentik-secrets
+  values:
+    server:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      pdb:
+        enabled: true
+        minAvailable: 1
+      metrics:
+        enabeld: true
+        serviceMonitor:
+          enabled: true
+          labels:
+            release: prometheus
+      ingress:
+        # -- enable an ingress resource for the authentik server
+        enabled: true
+        # -- additional ingress annotations
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "auth.wl.mort.is"
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.wl.mort.is"
+        # -- additional ingress labels
+        labels: {}
+        # -- defines which ingress controller will implement the resource
+        ingressClassName: "nginx-insecure"
+        # -- List of ingress hosts
+        hosts:
+          - auth.wl.mort.is
+    worker:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+      pdb:
+        enabled: true
+        minAvailable: 1
+    geoip:
+      enabled: true
+      updateInterval: 24
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: true

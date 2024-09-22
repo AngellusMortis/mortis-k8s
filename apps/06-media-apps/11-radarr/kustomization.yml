@@ -1,0 +1,3 @@
+resources:
+  - cleanup.yml
+  - chart.yml

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+NODE=${1:-}
+
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-1" ]]; then
+    talosctl apply-config -n 192.168.2.70 --file nodes/cluster-1.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-2" ]]; then
+    talosctl apply-config -n 192.168.2.75 --file nodes/cluster-2.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-3" ]]; then
+    talosctl apply-config -n 192.168.2.83 --file nodes/cluster-3.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-4" ]]; then
+    talosctl apply-config -n 192.168.2.33 --file nodes/cluster-4.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-5" ]]; then
+    talosctl apply-config -n 192.168.2.85 --file nodes/cluster-5.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-6" ]]; then
+    talosctl apply-config -n 192.168.2.63 --file nodes/cluster-6.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-7" ]]; then
+    talosctl apply-config -n 192.168.2.29 --file nodes/cluster-7.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-8" ]]; then
+    talosctl apply-config -n 192.168.2.82 --file nodes/cluster-8.yml
+fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "storage-1" ]]; then
+    talosctl apply-config -n 192.168.2.38 --file nodes/storage-1.yml
+fi

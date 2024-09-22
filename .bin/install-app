@@ -1,0 +1,114 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+export APP_PATH=$1
+export ROOT_PATH=$(pwd)
+export FLAG=${2:-}
+
+FLAG_PRE="--pre"
+FLAG_VALUES="--values"
+FLAG_TEMPLATE="--template"
+FLAG_HELM="--helm"
+FLAG_MANIFEST="--manifest"
+FLAG_KUSTOMIZE="--kustomize"
+
+if [[ ! -z $FLAG ]] && [[ $FLAG != "$FLAG_TEMPLATE" ]] && [[ $FLAG != "$FLAG_VALUES" ]] && [[ $FLAG != "$FLAG_PRE" ]] && [[ $FLAG != "$FLAG_HELM" ]] && [[ $FLAG != "$FLAG_MANIFEST" ]] && [[ $FLAG != "$FLAG_KUSTOMIZE" ]]; then
+    echo "Unknown flag."
+    exit 1
+fi
+
+DO_PRE=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_PRE" ]]; then
+    DO_PRE=true
+fi
+DO_VALUES=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_VALUES" ]]; then
+    DO_VALUES=true
+fi
+DO_TEMPLATE=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_TEMPLATE" ]]; then
+    DO_TEMPLATE=true
+fi
+DO_HELM=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_HELM" ]] || [[ "$FLAG" == "$FLAG_VALUES" ]] || [[ "$FLAG" == "$FLAG_TEMPLATE" ]]; then
+    DO_HELM=true
+fi
+DO_MANIFEST=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_MANIFEST" ]]; then
+    DO_MANIFEST=true
+fi
+DO_KUSTOMIZE=false
+if [[ -z "$FLAG" ]] || [[ "$FLAG" == "$FLAG_KUSTOMIZE" ]]; then
+    DO_KUSTOMIZE=true
+fi
+
+pushd $APP_PATH > /dev/null 2>&1
+
+rm -f *.tgz __kustomize.yml > /dev/null 2>&1
+
+if [[ -f pre.yml ]] && [[ "$DO_PRE" == "true" ]]; then
+    echo "Installing prep manifests..."
+    kubectl apply -f pre.yml
+
+    if [[ "$FLAG" == "$FLAG_PRE" ]]; then
+        exit 0
+    fi
+fi
+
+if [[ -f helm.sh ]] && [[ "$DO_HELM" == "true" ]]; then
+    export POST_ARGS=""
+    source ./helm.sh
+
+    if [[ ! -z ${REPO_NAME+1} ]] && [[ ! -z ${REPO_URL+1} ]]; then
+        echo "Using Helm Repo $REPO_NAME@$REPO_URL..."
+        helm repo add $REPO_NAME $REPO_URL > /dev/null 2>&1 || true
+        helm repo update > /dev/null 2>&1 || true
+    else
+        echo "Using OCI repo at $CHART..."
+        helm pull $CHART
+    fi
+
+    if [[ $FLAG == "$FLAG_VALUES" ]]; then
+        echo "Generating values.yml..."
+        helm show values $CHART > values.yml
+        exit 0
+    fi
+
+    if [[ ! -f "values.yml" ]]; then
+        echo "Helm chart missing values.yml. Run with $FLAG_VALUES to generate one."
+        exit 1
+    fi
+
+    if [[ -f kustomization.yml ]]; then
+        echo "Applying kustomize patches..."
+        POST_ARGS="--post-renderer=$ROOT_PATH/.bin/k8s-patch"
+    fi
+    echo "Installing helm chart..."
+
+    if [[ $FLAG == "$FLAG_TEMPLATE" ]]; then
+        helm template -n $NAMESPACE --create-namespace \
+            $APP_NAME $CHART -f values.yml $POST_ARGS
+    else
+        helm upgrade --install \
+            -n $NAMESPACE --create-namespace \
+            $APP_NAME $CHART -f values.yml $POST_ARGS
+    fi
+fi
+
+if [[ -f manifest.yml ]] && [[ "$DO_MANIFEST" == "true" ]]; then
+    echo "Applying manifest..."
+    kubectl apply -f manifest.yml
+fi
+
+if [[ ! -f helm.sh ]] && [[ -f kustomization.yml ]] && [[ "$DO_KUSTOMIZE" == "true" ]]; then
+    echo "Applying kustomize..."
+    kustomize build --enable-helm . > __kustomize.yml
+    kubectl apply -f __kustomize.yml
+fi
+
+rm -rf *.tgz __kustomize.yml charts > /dev/null 2>&1
+
+popd $APP_PATH > /dev/null 2>&1

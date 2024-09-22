@@ -1,0 +1,795 @@
+# kubectl apply -f manifests/install/1008-boundlexx/03-celery.yml
+
+# celerybeat
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celerybeat
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celerybeat
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: celerybeat
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celerybeat
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/local/bin/entrypoint"]
+        args: ["start-celerybeat"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery default
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-default
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-default
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: celery-default
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-default
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: default
+        - name: CELERY_WORKER_NAME
+          value: default@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d default@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery distance
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-distance
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-distance
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: celery-distance
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-distance
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: distance
+        - name: CELERY_WORKER_NAME
+          value: distance@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d distance@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery cache
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-cache
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-cache
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: celery-cache
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-cache
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: cache
+        - name: CELERY_WORKER_NAME
+          value: cache@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 4000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d cache@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery shop
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-shop
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-shop
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: celery-shop
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-shop
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: shop
+        - name: CELERY_WORKER_NAME
+          value: shop@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d shop@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery control
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-control
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-control
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: celery-control
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-control
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: control
+        - name: CELERY_WORKER_NAME
+          value: control@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d control@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery poll
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-poll
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-poll
+  replicas: 8
+  template:
+    metadata:
+      labels:
+        app: celery-poll
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-poll
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: poll
+        - name: CELERY_WORKER_NAME
+          value: poll@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d poll@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery notify
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-notify
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: celery-notify
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: celery-notify
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: celery-notify
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["bash"]
+        args: ["-c", "celery -A config.celery_app worker -E -l $CELERY_DEBUG_LEVEL -Q $CELERY_WORKER_QUEUES -n $CELERY_WORKER_NAME -c 4"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        env:
+        - name: CELERY_WORKER_QUEUES
+          value: notify
+        - name: CELERY_WORKER_NAME
+          value: notify@%h
+        - name: CELERY_DEBUG_LEVEL
+          value: INFO
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          exec:
+            command: ["bash", "-c", "celery -A config.celery_app inspect ping -d notify@$HOSTNAME"]
+          initialDelaySeconds: 3
+          timeoutSeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# celery-exporter
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-exporter
+  namespace: boundlexx
+  labels:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: celery-exporter
+      app.kubernetes.io/instance: boundlexx-live
+      app.kubernetes.io/name: boundlexx
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: celery-exporter
+        app.kubernetes.io/instance: boundlexx-live
+        app.kubernetes.io/name: boundlexx
+        app.kubernetes.io/part-of: boundlexx
+    spec:
+      containers:
+      - name: celerybeat
+        image: ovalmoney/celery-exporter:1.5.1
+        imagePullPolicy: IfNotPresent
+        command: ["celery-exporter"]
+        args: ["-b", "amqp://rabbitmq:rabbitmq@rabbitmq.boundlexx:5672/"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        ports:
+        - containerPort: 9540
+          name: celery-exporter
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: celery-exporter
+  namespace: boundlexx
+  labels:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+spec:
+  selector:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+  ports:
+    - name: celery-exporter
+      protocol: TCP
+      port: 9540
+      targetPort: celery-exporter
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+    release: prometheus
+  name: boundlexx-celery
+  namespace: boundlexx
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: celery-exporter
+    scheme: http
+    scrapeTimeout: 3s
+  namespaceSelector:
+    matchNames:
+    - boundlexx
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: celery-exporter
+      app.kubernetes.io/instance: boundlexx-live
+      app.kubernetes.io/name: boundlexx
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+    release: prometheus
+  name: boundlexx-celery.rules
+  namespace: boundlexx
+spec:
+  groups:
+  - name: boundlexx-celery.rules
+    rules:
+    - alert: NoCeleryTasks
+      annotations:
+        description: No recent celery tasks running for Boundlexx.
+        summary: No recent celery tasks running for Boundlexx.
+      expr: |-
+        sum(rate(celery_tasks_total{namespace="boundlexx"}[10m])) <= 0.001
+      for: 5m
+      labels:
+        severity: warning

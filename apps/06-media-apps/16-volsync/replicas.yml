@@ -1,0 +1,16 @@
+# apiVersion: volsync.backube/v1alpha1
+# kind: ReplicationSource
+# metadata:
+#   name: sync-plex
+# spec:
+#   sourcePVC: todo-database
+#   syncthing:
+#     serviceType: ClusterIP
+#     # List of peers that this ReplicationSource should connect to.
+#     peers:
+#       # The Syncthing ID of the peer.
+#     - ID: PQ576SA-HA27WE6-Q6HTLHE-5WQD77V-WY7CJV7-PVI3HXA-CYVB2LF-GJJQMAS
+#       # The address of the peer - this will be used as a data connection.
+#       address: tcp://syncthing-listeners:22000
+#       # Whether or not the peer should introduce this ReplicationSource to other peers.
+#       introducer: false

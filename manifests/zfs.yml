@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zfs-shell
+  namespace: openebs-system
+spec:
+  containers:
+  - name: zfs
+    image: docker.io/library/alpine:3.20.3
+    imagePullPolicy: IfNotPresent
+    command: ["sleep", "infinity"]
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - mountPath: /host
+      name: host-root
+  nodeName: storage-1
+  volumes:
+  - hostPath:
+      path: /
+      type: ""
+    name: host-root

@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: oauth-app
+  namespace: k8s-dashboard
+spec:
+  encryptedData:
+    # SECRET: Authentik -> Providers -> Kubernetes
+    values.yaml: AgCnl7GVNfE9aXHyrxz8QZbIS2Oa+ILC6LMbmWcLztzHIi4ylsBFdltKikLtJ0Oexbo35YrTojWH9yFmxLXqtFZABaAJEZbM2VJCJ/qFskRUbnGJTvhCgADNXIImAVyCWey3FLHQpQY3z3lZJBaTvJ8sHE1sNggQCGRCsWccCBCLX0uwb9ZpShoZpTEfoCiQcIRMgdb8yG1cDNJ2XZjdQObGlBtgls/lOBrunNVb7ckBc3dJA2xsANmEwVapX7EfOSi2ohU0kTjDvoWJ9jf+5KSUFSO0N6Ae/nD8rLya0d2KUJsA7ltRlkQqHzqUkWRmn9v4Xh7W6wZub8nphtvNAitfBbPHDH84Xr5tSpZaoV+kIOWUgkzayLNo3BYqvMDePg2TjdvDxGE+wJaj21ySpvcWWTqLV1i8YTXbqGBAhSWzRxWtYaXW1pKbSMwXQWzKYmZy4EhRXaAT9w24nbZu59vEPDdf6xWJ6kD6XAfBgaW/OfPyv9PV8bG24CoI0cFREvvfcFAvSFT369xFpEF0YCVqIgLNR/fd17YRBTVdByf7jRHELnwhhU/sfsFrN6Hm/YaehQih0EmgSQbSCZBvRam1Hh8+0/BTkQewfrsvwtMyKo2QBeypAnO5FMv2CCYpIGodGGuYNjZPtOn+c0PyvVw3co1TXO4iUIBVFV1IbLnKEGwKFsis11MdJxxAF/Ja4GuVtK0OXfygfFHy34tqMvHdecsmGAkX53mOlMhQbtrLGLcW/VTq0HinYlYoAJcqicaxbQ1BjceBt/jyEfb8EJv/vsqV8zC1RQLKdwFkz3D2Ia0qylv/EaGVBXhKySteEAxWVEJcTLN61wWpTZHnXo78190EkDPTrNj+MIoF8EEeLiAc++KOTkxMZtQvF9EVvt0JJ1W5LMtfSqXcF6ouZvK+61Rxpk4N4HvSl0FxBUWOnem3sxrEx0qYKkIrsJch7v6GG2MsRUyQ0c5s4SeXr3roORN4yI9dsAWoFDAgeRxV+0ycmDN7RdsaGQcN8O0woX1EURw7ZCTs+Cu3oB/O/VqqL27KyFEgkRXJScaKPlYf4Fg=
+  template:
+    metadata:
+      creationTimestamp: null
+      name: oauth-app
+      namespace: k8s-dashboard
+    type: Opaque

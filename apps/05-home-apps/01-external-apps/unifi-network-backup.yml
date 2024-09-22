@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: unifi-network-backup
+  namespace: media
+spec:
+  schedule: "0 3 * * 0"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: backup
+            image: jmcombs/sftp:latest
+            imagePullPolicy: Always
+            command: ["/bin/bash"]
+            args:
+              - "-c"
+              - "apt update && apt install -y sshpass && mkdir -p ~/.ssh && ssh-keyscan network-control.wl.mort.is >> ~/.ssh/known_hosts && sshpass -f /etc/ssh-pass/ssh-pass scp -pr root@network-control.wl.mort.is:/data/unifi/data/backup/* /mnt/backup/"
+
+            volumeMounts:
+            - name: nas-backup
+              mountPath: /mnt/backup
+              subPath: apps/unifi/network
+            - name: ssh-pass
+              mountPath: "/etc/ssh-pass"
+              readOnly: true
+          restartPolicy: Never
+          volumes:
+            - name: nas-backup
+              persistentVolumeClaim:
+                claimName: nas-backup
+            - name: ssh-pass
+              secret:
+                secretName: unifi-ssh-password
+                items:
+                - key: ssh-pass
+                  path: ssh-pass

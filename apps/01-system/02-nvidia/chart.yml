@@ -1,0 +1,29 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: nvdp
+  namespace: kube-system
+spec:
+  interval: 12h
+  url: https://nvidia.github.io/k8s-device-plugin
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: system-nvidia
+  namespace: kube-system
+spec:
+  releaseName: nvidia-device-plugin
+  targetNamespace: kube-system
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: nvidia-device-plugin
+      version: "0.16.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: nvdp
+  values:
+    runtimeClassName: nvidia

@@ -1,0 +1,4 @@
+resources:
+  - chart.yml
+  - maxmind-key-sealed.yml
+

@@ -1,0 +1,4 @@
+resources:
+  - namespace.yml
+  - chart.yml
+  - secret-key-sealed.yml

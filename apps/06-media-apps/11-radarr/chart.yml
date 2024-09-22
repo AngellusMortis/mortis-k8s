@@ -1,0 +1,90 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  interval: 12h
+  url: oci://tccr.io/truecharts/radarr
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "23.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-radarr
+  namespace: media
+spec:
+  releaseName: radarr
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: radarr
+  values:
+    securityContext:
+      container:
+        PUID: 1000
+        UMASK: "002"
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+    persistence:
+      config:
+        size: 25Gi
+      media:
+        enabled: true
+        mountPath: /media
+        type: pvc
+        existingClaim: nas-media
+      download:
+        enabled: true
+        type: pvc
+        existingClaim: nas-nvme-download
+        subPath: p
+        mountPath: /downloads/p
+      public:
+        enabled: true
+        type: pvc
+        existingClaim: nas-lh-public
+        mountPath: /public
+    metrics:
+      main:
+        enabled: true
+        type: "servicemonitor"
+        labels:
+          release: prometheus
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "movies.wl.mort.is"
+          nginx.ingress.kubernetes.io/auth-url: |-
+              http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+              https://auth.wl.mort.is/outpost.goauthentik.io/start?rd=$scheme%3A%2F%2F$host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+              Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+              proxy_set_header X-Forwarded-Host $http_host;
+          nginx.ingress.kubernetes.io/proxy-body-size: 512m
+        ingressClassName:  "nginx-secure"
+        hosts:
+          - host: movies.wl.mort.is
+            paths:
+                - path: /
+                  pathType: Prefix
+                  overrideService:
+                    name: main
+                    port: 7878
+        integrations:
+          certManager:
+            enabled: false
+          traefik:
+            enabled: false
+          homepage:
+            enabled: false

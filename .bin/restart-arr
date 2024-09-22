@@ -1,0 +1,24 @@
+#!/bin/bash
+
+wait=${1-60}
+
+kubectl -n media scale --replicas=0 \
+    deploy/sonarr-exportarr \
+    deploy/lidarr-exportarr \
+    deploy/bazarr-exportarr \
+    deploy/radarr-exportarr
+
+kubectl -n media rollout restart \
+    deploy/radarr \
+    deploy/sonarr \
+    deploy/lidarr \
+    deploy/bazarr \
+    statefulset/deluge
+
+sleep $wait
+
+kubectl -n media scale --replicas=1 \
+    deploy/sonarr-exportarr \
+    deploy/lidarr-exportarr \
+    deploy/bazarr-exportarr \
+    deploy/radarr-exportarr

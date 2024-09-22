@@ -1,0 +1,304 @@
+# kubectl apply -f manifests/install/1008-boundlexx/04-django.yml
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: files-conf
+  namespace: boundlexx
+data:
+  default.conf: |
+    server {
+        listen 8001;
+        listen  [::]:8001;
+        server_name  localhost;
+
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+            root   /usr/share/nginx/html;
+        }
+    }
+---
+
+# django
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: django
+      app.kubernetes.io/instance: boundlexx-live
+      app.kubernetes.io/name: boundlexx
+      app.kubernetes.io/part-of: boundlexx
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: django
+        app.kubernetes.io/instance: boundlexx-live
+        app.kubernetes.io/name: boundlexx
+        app.kubernetes.io/part-of: boundlexx
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: django
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/local/bin/entrypoint"]
+        args: ["start"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        ports:
+        - containerPort: 8000
+          name: django
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 2000m
+            memory: 4000Mi
+        livenessProbe:
+          tcpSocket:
+            port: django
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: django
+            httpHeaders:
+            - name: Host
+              value: django.boundlexx
+          initialDelaySeconds: 10
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 10
+          successThreshold: 1
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      - name: files
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8001
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /usr/share/nginx/html/static
+            subPath: config/web/static
+          - name: files-conf
+            mountPath: /etc/nginx/conf.d/default.conf
+            subPath: default.conf
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "5000m"
+            memory: "500Mi"
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+        - name: files-conf
+          configMap:
+            name: files-conf
+            items:
+              - key: default.conf
+                path: default.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django
+  namespace: boundlexx
+  labels:
+    app.kubernetes.io/component: django
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+spec:
+  selector:
+    app.kubernetes.io/component: django
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+  ports:
+    - name: django
+      protocol: TCP
+      port: 8000
+      targetPort: django
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-files
+  namespace: boundlexx
+  labels:
+    app.kubernetes.io/component: django-files
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+spec:
+  selector:
+    app.kubernetes.io/component: django
+  ports:
+    - name: django-files
+      protocol: TCP
+      port: 8001
+      targetPort: 8001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/upstream-vhost: "api.boundlexx.app"
+  name: boundlexx
+  namespace: boundlexx
+  labels:
+    app.kubernetes.io/component: django
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+spec:
+  ingressClassName: nginx-insecure
+  tls:
+  - hosts:
+    - boundlexx.wl.mort.is
+    - api.boundlexx.app
+  rules:
+  - host: boundlexx.wl.mort.is
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: django
+            port:
+              number: 8000
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: django-files
+            port:
+              number: 8001
+  - host: api.boundlexx.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: django
+            port:
+              number: 8000
+      - path: /static
+        pathType: Prefix
+        backend:
+          service:
+            name: django-files
+            port:
+              number: 8001
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: django
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+    release: prometheus
+  name: boundlexx
+  namespace: boundlexx
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: django
+    scheme: http
+    scrapeTimeout: 3s
+  namespaceSelector:
+    matchNames:
+    - boundlexx
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: django
+      app.kubernetes.io/instance: boundlexx-live
+      app.kubernetes.io/name: boundlexx
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app.kubernetes.io/component: celery-exporter
+    app.kubernetes.io/instance: boundlexx-live
+    app.kubernetes.io/name: boundlexx
+    app.kubernetes.io/part-of: boundlexx
+    release: prometheus
+  name: boundlexx.rules
+  namespace: boundlexx
+spec:
+  groups:
+  - name: boundlexx.rules
+    rules:
+    - alert: NoRequests
+      annotations:
+        description: No recent requests to Boundlexx.
+        summary: No recent requests to Boundlexx.
+      expr: |-
+        sum(changes(django_http_requests_total_by_method_total{namespace="boundlexx"}[10m])) < 1
+      for: 5m
+      labels:
+        severity: critical
+    - alert: HTTPErrors
+      annotations:
+        description: Recent 5xx HTTP errors for Boundlexx.
+        summary: Recent 5xx HTTP errors for Boundlexx.
+      expr: |-
+        sum(irate(django_http_responses_total_by_status_total{namespace="boundlexx", status=~"5.+"}[1m])) > 0.5
+      for: 5m
+      labels:
+        severity: warning

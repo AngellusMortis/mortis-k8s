@@ -1,0 +1,257 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: deluge-vpn
+  namespace: media
+  labels:
+    app.kubernetes.io/component: deluge-vpn
+    app.kubernetes.io/instance: deluge-vpn
+    app.kubernetes.io/name: deluge-vpn
+    app.kubernetes.io/part-of: deluge-vpn
+spec:
+  serviceName: deluge-vpn
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: deluge-vpn
+      app.kubernetes.io/instance: deluge-vpn
+      app.kubernetes.io/name: deluge-vpn
+      app.kubernetes.io/part-of: deluge-vpn
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: deluge-vpn
+        app.kubernetes.io/instance: deluge-vpn
+        app.kubernetes.io/name: deluge-vpn
+        app.kubernetes.io/part-of: deluge-vpn
+    spec:
+      containers:
+      - name: deluge
+        image: lscr.io/linuxserver/deluge:2.1.1-r10-ls290 # {"$imagepolicy": "flux-system:deluge-policy"}
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: deluge-web
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: "/"
+            port: deluge-web
+            scheme: HTTP
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        ports:
+        - containerPort: 8112
+          name: deluge-web
+        - containerPort: 58846
+          name: deluge-rpc
+        env:
+        - name: TZ
+          value: "America/New_York"
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        volumeMounts:
+        - mountPath: /config
+          subPath: config
+          name: deluge-vpn
+        - mountPath: /downloads
+          name: nas-nvme-download
+        - mountPath: /usr/lib/python3/dist-packages/deluge/ui/web/icons
+          name: deluge-theme
+          subPath: web/icons
+        - mountPath: /usr/lib/python3/dist-packages/deluge/ui/web/images
+          name: deluge-theme
+          subPath: web/images
+        - mountPath: /usr/lib/python3/dist-packages/deluge/ui/web/themes
+          name: deluge-theme
+          subPath: web/themes
+        - mountPath: /usr/lib/python3.12/site-packages/deluge/ui/web/icons
+          name: deluge-theme
+          subPath: web/icons
+        - mountPath: /usr/lib/python3.12/site-packages/deluge/ui/web/images
+          name: deluge-theme
+          subPath: web/images
+        - mountPath: /usr/lib/python3.12/site-packages/deluge/ui/web/themes
+          name: deluge-theme
+          subPath: web/themes
+        resources:
+          requests:
+            cpu: "1000m"
+            memory: "5000Mi"
+          limits:
+            cpu: "2000m"
+            memory: "10000Mi"
+      - name: exporter
+        image: ngosang/deluge-exporter:1.0.2 # {"$imagepolicy": "flux-system:deluge-exporter-policy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8011
+          name: deluge-exporter
+        env:
+        - name: DELUGE_URL
+          value: http://localhost:8112
+        - name: DELUGE_PASSWORD
+          value: x52HEyst
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        livenessProbe:
+          tcpSocket:
+            port: deluge-exporter
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: deluge-exporter
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+      - name: cross-seed
+        image: ghcr.io/cross-seed/cross-seed:6.0.0-34 # {"$imagepolicy": "flux-system:cross-seed-policy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 2468
+          name: cross-seed
+        command: ["/usr/bin/catatonit"]
+        args:
+        - "--"
+        - "/usr/local/bin/cross-seed"
+        - "daemon"
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+        - name: cross-seed-config
+          mountPath: /config
+        - name: deluge-vpn
+          mountPath: /torrents
+          subPath: config/state
+          readOnly: true
+        - name: nas-nvme-download
+          mountPath: /cross-seeds
+          subPath: in/cross-seed
+        - name: nas-nvme-download
+          mountPath: /downloads
+      - name: gluetun
+        image: ghcr.io/qdm12/gluetun:v3.39.0 # {"$imagepolicy": "flux-system:gluetun-policy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+          name: gluetun-control
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - NET_ADMIN
+        livenessProbe:
+          tcpSocket:
+            port: gluetun-control
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: "/v1/publicip/ip"
+            port: gluetun-control
+            scheme: HTTP
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        env:
+        - name: TZ
+          value: "America/New_York"
+        - name: VPN_SERVICE_PROVIDER
+          value: "custom"
+        - name: VPN_TYPE
+          value: "wireguard"
+        - name: WIREGUARD_ENDPOINT_IP
+          value: "145.239.67.190"
+        - name: WIREGUARD_ENDPOINT_PORT
+          value: "51820"
+        - name: WIREGUARD_PUBLIC_KEY
+          value: "ft2kmiD77dPhIoWAenN8Fzw/uPru6jHQFQSkeE0KTiA="
+        - name: WIREGUARD_PRIVATE_KEY
+          value: "iI7cClzsfnZ1j+hAuNRGRr4ayPxy/ETbgMrjjHOUOFE="
+        - name: WIREGUARD_ADDRESSES
+          value: "10.8.0.110/32"
+        - name: FIREWALL_DEBUG
+          value: "on"
+        - name: FIREWALL_INPUT_PORTS
+          value: "8000,8112,8011,58846"
+        - name: FIREWALL_VPN_INPUT_PORTS
+          value: "11024"
+        - name: FIREWALL_OUTBOUND_SUBNETS
+          value: "10.109.95.248/32"
+        resources:
+          limits:
+            cpu: "4000m"
+            memory: "1024Mi"
+          requests:
+            cpu: "1000m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: gluetun
+          mountPath: /gluetun
+      volumes:
+      - name: nas-nvme-download
+        persistentVolumeClaim:
+          claimName: nas-nvme-download
+      - name: deluge-theme
+        persistentVolumeClaim:
+          claimName: deluge-theme
+  volumeClaimTemplates:
+  - metadata:
+      name: gluetun
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: deluge-vpn
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi
+  - metadata:
+      name: cross-seed-config
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      storageClassName: longhorn
+      resources:
+        requests:
+          storage: 1Gi

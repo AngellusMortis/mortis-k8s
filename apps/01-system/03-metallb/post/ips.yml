@@ -1,0 +1,27 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: secure-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.2.225-192.168.2.250
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: insecure-pool
+  namespace: metallb-system
+spec:
+  addresses:
+  - 192.168.3.225-192.168.3.250
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: ip-pools
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+  - secure-pool
+  - insecure-pool

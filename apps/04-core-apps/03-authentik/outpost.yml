@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ak-outpost-authentik-embedded-outpost
+  namespace: auth
+spec:
+  rules:
+  - host: "*.wl.mort.is"
+    http:
+      paths:
+      - path: "/outpost.goauthentik.io"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: ak-outpost-authentik-embedded-outpost
+            port:
+              number: 9000

@@ -1,0 +1,583 @@
+#!/bin/bash
+
+#==============================================================================
+# Helper script for creating music torrent for uploading
+#
+# Requirements:
+# * ffmpeg / ffprobe -- https://ffmpeg.org/download.html
+# * mediainfo -- https://mediaarea.net/en/MediaInfo/Download
+#
+# If you want to create torrents:
+# * mktorrent -- https://github.com/pobrn/mktorrent
+#
+# Takes one or more folders of .flac or .mp3 files and transcodes them (if
+# flac) and creates torrent files for each if trackers are provided.
+#
+# If all of the files are FLAC 24-bit, it will transcode them to FLAC, MP3
+# 320kbps and MP3 V0 using ffmpeg
+#
+# If some of the files are FLAC 24-bit and some are FLAC, it will transcode
+# the FLAC 24-bit ones to FLAC, MP3 320kbps and MP3 V0 using ffmpeg. It will
+# _not_ inclulde the FLAC 24-bit files.
+#
+# If the files are _not_ FLAC and are MP3, it expects _all_ files be either
+# MP3 320kbps OR MP3 V0. It will fail if they are CBR and under 320kbps.
+# IT WILL NOT DETECT ERROR IF THERE IS A MIX OF CBR AND VBR. That is still YOUR JOB.
+#
+# Example: --tracker
+# create-music-torrent -b input.txt -t SRC,https://example.com/XXXXXXXXXXXXXXX/announce
+#
+#
+# Example: CMT_TRACKERS env
+# export CMT_TRACKERS=SRC,https://example.com/XXXXXXXXXXXXXXX/announce|OTR,https://example2.com/XXXXXXXXXXXXXXX/announce"
+# create-music-torrent -b input.txt
+#
+#
+# Example: Single Folder
+# create-music-torrent -i "Input Folder1" --artist-name "Artist" --album "Album" --album-year "2024"
+#
+#
+# Example: Batch Processing
+# create-music-torrent -b input.txt
+#
+# input.txt:
+# in/Input Folder1
+# Artist
+# Album
+# 2024
+# ====
+# in/Input Folder2
+# Artist
+# Album
+# 2023
+# ====
+#
+#
+#==============================================================================
+
+set -o errexit          # Exit on most errors (see the manual)
+set -o errtrace         # Make sure any error trap is inherited
+set -o nounset          # Disallow expansion of unset variables
+set -o pipefail         # Use last non-zero exit code in a pipeline
+
+currentDir="$(pwd)"
+urlRegex='(https)://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
+declare -A trackers
+trackerList=()
+
+inputFile="${CMT_INPUT_FILE:-}"
+inputFolder="${CMT_INPUT_FOLDER:-}"
+artistName="${CMT_INPUT_ARTIST_NAME:-}"
+albumName="${CMT_INPUT_ALBUM_NAME:-}"
+albumYear="${CMT_INPUT_ALBUM_YEAR:-}"
+outputDir="${CMT_OUTPUT_DIR:-out}"
+
+if [[ ! -z "${CMT_TRACKERS+x}" ]]; then
+    trackerList=( ${CMT_TRACKERS//|/ } )
+fi
+
+function script_usage() {
+    cat << EOF
+Takes one or more folders of .flac or .mp3 files and transcodes them (if flac)
+and creates torrent files for each if trackers are provided.
+
+Must provider either -b or (-i, --artist-name, --album-name, and --album-year)
+
+
+Usage:
+    -h|--help                  Displays this help
+    -t|--tracker               Add tracker for creating torrents. Format "{source},{announce_url}"
+    -o|--output-folder         Output folder for files
+    -b|--batch-file            Pass in file for batch processing
+    -i|--input-folder          Input folder for processsing
+    --artist-name              Artist name for processing
+    --album-name               Album name for processing
+    --album-year               Album release year for processing
+    --no-color                 Disables color output
+EOF
+}
+
+function parseParams() {
+    local param
+    while [[ $# -gt 0 ]]; do
+        param="$1"
+        case $param in
+            -h|--help)
+                shift
+                script_usage
+                exit 0
+                ;;
+            --no-color)
+                shift
+                no_color=true
+                ;;
+            -t|--tracker)
+                shift
+                trackerList+=( $1 )
+                shift
+                ;;
+            -o|--output-folder)
+                shift
+                outputDir="$1"
+                shift
+                ;;
+            -b|--batch-file)
+                shift
+                inputFile="$1"
+                shift
+                ;;
+            -i|--input-folder)
+                shift
+                inputFolder="$1"
+                shift
+                ;;
+            --artist-name)
+                shift
+                artistName="$1"
+                shift
+                ;;
+            --album-name)
+                shift
+                albumName="$1"
+                shift
+                ;;
+            --album-year)
+                shift
+                albumYear="$1"
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            -*)
+                script_exit "Invalid parameter was provided: $param" 2
+                ;;
+            *)
+                break;
+        esac
+    done
+
+    if [[ -z "$inputFile" ]] && [[ -z "$inputFolder" ]]; then
+        prettyPrint "Must provider either -b or (-i, --artist-name, --album-name, and --album-year)" $fg_red
+        exit 1
+    elif [[ ! -z "$inputFile" ]] && [[ ! -z "$inputFolder" ]]; then
+        prettyPrint "-b and (-i, --artist-name, --album-name, and --album-year) are mutally exclusive" $fg_red
+        exit 1
+    elif [[ ! -z "$inputFolder" ]] && [[ -z "$artistName" || -z "$albumName" || -z "$albumYear" ]]; then
+        prettyPrint "-i, --artist-name, --album-name, and --album-year are all required" $fg_red
+        exit 1
+    fi
+
+    if [[ -z "$outputDir" ]]; then
+        prettyPrint "-o must not be empty" $fg_red
+        exit 1
+    fi
+}
+
+
+function colorInit() {
+    readonly ta_none="$(tput sgr0 2> /dev/null || true)"
+
+    if [[ -z ${no_color-} ]]; then
+        # Text attributes
+        readonly ta_bold="$(tput bold 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly ta_uscore="$(tput smul 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly ta_blink="$(tput blink 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly ta_reverse="$(tput rev 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly ta_conceal="$(tput invis 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+
+        # Foreground codes
+        readonly fg_black="$(tput setaf 0 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_blue="$(tput setaf 4 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_cyan="$(tput setaf 6 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_green="$(tput setaf 2 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_magenta="$(tput setaf 5 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_red="$(tput setaf 1 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_white="$(tput setaf 7 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly fg_yellow="$(tput setaf 3 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+
+        # Background codes
+        readonly bg_black="$(tput setab 0 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_blue="$(tput setab 4 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_cyan="$(tput setab 6 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_green="$(tput setab 2 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_magenta="$(tput setab 5 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_red="$(tput setab 1 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_white="$(tput setab 7 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+        readonly bg_yellow="$(tput setab 3 2> /dev/null || true)"
+        printf '%b' "$ta_none"
+    else
+        # Text attributes
+        readonly ta_bold=''
+        readonly ta_uscore=''
+        readonly ta_blink=''
+        readonly ta_reverse=''
+        readonly ta_conceal=''
+
+        # Foreground codes
+        readonly fg_black=''
+        readonly fg_blue=''
+        readonly fg_cyan=''
+        readonly fg_green=''
+        readonly fg_magenta=''
+        readonly fg_red=''
+        readonly fg_white=''
+        readonly fg_yellow=''
+
+        # Background codes
+        readonly bg_black=''
+        readonly bg_blue=''
+        readonly bg_cyan=''
+        readonly bg_green=''
+        readonly bg_magenta=''
+        readonly bg_red=''
+        readonly bg_white=''
+        readonly bg_yellow=''
+    fi
+}
+
+function prettyPrint() {
+    if [[ $# -lt 1 ]]; then
+        script_exit 'Missing required argument to prettyPrint()!' 2
+    fi
+
+    if [[ -z ${no_color-} ]]; then
+        if [[ -n ${2-} ]]; then
+            printf '%b' "$2"
+        else
+            printf '%b' "$fg_green"
+        fi
+    fi
+
+    # Print message & reset text attributes
+    if [[ -n ${3-} ]]; then
+        printf '%s%b' "$1" "$ta_none"
+    else
+        printf '%s%b\n' "$1" "$ta_none"
+    fi
+}
+
+function createTorrent() {
+    local source="$1"
+    local announce="$2"
+    local folder="$3"
+    local outDir="$currentDir/$outputDir/torrent/$source"
+    local name="$(basename "$folder")"
+
+    mkdir -p "$outDir"
+    echo "  Create torrent ($fg_cyan$source$ta_none) for $fg_cyan$name$ta_none"
+    mktorrent -p -n "$name" -o "$outDir/$name.torrent" -s "$source" -a "$announce" "$folder" > /dev/null 2>&1
+}
+
+function createTorrentForAll() {
+    local folder="$1"
+
+    for source in "${!trackers[@]}"; do
+        local url="${trackers[$source]}"
+        createTorrent "$source" "$url" "$folder"
+    done
+}
+
+function isVariable() {
+    mode=$(mediainfo -i "$1" | grep "Overall bit rate mode" || true)
+
+    if [[ "$mode" == *"Variable" ]]; then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
+function is320() {
+    bitrate=$(mediainfo -i "$1" | grep "Overall bit rate  " || true)
+
+    if [[ "$bitrate" == *"320 kb/s" ]]; then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
+function transcodeFile() {
+    input="$(realpath "$1")"
+    local tfArtistName="$2"
+    local tfAlbumName="$3"
+    local tfAlbumYear="$4"
+    local tfExtraPath="$5"
+
+    local tfBaseDirName="$tfArtistName - $tfAlbumName ($tfAlbumYear)"
+    local tfBaseName="$(basename -- "$input")"
+    local tfBaseName=$(echo "${tfBaseName%.flac}")
+
+    local bitDepth=$(ffprobe -hide_banner -loglevel error -show_streams "$input" | grep bits_per_raw_sample=24 || true)
+
+    local tfDirFlac24="$currentDir/$outputDir/music/$tfBaseDirName FLAC-24$tfExtraPath"
+    local tfDirFlac="$currentDir/$outputDir/music/$tfBaseDirName FLAC$tfExtraPath"
+    local tfDirMp3Cbr="$currentDir/$outputDir/music/$tfBaseDirName MP3-320$tfExtraPath"
+    local tfDirMp3Vbr="$currentDir/$outputDir/music/$tfBaseDirName MP3-V0$tfExtraPath"
+
+    local fileFlac24=""
+    local fileFlac="$tfDirFlac/$tfBaseName.flac"
+    local fileMp3Cbr="$tfDirMp3Cbr/$tfBaseName.mp3"
+    local fileMp3Vbr="$tfDirMp3Vbr/$tfBaseName.mp3"
+
+    if [[ "$bitDepth" == "bits_per_raw_sample=24" ]]; then
+        fileFlac24="$tfDirFlac24/$tfBaseName.flac"
+
+        mkdir -p "$tfDirFlac24"
+        cp "$input" "$fileFlac24"
+    else
+        mkdir -p "$tfDirFlac"
+        cp "$input" "$fileFlac"
+    fi
+
+    echo "  Transcode: .$tfExtraPath/$tfBaseName.flac"
+
+    if [[ ! -z "$fileFlac24" ]]; then
+        echo "    FLAC 24-bit -> FLAC"
+        mkdir -p "$tfDirFlac"
+        ffmpeg -hide_banner -loglevel error -y -i "$fileFlac24" -sample_fmt s16 -ar 48000 "$fileFlac"
+    fi
+
+    echo "    FLAC -> MP3-320"
+    mkdir -p "$tfDirMp3Cbr"
+    ffmpeg -hide_banner -loglevel error -y -i "$fileFlac" -ab 320k -map_metadata 0 -id3v2_version 3 "$fileMp3Cbr"
+
+    echo "    FLAC -> MP3-V0"
+    mkdir -p "$tfDirMp3Vbr"
+    ffmpeg -hide_banner -loglevel error -y -i "$fileFlac" -c:a libmp3lame -q:a 0 -map_metadata 0 -id3v2_version 3 "$fileMp3Vbr"
+}
+
+function transcodeAlbum() {
+    local transInputFolder=${1:-$inputFolder}
+    local transArtistName=${2:-$artistName}
+    local transAlbumName=${3:-$albumName}
+    local transAlbumYear=${4:-$albumYear}
+
+    prettyPrint "Transcode Album: $transInputFolder" $fg_cyan
+
+    local fullFolder="$(realpath "$transInputFolder")"
+    local inputFiles=()
+    readarray -d '' inputFiles < <(find "$fullFolder" \( -iname "*.flac" -o -iname "*.mp3" \) -type f -print0)
+    local extraFiles=()
+    readarray -d '' extraFiles < <(find "$fullFolder" -not \( -iname "*.flac" -o -iname "*.mp3" \) -type f -print0)
+
+    local baseDirName="$transArtistName - $transAlbumName ($transAlbumYear)"
+    local dirFlac24="$currentDir/$outputDir/music/$baseDirName FLAC-24"
+    local dirFlac="$currentDir/$outputDir/music/$baseDirName FLAC"
+    local dirMp3Cbr="$currentDir/$outputDir/music/$baseDirName MP3-320"
+    local dirMp3Vbr="$currentDir/$outputDir/music/$baseDirName MP3-V0"
+
+    local isMp3=false
+    local mp3Dir=""
+    for key in "${!inputFiles[@]}"; do
+        file="${inputFiles[$key]}"
+        dir="$(dirname "$file")"
+        extraPath="$(realpath -s --relative-to="$transInputFolder" "$dir")"
+        if [[ "$extraPath" == "." ]]; then
+            extraPath=""
+        else
+            extraPath="/$extraPath"
+        fi
+
+        if [[ "$file" == *".mp3" ]]; then
+            isMp3=true
+            if [[ "$(isVariable "$file")" == "true" ]]; then
+                mp3Dir="$dirMp3Vbr"
+            elif [[ "$(is320 "$file")" == "true" ]]; then
+                mp3Dir="$dirMp3Cbr"
+            else
+                prettyPrint "Unexpected MP3 bitrate" $fg_red
+                exit 1
+            fi
+            mkdir -p "$mp3Dir"
+            cp "$file" "$mp3Dir/"
+            continue
+        fi
+
+        transcodeFile "$file" "$transArtistName" "$transAlbumName" "$transAlbumYear" "$extraPath"
+    done
+
+    for key in "${!extraFiles[@]}"; do
+        file="${extraFiles[$key]}"
+        base="$(basename "$file")"
+        dir="$(dirname "$file")"
+        extraPath="$(realpath -s --relative-to="$transInputFolder" "$dir")"
+        if [[ "$extraPath" == "." ]]; then
+            extraPath=""
+        else
+            extraPath="/$extraPath"
+        fi
+
+        echo "  Copying .$extraPath/$base to output folders"
+        mkdir -p "$dirFlac24"
+        cp "$file" "$dirFlac24/"
+
+        mkdir -p "$dirFlac"
+        cp "$file" "$dirFlac/"
+
+        mkdir -p "$dirMp3Cbr"
+        cp "$file" "$dirMp3Cbr/"
+
+        mkdir -p "$dirMp3Vbr"
+        cp "$file" "$dirMp3Vbr/"
+    done
+
+    if [[ "$isMp3" == "true" ]]; then
+        prettyPrint "  MP3, skipping transcode" $fg_yellow
+        createTorrentForAll "$mp3Dir"
+        return
+    fi
+
+    local flacCount=$(ls "$dirFlac" | wc -l)
+
+    if [[ -d "$dirFlac24" ]]; then
+        local flac24Count=$(ls "$dirFlac24" | wc -l)
+
+        if [[ "$flacCount" != "$flac24Count" ]]; then
+            prettyPrint "  Not all tracks are FLAC 24-bit, removing FLAC-24" $fg_yellow
+            rm -rf "$dirFlac24"
+        else
+            createTorrentForAll "$dirFlac24"
+        fi
+    fi
+    createTorrentForAll "$dirFlac"
+    createTorrentForAll "$dirMp3Cbr"
+    createTorrentForAll "$dirMp3Vbr"
+}
+
+function escapePath() {
+    path="$1"
+    path="${path/:/ -}"
+    path="${path/\?/}"
+
+    echo "$path"
+}
+
+function batchProcess() {
+    echo "Batch Processing $inputFile"
+
+    declare -A currentInput
+    current=0
+    count=0
+    while read line; do
+        if [[ "$line" == "#"* ]]; then
+            continue
+        elif [[ "$line" == "="* ]]; then
+            current=0
+            count=$((count + 1));
+        else
+            current=$((current + 1));
+            currentInput["$count,$current"]="$line"
+        fi
+    done <"$inputFile"
+
+    for i in $(seq 0 $(($count - 1))); do
+        artistName="$(escapePath "${currentInput["$i,2"]}")"
+        albumName="$(escapePath "${currentInput["$i,3"]}")"
+        albumYear="$(escapePath "${currentInput["$i,4"]}")"
+
+        transcodeAlbum "${currentInput["$i,1"]}" "$artistName" "$albumName" "$albumYear"
+        echo "====="
+    done
+}
+
+function main() {
+    colorInit
+    parseParams "$@"
+
+    mediaCommand=$(which mediainfo || true)
+    if [[ -z "$mediaCommand" ]]; then
+        prettyPrint "mediaCommand could not be found" $fg_red
+        exit 1
+    fi
+
+    ffmpegCommand=$(which ffmpeg || true)
+    if [[ -z "$ffmpegCommand" ]]; then
+        prettyPrint "ffmpeg could not be found" $fg_red
+        exit 1
+    fi
+    ffmpegCommand=$(which ffprobe || true)
+    if [[ -z "$ffmpegCommand" ]]; then
+        prettyPrint "ffprobe could not be found" $fg_red
+        exit 1
+    fi
+
+    rm -rf "$outputDir"
+
+    if [[ "${#trackerList[@]}" != "0" ]]; then
+        torrentCommand=$(which mktorrent || true)
+        if [[ -z "$torrentCommand" ]]; then
+            prettyPrint "mktorrent could not be found" $fg_red
+            exit 1
+        fi
+
+        prettyPrint "Trackers:" $fg_magenta
+        for index in "${!trackerList[@]}"; do
+            parts=( ${trackerList[$index]//,/ } )
+            source="${parts[0]}"
+            url="${parts[1]}"
+
+            trackers[$source]="$url"
+        done
+
+        for source in "${!trackers[@]}"; do
+            url="${trackers[$source]}"
+
+            if [[ "${#parts[@]}" != "2" ]]; then
+                prettyPrint 'Invalid tracker format, expected format "{source},{announce_url}"' $fg_red
+                exit 1
+            fi
+
+            if [[ ! "$url" =~ $urlRegex ]]; then
+                prettyPrint "Announce URL is invalid." $fg_red
+            fi
+
+            echo "Source: $fg_cyan$source$ta_none | Announce: $fg_cyan$url$ta_none"
+        done
+
+        echo ""
+    fi
+
+    if [[ ! -z "$inputFile" ]]; then
+        prettyPrint "Batch Processing: $inputFile" $fg_magenta
+        echo ""
+        batchProcess
+    else
+        artistName="$(escapePath "$artistName")"
+        albumName="$(escapePath "$albumName")"
+        albumYear="$(escapePath "$albumYear")"
+
+        prettyPrint "Process Album:" $fg_magenta
+        echo "Input Folder: $fg_cyan$inputFolder$ta_none"
+        echo " Artist Name: $fg_cyan$artistName$ta_none"
+        echo "  Album Name: $fg_cyan$albumName$ta_none"
+        echo "  Album Year: $fg_cyan$albumYear$ta_none"
+        echo ""
+
+        transcodeAlbum
+    fi
+}
+
+main "$@"

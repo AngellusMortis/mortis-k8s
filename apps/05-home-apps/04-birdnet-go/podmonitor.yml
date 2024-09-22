@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: birdnet
+  namespace: default
+  labels:
+    release: prometheus
+    app.kubernetes.io/component: node
+    app.kubernetes.io/instance: birdnet
+    app.kubernetes.io/name: birdnet
+    app.kubernetes.io/part-of: birdnet
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: node
+      app.kubernetes.io/instance: birdnet
+      app.kubernetes.io/name: birdnet
+  podMetricsEndpoints:
+  - port: metrics

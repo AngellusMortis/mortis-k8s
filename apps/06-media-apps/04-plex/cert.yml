@@ -1,0 +1,22 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cert-plex-wl-mort-is
+  namespace: media
+spec:
+  secretName: cert-plex-wl-mort-is
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: plex.wl.mort.is
+  dnsNames:
+  - plex.wl.mort.is
+  keystores:
+    pkcs12:
+      create: true
+      profile: Modern2023
+      passwordSecretRef:
+        name: pkcs-secret
+        key: password

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NAMESPACES=( kube-system longhorn-system auth default mail media monitor boundlexx )
+NAMESPACE=${1-}
+
+
+echo "Cleaning up any left over containers..."
+kubectl delete pod --all-namespaces --field-selector metadata.name=network-test
+
+if [[ ! -z "$NAMESPACE" ]]; then
+    NAMESPACES=($NAMESPACE )
+fi
+
+for ns in "${NAMESPACES[@]}"; do
+    echo "Namespace: $ns"
+    kubectl -n $ns run network-test --restart=Never -i --rm --image dersimn/netutils:ubuntu -- bash -c "`cat .bin/network-test`"
+    echo ""
+    echo ""
+    echo ""
+    sleep 3
+done

@@ -1,0 +1,33 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: flaresolverr
+  namespace: media
+spec:
+  interval: 12h
+  url: oci://tccr.io/truecharts/flaresolverr
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "15.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-flaresolverr
+  namespace: media
+spec:
+  releaseName: flaresolverr
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: flaresolverr
+  values:
+    persistence:
+      config:
+        enabled: true
+        size: 5Gi
+        mountPath: /config

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nix-builder
+  namespace: flux-system
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: wl-dns
+  namespace: flux-system
+spec:
+  interval: 24h
+  approvePlan: auto
+  path: ./iac/wl/dns
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  fileMappings:
+    - location: "home"
+      path: ".ssh/id_ed25519"
+      secretRef:
+        name: nixos-builder-key
+        key: id_ed25519
+    - location: "workspace"
+      path: "builder-key"
+      secretRef:
+        name: nixos-builder-key
+        key: id_ed25519
+  runnerPodTemplate:
+    spec:
+      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-11
+      volumes:
+        - name: nix
+          persistentVolumeClaim:
+            claimName: nix-builder
+      volumeMounts:
+        - name: nix
+          mountPath: /nix

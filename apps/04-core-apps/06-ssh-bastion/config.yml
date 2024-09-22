@@ -1,0 +1,130 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sshd-startup
+  namespace: ssh
+data:
+  01-create-users.sh: |
+    #!/bin/bash
+
+    set -o errexit
+    set -o pipefail
+    set -o nounset
+
+    # install Cloudflare pubkey
+    # Cloudflare ZeroTrust -> Access -> Service Auth -> SSH
+    echo "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLRDlK7uqBlq11tmmRm+bbKJuvYmhtu+jyfF22lykP6nxmlcgnPXKAfu3t/dV5VI7hE4uj3DzYI5+BuTPXt6MhY= open-ssh-ca@cloudflareaccess.org" > /etc/ssh/ca.pub
+    echo "TrustedUserCAKeys /etc/ssh/ca.pub" >> /etc/ssh/sshd_config
+    sed -i 's/AllowTcpForwarding no/AllowTcpForwarding yes/' /etc/ssh/sshd_config
+    s6-svc -r /run/service/svc-openssh-server
+
+    USERS=( cbailey cgolden )
+    FLUX_VERSION=2.3.0
+    BROWSH_VERSION=1.8.0
+    KUBESEAL_VERSION='0.26.2-1'
+
+    # add testing repo for krew
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+    apk update
+    apk add ncurses bash git rsync kubectl openssl vim kubectl-krew
+
+    # install fluxcd
+    cd /tmp/
+    curl -sL https://github.com/fluxcd/flux2/releases/download/v${FLUX_VERSION}/flux_${FLUX_VERSION}_linux_amd64.tar.gz -o flux.tar.gz
+    tar -xf flux.tar.gz
+    mv flux /usr/local/bin/flux
+    chmod +x /usr/local/bin/flux
+
+    # install talosctl
+    curl -sL https://talos.dev/install | sh
+
+    # install kubeseal
+    curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz"
+    tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal
+    install -m 755 kubeseal /usr/local/bin/kubeseal
+
+    # install krew
+    (
+      set -x; cd "$(mktemp -d)" &&
+      OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+      ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+      KREW="krew-${OS}_${ARCH}" &&
+      curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+      tar zxvf "${KREW}.tar.gz" &&
+      ./"${KREW}" install krew
+    )
+
+    for user in "${USERS[@]}"; do
+      pass=$(date +%s | sha256sum | base64 | head -c 32; echo)
+
+      useradd -m -s /bin/bash $user
+      usermod -p "$pass" $user
+      cp /etc/keys/bashrc /home/$user/.bash_profile
+
+      mkdir -p /home/$user/.ssh || true
+      mkdir -p /home/$user/work || true
+
+
+      chmod 700 /home/$user /home/$user/.ssh
+      chown $user:$user /home/$user /home/$user/.ssh /home/$user/work /home/$user/.bash_profile
+
+      cp /etc/keys/$user /home/$user/.ssh/authorized_keys
+      chmod -h 600 /home/$user/.ssh/authorized_keys
+      chown -h $user:$user /home/$user/.ssh/authorized_keys
+
+      if [[ -f "/home/$user/work/dotfiles/install.sh" ]]; then
+        su - $user -c "/home/$user/work/dotfiles/install.sh" || true
+      fi
+    done
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sshd-keys
+  namespace: ssh
+data:
+  cbailey: |
+    #
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaX+NiipC9sPhj9wyvpBTwatHmO8avPLEWdTVT/b+zR yubikey-224
+  cgolden: |
+    #
+  bashrc: |
+    set -o history
+    export HISTFILE=$HOME/.bash_history
+
+    BOLD="\[$(tput bold)\]"
+    BLACK="\[$(tput setaf 0)\]"
+    RED="\[$(tput setaf 1)\]"
+    GREEN="\[$(tput setaf 2)\]"
+    YELLOW="\[$(tput setaf 3)\]"
+    BLUE="\[$(tput setaf 4)\]"
+    MAGENTA="\[$(tput setaf 5)\]"
+    CYAN="\[$(tput setaf 6)\]"
+    WHITE="\[$(tput setaf 7)\]"
+    RESET="\[$(tput sgr0)\]"
+
+    function prompt_command {
+        RET=$?
+        if [[ "$(id -u)" -eq 0 ]]; then
+            PS1="$BOLD$RED"
+        else
+            PS1="$GREEN"
+        fi
+
+        branch="$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')"
+        PS1+="\u$RESET:$YELLOW\w$RESET$CYAN$branch$RESET "
+
+        if [[ "$RET" -eq 0 ]]; then
+            PS1+="$BOLD$GREEN"
+        else
+            PS1+="$RET $BOLD$RED"
+        fi
+        PS1+="\\$ $RESET"
+        export PS1
+    }
+    export PROMPT_COMMAND=prompt_command
+
+    if [[ -f ~/.bashrc ]]; then
+      source ~/.bashrc
+    fi

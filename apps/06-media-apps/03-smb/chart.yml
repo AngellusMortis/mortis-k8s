@@ -1,0 +1,63 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: k8s-at-home
+  namespace: media
+spec:
+  interval: 12h
+  url: https://k8s-at-home.com/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-smb
+  namespace: media
+spec:
+  releaseName: smb
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: samba
+      version: "6.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  valuesFrom:
+    - kind: Secret
+      name: smb-config
+  values:
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "storage-192.168.3.235"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.235
+    persistence:
+      backup:
+        enabled: true
+        existingClaim: nas-backup
+        mountPath: /mnt/backup
+      downloads:
+        enabled: true
+        existingClaim: nas-nvme-download
+        mountPath: /mnt/downloads
+      media:
+        enabled: true
+        existingClaim: nas-media
+        mountPath: /mnt/media
+      public:
+        enabled: true
+        existingClaim: nas-lh-public
+        mountPath: /mnt/public
+      syncthing:
+        enabled: true
+        existingClaim: nas-nvme-syncthing
+        mountPath: /mnt/syncthing
+    configmap:
+      config:
+        enabled: true

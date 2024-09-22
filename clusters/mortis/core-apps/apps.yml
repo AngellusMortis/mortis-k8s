@@ -1,0 +1,90 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-protonmail-bridge
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/01-protonmail-bridge
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-cloudnative-pg
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/02-cloudnative-pg
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-authentik
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/03-authentik
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-prometheus
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/04-prometheus-stack
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-k8s-dashboard
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/05-k8s-dashboard
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-ssh-bastion
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/06-ssh-bastion
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-tofu-controller
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/07-tofu-controller
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

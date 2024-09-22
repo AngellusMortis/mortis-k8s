@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: zfs-scrub-nvme
+  namespace: openebs-system
+spec:
+  schedule: "0 4 * * 0"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: zfs
+            image: docker.io/library/alpine:3.20.3
+            imagePullPolicy: IfNotPresent
+            command: ["ash"]
+            args:
+              - -c
+              - mount -o bind /host/dev /dev && mount -o bind /host/usr/local /usr/local && touch /lib/libuuid.so.1 && touch /lib/libblkid.so.1 && mount -o bind /host/lib/libuuid.so.1 /lib/libuuid.so.1 && mount -o bind /host/lib/libblkid.so.1 /lib/libblkid.so.1 && zpool scrub nvme
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /host
+              name: host-root
+          nodeName: storage-1
+          volumes:
+          - hostPath:
+              path: /
+              type: ""
+            name: host-root
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: zfs-scrub-ssd
+  namespace: openebs-system
+spec:
+  schedule: "0 4 * * 6"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+          - name: zfs
+            image: docker.io/library/alpine:3.20.3
+            imagePullPolicy: IfNotPresent
+            command: ["ash"]
+            args:
+              - -c
+              - mount -o bind /host/dev /dev && mount -o bind /host/usr/local /usr/local && touch /lib/libuuid.so.1 && touch /lib/libblkid.so.1 && mount -o bind /host/lib/libuuid.so.1 /lib/libuuid.so.1 && mount -o bind /host/lib/libblkid.so.1 /lib/libblkid.so.1 && zpool scrub ssd
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /host
+              name: host-root
+          nodeName: storage-1
+          volumes:
+          - hostPath:
+              path: /
+              type: ""
+            name: host-root

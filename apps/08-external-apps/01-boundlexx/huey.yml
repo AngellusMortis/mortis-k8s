@@ -1,0 +1,139 @@
+# kubectl apply -f manifests/install/1008-boundlexx/05-huey.yml
+
+# huey scheduler
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huey-scheduler
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: huey-scheduler
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: huey-scheduler
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: huey-scheduler
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/local/bin/entrypoint"]
+        args: ["start-huey-scheduler"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 1000m
+            memory: 1000Mi
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data
+---
+
+
+# huey consumer
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huey-consumer
+  namespace: boundlexx
+spec:
+  selector:
+    matchLabels:
+      app: huey-consumer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: huey-consumer
+    spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      containers:
+      - name: huey-consumer
+        image: ghcr.io/angellusmortis/boundlexx_django:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/usr/local/bin/entrypoint"]
+        args: ["start-huey-consumer", "-d"]
+        envFrom:
+        - configMapRef:
+            name: boundlexx-config
+        - secretRef:
+            name: boundlexx-secrets
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          seccompProfile:
+            type: "RuntimeDefault"
+          capabilities:
+            drop: ["ALL"]
+        resources:
+          requests:
+            cpu: 250m
+            memory: 250Mi
+          limits:
+            cpu: 6000m
+            memory: 8000Mi
+        volumeMounts:
+          - name: boundlexx
+            mountPath: /web
+            subPath: config/web
+          - name: boundlexx
+            mountPath: /logs
+            subPath: config/logs
+          - name: boundlexx
+            mountPath: /boundless
+            subPath: game
+          - name: boundlexx
+            mountPath: /boundless-icons
+            subPath: img
+          - name: boundlexx
+            mountPath: /app/.steam
+            subPath: config/.steam
+          - name: boundlexx
+            mountPath: /app/config.ini
+            subPath: config/config.ini
+      volumes:
+        - name: boundlexx
+          persistentVolumeClaim:
+            claimName: boundlexx-data

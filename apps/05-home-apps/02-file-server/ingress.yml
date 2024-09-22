@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/upstream-vhost: "files.wl.mort.is"
+  name: files
+  namespace: media
+spec:
+  ingressClassName: nginx-insecure
+  tls:
+  - hosts:
+    - files.wl.mort.is
+  rules:
+  - host: files.wl.mort.is
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: files
+            port:
+              number: 8000

@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: maxmind-key
+  namespace: ingress
+spec:
+  encryptedData:
+    # SECRET: Maxmind -> License keys -> ingress-nginx
+    key: AgCr0hs8ml6JG1coVe7YxqnT87xfwrFBknJ9n5oTEaeehcclg+wYXfj5dOZ96NA4KfmEfobCM5Xal/pgefQIJuTEfb65qOtbcsnk+tTatlmbhoy+Hx3uR0Llf7OU+1XYlxlX3hPE3Jt2Dl5WIzS7tBj/BTSRMOeHMLS7EOHjZjxDSwkh3D4owLMI4xYDo3WdEmo7lI/Iz7DrJ3QY/K5qWUNFBE8wKnzH+a/8yH/B/VoYusfZg4O+iPRr6OvfCqE1tc0Jxf3MEKQ6x7dHVwscvPuQMSTfAo0HeSGGGtX5uEorJWqNunrT7HCcZJwoWONz4L1+pRkPlCOXKKVvX74ReTK0LGr8sBUNlgMLXm92iDZ07X6AnpJ9A/u+RTiLGg7sYkKSl3QUnPAd+tVA4/JVhkPsUhrAlxDPIIi+Oofj4djC7yJxB+vrjz28XxyQeTF4HhW0SXSrFkwDa1KlxCQkTOZQqRoCL5IDC01AFkj4z2b4M9p0KTUFa1mc6kzPaMXxeU7Nge+t0zGvXAMNhhO75gxyW3g7cJsU5N00JmvpvMhGb9DGU4+8QQpI3C8ZhDVYPeOqtZeHKlUDYMnyAiZo2p5+Rolf0K7124fcO4rRbH7iV3mlnWBO219eSZE63Mj3nCIBCTVilG8URVOZurMH8AJl8UeoaYvsIChxjcIbqzbqC1cH8ZJ5TRYiDhulEJc1MhKe/w5LmtFPKaecYWJ7+W92NMJTJcyn5IFfoqPoNNF4KmtN55gA89OW
+  template:
+    metadata:
+      creationTimestamp: null
+      name: maxmind-key
+      namespace: ingress
+    type: Opaque

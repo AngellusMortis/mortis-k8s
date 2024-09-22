@@ -1,0 +1,3 @@
+#!/bin/bash
+
+kubectl -n monitor get secret prometheus-prometheus-kube-prometheus-prometheus -o jsonpath="{.data['prometheus\.yaml\.gz']}" | base64 --decode | gzip -d

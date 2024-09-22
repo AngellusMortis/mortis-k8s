@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sealed-secrets-ingress
+  namespace: flux-system
+spec:
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: monitor
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: ingress
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: kube-system
+      - namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: flux-system
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sealed-secrets

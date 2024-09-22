@@ -1,0 +1,36 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: tofu-controller
+  namespace: flux-system
+spec:
+  interval: 12h
+  url: https://flux-iac.github.io/tofu-controller
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-tofu-controller
+  namespace: flux-system
+spec:
+  releaseName: tf
+  targetNamespace: flux-system
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: tf-controller
+      version: "0.15.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: tofu-controller
+  values:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: prometheus
+    awsPackage:
+      install: false

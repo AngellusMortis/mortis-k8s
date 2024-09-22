@@ -1,0 +1,4 @@
+resources:
+  - cert.yml
+  - chart.yml
+  - cert-password-sealed.yml

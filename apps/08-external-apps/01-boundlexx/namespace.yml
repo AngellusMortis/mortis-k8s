@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: boundlexx
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: isolate-namespace-egress
+  namespace: boundlexx
+spec:
+  # Apply to all pods in this namespace
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  # Allow DNS traffic
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+  - to:
+    # Allow Pod traffic to own namespace
+    - podSelector: {}
+    # Allow traffic to internet (but not internal network)
+    - ipBlock:
+        cidr: '0.0.0.0/0'
+        except: ['10.96.0.0/12', '10.244.0.0/16']

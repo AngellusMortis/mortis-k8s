@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: cloudflare-api-token-secret
+  namespace: ingress
+spec:
+  encryptedData:
+    # SECRET: Cloudflare -> Mortis k8s
+    api-token: AgBSZKHQdVf2JODuJkZq79e0h/J53GoEv/lajvXRr6bnEhnfA5PIzK38uCf5vmXrwcEJ+8/CxPk7A1TmskDOlOpW4NRpI5vFnBG6sNBZ3KW8FacV7+/9YKUUzRNKxSt82TCnXFu0jyDQxzVs6ZuIBf+ZQEiQrkrZ3+bdKrOBhqDfHA+ymAGNxbrogzDUTsq6v0db6IPHaQ2KkGWKltW+B0C/qqJM3LAftGwxq3AeefkI/CxOFvqUyZS/am+LVE2dzrW+pst4JzZJnilBwK+zjJMNmcDzib6mYJOrltA/BcPNFqg9YCnS4w4LQ12zkdmWRQ2/BzF9211jw/EXpGDyL3FSnGq3WvgHkUH1gSpDv1U9jfBFgO/cO5lfEwzC+Y0DNoSzbS+6hkhjhOEAHcs6GPuuNnxpOAVYWzutqsUUns2O43JnRsWMgPdhwcar1zzw2OuPQ1rMPaS994nFw6VD5EO9mhby0NNy0Pjk5e4MFTAL7JDH7kt29DQjjZExDUSyiRVDT/SSRxRtXGdOE1NG7KlRgPxtr3vHGO7+61zXd3aaXx1Whw0x01YGWq++SysWpsZZGR4Yz9V80szOFus7apI4FXF+a/ZSGp8NozQnnVJTr4D7NcPUbDUfmmGDtP3NsbZE+uHPyKMcGY5PdkulmezDxKQBXtF4rRJhCTvyWiAe31AjTyEYLnv18653hq4Mhjv8woHmMvMaOZ3dLH/FA30h+oRSz6wE/DgnvOKm1yYes+xCL9dVBiz6
+  template:
+    metadata:
+      creationTimestamp: null
+      name: cloudflare-api-token-secret
+      namespace: ingress
+    type: Opaque

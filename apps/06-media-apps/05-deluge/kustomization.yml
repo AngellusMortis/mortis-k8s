@@ -1,0 +1,8 @@
+resources:
+  - pvc.yml
+  - statefulset.yml
+  - service.yml
+  - ingress.yml
+  - deluge-sync.yml
+  - external-healthcheck.yml
+  - monitor.yml

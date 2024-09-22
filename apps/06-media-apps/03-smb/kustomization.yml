@@ -1,0 +1,6 @@
+resources:
+  - chart.yml
+  - storage-class.yml
+  - pvc.yml
+  - config-sealed.yml
+  - sc-user-sealed.yml
