@@ -15,13 +15,13 @@ echo "External (DNS).......$(curl -I --connect-timeout 1 https://plex.tv > /dev/
 echo "Kube System (IP).....$(curl -k -I --connect-timeout 1 https://10.108.140.229 > /dev/null 2>&1 && echo true || echo false)"
 echo "Kube System (DNS)....$(curl -k -I --connect-timeout 1 https://metrics-server.kube-system > /dev/null 2>&1 && echo true || echo false)"
 
-echo "Longhorn (IP)........$(curl -I --connect-timeout 1 http://10.102.41.53 > /dev/null 2>&1 && echo true || echo false)"
+echo "Longhorn (IP)........$(curl -I --connect-timeout 1 http://10.105.24.108 > /dev/null 2>&1 && echo true || echo false)"
 echo "Longhorn (DNS).......$(curl -I --connect-timeout 1 http://longhorn-frontend.longhorn-system > /dev/null 2>&1 && echo true || echo false)"
 
 echo "Ingress (IP).........$(curl -I --connect-timeout 1 http://10.99.152.94 > /dev/null 2>&1 && echo true || echo false)"
 echo "Ingress (DNS)........$(curl -I --connect-timeout 1 http://ingress-nginx-insecure-controller.ingress > /dev/null 2>&1 && echo true || echo false)"
 
-echo "Monitor (IP).........$(curl -I --connect-timeout 1 http://10.107.180.239 > /dev/null 2>&1 && echo true || echo false)"
+echo "Monitor (IP).........$(curl -I --connect-timeout 1 http://10.106.190.146 > /dev/null 2>&1 && echo true || echo false)"
 echo "Monitor (DNS)........$(curl -I --connect-timeout 1 http://prometheus-grafana.monitor > /dev/null 2>&1 && echo true || echo false)"
 echo ""
 echo ""
