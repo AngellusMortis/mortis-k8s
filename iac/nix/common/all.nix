@@ -5,6 +5,8 @@
 { config, lib, pkgs, ... }:
 
 {
+    imports = [ <home-manager/nixos> ];
+
     networking.domain = "wl.mort.is";
     # networking.hostName = "pi-2"; # Define your hostname.
     # Pick only one of the below networking options.
@@ -72,6 +74,34 @@
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125"
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaX+NiipC9sPhj9wyvpBTwatHmO8avPLEWdTVT/b+zR yubikey-224"
         ];
+    };
+    home-manager.users.cbailey = { pkgs, ... }: {
+        programs.zsh = {
+            zplug = {
+                enable = true;
+                plugins = [
+                    {name = "zsh-users/zsh-autosuggestions";}
+                ];
+            };
+        };
+
+        # The state version is required and should stay at the version you
+        # originally installed.
+        home.stateVersion = "24.11";
+    };
+    home-manager.users.root = { pkgs, ... }: {
+        programs.zsh = {
+            zplug = {
+                enable = true;
+                plugins = [
+                    {name = "zsh-users/zsh-autosuggestions";}
+                ];
+            };
+        };
+
+        # The state version is required and should stay at the version you
+        # originally installed.
+        home.stateVersion = "24.11";
     };
     security.sudo.extraRules = [
         {
@@ -150,10 +180,6 @@
             update = "sudo nixos-rebuild switch";
         };
         histSize = 10000;
-        ohMyZsh = {
-            enable = true;
-            plugins = ["zsh-users/zsh-autosuggestions"];
-        };
     };
 
     # Some programs need SUID wrappers, can be configured further or are

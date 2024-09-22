@@ -40,12 +40,16 @@
             #Enable Blocking of certain domains.
             blocking = {
                 blockType = "zeroIP";
-                whiteLists = {
+                allowlist = {
                     ads = [
-                        "collector.newrelic.com\nadfoc.us\ninsights-collector.newrelic.com\n"
+                        ''
+                        collector.newrelic.com
+                        adfoc.us
+                        insights-collector.newrelic.com
+                        ''
                     ];
                 };
-                blackLists = {
+                denylist = {
                     #Adblocking
                     ads = [
                         "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
@@ -226,7 +230,9 @@
                     "vacuum-1.wl.mort.is" = "192.168.52.11";
                     "vacuum-2.wl.mort.is" = "192.168.52.55";
                 };
-                # zone = "$ORIGIN wl.mort.is.\n";
+                zone = ''
+                    $ORIGIN wl.mort.is.
+                '';
             };
 
             prometheus.enable = true;
