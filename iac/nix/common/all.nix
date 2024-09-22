@@ -103,17 +103,44 @@
         syntaxHighlighting.enable = true;
 
         shellInit = ''
-            "# testy test"
-            "# test, please ignore"
+            # envs
+            export LS_COLORS='rs=0:di=01;36:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
+            export LESS='-R --use-color -Dd+r$Du+b'
+            export MANPAGER="less -R --use-color -Dd+r -Du+b"
+            export LC_ALL=en_US.UTF-8
+            export LANG=en_US.UTF-8
+            export EDITOR='vim'
+            export VISUAL='vim'
+            export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/bin:$PATH
+
+            #append into history file
+            setopt INC_APPEND_HISTORY
+            #save only one command if 2 common are same and consistent
+            setopt HIST_IGNORE_DUPS
+            #add timestamp for each entry
+            setopt EXTENDED_HISTORY
+
+            # Coloured man page support
+            # using 'less' env vars (format is '\E[<brightness>;<colour>m')
+            export LESS_TERMCAP_mb="\033[01;31m"     # begin blinking
+            export LESS_TERMCAP_md="\033[01;31m"     # begin bold
+            export LESS_TERMCAP_me="\033[0m"         # end mode
+            export LESS_TERMCAP_so="\033[01;44;36m"  # begin standout-mode (bottom of screen)
+            export LESS_TERMCAP_se="\033[0m"         # end standout-mode
+            export LESS_TERMCAP_us="\033[00;36m"     # begin underline
+            export LESS_TERMCAP_ue="\033[0m"         # end underline
         '';
         interactiveShellInit = ''
-            "# interactive testy test"
-            "# interactive test, please ignore"
+            bindkey -e
+            bindkey '^R' history-incremental-search-backward
+            bindkey "\e[3~" delete-char
+            bindkey "^[[1;5C" forward-word
+            bindkey "^[[1;5D" backward-word
         '';
-        loginShellInit = ''
-            "# login testy test"
-            "# login test, please ignore"
-        '';
+        # loginShellInit = ''
+        #     # login testy test
+        #     # login test, please ignore
+        # '';
         shellAliases = {
             diff = "diff --color=auto";
             grep = "grep --color=auto";
@@ -123,6 +150,12 @@
             update = "sudo nixos-rebuild switch";
         };
         histSize = 10000;
+        zplug = {
+            enable = true;
+            plugins = [
+                { name = "zsh-users/zsh-autosuggestions"; }
+            ];
+        };
     };
 
     # Some programs need SUID wrappers, can be configured further or are
