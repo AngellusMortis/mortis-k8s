@@ -36,7 +36,7 @@ spec:
         key: id_ed25519
   runnerPodTemplate:
     spec:
-      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-11
+      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-12
       volumes:
         - name: nix
           persistentVolumeClaim:
