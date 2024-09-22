@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+baseDir="$(dirname "$0")"
+
+pushd "$baseDir/../" > /dev/null 2>&1
+
+tar -cvzf - talosconfig nodes | gpg -c > talos.tar.gz.gpg
+
+popd  > /dev/null 2>&1
