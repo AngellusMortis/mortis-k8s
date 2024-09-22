@@ -61,6 +61,7 @@
     };
     nix.settings.trusted-users = [ "root" "build" ];
 
+    users.users.root.shell = pkgs.zsh;
     users.users.cbailey = {
         isNormalUser = true;
         home = "/home/cbailey";
