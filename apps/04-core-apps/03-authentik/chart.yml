@@ -25,29 +25,29 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: authentik
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Deployment
-              name: authentik-worker
-            patch: |
-              - op: replace
-                path: /spec/template/spec/volumes/0
-                value:
-                  name: geoip-db
-                  persistentVolumeClaim:
-                    claimName: geoip-db
-          - target:
-              kind: Deployment
-              name: authentik-server
-            patch: |
-              - op: replace
-                path: /spec/template/spec/volumes/0
-                value:
-                  name: geoip-db
-                  persistentVolumeClaim:
-                    claimName: geoip-db
+  # postRenderers:
+  #   - kustomize:
+  #       patches:
+  #         - target:
+  #             kind: Deployment
+  #             name: authentik-worker
+  #           patch: |
+  #             - op: replace
+  #               path: /spec/template/spec/volumes/0
+  #               value:
+  #                 name: geoip-db
+  #                 persistentVolumeClaim:
+  #                   claimName: geoip-db
+  #         - target:
+  #             kind: Deployment
+  #             name: authentik-server
+  #           patch: |
+  #             - op: replace
+  #               path: /spec/template/spec/volumes/0
+  #               value:
+  #                 name: geoip-db
+  #                 persistentVolumeClaim:
+  #                   claimName: geoip-db
   valuesFrom:
     - kind: Secret
       name: authentik-secrets
