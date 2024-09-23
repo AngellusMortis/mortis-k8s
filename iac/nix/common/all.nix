@@ -8,7 +8,6 @@
     imports = [
         <home-manager/nixos>
         ./tmux-session.nix
-        ./vim.nix
     ];
 
     networking.domain = "wl.mort.is";
