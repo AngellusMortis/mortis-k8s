@@ -28,12 +28,6 @@ spec:
         - name: PGID
           value: "0"
         volumeMounts:
-        - name: media
-          mountPath: /mnt/media
-          readOnly: true
-        - name: public
-          readOnly: true
-          mountPath: /mnt/public
         - name: sshd-config
           mountPath: /config
         - name: sshd-logs
@@ -70,12 +64,6 @@ spec:
             cpu: "2000m"
             memory: "4000Mi"
       volumes:
-      - name: media
-        persistentVolumeClaim:
-          claimName: smb-media
-      - name: public
-        persistentVolumeClaim:
-          claimName: smb-public
       - name: sshd-config
         persistentVolumeClaim:
           claimName: sshd-config
