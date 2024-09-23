@@ -128,6 +128,16 @@ spec:
           periodSeconds: 5
           failureThreshold: 5
           successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: "/"
+            port: deluge-web
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
       - name: cross-seed
         image: ghcr.io/cross-seed/cross-seed:6.0.0-34 # {"$imagepolicy": "flux-system:cross-seed-policy"}
         imagePullPolicy: IfNotPresent
@@ -188,6 +198,16 @@ spec:
           periodSeconds: 5
           failureThreshold: 5
           successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: "/"
+            port: deluge-web
+            scheme: HTTP
+          initialDelaySeconds: 30
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
         env:
         - name: TZ
           value: "America/New_York"
@@ -212,7 +232,7 @@ spec:
         - name: FIREWALL_VPN_INPUT_PORTS
           value: "11024"
         - name: FIREWALL_OUTBOUND_SUBNETS
-          value: "10.109.95.248/32"
+          value: "10.109.95.248/32,10.107.172.145/32,10.105.31.187/32"
         resources:
           limits:
             cpu: "4000m"

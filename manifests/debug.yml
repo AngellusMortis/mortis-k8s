@@ -24,4 +24,4 @@ spec:
         claimName: nas-backup
     - name: config
       persistentVolumeClaim:
-        claimName: lidarr-config
+        claimName: cross-seed-config-deluge-vpn-0
