@@ -76,6 +76,13 @@
         ];
     };
     home-manager.users.cbailey = { pkgs, ... }: {
+        home.file = {
+            ".config/powerline" = {
+                source = ../../dotfiles/cbailey/powerline;
+                recursive = true;
+            };
+        };
+
         programs.zsh = {
             enable = true;
             shellInit = ''
@@ -88,13 +95,6 @@
                 pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
             '';
-
-            home.file = {
-                ".config/powerline" = {
-                    source = ../../dotfiles/cbailey/powerline;
-                    recursive = true;
-                };
-            };
 
             zplug = {
                 enable = true;
@@ -109,6 +109,13 @@
         home.stateVersion = "24.11";
     };
     home-manager.users.root = { pkgs, ... }: {
+        home.file = {
+            ".config/powerline" = {
+                source = ../../dotfiles/root/powerline;
+                recursive = true;
+            };
+        };
+
         programs.zsh = {
             enable = true;
             shellInit = ''
@@ -136,13 +143,6 @@
                 #     tmux-session
                 # fi
             '';
-
-            home.file = {
-                ".config/powerline" = {
-                    source = ../../dotfiles/root/powerline;
-                    recursive = true;
-                };
-            };
 
             zplug = {
                 enable = true;
