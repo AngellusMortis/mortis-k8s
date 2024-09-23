@@ -85,7 +85,7 @@
 
         programs.zsh = {
             enable = true;
-            initExtra = ''
+            loginExtra = ''
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
                     source ~/.local/zshrc
@@ -118,7 +118,7 @@
 
         programs.zsh = {
             enable = true;
-            initExtra = ''
+            loginExtra = ''
                 # Disable tmux for VS Code
                 if [ -n "$\{VSCODE_AGENT_FOLDER+1}" ]; then
                     export USE_TMUX=false
