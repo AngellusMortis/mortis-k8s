@@ -91,7 +91,7 @@
 
             home.file = {
                 ".config/powerline" = {
-                    source = config.lib.file.mkOutOfStoreSymlink ../../dotfiles/cbailey/powerline;
+                    source = lib.file.mkOutOfStoreSymlink ../../dotfiles/cbailey/powerline;
                 };
             };
 
@@ -138,7 +138,7 @@
 
             home.file = {
                 ".config/powerline" = {
-                    source = config.lib.file.mkOutOfStoreSymlink ../../dotfiles/root/powerline;
+                    source = lib.file.mkOutOfStoreSymlink ../../dotfiles/root/powerline;
                 };
             };
 
