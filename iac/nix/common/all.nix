@@ -85,12 +85,6 @@
 
         programs.zsh = {
             enable = true;
-            enableCompletion = true;
-            enableFzfCompletion = true;
-            enableFzfGit = true;
-            enableFzfHistory = true;
-            enableLsColors = true;
-            enableSyntaxHighlighting = true;
             promptInit = ''
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
@@ -124,12 +118,6 @@
 
         programs.zsh = {
             enable = true;
-            enableCompletion = true;
-            enableFzfCompletion = true;
-            enableFzfGit = true;
-            enableFzfHistory = true;
-            enableLsColors = true;
-            enableSyntaxHighlighting = true;
             promptInit = ''
                 # Disable tmux for VS Code
                 if [ -n "$\{VSCODE_AGENT_FOLDER+1}" ]; then
@@ -193,6 +181,9 @@
     programs.zsh = {
         enable = true;
         enableCompletion = true;
+        enableFzfCompletion = true;
+        enableFzfGit = true;
+        enableFzfHistory = true;
         enableLsColors = true;
         enableBashCompletion = true;
         autosuggestions.enable = true;
@@ -227,7 +218,7 @@
         '';
         interactiveShellInit = ''
             bindkey -e
-            # bindkey '^R' history-incremental-search-backward
+            bindkey '^R' history-incremental-search-backward
             bindkey "\e[3~" delete-char
             bindkey "^[[1;5C" forward-word
             bindkey "^[[1;5D" backward-word
