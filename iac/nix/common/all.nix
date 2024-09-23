@@ -249,7 +249,7 @@
     environment.systemPackages = with pkgs; [
         btop
         git
-        gpg
+        gnupg
         powerline
         tmux
         vim
