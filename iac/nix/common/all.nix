@@ -101,6 +101,9 @@
             ".ssh/config" = {
                 source = ../../dotfiles/ssh/config;
             };
+            ".vimrc" = {
+                source = ../../dotfiles/vimrc;
+            };
         };
 
         programs.fzf = {
