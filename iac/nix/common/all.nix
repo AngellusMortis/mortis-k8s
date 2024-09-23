@@ -319,7 +319,7 @@
 
     programs.vim = {
         enable = true;
-        package = "vim-full";
+        package = pkg.vim-full;
     };
 
     # Some programs need SUID wrappers, can be configured further or are
