@@ -120,7 +120,7 @@
 
         programs.zsh = {
             enable = true;
-            zprof.enable = true;
+            # zprof.enable = true;
             enableCompletion = true;
             completionInit = ''
                 autoload -Uz compinit
