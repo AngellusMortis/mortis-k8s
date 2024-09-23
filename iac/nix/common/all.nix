@@ -57,7 +57,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.root.hashedPassword = "!";
     users.users.build = {
-        uid = 900;
+        uid = 1050;
         isNormalUser = true;
         home = "/home/build";
         extraGroups = [ "wheel" ];
