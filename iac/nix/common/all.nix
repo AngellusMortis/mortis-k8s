@@ -85,7 +85,7 @@
 
         programs.zsh = {
             enable = true;
-            promptInit = ''
+            initExtra = ''
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
                     source ~/.local/zshrc
@@ -118,7 +118,7 @@
 
         programs.zsh = {
             enable = true;
-            promptInit = ''
+            initExtra = ''
                 # Disable tmux for VS Code
                 if [ -n "$\{VSCODE_AGENT_FOLDER+1}" ]; then
                     export USE_TMUX=false
@@ -181,9 +181,6 @@
     programs.zsh = {
         enable = true;
         enableCompletion = true;
-        enableFzfCompletion = true;
-        enableFzfGit = true;
-        enableFzfHistory = true;
         enableLsColors = true;
         enableBashCompletion = true;
         autosuggestions.enable = true;
