@@ -68,7 +68,7 @@
             };
             customDNS = {
                 customTTL = "1h";
-                filterUnmappedTypes = true;
+                filterUnmappedTypes = false;
                 rewrite = {
                     wl = "wl.mort.is";
                     home = "wl.mort.is";

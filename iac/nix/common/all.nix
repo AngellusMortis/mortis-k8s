@@ -333,7 +333,17 @@
     # List services that you want to enable:
 
     # Enable the OpenSSH daemon.
-    services.openssh.enable = true;
+    services.openssh = {
+        enable = true;
+        settings = {
+            AcceptEnv = "LANG LC_* MORTIS_*";
+            PasswordAuthentication = false;
+            PermitRootLogin = "no";
+            StreamLocalBindUnlink = true;
+            X11Forwarding = true;
+            X11UseLocalhost = false;
+        };
+    };
 
     networking.firewall.enable = true;
 }
