@@ -315,7 +315,7 @@
     };
 
     programs.vim = {
-        pacakge = "vim-full";
+        package = "vim-full";
     };
 
     # Some programs need SUID wrappers, can be configured further or are
