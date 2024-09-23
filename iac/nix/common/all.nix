@@ -118,6 +118,7 @@
 
         programs.zsh = {
             enable = true;
+            zprof.enable = true;
             loginExtra = ''
                 # Disable tmux for VS Code
                 if [ -n "''${VSCODE_AGENT_FOLDER+1}" ]; then
