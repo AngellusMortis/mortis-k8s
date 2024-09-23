@@ -252,7 +252,6 @@
         gnupg
         powerline
         tmux
-        vim
         zsh
     ];
 
@@ -314,6 +313,10 @@
         };
         histSize = 10000;
     };
+
+    programs.vim = {
+        pacakge = "vim-full";
+    }
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
