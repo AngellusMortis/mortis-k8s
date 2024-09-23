@@ -133,7 +133,7 @@
             loginExtra = ''
                 # Disable tmux for VS Code
                 if [ -n "''${VSCODE_AGENT_FOLDER+1}" ]; then
-                    export USE_TMUX=false
+                    export MORTIS_USE_TMUX=false
                 fi
 
                 # load system specific local configs
@@ -142,8 +142,8 @@
                 fi
 
                 # init tmux start variable
-                if [[ -z ''${USE_TMUX+x} ]]; then
-                    export USE_TMUX=true
+                if [[ -z ''${MORTIS_USE_TMUX+x} ]]; then
+                    export MORTIS_USE_TMUX=true
                 fi
 
                 powerline-daemon -q --replace
@@ -152,7 +152,7 @@
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
 
                 # auto-start tmux
-                if [ "$USE_TMUX" = true ]; then
+                if [ "$MORTIS_USE_TMUX" = true ]; then
                     tmux-session
                 fi
             '';
