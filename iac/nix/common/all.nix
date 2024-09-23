@@ -86,14 +86,29 @@
         programs.zsh = {
             enable = true;
             loginExtra = ''
+                # Disable tmux for VS Code
+                if [ -n "''${VSCODE_AGENT_FOLDER+1}" ]; then
+                    export USE_TMUX=false
+                fi
+
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
                     source ~/.local/zshrc
                 fi
 
+                # init tmux start variable
+                if [[ -z ''${USE_TMUX+x} ]]; then
+                    export USE_TMUX=true
+                fi
+
                 powerline-daemon -q --replace
                 pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
+
+                # auto-start tmux
+                # if [ "$USE_TMUX" = true ]; then
+                #     tmux-session
+                # fi
             '';
 
             zplug = {
@@ -119,29 +134,14 @@
         programs.zsh = {
             enable = true;
             loginExtra = ''
-                # Disable tmux for VS Code
-                if [ -n "$\{VSCODE_AGENT_FOLDER+1}" ]; then
-                    export USE_TMUX=false
-                fi
-
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
                     source ~/.local/zshrc
                 fi
 
-                # init tmux start variable
-                if [[ -z $\{USE_TMUX+x} ]]; then
-                    export USE_TMUX=true
-                fi
-
                 powerline-daemon -q --replace
                 pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
-
-                # auto-start tmux
-                # if [ "$USE_TMUX" = true ]; then
-                #     tmux-session
-                # fi
             '';
 
             zplug = {
