@@ -78,6 +78,17 @@
     home-manager.users.cbailey = { pkgs, ... }: {
         programs.zsh = {
             enable = true;
+            shellInit = ''
+                # load system specific local configs
+                if [ -r ~/.local/zshrc ]; then
+                    source ~/.local/zshrc
+                fi
+
+                powerline-daemon -q --replace
+                pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
+                source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
+            '';
+
             zplug = {
                 enable = true;
                 plugins = [
@@ -93,6 +104,32 @@
     home-manager.users.root = { pkgs, ... }: {
         programs.zsh = {
             enable = true;
+            shellInit = ''
+                # Disable tmux for VS Code
+                if [ -n "${VSCODE_AGENT_FOLDER+1}" ]; then
+                    export USE_TMUX=false
+                fi
+
+                # load system specific local configs
+                if [ -r ~/.local/zshrc ]; then
+                    source ~/.local/zshrc
+                fi
+
+                # init tmux start variable
+                if [[ -z ${USE_TMUX+x} ]]; then
+                    export USE_TMUX=true
+                fi
+
+                powerline-daemon -q --replace
+                pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
+                source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
+
+                # auto-start tmux
+                # if [ "$USE_TMUX" = true ]; then
+                #     tmux-session
+                # fi
+            '';
+
             zplug = {
                 enable = true;
                 plugins = [
@@ -144,7 +181,7 @@
             export LANG=en_US.UTF-8
             export EDITOR='vim'
             export VISUAL='vim'
-            export PATH=$HOME/.bin:$HOME/.local/bin:/usr/local/bin:$PATH
+            export PATH=$HOME/.bin:$HOME/.local/bin:$PATH
 
             #append into history file
             setopt INC_APPEND_HISTORY
