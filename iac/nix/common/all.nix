@@ -85,7 +85,6 @@
 
         programs.zsh = {
             enable = true;
-            enableBashCompletion = true;
             enableCompletion = true;
             enableFzfCompletion = true;
             enableFzfGit = true;
@@ -125,7 +124,6 @@
 
         programs.zsh = {
             enable = true;
-            enableBashCompletion = true;
             enableCompletion = true;
             enableFzfCompletion = true;
             enableFzfGit = true;
@@ -245,6 +243,7 @@
             la = "ls -la --color=auto";
             ll = "ls -l --color=auto";
             update = "sudo nixos-rebuild switch";
+            rollback = "sudo nixos-rebuild switch --rollback";
         };
         histSize = 10000;
     };
