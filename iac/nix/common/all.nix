@@ -86,8 +86,20 @@
                 source = ../../dotfiles/cbailey/powerline;
                 recursive = true;
             };
+            ".gnupg/pubring.kbx" = {
+                source = ../../dotfiles/pubring.kbx;
+            };
+            ".gitconfig" = {
+                source = ../../dotfiles/gitconfig;
+            };
             ".config/btop/btop.conf" = {
                 source = ../../dotfiles/btop.conf;
+            };
+            ".ssh/rc" = {
+                source = ../../dotfiles/ssh/rc;
+            };
+            ".ssh/config" = {
+                source = ../../dotfiles/ssh/config;
             };
         };
 
@@ -177,12 +189,6 @@
             ".config/powerline" = {
                 source = ../../dotfiles/root/powerline;
                 recursive = true;
-            };
-            ".gnupg/pubring.kbx" = {
-                source = ../../dotfiles/pubring.kbx;
-            };
-            ".gitconfig" = {
-                source = ../../dotfiles/gitconfig;
             };
             ".config/btop/btop.conf" = {
                 source = ../../dotfiles/btop.conf;
