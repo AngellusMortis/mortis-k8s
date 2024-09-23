@@ -86,6 +86,9 @@
                 source = ../../dotfiles/cbailey/powerline;
                 recursive = true;
             };
+            ".config/btop/btop.conf" = {
+                source = ../../dotfiles/btop.conf;
+            };
         };
 
         programs.fzf = {
@@ -177,6 +180,12 @@
             };
             ".gnupg/pubring.kbx" = {
                 source = ../../dotfiles/pubring.kbx;
+            };
+            ".gitconfig" = {
+                source = ../../dotfiles/gitconfig;
+            };
+            ".config/btop/btop.conf" = {
+                source = ../../dotfiles/btop.conf;
             };
         };
 

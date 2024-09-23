@@ -1,0 +1,31 @@
+[user]
+  email = cbailey@mort.is
+  name = Christopher Bailey
+  signingkey = 7CC61516A8AB4A9ADBE66BBBADA18435970F54DD
+
+[pull]
+  rebase = true
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[commit]
+  gpgsign = true
