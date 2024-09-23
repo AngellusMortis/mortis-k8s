@@ -56,6 +56,8 @@
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.root.hashedPassword = "!";
+    nix.settings.trusted-users = [ "root" "build" ];
+
     users.users.build = {
         isNormalUser = true;
         home = "/home/build";
@@ -64,7 +66,35 @@
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwDKM5fakow2MdR6YJ2qxX0TvAvqGbi9Dzugf04PM7z cbailey@angellus-pc"
         ];
     };
-    nix.settings.trusted-users = [ "root" "build" ];
+    home-manager.users.build = { pkgs, ... }: {
+        home.file = {
+            ".config/powerline" = {
+                source = ../../dotfiles/build/powerline;
+                recursive = true;
+            };
+        };
+
+        programs.zsh = {
+            enable = true;
+            enableCompletion = false;
+            loginExtra = ''
+                # load system specific local configs
+                if [ -r ~/.local/zshrc ]; then
+                    source ~/.local/zshrc
+                fi
+
+                powerline-daemon -q --replace
+                pythonDir="$(find /run/current-system/sw/lib/ -maxdepth 1 \( -type d -o -type l \) -iname "python*")"
+                export POWERLINE_PYTHON="$pythonDir"
+                source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
+            '';
+        };
+
+        # The state version is required and should stay at the version you
+        # originally installed.
+        home.stateVersion = "24.11";
+    };
+
 
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
@@ -182,34 +212,6 @@
                     {name = "zsh-users/zsh-autosuggestions";}
                 ];
             };
-        };
-
-        # The state version is required and should stay at the version you
-        # originally installed.
-        home.stateVersion = "24.11";
-    };
-    home-manager.users.build = { pkgs, ... }: {
-        home.file = {
-            ".config/powerline" = {
-                source = ../../dotfiles/build/powerline;
-                recursive = true;
-            };
-        };
-
-        programs.zsh = {
-            enable = true;
-            enableCompletion = false;
-            loginExtra = ''
-                # load system specific local configs
-                if [ -r ~/.local/zshrc ]; then
-                    source ~/.local/zshrc
-                fi
-
-                powerline-daemon -q --replace
-                pythonDir="$(find /run/current-system/sw/lib/ -maxdepth 1 \( -type d -o -type l \) -iname "python*")"
-                export POWERLINE_PYTHON="$pythonDir"
-                source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
-            '';
         };
 
         # The state version is required and should stay at the version you
