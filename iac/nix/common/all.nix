@@ -121,7 +121,7 @@
         programs.zsh = {
             enable = true;
             # zprof.enable = true;
-            enableCompletion = true;
+            enableCompletion = lib.mkDefault true;
             completionInit = ''
                 autoload -Uz compinit
                 if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
@@ -152,9 +152,9 @@
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
 
                 # auto-start tmux
-                # if [ "$USE_TMUX" = true ]; then
-                #     tmux-session
-                # fi
+                if [ "$USE_TMUX" = true ]; then
+                    tmux-session
+                fi
             '';
 
             zplug = {

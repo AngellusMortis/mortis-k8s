@@ -19,5 +19,8 @@
     };
 
     # sdcards are really slow
-    home-manager.users.cbailey.programs.zsh.enableCompletion = lib.mkForce false;
+    home-manager.users.cbailey.programs.zsh.enableCompletion = false;
+    programs.zsh.envExtra = ''
+        USE_TMUX=false
+    ''
 }
