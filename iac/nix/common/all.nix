@@ -165,7 +165,7 @@
                 fi
 
                 powerline-daemon -q --replace
-                pythonDir="$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")"
+                pythonDir="$(find /run/current-system/sw/lib/ -maxdepth 1 \( -type d -o -type l \) -iname "python*")"
                 export POWERLINE_PYTHON="$pythonDir"
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
 
@@ -217,7 +217,7 @@
                 fi
 
                 powerline-daemon -q --replace
-                pythonDir="$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")"
+                pythonDir="$(find /run/current-system/sw/lib/ -maxdepth 1 \( -type d -o -type l \) -iname "python*")"
                 export POWERLINE_PYTHON="$pythonDir"
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
             '';
