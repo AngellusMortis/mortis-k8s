@@ -1,0 +1,30 @@
+{
+    "common": {
+        "term_truecolor": true
+    },
+    "ext": {
+        "pdb": {
+            "colorscheme": "default"
+        },
+        "shell": {
+            "colorscheme": "default"
+        },
+        "tmux": {
+            "colorscheme": "default"
+        },
+        "vim": {
+            "colorscheme": "default"
+        },
+        "wm": {
+            "colorscheme": "default"
+        },
+        "xonsh": {
+            "colorscheme": "default",
+            "theme": "default"
+        },
+        "xonshtoolbar": {
+            "colorscheme": "default",
+            "theme": "default"
+        }
+    }
+}

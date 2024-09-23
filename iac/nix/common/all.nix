@@ -89,6 +89,12 @@
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
             '';
 
+            home.file = {
+                ".config/powerline" = {
+                    source = config.lib.file.mkOutOfStoreSymlink ../../dotfiles/cbailey/powerline;
+                };
+            };
+
             zplug = {
                 enable = true;
                 plugins = [
@@ -106,7 +112,7 @@
             enable = true;
             shellInit = ''
                 # Disable tmux for VS Code
-                if [ -n "${VSCODE_AGENT_FOLDER+1}" ]; then
+                if [ -n "$\{VSCODE_AGENT_FOLDER+1}" ]; then
                     export USE_TMUX=false
                 fi
 
@@ -116,7 +122,7 @@
                 fi
 
                 # init tmux start variable
-                if [[ -z ${USE_TMUX+x} ]]; then
+                if [[ -z $\{USE_TMUX+x} ]]; then
                     export USE_TMUX=true
                 fi
 
@@ -129,6 +135,12 @@
                 #     tmux-session
                 # fi
             '';
+
+            home.file = {
+                ".config/powerline" = {
+                    source = config.lib.file.mkOutOfStoreSymlink ../../dotfiles/root/powerline;
+                };
+            };
 
             zplug = {
                 enable = true;
