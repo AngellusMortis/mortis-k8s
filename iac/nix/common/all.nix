@@ -57,6 +57,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.root.hashedPassword = "!";
     users.users.build = {
+        uid = 900;
         isNormalUser = true;
         home = "/home/build";
         extraGroups = [ "wheel" ];
@@ -71,6 +72,7 @@
     environment.pathsToLink = [ "/share/zsh" ];
 
     users.users.cbailey = {
+        uid = 1000;
         isNormalUser = true;
         home = "/home/cbailey";
         shell = pkgs.zsh;
@@ -338,6 +340,7 @@
         settings = {
             AcceptEnv = "LANG LC_* MORTIS_*";
             PasswordAuthentication = false;
+            KbdInteractiveAuthentication = false;
             PermitRootLogin = "no";
             StreamLocalBindUnlink = true;
             X11Forwarding = true;
