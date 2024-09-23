@@ -17,4 +17,7 @@
             filter = "*rpi-4-*.dtb";
         };
     };
+
+    # sdcards are really slow
+    home-manager.users.cbailey.programs.zsh.enableCompletion = lib.mkForce false;
 }
