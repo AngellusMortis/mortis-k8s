@@ -40,7 +40,7 @@
             #Enable Blocking of certain domains.
             blocking = {
                 blockType = "zeroIP";
-                allowlist = {
+                allowlists = {
                     ads = [
                         ''
                         collector.newrelic.com
@@ -49,7 +49,7 @@
                         ''
                     ];
                 };
-                denylist = {
+                denylists = {
                     #Adblocking
                     ads = [
                         "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
