@@ -20,6 +20,9 @@
 
     # sdcards are really slow
     home-manager.users.cbailey.programs.zsh.enableCompletion = false;
+    home-manager.users.root.programs.zsh.enableCompletion = false;
+
+    # disable auto-tmux
     home-manager.users.cbailey.programs.zsh.envExtra = ''
         MORTIS_USE_TMUX=false
     '';
