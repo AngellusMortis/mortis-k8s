@@ -5,7 +5,10 @@
 { config, lib, pkgs, ... }:
 
 {
-    imports = [ <home-manager/nixos> ];
+    imports = [
+        <home-manager/nixos>
+        ./tmux-session.nix
+    ];
 
     networking.domain = "wl.mort.is";
     # networking.hostName = "pi-2"; # Define your hostname.
@@ -83,6 +86,36 @@
             };
         };
 
+        programs.fzf = {
+            enable = true;
+            enableZshIntegration = true;
+            tmux.enableShellIntegration = true;
+        };
+
+        programs.tmux = {
+            enable = true;
+            aggressiveResize = true;
+            clock24 = true;
+            extraConfig = ''
+                source $POWERLINE_PYTHON/site-packages/powerline/bindings/tmux/powerline.conf
+
+                set -g default-terminal "screen-256color"
+                set -g terminal-overrides 'xterm:colors=256'
+                if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) >= 2.1" | bc) -eq 1 ]' 'set -g mouse on'
+                if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mode-mouse on'
+                if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-resize-pane on'
+                if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-select-pane on'
+                if-shell '[ $(echo "$(tmux -V | cut -d" " -f2) <= 2.1" | bc) -eq 1 ]' 'set -g mouse-select-window on'
+                set -g history-limit 30000
+                # pane movement
+                bind-key j command-prompt -p "join pane from:"  "join-pane -h -s '%%'"
+                bind-key s command-prompt -p "send pane to:"  "join-pane -t '%%'"
+                bind-key b break-pane
+
+                set -g status-right '#(env "$POWERLINE_COMMAND" $POWERLINE_COMMAND_ARGS tmux right -R pane_id=\"`tmux display -p "#""D"`\")'
+            '';
+        };
+
         programs.zsh = {
             enable = true;
             loginExtra = ''
@@ -102,7 +135,8 @@
                 fi
 
                 powerline-daemon -q --replace
-                pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
+                pythonDir="$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")"
+                export POWERLINE_PYTHON="$pythonDir"
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
 
                 # auto-start tmux
@@ -131,6 +165,12 @@
             };
         };
 
+        programs.fzf = {
+            enable = true;
+            enableZshIntegration = true;
+            tmux.enableShellIntegration = true;
+        };
+
         programs.zsh = {
             enable = true;
             loginExtra = ''
@@ -140,7 +180,8 @@
                 fi
 
                 powerline-daemon -q --replace
-                pythonDir=$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")
+                pythonDir="$(find /run/current-system/sw/lib/ \( -type d -o -type l \) -iname "*python*")"
+                export POWERLINE_PYTHON="$pythonDir"
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
             '';
 
@@ -174,6 +215,7 @@
         btop
         git
         powerline
+        tmux
         vim
         zsh
     ];
