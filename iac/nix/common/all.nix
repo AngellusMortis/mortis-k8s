@@ -102,9 +102,9 @@
             ".ssh/config" = {
                 source = ../../dotfiles/ssh/config;
             };
-            ".vimrc" = {
-                source = ../../dotfiles/vimrc;
-            };
+            # ".vimrc" = {
+            #     source = ../../dotfiles/vimrc;
+            # };
         };
 
         programs.fzf = {
@@ -251,6 +251,7 @@
         git
         gnupg
         powerline
+        python3
         tmux
         zsh
     ];
@@ -316,7 +317,7 @@
 
     programs.vim = {
         pacakge = "vim-full";
-    }
+    };
 
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
