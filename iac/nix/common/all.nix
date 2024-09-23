@@ -318,7 +318,7 @@
     };
 
     programs.vim = {
-        enabled = true;
+        enable = true;
         package = "vim-full";
     };
 
