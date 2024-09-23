@@ -101,9 +101,9 @@
             ".ssh/config" = {
                 source = ../../dotfiles/ssh/config;
             };
-            # ".vimrc" = {
-            #     source = ../../dotfiles/vimrc;
-            # };
+            ".vimrc" = {
+                source = ../../dotfiles/vimrc;
+            };
         };
 
         programs.fzf = {
@@ -195,6 +195,9 @@
             };
             ".config/btop/btop.conf" = {
                 source = ../../dotfiles/btop.conf;
+            };
+            ".vimrc" = {
+                source = ../../dotfiles/vimrc;
             };
         };
 
@@ -315,6 +318,7 @@
     };
 
     programs.vim = {
+        enabled = true;
         package = "vim-full";
     };
 
