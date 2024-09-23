@@ -223,9 +223,9 @@
 
     programs.zsh = {
         enable = true;
-        enableCompletion = true;
+        enableCompletion = false;
         enableLsColors = true;
-        enableBashCompletion = true;
+        enableBashCompletion = false;
         autosuggestions.enable = true;
         syntaxHighlighting.enable = true;
 
