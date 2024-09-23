@@ -342,6 +342,8 @@
             StreamLocalBindUnlink = true;
             X11Forwarding = true;
             X11UseLocalhost = false;
+            TCPKeepAlive = true;
+            AllowTcpForwarding = true;
         };
     };
 
