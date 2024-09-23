@@ -175,6 +175,9 @@
                 source = ../../dotfiles/root/powerline;
                 recursive = true;
             };
+            ".gnupg/pubring.kbx" = {
+                source = ../../dotfiles/pubring.kbx;
+            };
         };
 
         programs.fzf = {
