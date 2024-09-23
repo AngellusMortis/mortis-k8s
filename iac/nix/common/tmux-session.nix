@@ -1,4 +1,5 @@
-(import <nixpkgs> {}).writeTextFile {
+{
+  my-file = writeTextFile {
     name = "tmux-session";
     text = ''
         #!/usr/bin/env bash
@@ -20,4 +21,5 @@
     '';
     executable = true;
     destination = "/usr/bin/tmux-session";
+  };
 }
