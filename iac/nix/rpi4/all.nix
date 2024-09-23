@@ -20,7 +20,7 @@
 
     # sdcards are really slow
     home-manager.users.cbailey.programs.zsh.enableCompletion = false;
-    programs.zsh.envExtra = ''
-        USE_TMUX=false
+    home-manager.users.cbailey.programs.zsh.envExtra = ''
+        MORTIS_USE_TMUX=false
     '';
 }
