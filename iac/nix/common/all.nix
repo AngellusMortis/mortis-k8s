@@ -8,6 +8,7 @@
     imports = [
         <home-manager/nixos>
         ./tmux-session.nix
+        ./vim.nix
     ];
 
     networking.domain = "wl.mort.is";
@@ -248,6 +249,7 @@
     environment.systemPackages = with pkgs; [
         btop
         git
+        gpg
         powerline
         tmux
         vim
