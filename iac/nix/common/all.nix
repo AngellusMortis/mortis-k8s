@@ -77,6 +77,7 @@
     };
     home-manager.users.cbailey = { pkgs, ... }: {
         programs.zsh = {
+            enable = true;
             zplug = {
                 enable = true;
                 plugins = [
@@ -91,6 +92,7 @@
     };
     home-manager.users.root = { pkgs, ... }: {
         programs.zsh = {
+            enable = true;
             zplug = {
                 enable = true;
                 plugins = [
