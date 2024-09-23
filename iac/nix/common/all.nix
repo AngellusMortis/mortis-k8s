@@ -68,6 +68,8 @@
 
     users.defaultUserShell = pkgs.zsh;
     environment.shells = with pkgs; [ zsh ];
+    environment.pathsToLink = [ "/share/zsh" ];
+
     users.users.cbailey = {
         isNormalUser = true;
         home = "/home/cbailey";
@@ -119,6 +121,15 @@
         programs.zsh = {
             enable = true;
             zprof.enable = true;
+            enableCompletion = true;
+            completionInit = ''
+                autoload -Uz compinit
+                if [[ -n ''${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+                    compinit;
+                else
+                    compinit -C;
+                fi;
+            '';
             loginExtra = ''
                 # Disable tmux for VS Code
                 if [ -n "''${VSCODE_AGENT_FOLDER+1}" ]; then
@@ -174,6 +185,7 @@
 
         programs.zsh = {
             enable = true;
+            enableCompletion = false;
             loginExtra = ''
                 # load system specific local configs
                 if [ -r ~/.local/zshrc ]; then
@@ -223,9 +235,10 @@
 
     programs.zsh = {
         enable = true;
-        enableCompletion = false;
+        enableCompletion = true;
         enableLsColors = true;
-        enableBashCompletion = false;
+        enableBashCompletion = true;
+        enableGlobalCompInit = false;
         autosuggestions.enable = true;
         syntaxHighlighting.enable = true;
 
