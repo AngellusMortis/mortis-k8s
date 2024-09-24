@@ -18,7 +18,7 @@ data:
     sed -i 's/AllowTcpForwarding no/AllowTcpForwarding yes/' /etc/ssh/sshd_config
     s6-svc -r /run/service/svc-openssh-server
 
-    USERS=( cbailey cgolden )
+    USERS=( cbailey )
     FLUX_VERSION=2.3.0
     BROWSH_VERSION=1.8.0
     KUBESEAL_VERSION='0.27.1'
@@ -87,8 +87,6 @@ data:
     #
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICaX+NiipC9sPhj9wyvpBTwatHmO8avPLEWdTVT/b+zR yubikey-224
-  cgolden: |
-    #
   bashrc: |
     set -o history
     export HISTFILE=$HOME/.bash_history

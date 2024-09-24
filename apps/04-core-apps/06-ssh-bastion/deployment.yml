@@ -38,8 +38,6 @@ spec:
           mountPath: /etc/keys
         - name: sshd-cbailey
           mountPath: /home/cbailey/work
-        - name: sshd-cgolden
-          mountPath: /home/cgolden/work
         livenessProbe:
           tcpSocket:
             port: ssh
@@ -72,9 +70,6 @@ spec:
       - name: sshd-cbailey
         persistentVolumeClaim:
           claimName: sshd-cbailey
-      - name: sshd-cgolden
-        persistentVolumeClaim:
-          claimName: sshd-cgolden
       - name: sshd-startup
         configMap:
           name: sshd-startup
@@ -87,7 +82,5 @@ spec:
           items:
           - key: cbailey
             path: cbailey
-          - key: cgolden
-            path: cgolden
           - key: bashrc
             path: bashrc
