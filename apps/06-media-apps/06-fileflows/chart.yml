@@ -26,9 +26,6 @@ spec:
     kind: OCIRepository
     name: fileflows
   values:
-    image:
-      repository: revenz/fileflows
-      tag: 24.09@sha256:023249fca2b98c4e687192d11549145c1b804f24424b9b110ad100fe4ac92177
     workload:
       main:
         podSpec:
