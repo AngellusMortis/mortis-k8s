@@ -33,39 +33,7 @@ spec:
     - protocol: UDP
       port: 53
   - to:
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/instance: plex
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: samba
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: flaresolverr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: prowlarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: bazarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: lidarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: radarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: sonarr
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: deluge-vpn
-    - podSelector:
-        matchLabels:
-          app.kubernetes.io/name: fileflows
-    - podSelector:
-        matchLabels:
-          cnpg.io/cluster: arr-postgres
+    - podSelector: {}
     # Allow traffic to internet (but not internal network)
     - ipBlock:
         cidr: '0.0.0.0/0'
