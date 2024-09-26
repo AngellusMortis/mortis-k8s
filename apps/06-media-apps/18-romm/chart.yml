@@ -40,7 +40,6 @@ spec:
                 ENABLE_SCHEDULED_UPDATE_SWITCH_TITLEDB: "true"
                 ENABLE_SCHEDULED_UPDATE_MAME_XML: "true"
                 DISABLE_RUFFLE_RS: "true"
-                TZ: "America/New_York"
     persistence:
       romm:
         enabled: true
