@@ -38,7 +38,7 @@ spec:
         enabled: true
         mountPath: /romm/library
         type: pvc
-        subPath: games/roms
+        subPath: games
         existingClaim: nas-media
       resources:
         enabled: false
