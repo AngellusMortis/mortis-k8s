@@ -251,3 +251,17 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-romm
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/18-romm
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

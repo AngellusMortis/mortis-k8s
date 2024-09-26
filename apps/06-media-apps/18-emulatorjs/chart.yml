@@ -127,7 +127,7 @@ spec:
 
     ingress:
       front:
-        enabled: true
+        enabled: false
         primary: true
         targetSelector:
           front: front
