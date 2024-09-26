@@ -45,11 +45,11 @@ spec:
         enabled: false
 
     ingress:
-      front:
+      main:
         enabled: true
         primary: true
         targetSelector:
-          front: front
+          main: main
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "emu.wl.mort.is"
           nginx.ingress.kubernetes.io/auth-url: |-
