@@ -25,6 +25,9 @@ spec:
   chartRef:
     kind: OCIRepository
     name: romm
+  valuesFrom:
+    - kind: Secret
+      name: romm-secrets
   values:
     persistence:
       romm:
