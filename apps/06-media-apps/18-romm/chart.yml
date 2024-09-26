@@ -75,6 +75,8 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |
               proxy_set_header X-Forwarded-Host $http_host;
           nginx.ingress.kubernetes.io/proxy-body-size: 512m
+          nginx.ingress.kubernetes.io/enable-cors: "true"
+          nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.wl.mort.is"
         ingressClassName:  "nginx-secure"
         hosts:
           - host: emu.wl.mort.is
