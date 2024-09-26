@@ -65,16 +65,11 @@ spec:
         hosts:
           - host: emu.wl.mort.is
             paths:
-                - path: /backend
-                  pathType: Prefix
-                  overrideService:
-                    name: main
-                    port: 10130
                 - path: /
                   pathType: Prefix
                   overrideService:
-                    name: front
-                    port: 10124
+                    name: main
+                    port: 10680
         integrations:
           certManager:
             enabled: false
