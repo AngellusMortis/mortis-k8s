@@ -93,6 +93,8 @@
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
                         ignoreDelete = true;
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 2592000; # once a month
                         versioning = {
                             type = "trashcan";
                             params.cleanoutDays = "30";
