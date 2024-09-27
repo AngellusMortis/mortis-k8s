@@ -50,6 +50,16 @@ spec:
   runnerPodTemplate:
     spec:
       image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-12
+      initContainers:
+        - name: init-perms
+          image: alpine:3
+          command:
+          - chown
+          - 65532:65532
+          - /nix
+          volumeMounts:
+          - name: nix
+            mountPath: /nix
       volumes:
         - name: nix
           persistentVolumeClaim:
@@ -84,6 +94,16 @@ spec:
   runnerPodTemplate:
     spec:
       image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-12
+      initContainers:
+        - name: init-perms
+          image: alpine:3
+          command:
+          - chown
+          - 65532:65532
+          - /nix
+          volumeMounts:
+          - name: nix
+            mountPath: /nix
       volumes:
         - name: nix
           persistentVolumeClaim:
