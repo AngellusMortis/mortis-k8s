@@ -51,18 +51,18 @@
         };
     };
 
-    fileSystems."/opt/backup" = {
-        device = "zpool/backup";
-        fsType = "zfs";
-    };
-    fileSystems."/opt/media" = {
-        device = "zpool/media";
-        fsType = "zfs";
-    };
-    fileSystems."/opt/download" = {
-        device = "zpool/download";
-        fsType = "zfs";
-    };
+    # fileSystems."/opt/backup" = {
+    #     device = "zpool/backup";
+    #     fsType = "zfs";
+    # };
+    # fileSystems."/opt/media" = {
+    #     device = "zpool/media";
+    #     fsType = "zfs";
+    # };
+    # fileSystems."/opt/download" = {
+    #     device = "zpool/download";
+    #     fsType = "zfs";
+    # };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall.allowedTCPPorts = [ 22 9100 9134 22000 ];
@@ -81,6 +81,8 @@
         autoSnapshot.enable = true;
         trim.enable = true;
     };
+    systemd.services.zfs-import-zpool.after = ["-.mount" "nix-store.mount" ];
+    systemd.services.zfs-import-zpool.wants = [ "-.mount" "nix-store.mount" ];
 
     services = {
         syncthing = {

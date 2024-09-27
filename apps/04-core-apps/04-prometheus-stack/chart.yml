@@ -265,7 +265,7 @@ spec:
   releaseName: loki
   targetNamespace: monitor
   interval: 10m
-  timeout: 5m
+  timeout: 15m
   chart:
     spec:
       chart: loki
