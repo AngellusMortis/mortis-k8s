@@ -134,3 +134,10 @@ zpool create \
         ata-ST16000NM001G-2KK103_ZL2NN0XG \
         ata-ST16000NM001G-2KK103_ZL2NVALN \
         ata-ST16000NM001G-2KK103_ZL2NXTMN
+
+zfs create -o mountpoint=/opt/media -o recordsize=1M -o dedup=on zpool/media
+zfs create -o mountpoint=/opt/backup -o recordsize=1M -o dedup=on zpool/backup
+zpool export zpool
+zpool import -d /dev/disk/by-id -R / zpool -N
+zfs load-key zpool
+zfs mount -a

@@ -19,6 +19,7 @@
     boot.zfs = {
         forceImportRoot = false;
         allowHibernation = true;
+        extraPools = [ "zpool" ];
     };
     boot.loader.grub = {
         enable = true;
@@ -48,6 +49,15 @@
             # Create /mnt/etc/secrets/initrd directory and copy keys to it
             "keyfile0.bin" = "/etc/secrets/initrd/keyfile0.bin";
         };
+    };
+
+    fileSystems."/opt/backup" = {
+        device = "zpool/backup";
+        fsType = "zfs";
+    };
+    fileSystems."/opt/media" = {
+        device = "zpool/media";
+        fsType = "zfs";
     };
 
     networking.firewall.allowedTCPPorts = [ 22 9100 9134 ];
