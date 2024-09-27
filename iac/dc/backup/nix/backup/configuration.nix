@@ -51,19 +51,6 @@
         };
     };
 
-    # fileSystems."/opt/backup" = {
-    #     device = "zpool/backup";
-    #     fsType = "zfs";
-    # };
-    # fileSystems."/opt/media" = {
-    #     device = "zpool/media";
-    #     fsType = "zfs";
-    # };
-    # fileSystems."/opt/download" = {
-    #     device = "zpool/download";
-    #     fsType = "zfs";
-    # };
-
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall.allowedTCPPorts = [ 22 9100 9134 22000 ];
     networking.firewall.allowedUDPPorts = [ 22000 ];
