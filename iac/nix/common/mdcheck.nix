@@ -10,7 +10,7 @@ in
   options.hardware.raid.swraid.monitor = {
    enable = mkOption {
       type = types.bool;
-      default = false;
+      default = true;
       description = lib.mdDoc ''
         This option enables mdcheck timers that run regular full scrubs of the
         md devices.  These processes can also cause high I/O utilization; the

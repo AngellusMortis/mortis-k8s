@@ -7,7 +7,8 @@
 {
     imports = [
         ./hardware-configuration.nix
-        # ../../../../nix/common/all.nix
+        ../../../../nix/common/mdcheck.nix
+        ../../../../nix/common/all.nix
     ];
 
     networking.hostName = "backup-1";
@@ -17,8 +18,8 @@
         enable = true;
         device = "nodev";
         # devices = [
-        #   "/dev/disk/by-partuuid/d3a5027a-f331-487f-a5f2-5800f5596e97"
-        #   "/dev/disk/by-partuuid/57e7ccfc-5fc1-4748-8cee-165d8b054b86"
+        #     "/dev/disk/by-uuid/CE4E-A935"
+        #     "/dev/disk/by-uuid/CE53-9E71"
         # ];
         efiSupport = true;
         enableCryptodisk = true;
@@ -39,35 +40,6 @@
         };
     };
 
-    nix.settings.trusted-users = [ "root" "build" ];
-    users.users.root.hashedPassword = "!";
-    users.users.build = {
-        isNormalUser = true;
-        home = "/home/build";
-        extraGroups = [ "wheel" ];
-        openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwDKM5fakow2MdR6YJ2qxX0TvAvqGbi9Dzugf04PM7z cbailey@angellus-pc"
-        ];
-    };
-    users.users.cbailey = {
-        isNormalUser = true;
-        uid = 1000;
-        home = "/home/cbailey";
-        extraGroups = [ "wheel" ];
-        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125" ];
-    };
-    security.sudo.extraRules = [
-        {
-            users = [ "cbailey" "build" ];
-            commands = [
-                {
-                    command = "ALL";
-                    options = [ "NOPASSWD" ];
-                }
-            ];
-        }
-    ];
-    services.openssh.enable = true;
     networking.firewall.allowedTCPPorts = [ 22 ];
 
     # Copy the NixOS configuration file and link it from the resulting system

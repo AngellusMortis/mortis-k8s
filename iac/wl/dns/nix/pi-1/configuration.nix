@@ -15,6 +15,8 @@
     ];
 
     networking.hostName = "pi-1";
+    networking.firewall.allowedTCPPorts = [ 22 53 3306 4000 ];
+    networking.firewall.allowedUDPPorts = [ 53 ];
 
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
