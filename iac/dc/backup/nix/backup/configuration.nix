@@ -60,7 +60,9 @@
         fsType = "zfs";
     };
 
-    networking.firewall.allowedTCPPorts = [ 22 9100 9134 ];
+    networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+    networking.firewall.allowedTCPPorts = [ 22 9100 9134 22000 ];
+    networking.firewall.allowedUDPPorts = [ 22000 ];
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -74,6 +76,37 @@
         autoScrub.enable = true;
         autoSnapshot.enable = true;
         trim.enable = true;
+    };
+
+    services = {
+        syncthing = {
+            enable = true;
+            overrideDevices = true;     # overrides any devices added or deleted through the WebUI
+            overrideFolders = true;     # overrides any folders added or deleted through the WebUI
+            settings = {
+                devices = {
+                    "sync.wl.mort.is" = {
+                        id = "PQ576SA-HA27WE6-Q6HTLHE-5WQD77V-WY7CJV7-PVI3HXA-CYVB2LF-GJJQMAS";
+                        addresses = [
+                            "quic://192.168.3.236:22000"
+                            "tcp://192.168.3.236:22000"
+                        ];
+                    };
+                };
+                folders = {
+                    "media" = {
+                        id = "flnpv-2pwgc";
+                        path = "/opt/media";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "receiveonly";
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                };
+            };
+        };
     };
 
     # Copy the NixOS configuration file and link it from the resulting system
