@@ -56,12 +56,17 @@ spec:
         type: pvc
         existingClaim: nas-nvme-syncthing
         mountPath: /mnt/syncthing
-
       backup:
         enabled: true
         type: pvc
         existingClaim: nas-backup
         mountPath: /mnt/backup
+      media:
+        enabled: true
+        type: pvc
+        existingClaim: nas-media
+        mountPath: /mnt/media
+
     securityContext:
       container:
         runAsNonRoot: true
