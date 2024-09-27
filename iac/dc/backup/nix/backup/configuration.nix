@@ -17,12 +17,14 @@
     boot.loader.grub = {
         enable = true;
         device = "nodev";
-        # devices = [
-        #     "/dev/disk/by-uuid/CE4E-A935"
-        #     "/dev/disk/by-uuid/CE53-9E71"
-        # ];
         efiSupport = true;
         enableCryptodisk = true;
+        mirroredBoots = [
+            {
+                devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
+                path = "/boot2/efi";
+            }
+        ];
     };
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";

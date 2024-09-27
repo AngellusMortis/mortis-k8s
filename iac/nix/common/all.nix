@@ -26,7 +26,7 @@
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
-    console.enable = true;
+    console.enable = lib.mkDefault false;
     # console = {
     #   font = "Lat2-Terminus16";
     #   keyMap = "us";
