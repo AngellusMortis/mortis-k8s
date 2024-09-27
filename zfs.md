@@ -92,8 +92,8 @@ zpool scrub ssd
 
 # backup ZFS
 zpool create \
-    -O encryption=on -O keyformat=passphrase \
-    -O keylocation=prompt -O compression=on \
+    -O encryption=aes-256-gcm -O keyformat=passphrase \
+    -O keylocation=prompt -O compression=lz4 \
     -O mountpoint=none -O xattr=sa \
     -O acltype=posixacl -o ashift=12 \
     zpool \

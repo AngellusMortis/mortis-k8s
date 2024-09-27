@@ -12,13 +12,20 @@
     ];
 
     networking.hostName = "backup-1";
+    networking.hostId = "33ad4037";
 
     boot.loader.systemd-boot.enable = false;
+    boot.supportedFilesystems.zfs = true;
+    boot.zfs = {
+        forceImportRoot = false;
+        allowHibernation = true;
+    };
     boot.loader.grub = {
         enable = true;
         device = "nodev";
         efiSupport = true;
         enableCryptodisk = true;
+        zfsSupport = true;
         mirroredBoots = [
             {
                 devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
@@ -30,6 +37,7 @@
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.swraid.enable = true;
     boot.initrd = {
+        supportedFilesystems = ["zfs"];
         luks.devices."OS" = {
             device = "/dev/md/nixos:os";
             preLVM = true;
@@ -53,8 +61,9 @@
     services.prometheus.exporters.node.enable = true;
     services.prometheus.exporters.zfs.enable = true;
     services.zfs = {
-        trim.enable = true;
         autoScrub.enable = true;
+        autoSnapshot.enable = true;
+        trim.enable = true;
     };
 
     # Copy the NixOS configuration file and link it from the resulting system
