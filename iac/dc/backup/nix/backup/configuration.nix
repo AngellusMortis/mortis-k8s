@@ -7,7 +7,7 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ../../../../nix/common/all.nix
+        # ../../../../nix/common/all.nix
     ];
 
     networking.hostName = "backup-1";
@@ -39,6 +39,37 @@
         };
     };
 
+    nix.settings.trusted-users = [ "root" "build" ];
+    users.users.root.hashedPassword = "!";
+    users.users.build = {
+        isNormalUser = true;
+        home = "/home/build";
+        extraGroups = [ "wheel" ];
+        openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAwDKM5fakow2MdR6YJ2qxX0TvAvqGbi9Dzugf04PM7z cbailey@angellus-pc"
+        ];
+    };
+    users.users.cbailey = {
+        isNormalUser = true;
+        uid = 1000;
+        home = "/home/cbailey";
+        extraGroups = [ "wheel" ];
+        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH2/jfutcgquJZEp2Y8OLflLREcNB7+j8ugsc9QiyhTS yubikey-125" ];
+    };
+    security.sudo.extraRules = [
+        {
+            users = [ "cbailey" "build" ];
+            commands = [
+                {
+                    command = "ALL";
+                    options = [ "NOPASSWD" ];
+                }
+            ];
+        }
+    ];
+    services.openssh.enable = true;
+    networking.firewall.allowedTCPPorts = [ 22 ];
+
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
     # accidentally delete configuration.nix.
@@ -61,5 +92,5 @@
     # and migrated your data accordingly.
     #
     # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-    system.stateVersion = "24.11"; # Did you read the comment?
+    system.stateVersion = "24.05"; # Did you read the comment?
 }

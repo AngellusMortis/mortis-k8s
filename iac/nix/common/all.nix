@@ -26,7 +26,7 @@
 
     # Select internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
-    console.enable = false;
+    console.enable = true;
     # console = {
     #   font = "Lat2-Terminus16";
     #   keyMap = "us";
@@ -54,7 +54,6 @@
     # Enable touchpad support (enabled default in most desktopManager).
     # services.libinput.enable = true;
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.root.hashedPassword = "!";
     nix.settings.trusted-users = [ "root" "build" ];
 
