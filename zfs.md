@@ -93,7 +93,7 @@ zpool scrub ssd
 # backup ZFS
 zpool create \
     -O encryption=aes-256-gcm -O keyformat=passphrase \
-    -O keylocation=prompt -O compression=lz4 \
+    -O keylocation=file:///mnt/etc/secrets/initrd/keyfile1.bin -O compression=lz4 \
     -O mountpoint=none -O xattr=sa \
     -O acltype=posixacl -o ashift=12 \
     zpool \
@@ -137,7 +137,9 @@ zpool create \
 
 zfs create -o mountpoint=/opt/media -o recordsize=1M -o dedup=on zpool/media
 zfs create -o mountpoint=/opt/backup -o recordsize=1M -o dedup=on zpool/backup
+
+# if in install ISO
 zpool export zpool
-zpool import -d /dev/disk/by-id -R / zpool -N
+zpool import -d /dev/disk/by-id -R /mnt zpool -N
 zfs load-key zpool
 zfs mount -a
