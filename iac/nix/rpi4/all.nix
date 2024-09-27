@@ -9,6 +9,7 @@
     boot.loader.grub.enable = false;
     # Enables the generation of /boot/extlinux/extlinux.conf
     boot.loader.generic-extlinux-compatible.enable = true;
+    boot.initrd.systemd.enableTpm2 = false;
 
     hardware = {
         raspberry-pi."4".apply-overlays-dtmerge.enable = true;
