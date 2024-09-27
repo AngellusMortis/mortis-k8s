@@ -14,7 +14,6 @@
     networking.hostName = "backup-1";
 
     boot.loader.systemd-boot.enable = false;
-    boot.zfs.enabled = true;
     boot.loader.grub = {
         enable = true;
         device = "nodev";
