@@ -14,6 +14,7 @@
     networking.hostName = "backup-1";
 
     boot.loader.systemd-boot.enable = false;
+    boot.zfs.enabled = true;
     boot.loader.grub = {
         enable = true;
         device = "nodev";
@@ -42,13 +43,20 @@
         };
     };
 
-    networking.firewall.allowedTCPPorts = [ 22 ];
+    networking.firewall.allowedTCPPorts = [ 22 9100 9134 ];
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         zfs
     ];
+
+    services.prometheus.exporters.node.enable = true;
+    services.prometheus.exporters.zfs.enable = true;
+    services.zfs = {
+        trim.enable = true;
+        autoScrub.enable = true;
+    };
 
     # Copy the NixOS configuration file and link it from the resulting system
     # (/run/current-system/configuration.nix). This is useful in case you
