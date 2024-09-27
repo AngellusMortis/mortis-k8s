@@ -1,0 +1,17 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: ghcr-login-secret
+  namespace: boundlexx
+spec:
+  # Github -> Mortis k8s (Boundlexx)
+  encryptedData:
+    .dockerconfigjson: AgA6io8FbSn8xLnsSCDyuR9+l3+Rj6SwkWUAyjO2uaRcj4phf9JCLurhSitbq1CRVAdp5eI4sNWmd/jRTaa/HQKMWLv5QcWr2xym8f0EvNTX31Vm/h0fgMrEKMnUU5qwfSMiSsyIAVcoKFXxeezLXkU+nsYAZlgIQQfUVqzaCP+CrLxP41Mr280Xp6lbjE5YnqRVcZyNOWTTAor1FOghjdRziMuwPV1Mzh9Ty33cq6bGjhwLC0zQCVDJKHP3oYsvPJVRWeY49EFJipAUxZnb01A+porrL/e73gRIP3oCzL8c86or9TQXvCUKYpPaUuwL+aydkISga/tRcioyNOModV01ozSoefbKv/iUy7J8NMFkjeFWjb5QDBqwn47j9uxv9gtJwPJwHD0Wdmr9jMNCXnUBMT4PdYjZNSAVSfAFyONo72FYqRY41aR/xdjrWtsLlQ3WJ2bB79MroYkVUjs36ewBmrGn6HIUwjRTGEXx8rsboCTIuUWlXLuR+LXcuKo/JSXnLCSNONmF7WA0kgfxDmfIkJYYRWh8CG6gGxfhDmb6punkL3/yGUGzdvXOjlGI3EK3yiYXiIsD+Inq93bKVxsXsvzqTyO/fRqdZ414/g/O2tTaJ9WR0S0TJOjL/VLnwhwbB7UvSh0Hhiias+NLUJmu1moOp+QUsoG4ATV6ccq9e0j78jLk7gnbIhPoWGMf6aKsZ3MnL++M8YRlbQSydx4Ahxntt1fb3NAlI3kOUequbKJzeWDyE27f5vJowtxKd2UaD4W1VDfxBTEOAAaD79F55vuI3I95Pu1eYV5KLBRLilU4Xl22TEa11ROivqjyQ8e6tsxJo/bBXCvAdGvv6Jlh4Z7w7R7pzswMfqlqKU8OFkeFd8HlnSfIqfEjGushk5aRRjK0Qi9UCrlxRoiVs2kiPPlMpj8SjlELdB8L++2tgtTsdg5KCH+91Zrpfxau9zpKW9eOpL8lB9U5mYhgLC3tbuPwkrUuMNEu
+  template:
+    metadata:
+      creationTimestamp: null
+      name: ghcr-login-secret
+      namespace: boundlexx
+    type: kubernetes.io/dockerconfigjson

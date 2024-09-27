@@ -14,14 +14,24 @@ spec:
       - sleep
       - infinity
     volumeMounts:
-      - name: backup
-        mountPath: /mnt/backup
-      - name: config
-        mountPath: /mnt/config
+      # - name: backup
+      #   mountPath: /mnt/backup
+      # - name: config
+      #   mountPath: /mnt/config
+      - name: nix-1
+        mountPath: /mnt/nix-1
+      - name: nix-2
+        mountPath: /mnt/nix-2
   volumes:
-    - name: backup
+    # - name: backup
+    #   persistentVolumeClaim:
+    #     claimName: nas-backup
+    # - name: config
+    #   persistentVolumeClaim:
+    #     claimName: cross-seed-config-deluge-vpn-0
+    - name: nix-1
       persistentVolumeClaim:
-        claimName: nas-backup
-    - name: config
+        claimName: dc-backup-nix-builder
+    - name: nix-2
       persistentVolumeClaim:
-        claimName: cross-seed-config-deluge-vpn-0
+        claimName: wl-dns-nix-builder

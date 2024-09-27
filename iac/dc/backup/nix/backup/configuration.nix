@@ -6,8 +6,8 @@
 
 {
     imports = [
-        ../../../../nix/common/all.nix
         ./hardware-configuration.nix
+        ../../../../nix/common/all.nix
     ];
 
     networking.hostName = "backup-1";

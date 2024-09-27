@@ -8,3 +8,4 @@ resources:
   - celery.yml
   - huey.yml
   - secrets-sealed.yml
+  - docker-login-sealed.yml
