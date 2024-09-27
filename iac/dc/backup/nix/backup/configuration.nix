@@ -98,7 +98,8 @@
                         id = "flnpv-2pwgc";
                         path = "/opt/media";
                         devices = [ "sync.wl.mort.is" ];
-                        type = "receiveonly";
+                        type = "sendreceive";
+                        ignoreDelete = true;
                         versioning = {
                             type = "trashcan";
                             params.cleanoutDays = "30";
