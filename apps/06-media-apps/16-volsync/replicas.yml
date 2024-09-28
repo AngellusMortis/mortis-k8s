@@ -6,6 +6,14 @@ spec:
   sourcePVC: nas-backup
   syncthing:
     serviceType: LoadBalancer
+    moverSecurityContext:
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      runAsNonRoot: true
+      seccompProfile:
+        type: "RuntimeDefault"
+      capabilities:
+        drop: ["ALL"]
     # List of peers that this ReplicationSource should connect to.
     peers:
       # The Syncthing ID of the peer.
