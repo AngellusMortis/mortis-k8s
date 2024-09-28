@@ -6,14 +6,14 @@ metadata:
 spec:
   sourcePVC: nas-backup
   syncthing:
-    serviceType: LoadBalancer
+    serviceType: ClusterIP
     configStorageClassName: longhorn
     moverSecurityContext:
       runAsUser: 1000
     # List of peers that this ReplicationSource should connect to.
     peers:
       # The Syncthing ID of the peer.
-    - ID: GVONGZX-6FVQPEY-4QWTVLK-TXNJUHA-5UGA625-UBC7HZQ-P5BG2XJ-EHJ4XQ3
+    - ID: 56BJMKI-OI7PAEV-Q4VMMDL-Q5PKXQI-RTBAI3E-WVTNTVS-AO2J53N-FYKIDAT
       # The address of the peer - this will be used as a data connection.
       address: tcp://192.168.52.50:22000
       # Whether or not the peer should introduce this ReplicationSource to other peers.

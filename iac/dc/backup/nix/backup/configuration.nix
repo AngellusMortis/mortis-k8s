@@ -78,6 +78,7 @@
             overrideDevices = true;     # overrides any devices added or deleted through the WebUI
             overrideFolders = true;     # overrides any folders added or deleted through the WebUI
             settings = {
+                insecureAdminAccess = true;
                 devices = {
                     "sync.wl.mort.is" = {
                         id = "PQ576SA-HA27WE6-Q6HTLHE-5WQD77V-WY7CJV7-PVI3HXA-CYVB2LF-GJJQMAS";
