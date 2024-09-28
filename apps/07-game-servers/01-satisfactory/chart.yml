@@ -71,7 +71,7 @@ spec:
                 DISABLESEASONALEVENTS: "false"
                 MAXOBJECTS: "2162688"
                 MAXPLAYERS: "4"
-                MAXTICKRATE: "30"
+                MAXTICKRATE: "60"
                 PGID: "1000"
                 PUID: "1000"
                 ROOTLESS: "true"
