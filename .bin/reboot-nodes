@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+baseDir="$(dirname "$0")"
+nodes="${1:-all}"
+if [[ "$nodes" == "all" ]]; then
+    nodes="cluster-1 cluster-2 cluster-3 cluster-4 cluster-5 cluster-6 cluster-7 cluster-8 storage-1"
+elif [[ "$nodes" == "control" ]]; then
+    nodes="cluster-1 cluster-2 cluster-8"
+elif [[ "$nodes" == "compute" ]]; then
+    nodes="cluster-3 cluster-4 cluster-5 cluster-6 cluster-7"
+elif [[ "$nodes" == "nodes" ]]; then
+    nodes="cluster-3 cluster-4 cluster-5 cluster-6 cluster-7 storage-1"
+fi
+
+echo "Reboot nodes: $nodes"
+
+for node in $nodes; do
+    echo "Draining node $node..."
+    "$baseDir/drain-node" $node || true
+    echo "Rebooting node $node..."
+    talosctl reboot -n $node || true
+    echo "Waiting for node $node to be ready..."
+    kubectl wait --for=condition=Ready --timeout=-1s node/$node
+    echo "Re-enabling scheduling on node $node..."
+    kubectl uncordon $node
+done
+
