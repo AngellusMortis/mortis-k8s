@@ -34,8 +34,6 @@ spec:
               ports:
               - name: game
                 containerPort: 7777
-              nodeSelector:
-                kubernetes.io/hostname: storage-1
               probes:
                 liveness:
                   enabled: true
