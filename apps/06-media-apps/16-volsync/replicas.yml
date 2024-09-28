@@ -7,6 +7,7 @@ spec:
   sourcePVC: nas-backup
   syncthing:
     serviceType: LoadBalancer
+    configStorageClassName: longhorn
     moverSecurityContext:
       runAsUser: 1000
     # List of peers that this ReplicationSource should connect to.
