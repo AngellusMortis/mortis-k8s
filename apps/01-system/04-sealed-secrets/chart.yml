@@ -34,7 +34,7 @@ spec:
       dashboards:
         create: true
     pdb:
-      create: true
+      create: false
     ingress:
       enabled: true
       ingressClassName: nginx-insecure
