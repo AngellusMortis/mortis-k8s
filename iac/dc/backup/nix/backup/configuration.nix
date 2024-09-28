@@ -52,7 +52,7 @@
     };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    networking.firewall.allowedTCPPorts = [ 22 9100 9134 22000 ];
+    networking.firewall.allowedTCPPorts = [ 22 8384 9100 9134 22000 ];
     networking.firewall.allowedUDPPorts = [ 22000 ];
 
     # List packages installed in system profile. To search, run:
@@ -74,6 +74,7 @@
     services = {
         syncthing = {
             enable = true;
+            guiAddress = "0.0.0.0:8384";
             overrideDevices = true;     # overrides any devices added or deleted through the WebUI
             overrideFolders = true;     # overrides any folders added or deleted through the WebUI
             settings = {
@@ -87,6 +88,17 @@
                     };
                 };
                 folders = {
+                    "backup" = {
+                        id = "my6er-4vegd";
+                        path = "/opt/backup";
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 2592000; # once a month
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
                     "media" = {
                         id = "flnpv-2pwgc";
                         path = "/opt/media";
