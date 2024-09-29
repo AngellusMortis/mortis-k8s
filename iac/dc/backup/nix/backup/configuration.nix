@@ -27,12 +27,12 @@
         device = "nodev";
         efiSupport = true;
         enableCryptodisk = true;
-        # mirroredBoots = [
-        #     {
-        #         devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
-        #         path = "/boot2/efi";
-        #     }
-        # ];
+        mirroredBoots = [
+            {
+                devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
+                path = "/boot2/efi";
+            }
+        ];
     };
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
