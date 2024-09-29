@@ -9,6 +9,7 @@
         ./hardware-configuration.nix
         ../../../../nix/common/mdcheck.nix
         ../../../../nix/common/all.nix
+        ../../../../nix/common/grub-theme.nix
     ];
 
     networking.hostName = "backup-1";
