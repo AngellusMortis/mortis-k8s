@@ -66,6 +66,11 @@ spec:
         type: pvc
         existingClaim: nas-media
         mountPath: /mnt/media
+      public:
+        enabled: true
+        type: pvc
+        existingClaim: nas-lh-public
+        mountPath: /mnt/public
 
     securityContext:
       container:
