@@ -5,13 +5,16 @@
 { config, lib, pkgs, ... }:
 
 {
-    nixpkgs.config.packageOverrides = pkgs: rec { mortis-plymouth = pkgs.callPackage ./mortis-plymouth.nix {}; };
+    nixpkgs.config.packageOverrides = pkgs: rec {
+        mortis-grub = pkgs.callPackage ./mortis-grub.nix {};
+        mortis-plymouth = pkgs.callPackage ./mortis-plymouth.nix {};
+    };
 
     boot = {
         plymouth = {
             enable = true;
             theme = "mortis";
-            themePackages = [ pkgs.mortis-plymouth ];
+            themePackages = with pkgs; [ mortis-plymouth ];
         };
 
         # Enable "Silent Boot"
@@ -30,6 +33,8 @@
         # It's still possible to open the bootloader list by pressing any key
         # It will just not appear on screen unless a key is pressed
         loader.timeout = 0;
+
+        loader.grub.theme = pkgs.mortis-grub;
     };
 
     systemd.watchdog.rebootTime = "0";
