@@ -11,7 +11,3 @@ Host ssh.wl.mort.is
 
 Host fr.mort.is
   ProxyCommand cloudflared access ssh --hostname %h
-
-Host fr2.mort.is
-  ProxyCommand cloudflared access ssh --hostname %h
-
