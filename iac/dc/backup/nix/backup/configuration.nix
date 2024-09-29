@@ -27,7 +27,6 @@
         device = "nodev";
         efiSupport = true;
         enableCryptodisk = true;
-        zfsSupport = true;
         # mirroredBoots = [
         #     {
         #         devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
@@ -39,16 +38,14 @@
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.swraid.enable = true;
     boot.initrd = {
-        supportedFilesystems = ["zfs"];
         luks.devices."OS" = {
             device = "/dev/md/nixos:os";
             preLVM = true;
-            keyFile = "/keyfile0.bin";
+            keyFile = "/etc/secrets/initrd/keyfile0.bin";
             allowDiscards = true;
         };
         secrets = {
-            # Create /mnt/etc/secrets/initrd directory and copy keys to it
-            "keyfile0.bin" = "/etc/secrets/initrd/keyfile0.bin";
+            "/etc/secrets/initrd/keyfile0.bin" = "/etc/secrets/initrd/keyfile0.bin";
         };
     };
 
