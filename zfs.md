@@ -137,6 +137,8 @@ zpool create \
 
 zfs create -o mountpoint=/opt/media -o recordsize=1M -o dedup=on zpool/media
 zfs create -o mountpoint=/opt/backup -o recordsize=1M -o dedup=on zpool/backup
+zfs create -o mountpoint=/opt/public -o recordsize=1M -o dedup=on zpool/public
+zfs create -o mountpoint=/opt/syncthing -o recordsize=1M -o dedup=on zpool/syncthing
 
 # if in install ISO
 zpool export zpool

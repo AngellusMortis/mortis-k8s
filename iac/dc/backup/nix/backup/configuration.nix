@@ -114,6 +114,54 @@
                             params.cleanoutDays = "30";
                         };
                     };
+                    "public" = {
+                        id = "tg4pk-fhmzv";
+                        path = "/opt/public";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "cbailey" = {
+                        id = "2mh7q-umkep";
+                        path = "/opt/syncthing/personal/cbailey";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "sbailey" = {
+                        id = "feiyy-sjasb";
+                        path = "/opt/syncthing/personal/sbailey";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "shared" = {
+                        id = "prdrk-2gtju";
+                        path = "/opt/syncthing/shared";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
                 };
             };
         };
