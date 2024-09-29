@@ -92,6 +92,7 @@
                     "backup" = {
                         id = "my6er-4vegd";
                         path = "/opt/backup";
+                        devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
                         fsWatcherEnabled = true;
                         rescanIntervalS = 2592000; # once a month
