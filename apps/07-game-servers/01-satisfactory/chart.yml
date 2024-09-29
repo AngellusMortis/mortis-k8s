@@ -126,3 +126,9 @@ spec:
         enabled: true
         size: 100Gi
         mountPath: /config
+      blueprints:
+        enabled: true
+        type: pvc
+        storageClass: smb-public
+        subPath: "games/satisfactory/blueprints"
+        mountPath: "/config/saved/blueprints/Mortis"
