@@ -78,7 +78,9 @@
             overrideDevices = true;     # overrides any devices added or deleted through the WebUI
             overrideFolders = true;     # overrides any folders added or deleted through the WebUI
             settings = {
-                insecureAdminAccess = true;
+                options = {
+                    insecureAdminAccess = true;
+                };
                 devices = {
                     "sync.wl.mort.is" = {
                         id = "PQ576SA-HA27WE6-Q6HTLHE-5WQD77V-WY7CJV7-PVI3HXA-CYVB2LF-GJJQMAS";
@@ -91,6 +93,7 @@
                 folders = {
                     "backup" = {
                         id = "my6er-4vegd";
+                        label = "Backup";
                         path = "/opt/backup";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
@@ -101,9 +104,63 @@
                             params.cleanoutDays = "30";
                         };
                     };
-                    "media" = {
-                        id = "flnpv-2pwgc";
-                        path = "/opt/media";
+                    "media-games" = {
+                        id = "wadfp-trxlq";
+                        label = "Media - Games";
+                        path = "/opt/media/games";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 604800; # once a week
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "media-movies" = {
+                        id = "kdjcn-4czrm";
+                        label = "Media - Movies";
+                        path = "/opt/media/movies";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        ignoreDelete = true;
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 2592000; # once a month
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "media-music" = {
+                        id = "yw2q2-vw3jc";
+                        label = "Media - Music";
+                        path = "/opt/media/music";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "media-sounds" = {
+                        id = "fpe6i-t4azv";
+                        label = "Media - Sounds";
+                        path = "/opt/media/sounds";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                    };
+                    "media-television" = {
+                        id = "avkrt-rsvhx";
+                        label = "Media - Television";
+                        path = "/opt/media/television";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
                         ignoreDelete = true;
@@ -116,6 +173,7 @@
                     };
                     "public" = {
                         id = "tg4pk-fhmzv";
+                        label = "Public";
                         path = "/opt/public";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
@@ -126,8 +184,9 @@
                             params.cleanoutDays = "30";
                         };
                     };
-                    "cbailey" = {
+                    "personal-cbailey" = {
                         id = "2mh7q-umkep";
+                        label = "Personal Data - cbailey";
                         path = "/opt/syncthing/personal/cbailey";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
@@ -138,8 +197,9 @@
                             params.cleanoutDays = "30";
                         };
                     };
-                    "sbailey" = {
+                    "personal-sbailey" = {
                         id = "feiyy-sjasb";
+                        label = "Personal Data - sbailey";
                         path = "/opt/syncthing/personal/sbailey";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
@@ -152,6 +212,7 @@
                     };
                     "shared" = {
                         id = "prdrk-2gtju";
+                        label = "Shared Data";
                         path = "/opt/syncthing/shared";
                         devices = [ "sync.wl.mort.is" ];
                         type = "sendreceive";
