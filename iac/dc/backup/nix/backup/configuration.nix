@@ -80,6 +80,7 @@
             settings = {
                 options = {
                     insecureAdminAccess = true;
+                    urAccepted = -1;
                 };
                 devices = {
                     "sync.wl.mort.is" = {
