@@ -64,7 +64,7 @@ spec:
   values:
     global:
       plexImage:
-        repository: lscr.io/linuxserver/plex # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
+        repository: ghcr.io/linuxserver/plex # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
         tag: 1.41.0.8992-8463ad060-ls235 # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
         imagePullPolicy: IfNotPresent
       timezone: America/New_York

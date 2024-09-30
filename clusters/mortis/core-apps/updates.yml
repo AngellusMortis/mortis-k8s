@@ -67,7 +67,7 @@ metadata:
   name: ssh-bastion
   namespace: flux-system
 spec:
-  image: lscr.io/linuxserver/openssh-server
+  image: ghcr.io/linuxserver/openssh-server
   interval: 12h
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
