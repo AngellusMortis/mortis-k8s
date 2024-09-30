@@ -10,6 +10,8 @@
         ./tmux-session.nix
     ];
 
+    boot.loader.grub.configurationLimit = 10;
+
     networking.domain = "wl.mort.is";
     # networking.hostName = "pi-2"; # Define your hostname.
     # Pick only one of the below networking options.
