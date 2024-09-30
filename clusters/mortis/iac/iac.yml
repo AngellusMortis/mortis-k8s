@@ -60,6 +60,9 @@ spec:
           volumeMounts:
           - name: nix
             mountPath: /nix
+      env:
+        - name: TF_LOG
+          value: INFO
       volumes:
         - name: nix
           persistentVolumeClaim:
@@ -104,6 +107,9 @@ spec:
           volumeMounts:
           - name: nix
             mountPath: /nix
+      env:
+        - name: TF_LOG
+          value: INFO
       volumes:
         - name: nix
           persistentVolumeClaim:
