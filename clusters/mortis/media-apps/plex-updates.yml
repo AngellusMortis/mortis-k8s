@@ -16,7 +16,7 @@ spec:
   imageRepositoryRef:
     name: plex-media-server
   filterTags:
-    pattern: '^(?P<version>\d+.\d+.\d+.(?P<plexBuild>\d+))-.*-ls(?P<lsVersion>\d+)$'
+    pattern: '^.*-ls(?P<lsVersion>\d+)$'
     extract: '$plexBuild'
   policy:
     numerical:
