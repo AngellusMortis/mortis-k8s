@@ -30,7 +30,8 @@
         mirroredBoots = [
             {
                 devices = [ "/dev/disk/by-uuid/CE53-9E71" ];
-                path = "/boot2/efi";
+                path = "/boot2";
+                efiSysMountPoint = "/boot2/efi";
             }
         ];
     };
