@@ -11,6 +11,7 @@
     ];
 
     boot.loader.grub.configurationLimit = 10;
+    nix.gc.automatic = true;
 
     networking.domain = "wl.mort.is";
     # networking.hostName = "pi-2"; # Define your hostname.
