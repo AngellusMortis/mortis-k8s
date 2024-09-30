@@ -37,7 +37,7 @@ spec:
               - name: DELUGE_SYNC_RULES
                 value: '[{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "tleechreload.org","priority": 10,"min_time": "252:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00"},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00"},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
               - name: DELUGE_SYNC_LABEL_REMAP
-                value: "exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed,dns-verify.top=permaseed,seedpool.org=permaseed"
+                value: "avistaz.to=permaseed,exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed,dns-verify.top=permaseed,seedpool.org=permaseed"
               - name: DELUGE_SYNC_LABELS
                 value: seeding
           restartPolicy: Never
