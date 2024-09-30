@@ -71,7 +71,7 @@ spec:
 apiVersion: infra.contrib.fluxcd.io/v1alpha2
 kind: Terraform
 metadata:
-  name: dc-backup
+  name: dc-backup-1
   namespace: flux-system
 spec:
   interval: 24h
