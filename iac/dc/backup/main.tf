@@ -1,5 +1,5 @@
 locals {
-    build_ip = "192.168.3.15"
+    build_ip = "192.168.52.50"
 }
 
 module "backup_build" {
