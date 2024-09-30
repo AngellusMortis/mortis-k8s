@@ -71,7 +71,18 @@ spec:
         type: pvc
         existingClaim: nas-lh-public
         mountPath: /mnt/public
-
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              resources:
+                limits:
+                  cpu: 8000m
+                  memory: 16Gi
+                requests:
+                  cpu: 2000m
+                  memory: 2Gi
     securityContext:
       container:
         runAsNonRoot: true
