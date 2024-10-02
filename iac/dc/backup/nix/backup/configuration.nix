@@ -13,6 +13,15 @@
         ../../../../nix/common/sops.nix
     ];
 
+    sops.secrets.cf_tunnel = {
+        owner = "cloudflared";
+        group = "cloudflared";
+        # The sops file can be also overwritten per secret...
+        sopsFile = ../../secrets/cf-tunnel.json;
+        # ... as well as the format
+        format = "binary";
+    };
+
     networking.hostName = "backup-1";
     networking.hostId = "33ad4037";
 
@@ -72,9 +81,15 @@
     systemd.services.zfs-import-zpool.wants = [ "-.mount" "nix-store.mount" ];
 
     services = {
-        # cloudflared = {
-        #     enable = true;
-        # };
+        cloudflared = {
+            enable = true;
+            tunnels = {
+                "2f90995f-7d93-474d-a558-20c257949251" = {
+                    credentialsFile = config.sops.secrets.cf_tunnel.path;
+                    default = "http_status:404";
+                };
+            };
+        };
 
         syncthing = {
             enable = true;

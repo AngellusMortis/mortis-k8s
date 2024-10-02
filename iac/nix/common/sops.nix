@@ -1,10 +1,11 @@
+# Edit this configuration file to define what should be installed on
+# your system. Help is available in the configuration.nix(5) man page, on
+# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
+
+{ config, lib, pkgs, ... }:
+
 {
-  imports = let
-    # replace this with an actual commit id or tag
-    commit = "3198a242e547939c5e659353551b0668ec150268";
-  in [
-    "${builtins.fetchTarball {
-      url = "https://github.com/Mic92/sops-nix/archive/master.tar.gz";
-    }}/modules/sops"
-  ];
+    imports = [ <sops-nix/modules/sops> ];
+
+    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 }
