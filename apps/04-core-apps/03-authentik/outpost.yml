@@ -15,3 +15,13 @@ spec:
             name: ak-outpost-authentik-embedded-outpost
             port:
               number: 9000
+  - host: "*.dc.mort.is"
+    http:
+      paths:
+      - path: "/outpost.goauthentik.io"
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: ak-outpost-authentik-embedded-outpost
+            port:
+              number: 9000
