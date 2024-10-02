@@ -10,6 +10,7 @@
         ../../../../nix/common/mdcheck.nix
         ../../../../nix/common/all.nix
         ../../../../nix/common/grub-theme.nix
+        ../../../../nix/common/sops.nix
     ];
 
     networking.hostName = "backup-1";
@@ -71,6 +72,10 @@
     systemd.services.zfs-import-zpool.wants = [ "-.mount" "nix-store.mount" ];
 
     services = {
+        # cloudflared = {
+        #     enable = true;
+        # };
+
         syncthing = {
             enable = true;
             guiAddress = "0.0.0.0:8384";
