@@ -87,6 +87,12 @@
 
                     "home-control.wl.mort.is" = "192.168.2.12";
 
+                    # dc stuff
+                    "backup-1-ipmi.dc.mort.is" = "192.168.1.25";
+                    "backup-1-ipmi" = "192.168.1.25";
+                    "backup-1.dc.mort.is" = "192.168.52.50";
+                    "backup-1" = "192.168.52.50";
+
                     # k8s servers
                     ## computer cluster / IPMI
                     "cluster-1-ipmi.wl.mort.is" = "192.168.1.81";
