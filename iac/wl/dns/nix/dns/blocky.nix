@@ -92,6 +92,7 @@
                     "backup-1-ipmi" = "192.168.1.25";
                     "backup-1.dc.mort.is" = "192.168.52.50";
                     "backup-1" = "192.168.52.50";
+                    "sync.dc.mort.is" = "192.168.2.225";
 
                     # k8s servers
                     ## computer cluster / IPMI
