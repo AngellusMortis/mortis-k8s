@@ -32,9 +32,7 @@ spec:
   dnsNames:
   - mort.is
   - '*.mort.is'
-  - wl.mort.is
   - '*.wl.mort.is'
-  - dc.mort.is
   - '*.dc.mort.is'
 ---
 apiVersion: batch/v1
