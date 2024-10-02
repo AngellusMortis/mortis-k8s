@@ -70,7 +70,6 @@ spec:
         enabled: true
         # -- additional ingress annotations
         annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "auth.wl.mort.is"
           nginx.ingress.kubernetes.io/enable-cors: "true"
           nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.wl.mort.is"
         # -- additional ingress labels
@@ -80,6 +79,7 @@ spec:
         # -- List of ingress hosts
         hosts:
           - auth.wl.mort.is
+          - auth.dc.mort.is
     worker:
       autoscaling:
         enabled: true
