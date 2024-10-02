@@ -11,7 +11,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
-    nginx.ingress.kubernetes.io/upstream-vhost: "syncthing.dc.mort.is"
+    nginx.ingress.kubernetes.io/upstream-vhost: "sync.dc.mort.is"
     nginx.ingress.kubernetes.io/auth-url: |-
         http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
     nginx.ingress.kubernetes.io/auth-signin: |-
@@ -25,7 +25,7 @@ metadata:
 spec:
   ingressClassName: nginx-secure
   rules:
-  - host: syncthing.dc.mort.is
+  - host: sync.dc.mort.is
     http:
       paths:
       - path: /
