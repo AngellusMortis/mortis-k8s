@@ -22,6 +22,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: ak-outpost-authentik-embedded-outpost
+            name: ak-outpost-authentik-dc-outpost
             port:
               number: 9000
