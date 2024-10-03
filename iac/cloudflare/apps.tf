@@ -219,6 +219,22 @@ module "media_apps" {
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.bypass.id])
 }
 
+module "media_ingest_apps" {
+    source = "./access_app"
+    for_each = local.media_ingest_apps
+
+    name = each.value.name
+    icon = try(each.value.icon, null)
+    account_id = local.account_id
+    zone_id = cloudflare_zone.mortis.id
+    dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.media_ingest)
+    tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
+    second_subdomain = each.value.second_subdomain
+    base_domain = cloudflare_zone.mortis.zone
+    idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_media_ingest_users.id])
+}
+
 module "metrics_apps" {
     source = "./access_app"
     for_each = local.metrics_apps

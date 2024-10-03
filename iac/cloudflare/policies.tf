@@ -26,6 +26,20 @@ resource "cloudflare_zero_trust_access_policy" "allow_home_users" {
     }
 }
 
+resource "cloudflare_zero_trust_access_policy" "allow_media_ingest_users" {
+    account_id = local.account_id
+    name = "Allow Media Ingest Users"
+    decision = "allow"
+
+    include {
+        group = [cloudflare_zero_trust_access_group.media_ingest_users.id]
+    }
+
+    require {
+        group = [cloudflare_zero_trust_access_group.media_ingest_users.id]
+    }
+}
+
 
 resource "cloudflare_zero_trust_access_policy" "allow_ssh_users" {
     account_id = local.account_id
