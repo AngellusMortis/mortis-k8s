@@ -152,7 +152,7 @@ locals {
             icon = "https://fileflows.com/img/favicon.ico"
         },
         "autobrr" = {
-            name = "Prowlarr"
+            name = "autobrr"
             subdomain = "auto-snatch"
             description = "Auto-snatcher for Torrents"
             icon = "https://autobrr.com/img/favicon.ico"

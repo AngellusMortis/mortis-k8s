@@ -89,9 +89,6 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: prometheus.wl.mort.is
-
-
-      # TODO: migrate
       # home apps
       - hostname: birds.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
@@ -150,8 +147,8 @@ spec:
       - hostname: movies.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
-          originServerName: television.wl.mort.is
-      - hostname: movies.wl.mort.is
+          originServerName: movies.wl.mort.is
+      - hostname: music.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: music.wl.mort.is
