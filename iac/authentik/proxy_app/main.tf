@@ -23,7 +23,7 @@ resource "authentik_provider_proxy" "provider" {
 resource "authentik_application" "application" {
     name = var.name
     slug = var.slug
-    group = "Home"
+    group = var.group
     protocol_provider = var.create_provider ? authentik_provider_proxy.provider[0].id : null
     meta_icon = var.icon
     meta_launch_url = "https://${var.subdomain}.${var.base_domain}${var.path}"
