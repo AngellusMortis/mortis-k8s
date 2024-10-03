@@ -59,6 +59,27 @@ locals {
             second_subdomain = "power"
             icon = "https://cdn.prod.website-files.com/628f26de26f0252b4094378b/628f31957d231cc922315f35_span-webclip.png"
         },
+        "solar" = {
+            name = "Enphase Envoy"
+            second_subdomain = "solar"
+            icon = "https://enphase.com/apple-touch-icon.png"
+        },
+        "unifi-protect" = {
+            name = "UniFi Protect"
+            second_subdomain = "protect"
+            icon = "https://content-cdn.svc.ui.com/static/favicon.ico"
+        },
+        "vacuum" = {
+            name = "Valetudo"
+            second_subdomain = "vacuum"
+            icon = "https://valetudo.cloud/favicon.ico"
+        },
+        "syncthing" = {
+            name = "SyncThing"
+            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
+            dns_tags = concat(local.tags.home, local.tags.media)
+            second_subdomain = "sync"
+        },
     }
     media_apps = {
         "plex" = {
@@ -74,6 +95,48 @@ locals {
             name = "Overseer"
             second_subdomain = "media"
             icon = "https://overseerr.dev/favicon.ico"
+        },
+    }
+    media_ingest_apps = {
+        "bazarr" = {
+            name = "Bazarr"
+            second_subdomain = "subs"
+            icon = "https://www.bazarr.media/assets/img/favicon.ico"
+        },
+        "deluge" = {
+            name = "Deluge"
+            second_subdomain = "download"
+            icon = "https://deluge-torrent.org/images/deluge_logo.png"
+        },
+        "radarr" = {
+            name = "Radarr"
+            second_subdomain = "movies"
+            icon = "https://radarr.video/img/favicon.ico"
+        },
+        "prowlarr" = {
+            name = "Prowlarr"
+            second_subdomain = "index"
+            icon = "https://prowlarr.com/img/favicon.ico"
+        },
+        "sonarr" = {
+            name = "Sonarr"
+            second_subdomain = "television"
+            icon = "https://sonarr.tv/img/favicon.ico"
+        },
+        "fileflows" = {
+            name = "FileFlows"
+            second_subdomain = "processing"
+            icon = "https://fileflows.com/img/favicon.ico"
+        },
+        "autobrr" = {
+            name = "autobrr"
+            second_subdomain = "autodl"
+            icon = "https://autobrr.com/img/favicon.ico"
+        },
+        "lidarr" = {
+            name = "Lidarr"
+            second_subdomain = "music"
+            icon = "https://lidarr.audio/img/favicon.ico"
         },
     }
     metrics_apps = {
@@ -132,7 +195,7 @@ module "home_apps" {
     icon = try(each.value.icon, null)
     account_id = local.account_id
     zone_id = cloudflare_zone.mortis.id
-    dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.home)
+    dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, try(each.value.dns_tags, local.tags.home))
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
     second_subdomain = each.value.second_subdomain
     base_domain = cloudflare_zone.mortis.zone

@@ -44,7 +44,7 @@ spec:
       main:
         enabled: true
         annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "auto-snatch.wl.mort.is"
+          nginx.ingress.kubernetes.io/upstream-vhost: "autodl.wl.mort.is"
           nginx.ingress.kubernetes.io/auth-url: |-
               http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
           nginx.ingress.kubernetes.io/auth-signin: |-
@@ -56,7 +56,7 @@ spec:
           nginx.ingress.kubernetes.io/proxy-body-size: 512m
         ingressClassName:  "nginx-secure"
         hosts:
-          - host: auto-snatch.wl.mort.is
+          - host: autodl.wl.mort.is
             paths:
                 - path: /
                   pathType: Prefix

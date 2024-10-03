@@ -141,7 +141,7 @@ locals {
         },
         "autobrr" = {
             name = "autobrr"
-            subdomain = "auto-snatch"
+            subdomain = "autodl"
             description = "Auto-snatcher for Torrents"
             icon = "https://autobrr.com/img/favicon.ico"
         },

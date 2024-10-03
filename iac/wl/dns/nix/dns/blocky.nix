@@ -206,7 +206,7 @@
                     "television.wl.mort.is" = "192.168.2.225";
 
                     # secure / media ingest apps
-                    "auto-snatch.wl.mort.is" = "192.168.2.225";
+                    "autodl.wl.mort.is" = "192.168.2.225";
                     "download.wl.mort.is" = "192.168.2.225";
                     "processing.wl.mort.is" = "192.168.2.225";
 
