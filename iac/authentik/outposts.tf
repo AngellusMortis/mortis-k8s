@@ -25,8 +25,6 @@ resource "authentik_outpost" "embedded" {
         module.media_ingest_apps["lidarr"].provider_id,
         module.metrics_apps["alert-manager"].provider_id,
         module.metrics_apps["prometheus"].provider_id,
-        authentik_provider_oauth2.grafana.id,
-        authentik_provider_oauth2.k8s.id,
     ]
     config = jsonencode({
         "log_level": "info",
