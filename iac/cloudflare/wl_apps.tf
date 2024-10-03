@@ -84,7 +84,7 @@ resource "cloudflare_record" "fr_ssh" {
     zone_id = cloudflare_zone.mortis.id
     name = "fr"
     proxied = true
-    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    content = "ac085653-976a-425f-81c9-b40d1dd883f6.cfargotunnel.com"
     type = "CNAME"
     tags = concat(local.tags.fr, local.tags.control)
 }
