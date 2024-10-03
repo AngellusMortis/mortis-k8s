@@ -125,3 +125,9 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  fileMappings:
+    - location: "workspace"
+      path: ".env"
+      secretRef:
+        name: authentik-secrets
+        key: .env
