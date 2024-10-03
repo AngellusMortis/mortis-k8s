@@ -167,7 +167,7 @@ module "media_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Metrics"
+    group = "Media"
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
@@ -180,7 +180,7 @@ module "metrics_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Media"
+    group = "Metrics"
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
