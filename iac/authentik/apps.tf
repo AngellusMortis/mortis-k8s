@@ -10,7 +10,9 @@ data "authentik_flow" "default_provider_authorization_implicit_consent" {
     slug = "default-provider-authorization-implicit-consent"
 }
 
-## Cloudflare OIDC
+## WL Apps
+## OIDC Apps
+# Cloudflare OIDC
 resource "authentik_provider_oauth2" "cloudflare" {
     name = "Cloudflare OIDC"
     client_id = "pMPFCSCQKjZLxMyGY1pucPM8YuyNDAQdfP3EmsOO"
@@ -38,7 +40,8 @@ resource "authentik_application" "cloudflare" {
     policy_engine_mode = "any"
 }
 
-## Kubernetes Dashboard / k8s OIDC
+## Metrics Apps
+# Kubernetes Dashboard / k8s OIDC
 resource "authentik_provider_oauth2" "k8s" {
     name = "Kubernetes OIDC"
     client_id = "ZExFm1fL1IeMu6474ecOvZcm3bTNSKx45JVqPuI9"
@@ -71,6 +74,12 @@ resource "authentik_application" "k8s_dashboard" {
     policy_engine_mode = "any"
 }
 
+resource "authentik_policy_binding" "k8s_dashboard" {
+    target = authentik_application.k8s_dashboard.uuid
+    group  = authentik_group.admin_users.id
+    order  = 0
+}
+
 # Grafana
 resource "authentik_provider_oauth2" "grafana" {
     name = "Grafana OIDC"
@@ -101,7 +110,53 @@ resource "authentik_application" "grafana" {
     policy_engine_mode = "any"
 }
 
-## SyncThing (Backup)
+resource "authentik_policy_binding" "grafana" {
+    target = authentik_application.grafana.uuid
+    group  = authentik_group.admin_users.id
+    order  = 0
+}
+
+## Media Apps
+# Plex
+resource "authentik_application" "plex" {
+    name = "Plex"
+    slug = "plex"
+    group = "Media"
+    protocol_provider = null
+    meta_icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
+    meta_launch_url = "https://plex.wl.mort.is"
+    meta_description = "Media Streaming Server"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+resource "authentik_policy_binding" "plex" {
+    target = authentik_application.plex.uuid
+    group  = authentik_group.media_users.id
+    order  = 0
+}
+
+# Overseer
+resource "authentik_application" "overseer" {
+    name = "Overseer"
+    slug = "overseer"
+    group = "Media"
+    protocol_provider = null
+    meta_icon = "https://overseerr.dev/favicon.ico"
+    meta_launch_url = "https://media.wl.mort.is"
+    meta_description = "Media Requester"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+resource "authentik_policy_binding" "overseer" {
+    target = authentik_application.overseer.uuid
+    group  = authentik_group.media_users.id
+    order  = 0
+}
+
+## DC Apps
+# SyncThing (Backup)
 resource "authentik_provider_proxy" "dc_syncthing" {
     name = "Provider for SyncThing (Backup)"
     authentication_flow = data.authentik_flow.internal_authentication_flow.id
