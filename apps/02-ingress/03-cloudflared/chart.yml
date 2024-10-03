@@ -51,7 +51,7 @@ spec:
       # The name of the tunnel this instance will serve
       tunnelName: "wl.mort.is"
       # The ID of the above tunnel.
-      tunnelId: "0b543823-4094-4af0-8d27-d3e08185bf80"
+      tunnelId: "e3b493fc-b445-41e6-b125-b6410c07693d"
       # The secret for the tunnel.
       secretName: "cf-tunnel-secret"
       ingress:
