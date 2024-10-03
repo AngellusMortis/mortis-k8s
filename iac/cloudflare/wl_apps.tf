@@ -27,6 +27,60 @@ resource "cloudflare_zero_trust_access_application" "wl_auth" {
     ]
 }
 
+# SSH Bastion
+resource "cloudflare_record" "wl_ssh" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "ssh.wl"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.wl, local.tags.control, local.tags.k8s)
+}
+
+resource "cloudflare_zero_trust_access_application" "wl_ssh" {
+    account_id = local.account_id
+    name = "SSH Bastion"
+    domain = "ssh.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_ssh_users.id
+    ]
+}
+
+# FR SSH Bastion
+resource "cloudflare_record" "fr_ssh" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "fr"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.fr, local.tags.control)
+}
+
+resource "cloudflare_zero_trust_access_application" "fr_ssh" {
+    account_id = local.account_id
+    name = "Egress SSH"
+    domain = "ssh.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_ssh_users.id
+    ]
+}
+
 # Longhorn
 resource "cloudflare_record" "wl_longhorn" {
     zone_id = cloudflare_zone.mortis.id
