@@ -89,7 +89,7 @@
                     default = "http_status:404";
                     ingress = {
                         "sync.dc.wl.mort.is" = "http://localhost:8384";
-                    }
+                    };
                 };
             };
         };
