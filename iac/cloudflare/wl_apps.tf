@@ -6,7 +6,7 @@ resource "cloudflare_record" "wl_auth" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.control, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.control, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_auth" {
@@ -34,7 +34,7 @@ resource "cloudflare_record" "wl_ssh" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.control, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.control, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_ssh" {
@@ -61,7 +61,7 @@ resource "cloudflare_record" "fr_ssh" {
     proxied = true
     content = "ac085653-976a-425f-81c9-b40d1dd883f6.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.fr, local.tags.control)
+    tags = concat(local.tags.all, local.tags.fr, local.tags.control)
 }
 
 resource "cloudflare_zero_trust_access_application" "fr_ssh" {
@@ -88,7 +88,7 @@ resource "cloudflare_record" "wl_longhorn" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_longhorn" {
@@ -116,7 +116,7 @@ resource "cloudflare_record" "wl_backup" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_backup" {
@@ -144,7 +144,7 @@ resource "cloudflare_record" "wl_network" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_network" {
@@ -172,7 +172,7 @@ resource "cloudflare_record" "wl_cd" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_cd" {
@@ -201,7 +201,7 @@ resource "cloudflare_record" "wl_monitor" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_monitor" {
@@ -229,7 +229,7 @@ resource "cloudflare_record" "wl_k8s" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.metrics, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_k8s" {
@@ -258,7 +258,7 @@ resource "cloudflare_record" "wl_plex" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.media, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.media, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_plex" {
@@ -286,7 +286,7 @@ resource "cloudflare_record" "wl_media" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.media, local.tags.k8s)
+    tags = concat(local.tags.all, local.tags.wl, local.tags.media, local.tags.k8s)
 }
 
 resource "cloudflare_zero_trust_access_application" "wl_media" {

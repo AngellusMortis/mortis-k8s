@@ -1,5 +1,6 @@
 locals {
     tags = {
+        all = ["tf"]
         fr = ["fr"]
         wl = ["wl"]
         dc = ["dc"]

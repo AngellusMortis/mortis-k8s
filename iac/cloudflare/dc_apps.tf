@@ -4,7 +4,7 @@ resource "cloudflare_record" "dc_syncthing" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.dc.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = concat(local.tags.dc, local.tags.media)
+    tags = concat(local.tags.all, local.tags.dc, local.tags.media)
 }
 
 resource "cloudflare_zero_trust_access_application" "dc_syncthing" {
