@@ -58,7 +58,7 @@ resource "authentik_application" "dc_longhorn" {
     slug = "longhorn"
     group = "Control"
     protocol_provider = authentik_provider_proxy.longhorn.id
-    meta_icon = "https://fluxcd.io/favicons/favicon-32x32.png"
+    meta_icon = "https://longhorn.io/img/logos/longhorn-icon-color.png"
     meta_launch_url = "https://longhorn.wl.mort.is/"
     meta_description = "Kubernetes Storage Backend UI"
     open_in_new_tab = true
