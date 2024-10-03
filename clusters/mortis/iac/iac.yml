@@ -119,7 +119,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
-  planOnly: true
+  approvePlan: ""
   approvePlan: auto
   path: ./iac/authentik
   sourceRef:
