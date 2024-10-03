@@ -31,6 +31,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 24h
+  storeReadablePlan: human
   approvePlan: auto
   path: ./iac/wl/dns
   sourceRef:
@@ -75,6 +76,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 24h
+  storeReadablePlan: human
   approvePlan: auto
   path: ./iac/dc/backup
   sourceRef:
@@ -119,6 +121,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
+  storeReadablePlan: human
   approvePlan: auto
   path: ./iac/authentik
   sourceRef:
@@ -138,6 +141,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 15m
+  storeReadablePlan: human
   approvePlan: ""
   path: ./iac/cloudflare
   sourceRef:

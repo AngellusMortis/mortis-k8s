@@ -22,6 +22,7 @@ data:
     FLUX_VERSION=2.3.0
     BROWSH_VERSION=1.8.0
     KUBESEAL_VERSION='0.27.1'
+    TF_CONTROLLER_VERSION='0.15.1'
 
     # add testing repo for krew
     echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -42,6 +43,11 @@ data:
     curl -OL "https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION:?}/kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz"
     tar -xvzf kubeseal-${KUBESEAL_VERSION:?}-linux-amd64.tar.gz kubeseal
     install -m 755 kubeseal /usr/local/bin/kubeseal
+
+    # install tfctl
+    curl -OL "https://github.com/flux-iac/tofu-controller/releases/download/v${TF_CONTROLLER_VERSION:?}/tfctl_Linux_amd64.tar.gz"
+    tar -xvzf tfctl_Linux_amd64.tar.gz tfctl
+    install -m 755 tfctl /usr/local/bin/tfctl
 
     # install krew
     (
