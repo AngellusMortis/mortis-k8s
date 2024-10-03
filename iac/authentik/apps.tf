@@ -283,7 +283,7 @@ resource "authentik_application" "prometheus" {
     name = "Prometheus"
     slug = "prometheus"
     group = "Metrics"
-    protocol_provider = authentik_provider_proxy.alert_manager.id
+    protocol_provider = authentik_provider_proxy.prometheus.id
     meta_icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
     meta_launch_url = "https://prometheus.wl.mort.is/"
     meta_description = "Metric Scraper"
