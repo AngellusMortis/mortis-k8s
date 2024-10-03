@@ -53,7 +53,7 @@ resource "authentik_provider_proxy" "longhorn" {
     access_token_validity = "hours=168"
 }
 
-resource "authentik_application" "dc_longhorn" {
+resource "authentik_application" "longhorn" {
     name = "Longhorn"
     slug = "longhorn"
     group = "Control"
@@ -63,6 +63,12 @@ resource "authentik_application" "dc_longhorn" {
     meta_description = "Kubernetes Storage Backend UI"
     open_in_new_tab = true
     policy_engine_mode = "any"
+}
+
+resource "authentik_policy_binding" "longhorn" {
+    target = authentik_application.longhorn.uuid
+    group  = authentik_group.admin_users
+    order  = 0
 }
 
 # CrashPlan
@@ -89,6 +95,12 @@ resource "authentik_application" "crashplan" {
     policy_engine_mode = "any"
 }
 
+resource "authentik_policy_binding" "crashplan" {
+    target = authentik_application.crashplan.uuid
+    group  = authentik_group.admin_users
+    order  = 0
+}
+
 # UniFi Network
 resource "authentik_provider_proxy" "ui_network" {
     name = "Provider for UniFi Network"
@@ -113,6 +125,12 @@ resource "authentik_application" "ui_network" {
     policy_engine_mode = "any"
 }
 
+resource "authentik_policy_binding" "ui_network" {
+    target = authentik_application.ui_network.uuid
+    group  = authentik_group.admin_users
+    order  = 0
+}
+
 # FluxCD
 resource "authentik_provider_proxy" "fluxcd" {
     name = "Provider for FluxCD"
@@ -135,6 +153,12 @@ resource "authentik_application" "fluxcd" {
     meta_description = "UniFi Network Controller"
     open_in_new_tab = true
     policy_engine_mode = "any"
+}
+
+resource "authentik_policy_binding" "fluxcd" {
+    target = authentik_application.fluxcd.uuid
+    group  = authentik_group.admin_users
+    order  = 0
 }
 
 ## Metrics Apps
