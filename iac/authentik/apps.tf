@@ -31,40 +31,30 @@ locals {
             subdomain = "birds"
             description = "Bird Analyzer"
             icon = "https://raw.githubusercontent.com/tphakala/birdnet-go/main/doc/BirdNET-Go-logo.webp"
-            create_provider = true
-            path = "/"
         },
         "home-assistant" = {
             name = "Home Assistant"
             subdomain = "home"
             description = "Home Automation Service"
             icon = "https://www.home-assistant.io/images/favicon-192x192.png"
-            create_provider = true
-            path = "/"
         },
         "paperless" = {
             name = "Paperless"
             subdomain = "paperless"
             description = "Digital Document Storage"
             icon = "https://docs.paperless-ngx.com/assets/favicon.png"
-            create_provider = true
-            path = "/"
         },
         "span" = {
             name = "SPAN"
             subdomain = "power"
             description = "Electrical Panel"
             icon = "https://cdn.prod.website-files.com/628f26de26f0252b4094378b/628f31957d231cc922315f35_span-webclip.png"
-            create_provider = true
-            path = "/"
         },
         "unifi-protect" = {
             name = "UniFi Protect"
             subdomain = "protect"
             description = "UniFi Protect Controller"
             icon = "https://content-cdn.svc.ui.com/static/favicon.ico"
-            create_provider = true
-            path = "/"
         },
         "enphase-envoy" = {
             name = "Enphase Envoy"
@@ -79,8 +69,6 @@ locals {
             subdomain = "vacuum"
             description = "Vacuum Control Interface for Ground Floor"
             icon = "https://valetudo.cloud/favicon.ico"
-            create_provider = true
-            path = "/"
         },
         "valtuedo-downstairs" = {
             name = "Valetudo (Downstairs)"
