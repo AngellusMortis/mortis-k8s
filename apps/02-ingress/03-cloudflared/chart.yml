@@ -181,6 +181,8 @@ spec:
       # - hostname: debug3.wl.mort.is
       #   service: http://http-debug3.default
       # Misc.
+      - hostname: vpn.mort.is
+        service: http_status:404
       - hostname: wl.mort.is
         service: http_status:404
       - hostname: l.mort.is
