@@ -67,7 +67,7 @@ resource "authentik_application" "longhorn" {
 
 resource "authentik_policy_binding" "longhorn" {
     target = authentik_application.longhorn.uuid
-    group  = authentik_group.admin_users
+    group  = authentik_group.admin_users.id
     order  = 0
 }
 
@@ -97,7 +97,7 @@ resource "authentik_application" "crashplan" {
 
 resource "authentik_policy_binding" "crashplan" {
     target = authentik_application.crashplan.uuid
-    group  = authentik_group.admin_users
+    group  = authentik_group.admin_users.id
     order  = 0
 }
 
@@ -127,7 +127,7 @@ resource "authentik_application" "ui_network" {
 
 resource "authentik_policy_binding" "ui_network" {
     target = authentik_application.ui_network.uuid
-    group  = authentik_group.admin_users
+    group  = authentik_group.admin_users.id
     order  = 0
 }
 
@@ -157,7 +157,7 @@ resource "authentik_application" "fluxcd" {
 
 resource "authentik_policy_binding" "fluxcd" {
     target = authentik_application.fluxcd.uuid
-    group  = authentik_group.admin_users
+    group  = authentik_group.admin_users.id
     order  = 0
 }
 
