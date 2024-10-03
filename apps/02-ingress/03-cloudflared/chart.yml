@@ -186,4 +186,3 @@ spec:
         service: http_status:404
       - hostname: mort.is
         service: http_status:404
-      - service: http_status:404
