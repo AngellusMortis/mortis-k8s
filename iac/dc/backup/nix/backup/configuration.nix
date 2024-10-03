@@ -88,7 +88,7 @@
                     credentialsFile = config.sops.secrets.cf_tunnel.path;
                     default = "http_status:404";
                     ingress = {
-                        "sync.dc.wl.mort.is" = "http://localhost:8384";
+                        "sync.dc.mort.is" = "http://localhost:8384";
                     };
                 };
             };

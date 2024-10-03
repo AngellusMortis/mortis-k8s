@@ -4,7 +4,7 @@ resource "cloudflare_record" "dc_syncthing" {
     proxied = true
     content = "${cloudflare_zero_trust_tunnel_cloudflared.dc.id}.cfargotunnel.com"
     type = "CNAME"
-    tags = ["dc", "media"]
+    tags = concat(local.tags.dc, local.tags.media)
 }
 
 resource "cloudflare_zero_trust_access_policy" "allow_admin_users" {
@@ -17,7 +17,7 @@ resource "cloudflare_zero_trust_access_policy" "allow_admin_users" {
     }
 
     require {
-        email = [cloudflare_zero_trust_access_group.admin_users.id]
+        group = [cloudflare_zero_trust_access_group.admin_users.id]
     }
 }
 
