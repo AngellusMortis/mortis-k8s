@@ -1,3 +1,4 @@
+.env
 builder-key
 nodes/
 talosconfig
