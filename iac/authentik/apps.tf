@@ -1,20 +1,80 @@
+data "authentik_flow" "external_authentication_flow" {
+    slug = "external-authentication-flow"
+}
+
 data "authentik_flow" "internal_authentication_flow" {
-  slug = "internal-authentication-flow"
+    slug = "internal-authentication-flow"
 }
 
 data "authentik_flow" "default_provider_authorization_implicit_consent" {
-  slug = "default-provider-authorization-implicit-consent"
+    slug = "default-provider-authorization-implicit-consent"
 }
 
-resource "authentik_provider_proxy" "dc_syncthing" {
-  name = "Provider for SyncThing (Backup)"
-  authentication_flow = data.authentik_flow.internal_authentication_flow.id
-  authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
-  mode = "forward_domain"
+## Cloudflare OIDC
+resource "authentik_provider_oauth2" "cloudflare" {
+    name = "Cloudflare OIDC"
+    client_id = "pMPFCSCQKjZLxMyGY1pucPM8YuyNDAQdfP3EmsOO"
+    authentication_flow = data.authentik_flow.external_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    client_type = "confidential"
+    redirect_uris = ["https://mortis.cloudflareaccess.com/cdn-cgi/access/callback"]
 
-  external_host = "https://auth.dc.mort.is"
-  cookie_domain = "dc.mort.is"
-  access_token_validity = "hours=168"
+    access_token_validity = "minutes=5"
+    property_mappings = [
+        "92b7741f-fde2-457d-a32c-88117620901f",
+        "31404244-983e-448d-a848-ced15b0c6f66",
+        "38f6abba-95c2-4032-b5b8-c4834f8db70e",
+    ]
+    signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
+}
+
+resource "authentik_provider_oauth2" "k8s" {
+    name = "Kubernetes OIDC"
+    client_id = "ZExFm1fL1IeMu6474ecOvZcm3bTNSKx45JVqPuI9"
+    authentication_flow = data.authentik_flow.external_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    client_type = "confidential"
+    redirect_uris = [
+        "https://k8s.wl.mort.is/oauth2/callback",
+        "http://localhost:8000",
+    ]
+
+    access_token_validity = "minutes=5"
+    property_mappings = [
+        "92b7741f-fde2-457d-a32c-88117620901f",
+        "31404244-983e-448d-a848-ced15b0c6f66",
+        "38f6abba-95c2-4032-b5b8-c4834f8db70e",
+    ]
+    signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
+}
+
+resource "authentik_provider_oauth2" "grafana" {
+    name = "Grafana OIDC"
+    client_id = "RX9M4KT3JQeNqGrOAxzNaVaErAf6vVLZM6cYQdQE"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    client_type = "confidential"
+    redirect_uris = ["https://monitor.wl.mort.is/login/generic_oauth"]
+
+    access_token_validity = "minutes=5"
+    property_mappings = [
+        "92b7741f-fde2-457d-a32c-88117620901f",
+        "31404244-983e-448d-a848-ced15b0c6f66",
+        "38f6abba-95c2-4032-b5b8-c4834f8db70e",
+    ]
+    signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
+}
+
+## SyncThing (Backup)
+resource "authentik_provider_proxy" "dc_syncthing" {
+    name = "Provider for SyncThing (Backup)"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    mode = "forward_domain"
+
+    external_host = "https://auth.dc.mort.is"
+    cookie_domain = "dc.mort.is"
+    access_token_validity = "hours=168"
 }
 
 resource "authentik_application" "dc_syncthing" {
@@ -30,10 +90,12 @@ resource "authentik_application" "dc_syncthing" {
 }
 
 resource "authentik_policy_binding" "dc_syncthing" {
-  target = authentik_application.dc_syncthing.uuid
-  group  = authentik_group.admin_users.id
-  order  = 0
+    target = authentik_application.dc_syncthing.uuid
+    group  = authentik_group.admin_users.id
+    order  = 0
 }
+
+## Outposts
 
 resource "authentik_outpost" "dc_outpost" {
     name = "authentik dc outpost"
