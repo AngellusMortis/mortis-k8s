@@ -7,6 +7,15 @@ resource "cloudflare_record" "root" {
     tags = concat(local.tags.all, local.tags.unused)
 }
 
+resource "cloudflare_record" "files" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "files"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.all, local.tags.media, local.tags.wl, local.tags.k8s)
+}
+
 resource "cloudflare_record" "vpn" {
     zone_id = cloudflare_zone.mortis.id
     name = "vpn"
