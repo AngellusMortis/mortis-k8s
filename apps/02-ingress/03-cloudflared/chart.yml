@@ -76,8 +76,6 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: k8s.wl.mort.is
-
-      # TODO: migrate
       # metrics apps
       - hostname: alerts.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
@@ -91,6 +89,9 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: prometheus.wl.mort.is
+
+
+      # TODO: migrate
       # home apps
       - hostname: birds.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress

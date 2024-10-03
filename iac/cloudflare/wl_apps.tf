@@ -1,29 +1,4 @@
 ## Control Apps
-resource "cloudflare_record" "root" {
-    zone_id = cloudflare_zone.mortis.id
-    name = "@"
-    proxied = true
-    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
-    type = "CNAME"
-    tags = local.tags.unused
-}
-resource "cloudflare_record" "wl_root" {
-    zone_id = cloudflare_zone.mortis.id
-    name = "wl"
-    proxied = true
-    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
-    type = "CNAME"
-    tags = concat(local.tags.wl, local.tags.unused)
-}
-resource "cloudflare_record" "links" {
-    zone_id = cloudflare_zone.mortis.id
-    name = "l"
-    proxied = true
-    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
-    type = "CNAME"
-    tags = concat(local.tags.page_rule, local.tags.misc)
-}
-
 # Authentik
 resource "cloudflare_record" "wl_auth" {
     zone_id = cloudflare_zone.mortis.id
