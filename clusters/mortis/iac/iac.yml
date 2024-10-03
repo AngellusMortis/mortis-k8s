@@ -127,6 +127,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  writeOutputsToSecret:
+    name: tf-authentik-output
   fileMappings:
     - location: "workspace"
       path: ".env"
@@ -147,6 +149,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  writeOutputsToSecret:
+    name: tf-cloudflare-output
   fileMappings:
     - location: "workspace"
       path: ".env"
