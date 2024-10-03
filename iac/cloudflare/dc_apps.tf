@@ -7,20 +7,6 @@ resource "cloudflare_record" "dc_syncthing" {
     tags = concat(local.tags.dc, local.tags.media)
 }
 
-resource "cloudflare_zero_trust_access_policy" "allow_admin_users" {
-    account_id = local.account_id
-    name = "Allow Admin Users"
-    decision = "allow"
-
-    include {
-        group = [cloudflare_zero_trust_access_group.admin_users.id]
-    }
-
-    require {
-        group = [cloudflare_zero_trust_access_group.admin_users.id]
-    }
-}
-
 resource "cloudflare_zero_trust_access_application" "dc_syncthing" {
     account_id = local.account_id
     name = "SyncThing (Backup)"
