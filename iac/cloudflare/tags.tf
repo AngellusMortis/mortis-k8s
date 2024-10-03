@@ -12,5 +12,9 @@ locals {
         media = ["media"]
         media_ingest = ["media", "media-ingest"]
         metrics = ["control", "metrics"]
+
+        misc = ["misc"]
+        page_rule = ["page_rule"]
+        unused = ["misc", "unused"]
     }
 }

@@ -72,14 +72,12 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: backup.wl.mort.is
-      - hostname: dns-1.wl.mort.is
-        service: https://ingress-nginx-secure-controller.ingress
-        originRequest:
-          originServerName: dns-1.wl.mort.is
       - hostname: k8s.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: k8s.wl.mort.is
+
+      # TODO: migrate
       # metrics apps
       - hostname: alerts.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
@@ -174,14 +172,18 @@ spec:
       # SSH
       - hostname: ssh.wl.mort.is
         service: ssh://bastion.ssh.svc.cluster.local:22
+      # testing
+      # - hostname: debug.wl.mort.is
+      #   service: http://ingress-nginx-insecure-controller.ingress
+      # - hostname: debug2.wl.mort.is
+      #   service: http://ingress-nginx-secure-controller.ingress
+      # - hostname: debug3.wl.mort.is
+      #   service: http://http-debug3.default
       # Misc.
       - hostname: wl.mort.is
-        # testing
-        # - hostname: debug.wl.mort.is
-        #   service: http://ingress-nginx-insecure-controller.ingress
-        # - hostname: debug2.wl.mort.is
-        #   service: http://ingress-nginx-secure-controller.ingress
-        # - hostname: debug3.wl.mort.is
-        #   service: http://http-debug3.default
-
         service: http_status:404
+      - hostname: l.mort.is
+        service: http_status:404
+      - hostname: mort.is
+        service: http_status:404
+      - service: http_status:404
