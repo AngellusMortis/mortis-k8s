@@ -84,7 +84,7 @@
         cloudflared = {
             enable = true;
             tunnels = {
-                "2f90995f-7d93-474d-a558-20c257949251" = {
+                "4ce0b609-4efd-40a2-8421-7256ba534d21" = {
                     credentialsFile = config.sops.secrets.cf_tunnel.path;
                     default = "http_status:404";
                 };

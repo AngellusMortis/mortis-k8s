@@ -6,7 +6,7 @@ metadata:
   name: cloudflare-api-token-secret
   namespace: ingress
 spec:
-  # SECRET: Cloudflare -> Mortis k8s
+  # SECRET: Cloudflare -> Mortis k8s - cert-manager
   encryptedData:
     api-token: AgBNkaIGqd5NGdCwPCpWZAEQ/Mb3HKkdu516Ea1aVYo9BjB3wir/OgDbvmGu6KPvS+wjX7VXGF2x3+j0cQvVijKtTbpWm5sMDtkjMGzNH0RDVlewxVoAliKz9LZegZVU7dmT5xKUMQMDnSknb0yfS4m/m/ETA2hP+d7Y8jPH+v7Wa+CYXfUpYwQEEN2MBCvHwCrHmSvlCmf8bI2+k3SeZ/bFvkZDsw7X1fSgrTUcN1UhT0IGumw23TRVCPoL80EV6oFL4oKpuwCfHZSNXbnnJW+ozq8Qbjkw+n/YUNLjkw9gFsuueAeJg2wUTLi1a1qMVyxgxMv4QdougD3iVqM4JrolA3wDHaYQdYoY5t8U2F0g+s2oLvBUuVM3DNLw+Waogf7WVlrxk5TtksNgNc/CQ+4zEpmEYSIdzL9Cbj0BYn9AVx1R9TDvgFLCt3dmBX2H9jircY2AzhLZhAsAX0TzAbEydtRG0f/45LDmuLBI167jYJbpbFPVC52bzEg6Jc0NL0w2CVkAqT7PXY1IDwcZRWl/vuDYDPr6/zMZBr/v1t0W/0KOH8zVr3eCLKZmbBB/+dMNbohEfL9/if5mbfB/YjQ2lHPgZZqklaS/46RcHjhURmdIYJw/N0bRxY4GJCCDMYeG0/i2sCqhb79a5N5ON46JQk7SeQklJCCZaPj2OzoGEWXca+Zsv7uvqaXsUZnxWO9NZhmrBGyR94Uv5YDtEjHD4lgA1BcRb1j1y7R5t2Qj1vG3xp1b/wxy
   template:
