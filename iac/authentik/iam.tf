@@ -30,6 +30,19 @@ resource "authentik_group" "admin_users" {
     ]
 }
 
+resource "authentik_group" "home_users" {
+    name = "Home Users"
+    is_superuser = false
+    parent = authentik_group.all_users.id
+    attributes = jsonencode({
+        "notes": "Group containing users with access home services."
+    })
+    users = [
+        data.authentik_user.cbailey.id,
+        data.authentik_user.sbailey.id,
+    ]
+}
+
 resource "authentik_group" "media_users" {
     name = "Media Users"
     is_superuser = false

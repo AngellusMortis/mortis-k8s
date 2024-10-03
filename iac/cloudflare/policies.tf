@@ -12,6 +12,21 @@ resource "cloudflare_zero_trust_access_policy" "allow_admin_users" {
     }
 }
 
+resource "cloudflare_zero_trust_access_policy" "allow_home_users" {
+    account_id = local.account_id
+    name = "Allow Home Users"
+    decision = "allow"
+
+    include {
+        group = [cloudflare_zero_trust_access_group.home_users.id]
+    }
+
+    require {
+        group = [cloudflare_zero_trust_access_group.home_users.id]
+    }
+}
+
+
 resource "cloudflare_zero_trust_access_policy" "allow_ssh_users" {
     account_id = local.account_id
     name = "Allow SSH Users"
