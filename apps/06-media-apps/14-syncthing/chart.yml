@@ -48,7 +48,7 @@ spec:
     persistence:
       config:
         enabled: true
-        size: 25Gi
+        size: 50Gi
         mountPath: "/var/syncthing"
 
       syncthing:
