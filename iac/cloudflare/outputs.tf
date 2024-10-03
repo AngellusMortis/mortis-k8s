@@ -9,12 +9,12 @@ output "dc_tunnel_secret" {
 }
 
 output "wl_tunnel_id" {
-    value = cloudflare_zero_trust_tunnel_cloudflared.dc.id
+    value = cloudflare_zero_trust_tunnel_cloudflared.wl.id
     sensitive = false
 }
 
 output "wl_tunnel_secret" {
-    value = cloudflare_zero_trust_tunnel_cloudflared.dc.secret
+    value = cloudflare_zero_trust_tunnel_cloudflared.wl.secret
     sensitive = true
 }
 
