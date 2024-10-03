@@ -168,6 +168,10 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: television.wl.mort.is
+      - hostname: autodl.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: autodl.wl.mort.is
       # Boundlexx
       - hostname: api.boundlexx.app
         service: http://ingress-nginx-insecure-controller.ingress
