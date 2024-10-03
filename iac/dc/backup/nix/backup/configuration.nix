@@ -126,6 +126,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "media-games" = {
                         id = "wadfp-trxlq";
@@ -139,6 +143,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "media-movies" = {
                         id = "kdjcn-4czrm";
@@ -166,6 +174,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "media-sounds" = {
                         id = "fpe6i-t4azv";
@@ -193,6 +205,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "public" = {
                         id = "tg4pk-fhmzv";
@@ -206,6 +222,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "personal-cbailey" = {
                         id = "2mh7q-umkep";
@@ -219,6 +239,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "personal-sbailey" = {
                         id = "feiyy-sjasb";
@@ -232,6 +256,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                     "shared" = {
                         id = "prdrk-2gtju";
@@ -245,6 +273,10 @@
                             type = "trashcan";
                             params.cleanoutDays = "30";
                         };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
                     };
                 };
             };
