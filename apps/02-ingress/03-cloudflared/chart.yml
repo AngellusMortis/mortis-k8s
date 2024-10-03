@@ -76,6 +76,10 @@ spec:
         service: https://ingress-nginx-secure-controller.ingress
         originRequest:
           originServerName: k8s.wl.mort.is
+      - hostname: cd.wl.mort.is
+        service: https://ingress-nginx-secure-controller.ingress
+        originRequest:
+          originServerName: cd.wl.mort.is
       # metrics apps
       - hostname: alerts.wl.mort.is
         service: https://ingress-nginx-secure-controller.ingress
