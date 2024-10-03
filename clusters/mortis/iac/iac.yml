@@ -142,7 +142,7 @@ metadata:
 spec:
   interval: 15m
   storeReadablePlan: human
-  approvePlan: ""
+  approvePlan: auto
   path: ./iac/cloudflare
   sourceRef:
     kind: GitRepository
