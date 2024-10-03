@@ -40,6 +40,103 @@ resource "authentik_application" "cloudflare" {
     policy_engine_mode = "any"
 }
 
+## Control Apps
+# Longhorn
+resource "authentik_provider_proxy" "longhorn" {
+    name = "Provider for Longhorn"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    mode = "forward_domain"
+
+    external_host = "https://auth.wl.mort.is"
+    cookie_domain = "wl.mort.is"
+    access_token_validity = "hours=168"
+}
+
+resource "authentik_application" "dc_longhorn" {
+    name = "Longhorn"
+    slug = "longhorn"
+    group = "Control"
+    protocol_provider = authentik_provider_proxy.longhorn.id
+    meta_icon = "https://fluxcd.io/favicons/favicon-32x32.png"
+    meta_launch_url = "https://longhorn.wl.mort.is/"
+    meta_description = "Kubernetes Storage Backend UI"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+# CrashPlan
+resource "authentik_provider_proxy" "crashplan" {
+    name = "Provider for CrashPlan"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    mode = "forward_domain"
+
+    external_host = "https://auth.wl.mort.is"
+    cookie_domain = "wl.mort.is"
+    access_token_validity = "hours=168"
+}
+
+resource "authentik_application" "crashplan" {
+    name = "CrashPlan"
+    slug = "crashplan"
+    group = "Control"
+    protocol_provider = authentik_provider_proxy.crashplan.id
+    meta_icon = "https://www.crashplan.com/wp-content/uploads/CrashPlan-Favicon.png"
+    meta_launch_url = "https://backup.wl.mort.is/"
+    meta_description = "Backup service"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+# UniFi Network
+resource "authentik_provider_proxy" "ui_network" {
+    name = "Provider for UniFi Network"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    mode = "forward_domain"
+
+    external_host = "https://auth.wl.mort.is"
+    cookie_domain = "wl.mort.is"
+    access_token_validity = "hours=168"
+}
+
+resource "authentik_application" "ui_network" {
+    name = "UniFi Network"
+    slug = "unifi-network"
+    group = "Control"
+    protocol_provider = authentik_provider_proxy.ui_network.id
+    meta_icon = "https://content-cdn.svc.ui.com/static/favicon.ico"
+    meta_launch_url = "https://network.wl.mort.is/"
+    meta_description = "UniFi Network Controller"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+# FluxCD
+resource "authentik_provider_proxy" "fluxcd" {
+    name = "Provider for FluxCD"
+    authentication_flow = data.authentik_flow.internal_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    mode = "forward_domain"
+
+    external_host = "https://auth.wl.mort.is/"
+    cookie_domain = "wl.mort.is"
+    access_token_validity = "hours=168"
+}
+
+resource "authentik_application" "fluxcd" {
+    name = "FluxCD"
+    slug = "fluxcd"
+    group = "Control"
+    protocol_provider = authentik_provider_proxy.fluxcd.id
+    meta_icon = "https://fluxcd.io/favicons/favicon-32x32.png"
+    meta_launch_url = "https://cd.wl.mort.is/"
+    meta_description = "UniFi Network Controller"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
 ## Metrics Apps
 # Kubernetes Dashboard / k8s OIDC
 resource "authentik_provider_oauth2" "k8s" {
@@ -68,7 +165,7 @@ resource "authentik_application" "k8s_dashboard" {
     group = "Metrics"
     protocol_provider = authentik_provider_oauth2.k8s.id
     meta_icon = "https://kubernetes.io/icons/icon-128x128.png"
-    meta_launch_url = "https://k8s.wl.mort.is"
+    meta_launch_url = "https://k8s.wl.mort.is/"
     meta_description = "Kubernetes Dashboard"
     open_in_new_tab = true
     policy_engine_mode = "any"
@@ -104,7 +201,7 @@ resource "authentik_application" "grafana" {
     group = "Metrics"
     protocol_provider = authentik_provider_oauth2.grafana.id
     meta_icon = "https://grafana.com/static/assets/img/fav32.png"
-    meta_launch_url = "https://monitor.wl.mort.is"
+    meta_launch_url = "https://monitor.wl.mort.is/"
     meta_description = "Kubernetes Dashboard"
     open_in_new_tab = true
     policy_engine_mode = "any"
@@ -124,7 +221,7 @@ resource "authentik_application" "plex" {
     group = "Media"
     protocol_provider = null
     meta_icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
-    meta_launch_url = "https://plex.wl.mort.is"
+    meta_launch_url = "https://plex.wl.mort.is/"
     meta_description = "Media Streaming Server"
     open_in_new_tab = true
     policy_engine_mode = "any"
@@ -143,7 +240,7 @@ resource "authentik_application" "overseer" {
     group = "Media"
     protocol_provider = null
     meta_icon = "https://overseerr.dev/favicon.ico"
-    meta_launch_url = "https://media.wl.mort.is"
+    meta_launch_url = "https://media.wl.mort.is/"
     meta_description = "Media Requester"
     open_in_new_tab = true
     policy_engine_mode = "any"
@@ -174,7 +271,7 @@ resource "authentik_application" "dc_syncthing" {
     group = "Media"
     protocol_provider = authentik_provider_proxy.dc_syncthing.id
     meta_icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
-    meta_launch_url = "https://sync.dc.wl.mort.is"
+    meta_launch_url = "https://sync.dc.wl.mort.is/"
     meta_description = "File Sync Application"
     open_in_new_tab = true
     policy_engine_mode = "any"

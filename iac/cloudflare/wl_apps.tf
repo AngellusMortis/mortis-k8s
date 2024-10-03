@@ -27,7 +27,120 @@ resource "cloudflare_zero_trust_access_application" "wl_auth" {
     ]
 }
 
+# Longhorn
+resource "cloudflare_record" "wl_longhorn" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "longhorn.wl"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+}
+
+resource "cloudflare_zero_trust_access_application" "wl_longhorn" {
+    account_id = local.account_id
+    name = "Longhorn"
+    domain = "longhorn.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    logo_url = "https://longhorn.io/img/logos/longhorn-icon-color.png"
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_admin_users.id
+    ]
+}
+
+# CrashPlan
+resource "cloudflare_record" "wl_backup" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "backup.wl"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+}
+
+resource "cloudflare_zero_trust_access_application" "wl_backup" {
+    account_id = local.account_id
+    name = "CrashPlan"
+    domain = "backup.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    logo_url = "https://www.crashplan.com/wp-content/uploads/CrashPlan-Favicon.png"
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_admin_users.id
+    ]
+}
+
+# UniFi Network
+resource "cloudflare_record" "wl_network" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "network.wl"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+}
+
+resource "cloudflare_zero_trust_access_application" "wl_network" {
+    account_id = local.account_id
+    name = "UniFi Network"
+    domain = "network.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    logo_url = "https://content-cdn.svc.ui.com/static/favicon.ico"
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_admin_users.id
+    ]
+}
+
+# FluxCD
+resource "cloudflare_record" "wl_cd" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "cd.wl"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.wl, local.tags.metrics, local.tags.k8s)
+}
+
+resource "cloudflare_zero_trust_access_application" "wl_cd" {
+    account_id = local.account_id
+    name = "FluxCD"
+    domain = "cd.wl.${cloudflare_zone.mortis.zone}"
+    type = "self_hosted"
+    session_duration = "24h"
+
+    allow_authenticate_via_warp = false
+    app_launcher_visible = false
+    logo_url = "https://fluxcd.io/favicons/favicon-32x32.png"
+    auto_redirect_to_identity = true
+    allowed_idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    http_only_cookie_attribute = true
+    policies = [
+        cloudflare_zero_trust_access_policy.allow_admin_users.id
+    ]
+}
+
 ## Metrics Apps
+# Grafana
 resource "cloudflare_record" "wl_monitor" {
     zone_id = cloudflare_zone.mortis.id
     name = "monitor.wl"
@@ -55,6 +168,7 @@ resource "cloudflare_zero_trust_access_application" "wl_monitor" {
     ]
 }
 
+# K8s Dashboard
 resource "cloudflare_record" "wl_k8s" {
     zone_id = cloudflare_zone.mortis.id
     name = "k8s.wl"
