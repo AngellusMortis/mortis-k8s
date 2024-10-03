@@ -90,19 +90,12 @@ locals {
             create_provider = false
             path = "/downstairs/"
         },
-    }
-    metrics_apps = {
-        "alert-manager" = {
-            name = "Alert Manager"
-            subdomain = "alerts"
-            description = "Alert Manager"
-            icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
-        },
-        "prometheus" = {
-            name = "Prometheus"
-            subdomain = "prometheus"
-            description = "Metric Scraper"
-            icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
+        "syncthing" = {
+            name = "SyncThing"
+            group = "Media"
+            subdomain = "sync"
+            description = "File Sync Application"
+            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
     }
     media_apps = {
@@ -119,6 +112,70 @@ locals {
             description = "Media Requester"
             icon = "https://overseerr.dev/favicon.ico"
             create_provider = false
+        },
+    }
+    media_ingest_apps = {
+        "bazarr" = {
+            name = "Bazarr"
+            subdomain = "subs"
+            description = "Subtitle Downloader"
+            icon = "https://www.bazarr.media/assets/img/favicon.ico"
+        },
+        "deluge" = {
+            name = "Deluge"
+            subdomain = "download"
+            description = "Download Service"
+            icon = "https://deluge-torrent.org/images/deluge_logo.png"
+        },
+        "radarr" = {
+            name = "Radarr"
+            subdomain = "movies"
+            description = "Movie Downloader"
+            icon = "https://radarr.video/img/favicon.ico"
+        },
+        "prowlarr" = {
+            name = "Prowlarr"
+            subdomain = "index"
+            description = "Download Indexer"
+            icon = "https://prowlarr.com/img/favicon.ico"
+        },
+        "sonarr" = {
+            name = "Sonarr"
+            subdomain = "television"
+            description = "Television Downloader"
+            icon = "https://sonarr.tv/img/favicon.ico"
+        },
+        "fileflows" = {
+            name = "FileFlows"
+            subdomain = "processing"
+            description = "File Processing"
+            icon = "https://fileflows.com/img/favicon.ico"
+        },
+        "autobrr" = {
+            name = "Prowlarr"
+            subdomain = "auto-snatch"
+            description = "Auto-snatcher for Torrents"
+            icon = "https://autobrr.com/img/favicon.ico"
+        },
+        "lidarr" = {
+            name = "Lidarr"
+            subdomain = "music"
+            description = "Music Downloader"
+            icon = "https://lidarr.audio/img/favicon.ico"
+        },
+    }
+    metrics_apps = {
+        "alert-manager" = {
+            name = "Alert Manager"
+            subdomain = "alerts"
+            description = "Alert Manager"
+            icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
+        },
+        "prometheus" = {
+            name = "Prometheus"
+            subdomain = "prometheus"
+            description = "Metric Scraper"
+            icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
         },
     }
     dc_apps = {
@@ -138,11 +195,13 @@ module "control_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Control"
+    group = try(each.value.group, "Control")
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
     user_group = authentik_group.admin_users.id
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
 }
 
 
@@ -152,13 +211,13 @@ module "home_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Home"
+    group = try(each.value.group, "Home")
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
     user_group = authentik_group.home_users.id
-    create_provider = each.value.create_provider
-    path = each.value.path
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
 }
 
 module "media_apps" {
@@ -167,11 +226,28 @@ module "media_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Media"
+    group = try(each.value.group, "Media")
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
-    user_group = authentik_group.admin_users.id
+    user_group = authentik_group.media_users.id
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
+}
+
+module "media_ingest_apps" {
+    source = "./proxy_app"
+    for_each = local.media_ingest_apps
+
+    name = each.value.name
+    slug = each.key
+    group = try(each.value.group, "Media")
+    icon = each.value.icon
+    subdomain = each.value.subdomain
+    description = each.value.description
+    user_group = authentik_group.media_ingest.id
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
 }
 
 module "metrics_apps" {
@@ -180,11 +256,13 @@ module "metrics_apps" {
 
     name = each.value.name
     slug = each.key
-    group = "Metrics"
+    group = try(each.value.group, "Metrics")
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
-    user_group = authentik_group.media_users.id
+    user_group = authentik_group.admin_users.id
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
 }
 
 module "dc_apps" {
@@ -193,12 +271,14 @@ module "dc_apps" {
 
     name = each.value.name
     slug = each.key
-    group = each.value.group
+    group = try(each.value.group, "Control")
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
     user_group = authentik_group.admin_users.id
     base_domain = "dc.mort.is"
+    create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
 }
 
 # Cloudflare OIDC
