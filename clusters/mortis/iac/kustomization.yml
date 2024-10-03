@@ -4,3 +4,4 @@ resources:
 - iac.yml
 - nixos-secrets-sealed.yml
 - authentik-secrets-sealed.yml
+- cloudflare-secrets-sealed.yml

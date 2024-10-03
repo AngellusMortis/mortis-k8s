@@ -130,3 +130,22 @@ spec:
       secretRef:
         name: authentik-secrets
         key: .env
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: cloudflare
+  namespace: flux-system
+spec:
+  interval: 15m
+  approvePlan: ""
+  path: ./iac/cloudflare
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  fileMappings:
+    - location: "workspace"
+      path: ".env"
+      secretRef:
+        name: cloudflare-secrets
+        key: .env
