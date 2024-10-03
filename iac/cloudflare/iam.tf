@@ -4,8 +4,8 @@ resource "cloudflare_zero_trust_access_identity_provider" "authentik" {
     type = "oidc"
 
     config {
-        client_id = local.envs.AUTHENTIK_CLIENT_ID
-        client_secret = local.envs.AUTHENTIK_CLIENT_SECRET
+        client_id = var.cloudflare_oidc_client_id
+        client_secret = var.cloudflare_oidc_client_secret
         auth_url = "https://auth.wl.${cloudflare_zone.mortis.zone}/application/o/authorize/"
         token_url = "https://auth.wl.${cloudflare_zone.mortis.zone}/application/o/token/"
         certs_url = "https://auth.wl.${cloudflare_zone.mortis.zone}/application/o/cloudflare/jwks/"

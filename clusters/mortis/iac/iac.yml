@@ -157,3 +157,9 @@ spec:
       secretRef:
         name: cloudflare-secrets
         key: .env
+  varsFrom:
+    - kind: Secret
+      name: tf-authentik-output
+      varsKeys:
+        - cloudflare_oidc_client_id
+        - cloudflare_oidc_client_secret
