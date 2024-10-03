@@ -28,6 +28,17 @@ resource "authentik_provider_oauth2" "cloudflare" {
     signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
 }
 
+resource "authentik_application" "cloudflare" {
+    name = "Cloudflare"
+    slug = "cloudflare"
+    group = "OIDC Apps"
+    protocol_provider = authentik_provider_oauth2.cloudflare.id
+    meta_icon = "https://theme.zdassets.com/theme_assets/184946/28e92aca4bc0f1eb0784c2572768a3b07355f3d5.png"
+    meta_description = "Cloudflare Access"
+    policy_engine_mode = "any"
+}
+
+## Kubernetes Dashboard / k8s OIDC
 resource "authentik_provider_oauth2" "k8s" {
     name = "Kubernetes OIDC"
     client_id = "ZExFm1fL1IeMu6474ecOvZcm3bTNSKx45JVqPuI9"
@@ -48,6 +59,19 @@ resource "authentik_provider_oauth2" "k8s" {
     signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
 }
 
+resource "authentik_application" "k8s_dashboard" {
+    name = "Kubernetes Dashboard"
+    slug = "kube-apiserver"
+    group = "Metrics"
+    protocol_provider = authentik_provider_oauth2.k8s.id
+    meta_icon = "https://kubernetes.io/icons/icon-128x128.png"
+    meta_launch_url = "https://k8s.wl.mort.is"
+    meta_description = "Kubernetes Dashboard"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
+}
+
+# Grafana
 resource "authentik_provider_oauth2" "grafana" {
     name = "Grafana OIDC"
     client_id = "RX9M4KT3JQeNqGrOAxzNaVaErAf6vVLZM6cYQdQE"
@@ -63,6 +87,18 @@ resource "authentik_provider_oauth2" "grafana" {
         "38f6abba-95c2-4032-b5b8-c4834f8db70e",
     ]
     signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
+}
+
+resource "authentik_application" "grafana" {
+    name = "Grafana"
+    slug = "grafana"
+    group = "Metrics"
+    protocol_provider = authentik_provider_oauth2.grafana.id
+    meta_icon = "https://grafana.com/static/assets/img/fav32.png"
+    meta_launch_url = "https://monitor.wl.mort.is"
+    meta_description = "Kubernetes Dashboard"
+    open_in_new_tab = true
+    policy_engine_mode = "any"
 }
 
 ## SyncThing (Backup)
@@ -96,7 +132,6 @@ resource "authentik_policy_binding" "dc_syncthing" {
 }
 
 ## Outposts
-
 resource "authentik_outpost" "dc_outpost" {
     name = "authentik dc outpost"
     type = "proxy"
