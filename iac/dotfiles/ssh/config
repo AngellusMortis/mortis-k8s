@@ -5,6 +5,9 @@ Host *
 Host *.mort.is
   RemoteForward /run/user/1000/gnupg/S.gpg-agent /home/cbailey/.gnupg/S.gpg-agent
 
+Host ssh.dc.mort.is
+  ProxyCommand cloudflared access ssh --hostname %h
+
 Host ssh.wl.mort.is
   LocalForward 8000 127.0.0.1:8000
   ProxyCommand cloudflared access ssh --hostname %h
