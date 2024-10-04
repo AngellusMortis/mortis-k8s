@@ -9,9 +9,9 @@ let
         paths = [ pkgs.deluge delugeTheme ];
         version = "2.1.1-1";
         postBuild = ''
-            srcBin=$(readlink $out/bin/deluge-web)
-            rm $out/bin/deluge-web
-            cp $srcBin $out/bin/deluge-web
+            themesDir=$out/lib/python3.12/site-packages/deluge/ui/web/themes/css
+            cp $(readlink $themesDir/xtheme-dark.css) $themesDir/xtheme-dark.css
+            cp $(readlink $themesDir/xtheme-dark-mobile.css) $themesDir/xtheme-dark-mobile.css
         '';
     };
 in {
