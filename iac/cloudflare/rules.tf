@@ -53,7 +53,7 @@ resource "cloudflare_ruleset" "block_foreign" {
 
     rules {
         action = "block"
-        expression  = "(ip.geoip.country ne \"US\" and ip.src ne fe80::c645:7cbe:d0c:1770 and ip.src ne 145.239.67.190 and http.host ne \"files.wl.mort.is\")"
+        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\")"
         description = "Non-US requests"
     }
 }

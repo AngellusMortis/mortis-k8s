@@ -188,6 +188,9 @@ spec:
           periodSeconds: 5
           failureThreshold: 5
           successThreshold: 1
+        envFrom:
+          - secretRef:
+            name: deluge-secerts
         env:
         - name: TZ
           value: "America/New_York"
@@ -195,14 +198,6 @@ spec:
           value: "custom"
         - name: VPN_TYPE
           value: "wireguard"
-        - name: WIREGUARD_ENDPOINT_IP
-          value: "145.239.67.190"
-        - name: WIREGUARD_ENDPOINT_PORT
-          value: "51820"
-        - name: WIREGUARD_PUBLIC_KEY
-          value: "ft2kmiD77dPhIoWAenN8Fzw/uPru6jHQFQSkeE0KTiA="
-        - name: WIREGUARD_PRIVATE_KEY
-          value: "iI7cClzsfnZ1j+hAuNRGRr4ayPxy/ETbgMrjjHOUOFE="
         - name: WIREGUARD_ADDRESSES
           value: "10.8.0.110/32"
         - name: FIREWALL_DEBUG
