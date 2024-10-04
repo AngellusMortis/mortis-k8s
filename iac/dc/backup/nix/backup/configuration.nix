@@ -73,6 +73,7 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         zfs
+        mortis-deluge
     ];
 
     services.prometheus.exporters.node.enable = true;
