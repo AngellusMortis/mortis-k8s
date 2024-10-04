@@ -168,11 +168,12 @@ locals {
             dns_tags = local.tags.control
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
-        "syncthing" = {
-            name = "SyncThing (Backup)"
-            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
-            dns_tags = concat(local.tags.control, local.tags.media)
-            second_subdomain = "sync"
+        "deluge" = {
+            name = "Deluge (Backup)"
+            icon = "https://deluge-torrent.org/images/deluge_logo.png"
+            dns_tags = concat(local.tags.media_ingest)
+            second_subdomain = "download"
+            policies = [cloudflare_zero_trust_access_policy.allow_media_ingest_users.id]
         },
         "plex" = {
             name = "Plex (Backup)"
@@ -180,6 +181,12 @@ locals {
             dns_tags = concat(local.tags.media)
             second_subdomain = "plex"
             policies = [cloudflare_zero_trust_access_policy.bypass.id]
+        },
+        "syncthing" = {
+            name = "SyncThing (Backup)"
+            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
+            dns_tags = concat(local.tags.control, local.tags.media)
+            second_subdomain = "sync"
         },
     }
 }

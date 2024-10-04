@@ -63,8 +63,8 @@
     };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    networking.firewall.allowedTCPPorts = [ 22 8384 9100 9134 22000 32400 ];
-    networking.firewall.allowedUDPPorts = [ 22000 ];
+    networking.firewall.allowedTCPPorts = [ 22 8112 8384 9100 9134 11024 22000 32400 ];
+    networking.firewall.allowedUDPPorts = [ 11024 22000 ];
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -91,14 +91,18 @@
                     default = "http_status:404";
                     originRequest.noTLSVerify = true;
                     ingress = {
-                        "plex.dc.mort.is" = {
-                            service = "https://localhost:32400";
-                        };
+                        "download.dc.mort.is" = "http://localhost:8112";
+                        "plex.dc.mort.is" = "https://localhost:32400";
                         "ssh.dc.mort.is" = "ssh://localhost:22";
                         "sync.dc.mort.is" = "http://localhost:8384";
                     };
                 };
             };
+        };
+
+        deluge = {
+            enable = true;
+            web.enable = true;
         };
 
         plex.enable = true;

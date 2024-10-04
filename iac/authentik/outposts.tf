@@ -54,6 +54,7 @@ resource "authentik_outpost" "dc_outpost" {
     type = "proxy"
     service_connection = "318a42a5-e979-441a-b57d-c06e37fa7b7c"  # local k8s cluster integration
     protocol_providers = [
+        module.dc_apps["download-backup"].provider_id,
         module.dc_apps["syncthing-backup"].provider_id,
     ]
     config = jsonencode({

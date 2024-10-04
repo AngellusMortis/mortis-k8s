@@ -17,7 +17,8 @@ resource "authentik_source_plex" "name" {
     client_id = "GN5TZa8SirrzGdXC2E2SLDGMLV2aoBUmzJGOQG17"
     plex_token = local.envs.PLEX_TOKEN
     allowed_servers = tolist([
-        "620ff9fe2b77454e9dc96aae70f348401759e211"  # plex.wl.mort.is
+        "04155286e0cb3c30598f27d9993872280721159c", # plex.dc.mort.is
+        "620ff9fe2b77454e9dc96aae70f348401759e211", # plex.wl.mort.is
     ])
 
     # flow settings

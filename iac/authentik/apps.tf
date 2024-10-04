@@ -167,12 +167,13 @@ locals {
         },
     }
     dc_apps = {
-        "syncthing-backup" = {
-            name = "SyncThing (Backup)"
-            subdomain = "sync"
+        "download-backup" = {
+            name = "Download (Backup)"
+            subdomain = "download"
             group = "Media"
-            description = "File Sync Application"
-            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
+            description = "Download Service"
+            icon = "https://deluge-torrent.org/images/deluge_logo.png"
+            user_group = authentik_group.media_ingest.id
         },
         "plex-backup" = {
             name = "Plex (Backup)"
@@ -182,6 +183,13 @@ locals {
             icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
             create_provider = false
             user_group = authentik_group.media_users.id
+        },
+        "syncthing-backup" = {
+            name = "SyncThing (Backup)"
+            subdomain = "sync"
+            group = "Media"
+            description = "File Sync Application"
+            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
     }
 }
