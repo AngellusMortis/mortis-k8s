@@ -174,6 +174,13 @@ locals {
             description = "File Sync Application"
             icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
+        "plex" = {
+            name = "Plex (Backup)"
+            subdomain = "plex"
+            description = "Media Streaming Server"
+            icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
+            create_provider = false
+        },
     }
 }
 

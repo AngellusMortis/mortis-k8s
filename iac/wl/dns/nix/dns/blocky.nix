@@ -92,6 +92,7 @@
                     "backup-1.dc.mort.is" = "192.168.52.50";
                     "auth.dc.mort.is" = "192.168.3.225";
                     "sync.dc.mort.is" = "192.168.2.225";
+                    "plex.dc.mort.is" = "192.168.2.225";
 
                     # k8s servers
                     ## computer cluster / IPMI

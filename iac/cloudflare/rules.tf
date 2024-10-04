@@ -45,6 +45,20 @@ resource "cloudflare_page_rule" "no_cache_plex" {
     }
 }
 
+resource "cloudflare_page_rule" "no_cache_plex_dc" {
+    zone_id = cloudflare_zone.mortis.id
+    target = "plex.dc.${cloudflare_zone.mortis.zone}/*"
+    priority = 1
+    status = "active"
+
+    actions {
+        cache_level = "bypass"
+        disable_zaraz = true
+        disable_apps = true
+        rocket_loader = "off"
+    }
+}
+
 resource "cloudflare_ruleset" "block_foreign" {
     kind = "zone"
     name = "Block non-US"
