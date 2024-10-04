@@ -31,9 +31,9 @@ resource "cloudflare_page_rule" "redirects" {
     }
 }
 
-resource "cloudflare_page_rule" "foobar" {
+resource "cloudflare_page_rule" "no_cache_plex" {
     zone_id = cloudflare_zone.mortis.id
-    target = "*.wl.${cloudflare_zone.mortis.zone}/*"
+    target = "plex.wl.${cloudflare_zone.mortis.zone}/*"
     priority = 1
     status = "active"
 
@@ -41,7 +41,7 @@ resource "cloudflare_page_rule" "foobar" {
         cache_level = "bypass"
         disable_zaraz = true
         disable_apps = true
-        automatic_https_rewrites = "on"
+        rocket_loader = "off"
     }
 }
 
