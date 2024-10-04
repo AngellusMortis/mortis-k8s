@@ -11,6 +11,7 @@
         ../../../../nix/common/all.nix
         ../../../../nix/common/grub-theme.nix
         ../../../../nix/common/sops.nix
+        ../../../../nix/common/mortis-deluge.nix
     ];
 
     sops.secrets.cf_tunnel = {
@@ -23,9 +24,6 @@
     };
 
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.packageOverrides = pkgs: rec {
-        mortis-deluge = pkgs.callPackage ../../../../nix/common/mortis-deluge.nix {};
-    };
 
     networking.hostName = "backup-1";
     networking.hostId = "33ad4037";
@@ -73,7 +71,6 @@
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         zfs
-        mortis-deluge
     ];
 
     services.prometheus.exporters.node.enable = true;

@@ -1,17 +1,14 @@
-{
-  pkgs ? import <nixpkgs> {}
-}:
-pkgs.stdenv.mkDerivation rec {
-    pname = "mortis-deluge";
-    version = "0.1.0";
+{ config, lib, pkgs, ... }:
 
-    src = ../../deluge;
+with pkgs;
 
-    configurePhase = ''
-    mkdir -p $out/
-    '';
-
-    installPhase = ''
-    cp -r * $out/
-    '';
+let
+  delugeTheme = ../../deluge;
+  mortisDeluge = pkgs.symlinkJoin {
+    name = "mortis-deluge";
+    paths = [ pkgs.deluge delugeTheme ];
+    version = "2.1.1-1";
+  };
+in {
+  services.deluge.package = mortisDeluge;
 }
