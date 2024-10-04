@@ -23,6 +23,9 @@
     };
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.packageOverrides = pkgs: rec {
+        mortis-deluge = pkgs.callPackage ../../../../nix/common/mortis-deluge.nix {};
+    };
 
     networking.hostName = "backup-1";
     networking.hostId = "33ad4037";
