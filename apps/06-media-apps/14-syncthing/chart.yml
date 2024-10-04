@@ -71,6 +71,11 @@ spec:
         type: pvc
         existingClaim: nas-lh-public
         mountPath: /mnt/public
+      download:
+        enabled: true
+        type: pvc
+        existingClaim: nas-nvme-download
+        mountPath: /mnt/downloads
     workload:
       main:
         podSpec:
