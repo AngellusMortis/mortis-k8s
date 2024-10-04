@@ -22,6 +22,8 @@
         format = "binary";
     };
 
+    nixpkgs.config.allowUnfree = true;
+
     networking.hostName = "backup-1";
     networking.hostId = "33ad4037";
 
