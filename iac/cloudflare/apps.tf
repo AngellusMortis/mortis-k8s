@@ -165,6 +165,7 @@ locals {
         "ssh-bastion" = {
             name = "SSH Backup"
             second_subdomain = "ssl"
+            dns_tags = local.tags.control
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
         "syncthing" = {
