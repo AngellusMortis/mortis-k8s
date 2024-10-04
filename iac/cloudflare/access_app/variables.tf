@@ -32,6 +32,7 @@ variable "tunnel_id" {
 variable "second_subdomain" {
     type = string
     description = "Second level subdomain for app"
+    nullable = true
 }
 
 variable "base_domain" {

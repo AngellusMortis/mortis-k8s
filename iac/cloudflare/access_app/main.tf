@@ -1,6 +1,10 @@
+locals {
+    subdomain = var.second_subdomain == null ? "${var.subdomain}" : "${var.second_subdomain}.${var.subdomain}"
+}
+
 resource "cloudflare_record" "dns" {
     zone_id = var.zone_id
-    name = "${var.second_subdomain}.${var.subdomain}"
+    name = local.subdomain
     proxied = true
     content = "${var.tunnel_id}.cfargotunnel.com"
     type = "CNAME"
@@ -10,7 +14,7 @@ resource "cloudflare_record" "dns" {
 resource "cloudflare_zero_trust_access_application" "application" {
     account_id = var.account_id
     name = var.name
-    domain = "${var.second_subdomain}.${var.subdomain}.${var.base_domain}"
+    domain = "${local.subdomain}.${var.base_domain}"
     type = "self_hosted"
     session_duration = "24h"
 

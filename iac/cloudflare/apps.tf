@@ -13,7 +13,7 @@ locals {
         },
         "fr" = {
             name = "Egress SSH"
-            second_subdomain = "fr"
+            subdomain = "fr"
             tunnel_id = "ac085653-976a-425f-81c9-b40d1dd883f6"
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
@@ -187,7 +187,8 @@ module "control_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.control)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "wl")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_admin_users.id])
@@ -203,7 +204,8 @@ module "home_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, try(each.value.dns_tags, local.tags.home))
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "wl")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_home_users.id])
@@ -219,7 +221,8 @@ module "media_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.media)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "wl")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.bypass.id])
@@ -235,7 +238,8 @@ module "media_ingest_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.media_ingest)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "wl")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_media_ingest_users.id])
@@ -251,7 +255,8 @@ module "metrics_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.metrics)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "wl")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_admin_users.id])
@@ -267,9 +272,9 @@ module "dc_apps" {
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.dc, each.value.dns_tags)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.dc.id)
-    second_subdomain = each.value.second_subdomain
+    subdomain = try(each.value.subdomain, "dc")
+    second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_admin_users.id])
-    subdomain = "dc"
 }
