@@ -61,7 +61,7 @@
     };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    networking.firewall.allowedTCPPorts = [ 22 8384 9100 9134 22000 ];
+    networking.firewall.allowedTCPPorts = [ 22 8384 9100 9134 22000 32400 ];
     networking.firewall.allowedUDPPorts = [ 22000 ];
 
     # List packages installed in system profile. To search, run:
@@ -94,6 +94,8 @@
                 };
             };
         };
+
+        plex.enable = true;
 
         syncthing = {
             enable = true;
