@@ -28,7 +28,7 @@ spec:
             command: ["bash"]
             args:
             - "-c"
-            - "[[ -z "${DELUGE_SYNC_RULES}" ]] && ( echo "No rules defined" && exit 1) || ( echo "$DELUGE_SYNC_RULES" && deluge-sync sync -l seeding && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
+            - "[[ -z \"${DELUGE_SYNC_RULES}\" ]] && ( echo \"No rules defined\" && exit 1) || ( echo "$DELUGE_SYNC_RULES" && deluge-sync sync -l seeding && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
@@ -69,7 +69,7 @@ spec:
             command: ["bash"]
             args:
             - "-c"
-            - "[[ -z "${DELUGE_SYNC_RULES}" ]] && ( echo "No rules defined" && exit 1) || ( echo "$DELUGE_SYNC_RULES" && deluge-sync sync -l seeding && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
+            - "[[ -z \"${DELUGE_SYNC_RULES}\" ]] && ( echo \"No rules defined\" && exit 1) || ( echo "$DELUGE_SYNC_RULES" && deluge-sync sync -l seeding && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
