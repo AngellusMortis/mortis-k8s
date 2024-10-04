@@ -18,7 +18,7 @@ metadata:
   name: external-apps-dc-backup-1
   namespace: flux-system
 spec:
-  targetNamespace: boundlexx
+  targetNamespace: dc
   interval: 10m0s
   path: ./apps/08-external-apps/02-dc-backup-1
   prune: false
