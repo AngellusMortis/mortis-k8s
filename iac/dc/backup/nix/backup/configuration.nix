@@ -144,6 +144,34 @@
                             "**:**"
                         ];
                     };
+                    "download-internal" = {
+                        id = "azqqf-spmzm";
+                        label = "Download - Internal Complete";
+                        path = "/opt/download/in/complete";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendonly";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = null;
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
+                    };
+                    "download-complete" = {
+                        id = "zn4ex-cjsuj";
+                        label = "Download - Complete";
+                        path = "/opt/download/p/complete";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendonly";
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 3600; # once a hour
+                        versioning = null;
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
+                    };
                     "media-games" = {
                         id = "wadfp-trxlq";
                         label = "Media - Games";
