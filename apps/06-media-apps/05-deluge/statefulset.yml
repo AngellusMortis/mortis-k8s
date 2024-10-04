@@ -190,7 +190,7 @@ spec:
           successThreshold: 1
         envFrom:
           - secretRef:
-              name: deluge-secrets
+              name: wg-secrets
         env:
         - name: TZ
           value: "America/New_York"

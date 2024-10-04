@@ -6,4 +6,5 @@ resources:
   - deluge-sync.yml
   - external-healthcheck.yml
   - monitor.yml
-  - secrets-sealed.yml
+  - wg-secrets-sealed.yml
+  - deluge-secrets-sealed.yml

@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: deluge-sync-config
+  namespace: media
+data:
+  DELUGE_SYNC_PATH_MAP: "dns-verify.top=/downloads/p/seed/lsh,flacsfor.me=/downloads/p/seed/red,tleechreload.org=/downloads/p/seed/tl,torrentleech.org=/downloads/p/seed/tl,rptscene.xyz=/downloads/p/seed/rpt,metal-tracker.com=/downloads/p/seed/mt,myanonamouse.net=/downloads/p/seed/mam,opsfet.ch=/downloads/p/seed/ops,pixelcove.me=/downloads/p/seed/pxc,seedpool.org=/downloads/p/seed/sp"
+  DELUGE_SYNC_RULES: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00"},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "tleechreload.org","priority": 10,"min_time": "252:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00"},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00"},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
+  DELUGE_SYNC_LABEL_REMAP: "avistaz.to=permaseed,exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed,dns-verify.top=permaseed"
+  DELUGE_SYNC_LABELS: seeding
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -18,7 +29,7 @@ spec:
             command: ["bash"]
             args:
             - "-c"
-            - "deluge-sync sync && deluge-sync sync -l uploaded -l permaseed --no-remove --no-relabel"
+            - "deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
@@ -27,17 +38,49 @@ spec:
                 type: "RuntimeDefault"
               capabilities:
                 drop: ["ALL"]
+            envFrom:
+              - secretRef:
+                  name: deluge-secrets
             env:
               - name: DELUGE_SYNC_URL
                 value: http://deluge-web:8112
-              - name: DELUGE_SYNC_PASSWORD
-                value: x52HEyst
-              - name: DELUGE_SYNC_PATH_MAP
-                value: "dns-verify.top=/downloads/p/seed/lsh,flacsfor.me=/downloads/p/seed/red,tleechreload.org=/downloads/p/seed/tl,torrentleech.org=/downloads/p/seed/tl,rptscene.xyz=/downloads/p/seed/rpt,metal-tracker.com=/downloads/p/seed/mt,myanonamouse.net=/downloads/p/seed/mam,opsfet.ch=/downloads/p/seed/ops,pixelcove.me=/downloads/p/seed/pxc,seedpool.org=/downloads/p/seed/sp"
-              - name: DELUGE_SYNC_RULES
-                value: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00"},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "tleechreload.org","priority": 10,"min_time": "252:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00"},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00"},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
-              - name: DELUGE_SYNC_LABEL_REMAP
-                value: "avistaz.to=permaseed,exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed,dns-verify.top=permaseed"
-              - name: DELUGE_SYNC_LABELS
-                value: seeding
+          restartPolicy: Never
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: deluge-dc-sync
+  namespace: media
+spec:
+  schedule: "*/10 * * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cleanup
+            image: ghcr.io/angellusmortis/deluge-sync:v1.5.1
+            imagePullPolicy: IfNotPresent
+            command: ["bash"]
+            args:
+            - "-c"
+            - "deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel"
+            securityContext:
+              runAsUser: 1000
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              seccompProfile:
+                type: "RuntimeDefault"
+              capabilities:
+                drop: ["ALL"]
+            envFrom:
+              - configMapRef:
+                  name: deluge-sync-config
+              - secretRef:
+                  name: deluge-secrets
+            env:
+              - name: DELUGE_SYNC_URL
+                value: http://backup-1.dc.mort.is:8112
           restartPolicy: Never
