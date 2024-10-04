@@ -7,4 +7,5 @@ resources:
   - external-healthcheck.yml
   - monitor.yml
   - wg-secrets-sealed.yml
-  - deluge-secrets-sealed.yml
+  - secrets-sealed.yml
+  # - deluge-secrets-sealed.yml
