@@ -174,6 +174,13 @@ locals {
             dns_tags = concat(local.tags.control, local.tags.media)
             second_subdomain = "sync"
         },
+        "syncthing" = {
+            name = "Plex (Backup)"
+            icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
+            dns_tags = concat(local.tags.media)
+            second_subdomain = "plex"
+            policies = [cloudflare_zero_trust_access_policy.bypass.id]
+        },
     }
 }
 
