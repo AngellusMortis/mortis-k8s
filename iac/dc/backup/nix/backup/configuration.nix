@@ -88,6 +88,7 @@
                     credentialsFile = config.sops.secrets.cf_tunnel.path;
                     default = "http_status:404";
                     ingress = {
+                        "ssh.dc.mort.is" = "ssh://localhost:22";
                         "sync.dc.mort.is" = "http://localhost:8384";
                     };
                 };

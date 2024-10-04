@@ -162,6 +162,11 @@ locals {
         },
     }
     dc_apps = {
+        "ssh-bastion" = {
+            name = "SSH Backup"
+            second_subdomain = "ssl"
+            policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
+        },
         "syncthing" = {
             name = "SyncThing (Backup)"
             icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
