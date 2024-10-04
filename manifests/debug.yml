@@ -13,15 +13,15 @@ spec:
     command:
       - sleep
       - infinity
-    volumeMounts:
-      - name: backup
-        mountPath: /mnt/backup
-      - name: config
-        mountPath: /mnt/config
-  volumes:
-    - name: backup
-      persistentVolumeClaim:
-        claimName: nas-backup
-    - name: config
-      persistentVolumeClaim:
-        claimName: bazarr-config
+  #   volumeMounts:
+  #     - name: backup
+  #       mountPath: /mnt/backup
+  #     - name: config
+  #       mountPath: /mnt/config
+  # volumes:
+  #   - name: backup
+  #     persistentVolumeClaim:
+  #       claimName: nas-backup
+  #   - name: config
+  #     persistentVolumeClaim:
+  #       claimName: bazarr-config
