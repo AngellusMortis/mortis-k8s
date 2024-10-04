@@ -174,7 +174,7 @@ locals {
             description = "File Sync Application"
             icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
-        "plex" = {
+        "plex-backup" = {
             name = "Plex (Backup)"
             subdomain = "plex"
             description = "Media Streaming Server"
