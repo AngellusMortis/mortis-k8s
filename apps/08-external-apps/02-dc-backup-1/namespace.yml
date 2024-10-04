@@ -7,7 +7,7 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: isolate-namespace-egress
-  namespace: boundlexx
+  namespace: dc
 spec:
   # Apply to all pods in this namespace
   podSelector: {}

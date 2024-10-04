@@ -177,6 +177,7 @@ locals {
         "plex-backup" = {
             name = "Plex (Backup)"
             subdomain = "plex"
+            group = "Media"
             description = "Media Streaming Server"
             icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
             create_provider = false
