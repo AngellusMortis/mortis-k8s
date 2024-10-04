@@ -180,6 +180,7 @@ locals {
             description = "Media Streaming Server"
             icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
             create_provider = false
+            user_group = authentik_group.media_users.id
         },
     }
 }
@@ -270,7 +271,7 @@ module "dc_apps" {
     icon = each.value.icon
     subdomain = each.value.subdomain
     description = each.value.description
-    user_group = authentik_group.admin_users.id
+    user_group = try(each.value.user_group, authentik_group.admin_users.id)
     base_domain = "dc.mort.is"
     create_provider = try(each.value.create_provider, true)
     path = try(each.value.path, "/")
