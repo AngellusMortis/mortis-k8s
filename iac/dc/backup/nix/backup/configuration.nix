@@ -89,10 +89,10 @@
                 "4ce0b609-4efd-40a2-8421-7256ba534d21" = {
                     credentialsFile = config.sops.secrets.cf_tunnel.path;
                     default = "http_status:404";
+                    originRequest.noTLSVerify = true;
                     ingress = {
                         "plex.dc.mort.is" = {
                             service = "https://localhost:32400";
-                            noTLSVerify = true;
                         };
                         "ssh.dc.mort.is" = "ssh://localhost:22";
                         "sync.dc.mort.is" = "http://localhost:8384";
