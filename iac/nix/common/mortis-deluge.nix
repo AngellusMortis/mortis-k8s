@@ -10,8 +10,11 @@ let
         version = "2.1.1-1";
         postBuild = ''
             themesDir=$out/lib/python3.12/site-packages/deluge/ui/web/themes/css
-            cp $(readlink $themesDir/xtheme-dark.css) $themesDir/xtheme-dark.css
-            cp $(readlink $themesDir/xtheme-dark-mobile.css) $themesDir/xtheme-dark-mobile.css
+            oldCss=$(readlink $themesDir/xtheme-dark.css)
+            oldMobileCss=$(readlink $themesDir/xtheme-dark-mobile.css)
+            rm $themesDir/xtheme-dark.css $themesDir/xtheme-dark-mobile.css
+            cp $oldCss $themesDir/xtheme-dark.css
+            cp $oldMobileCss $themesDir/xtheme-dark-mobile.css
         '';
     };
 in {
