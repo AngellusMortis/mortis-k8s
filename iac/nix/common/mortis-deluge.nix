@@ -10,6 +10,7 @@ let
         version = "2.1.1-1";
         postBuild = ''
             themesDir=$out/lib/python3.12/site-packages/deluge/ui/web/themes/css
+            rm $themesDir/xtheme-gray.css
             cp $themesDir/xtheme-dark.css $themesDir/xtheme-gray.css
         '';
     };
