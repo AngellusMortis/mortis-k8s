@@ -164,7 +164,7 @@ locals {
     dc_apps = {
         "ssh-bastion" = {
             name = "SSH Backup"
-            second_subdomain = "ssl"
+            second_subdomain = "ssh"
             dns_tags = local.tags.control
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
