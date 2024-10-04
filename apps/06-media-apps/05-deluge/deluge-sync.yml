@@ -28,7 +28,7 @@ spec:
             command: ["bash"]
             args:
             - "-c"
-            - "deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel"
+            - "[[ -z "${DELUGE_SYNC_RULES}" ]] && ( echo "No rules defined" && exit 1) || ( deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
@@ -38,6 +38,8 @@ spec:
               capabilities:
                 drop: ["ALL"]
             envFrom:
+              - configMapRef:
+                  name: deluge-sync-config
               - secretRef:
                   name: deluge-secrets
             env:
@@ -67,7 +69,7 @@ spec:
             command: ["bash"]
             args:
             - "-c"
-            - "deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel"
+            - "[[ -z "${DELUGE_SYNC_RULES}" ]] && ( echo "No rules defined" && exit 1) || ( deluge-sync sync && deluge-sync sync -l uploaded -l permaseed -l permaseed-mam --no-remove --no-relabel )"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
