@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: deluge
-        image: ghcr.io/linuxserver/deluge:2.1.1-r10-ls290 # {"$imagepolicy": "flux-system:deluge-policy"}
+        image: ghcr.io/linuxserver/deluge:2.1.1-r10-ls292 # {"$imagepolicy": "flux-system:deluge-policy"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           tcpSocket:
@@ -129,7 +129,7 @@ spec:
           failureThreshold: 5
           successThreshold: 1
       - name: cross-seed
-        image: ghcr.io/cross-seed/cross-seed:6.0.0-34 # {"$imagepolicy": "flux-system:cross-seed-policy"}
+        image: ghcr.io/cross-seed/cross-seed:6.0.0-36 # {"$imagepolicy": "flux-system:cross-seed-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2468
@@ -160,7 +160,7 @@ spec:
         - name: nas-nvme-download
           mountPath: /downloads
       - name: gluetun
-        image: ghcr.io/qdm12/gluetun:v3.39.0 # {"$imagepolicy": "flux-system:gluetun-policy"}
+        image: ghcr.io/qdm12/gluetun:v3.39.1 # {"$imagepolicy": "flux-system:gluetun-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
@@ -189,8 +189,8 @@ spec:
           failureThreshold: 5
           successThreshold: 1
         envFrom:
-          - secretRef:
-              name: wg-secrets
+        - secretRef:
+            name: wg-secrets
         env:
         - name: TZ
           value: "America/New_York"
