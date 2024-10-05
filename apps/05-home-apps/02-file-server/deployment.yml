@@ -15,17 +15,17 @@ spec:
     spec:
       containers:
       - name: files
-        image: nginx:1.27.1 # {"$imagepolicy": "flux-system:file-server-policy"}
+        image: nginx:1.27.2 # {"$imagepolicy": "flux-system:file-server-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
         volumeMounts:
-          - name: files-volume
-            mountPath: /usr/share/nginx/html
-            subPath: static
-          - name: files-conf
-            mountPath: /etc/nginx/conf.d/default.conf
-            subPath: default.conf
+        - name: files-volume
+          mountPath: /usr/share/nginx/html
+          subPath: static
+        - name: files-conf
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
         resources:
           requests:
             cpu: "100m"
@@ -34,12 +34,12 @@ spec:
             cpu: "500m"
             memory: "250Mi"
       volumes:
-        - name: files-volume
-          persistentVolumeClaim:
-            claimName: nas-lh-public
-        - name: files-conf
-          configMap:
-            name: files-conf
-            items:
-              - key: default.conf
-                path: default.conf
+      - name: files-volume
+        persistentVolumeClaim:
+          claimName: nas-lh-public
+      - name: files-conf
+        configMap:
+          name: files-conf
+          items:
+          - key: default.conf
+            path: default.conf
