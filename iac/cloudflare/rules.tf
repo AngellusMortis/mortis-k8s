@@ -7,7 +7,7 @@ locals {
 resource "cloudflare_page_rule" "files" {
     zone_id = cloudflare_zone.mortis.id
     target = "files.wl.${cloudflare_zone.mortis.zone}/*"
-    priority = 3
+    priority = 2
     status = "active"
 
     actions {
@@ -20,7 +20,7 @@ resource "cloudflare_page_rule" "redirects" {
 
     zone_id = cloudflare_zone.mortis.id
     target = local.redirects[count.index].from
-    priority = 2
+    priority = 1
     status = "active"
 
     actions {
@@ -34,7 +34,7 @@ resource "cloudflare_page_rule" "redirects" {
 resource "cloudflare_page_rule" "no_cache_plex" {
     zone_id = cloudflare_zone.mortis.id
     target = "plex.wl.${cloudflare_zone.mortis.zone}/*"
-    priority = 1
+    priority = 4
     status = "active"
 
     actions {
@@ -48,7 +48,7 @@ resource "cloudflare_page_rule" "no_cache_plex" {
 resource "cloudflare_page_rule" "no_cache_plex_dc" {
     zone_id = cloudflare_zone.mortis.id
     target = "plex.dc.${cloudflare_zone.mortis.zone}/*"
-    priority = 1
+    priority = 3
     status = "active"
 
     actions {
