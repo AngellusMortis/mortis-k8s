@@ -17,7 +17,7 @@ spec:
     name: plex-media-server
   filterTags:
     pattern: '^.*-ls(?P<lsVersion>\d+)$'
-    extract: '$plexBuild'
+    extract: '$lsVersion'
   policy:
     numerical:
       order: asc
