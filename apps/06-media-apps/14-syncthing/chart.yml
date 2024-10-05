@@ -107,8 +107,8 @@ spec:
           nginx.ingress.kubernetes.io/auth-snippet: |-
               proxy_set_header X-Forwarded-Host $http_host;
           nginx.ingress.kubernetes.io/proxy-body-size: 512m
-          nginx.ingress.kubernetes.io/proxy-read-timeout: 86400
-          nginx.ingress.kubernetes.io/proxy-send-timeout: 86400
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "86400"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "86400"
         ingressClassName:  "nginx-secure"
         hosts:
           - host: sync.wl.mort.is
