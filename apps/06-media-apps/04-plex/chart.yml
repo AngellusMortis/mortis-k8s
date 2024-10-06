@@ -83,7 +83,7 @@ spec:
     pms:
       config:
         transcoderVerbose: 1
-        transcodeOperatingMode: both
+        transcodeOperatingMode: local
         localRelayEnabled: false
         pmsIP: "10.96.93.59"
       serviceConfig:
@@ -129,7 +129,7 @@ spec:
           release: prometheus
     worker:
       config:
-        replicas: 2
+        replicas: 0
       env:
         NVIDIA_VISIBLE_DEVICES: "all"
         FFMPEG_HWACCEL: "nvdec"
