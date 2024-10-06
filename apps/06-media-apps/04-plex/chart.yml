@@ -81,8 +81,11 @@ spec:
             name: cert-plex-wl-mort-is
             mountPath: /ssl
     pms:
-      localRelayEnabled: false
-      pmsIP: "10.96.93.59"
+      config:
+        transcoderVerbose: 1
+        transcodeOperatingMode: both
+        localRelayEnabled: false
+        pmsIP: "10.96.93.59"
       serviceConfig:
         type: LoadBalancer
         externalTrafficPolicy: Local

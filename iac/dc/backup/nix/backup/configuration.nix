@@ -64,8 +64,8 @@
     };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    networking.firewall.allowedTCPPorts = [ 22 8112 8384 9100 9134 11024 22000 32400 ];
-    networking.firewall.allowedUDPPorts = [ 11024 22000 ];
+    networking.firewall.allowedTCPPorts = [ 22 8112 8384 9100 9134 22048 22000 32400 ];
+    networking.firewall.allowedUDPPorts = [ 22048 22000 ];
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
