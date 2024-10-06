@@ -40,7 +40,7 @@
         sopsFile = ../../secrets/wg.yml;
         format = "yaml";
     };
-    sops.templates."wg0.conf" = {
+    sops.templates."tun0.conf" = {
         content = ''
         [Interface]
         PrivateKey = ${config.sops.placeholder.wg_private_key}
@@ -54,7 +54,7 @@
         AllowedIPs = 0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3
         Endpoint = ${config.sops.placeholder.wg_endpoint}
         '';
-        path = "/etc/wireguard/wg0.conf";
+        path = "/etc/wireguard/tun0.conf";
     };
 
     nixpkgs.config.allowUnfree = true;
