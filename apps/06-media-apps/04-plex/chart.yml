@@ -128,8 +128,9 @@ spec:
         labels:
           release: prometheus
     worker:
+      enabled: false
       config:
-        replicas: 0
+        replicas: 1
       env:
         NVIDIA_VISIBLE_DEVICES: "all"
         FFMPEG_HWACCEL: "nvdec"
