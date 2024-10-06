@@ -1,3 +1,4 @@
+*.decrypted.*
 tfstate.yml
 .env
 builder-key
