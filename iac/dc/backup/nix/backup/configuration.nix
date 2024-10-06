@@ -14,7 +14,7 @@
         ../../../../nix/common/mortis-deluge.nix
     ];
 
-    console.enable = true;
+    # console.enable = true;
 
     sops.secrets.cf_tunnel = {
         owner = "cloudflared";
@@ -101,18 +101,7 @@
     networking.firewall = {
         allowedTCPPorts = [ 22 51820 8112 8384 9100 9134 22048 22000 32400 ];
         allowedUDPPorts = [ 51820 22048 22000 ];
-
-        # if packets are still dropped, they will show up in dmesg
-        logReversePathDrops = true;
-        # wireguard trips rpfilter up
-        extraCommands = ''
-            ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
-            ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
-        '';
-        extraStopCommands = ''
-            ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
-            ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
-        '';
+        checkReversePath = "loose";
     };
 
     # List packages installed in system profile. To search, run:
