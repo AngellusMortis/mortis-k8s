@@ -57,16 +57,7 @@
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall = {
         allowedTCPPorts = [ 22 ];
-        allowedUDPPorts = [ 51820 ];
-        # checkReversePath = "loose";
-
-        # extraCommands = ''
-        #     iptables -t nat -A PREROUTING -p tcp --dport 8112 -j DNAT --to-destination 10.8.0.112:8112
-        #     iptables -t nat -A POSTROUTING -p tcp -d 10.8.0.112 --dport 8112 -j SNAT --to-source 10.8.0.112
-
-        #     iptables -t nat -A PREROUTING -p tcp --dport 58846 -j DNAT --to-destination 10.8.0.112:58846
-        #     iptables -t nat -A POSTROUTING -p tcp -d 10.8.0.112 --dport 58846 -j SNAT --to-source 10.8.0.112
-        # '';
+        allowedUDPPorts = [ 11024 22048 51820 ];
     };
 
     networking.wireguard.interfaces = {
