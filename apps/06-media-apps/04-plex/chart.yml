@@ -83,8 +83,7 @@ spec:
     pms:
       config:
         transcoderVerbose: 1
-        # transcodeOperatingMode: local
-        transcodeOperatingMode: remote
+        transcodeOperatingMode: local
         localRelayEnabled: false
         pmsIP: "10.96.93.59"
       env:
@@ -133,7 +132,7 @@ spec:
         labels:
           release: prometheus
     worker:
-      enabled: true
+      enabled: false
       config:
         replicas: 1
       env:
