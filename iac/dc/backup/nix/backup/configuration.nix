@@ -46,6 +46,7 @@
         PrivateKey = ${config.sops.placeholder.wg_private_key}
         Address = 10.8.0.112/32
         DNS = 1.1.1.1
+        ListenPort = 51820
 
         [Peer]
         PublicKey = ${config.sops.placeholder.wg_public_key}
@@ -97,8 +98,8 @@
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall = {
-        allowedTCPPorts = [ 22 8112 8384 9100 9134 22048 22000 32400 ];
-        allowedUDPPorts = [ 22048 22000 ];
+        allowedTCPPorts = [ 22 51820 8112 8384 9100 9134 22048 22000 32400 ];
+        allowedUDPPorts = [ 51820 22048 22000 ];
 
         # if packets are still dropped, they will show up in dmesg
         logReversePathDrops = true;
