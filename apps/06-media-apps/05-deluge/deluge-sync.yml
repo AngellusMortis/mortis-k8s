@@ -4,8 +4,9 @@ metadata:
   name: deluge-sync-config
   namespace: media
 data:
-  DELUGE_SYNC_RULES: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00"},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "tleechreload.org","priority": 10,"min_time": "252:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00"},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00"},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
+  DELUGE_SYNC_RULES: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00","keep_size": 12000},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00","keep_count": 110},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00","keep_size": 1200},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
   DELUGE_SYNC_LABEL_REMAP: "avistaz.to=permaseed,exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed,dns-verify.top=permaseed"
+  DELUGE_SYNC_HOST_ALIAS_MAP: "tleechreload.org=torrentleech.org"
   DELUGE_SYNC_LABELS: seeding
 ---
 apiVersion: batch/v1
@@ -23,7 +24,7 @@ spec:
         spec:
           containers:
           - name: cleanup
-            image: ghcr.io/angellusmortis/deluge-sync:v1.5.1
+            image: ghcr.io/angellusmortis/deluge-sync:v1.6.0
             imagePullPolicy: IfNotPresent
             command: ["bash"]
             args:
@@ -46,7 +47,7 @@ spec:
               - name: DELUGE_SYNC_URL
                 value: http://deluge-web:8112
               - name: DELUGE_SYNC_PATH_MAP
-                value: "dns-verify.top=/downloads/p/seed/lsh,flacsfor.me=/downloads/p/seed/red,tleechreload.org=/downloads/p/seed/tl,torrentleech.org=/downloads/p/seed/tl,rptscene.xyz=/downloads/p/seed/rpt,metal-tracker.com=/downloads/p/seed/mt,myanonamouse.net=/downloads/p/seed/mam,opsfet.ch=/downloads/p/seed/ops,pixelcove.me=/downloads/p/seed/pxc,seedpool.org=/downloads/p/seed/sp"
+                value: "dns-verify.top=/downloads/p/seed/lsh,flacsfor.me=/downloads/p/seed/red,torrentleech.org=/downloads/p/seed/tl,rptscene.xyz=/downloads/p/seed/rpt,metal-tracker.com=/downloads/p/seed/mt,myanonamouse.net=/downloads/p/seed/mam,opsfet.ch=/downloads/p/seed/ops,pixelcove.me=/downloads/p/seed/pxc,seedpool.org=/downloads/p/seed/sp"
           restartPolicy: Never
 ---
 apiVersion: batch/v1
@@ -64,7 +65,7 @@ spec:
         spec:
           containers:
           - name: cleanup
-            image: ghcr.io/angellusmortis/deluge-sync:v1.5.1
+            image: ghcr.io/angellusmortis/deluge-sync:v1.6.0
             imagePullPolicy: IfNotPresent
             command: ["bash"]
             args:
@@ -87,5 +88,5 @@ spec:
               - name: DELUGE_SYNC_URL
                 value: http://backup-1.dc.mort.is:8112
               - name: DELUGE_SYNC_PATH_MAP
-                value: "dns-verify.top=/opt/download/p/seed/lsh,flacsfor.me=/opt/download/p/seed/red,tleechreload.org=/opt/download/p/seed/tl,torrentleech.org=/opt/download/p/seed/tl,rptscene.xyz=/opt/download/p/seed/rpt,metal-tracker.com=/opt/download/p/seed/mt,myanonamouse.net=/opt/download/p/seed/mam,opsfet.ch=/opt/download/p/seed/ops,pixelcove.me=/opt/download/p/seed/pxc,seedpool.org=/opt/download/p/seed/sp"
+                value: "dns-verify.top=/opt/download/p/seed/lsh,flacsfor.me=/opt/download/p/seed/red,torrentleech.org=/opt/download/p/seed/tl,rptscene.xyz=/opt/download/p/seed/rpt,metal-tracker.com=/opt/download/p/seed/mt,myanonamouse.net=/opt/download/p/seed/mam,opsfet.ch=/opt/download/p/seed/ops,pixelcove.me=/opt/download/p/seed/pxc,seedpool.org=/opt/download/p/seed/sp"
           restartPolicy: Never
