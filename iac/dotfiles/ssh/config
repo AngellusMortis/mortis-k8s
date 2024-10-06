@@ -12,5 +12,8 @@ Host ssh.wl.mort.is
   LocalForward 8000 127.0.0.1:8000
   ProxyCommand cloudflared access ssh --hostname %h
 
+Host ca.mort.is
+  ProxyCommand cloudflared access ssh --hostname %h
+
 Host fr.mort.is
   ProxyCommand cloudflared access ssh --hostname %h

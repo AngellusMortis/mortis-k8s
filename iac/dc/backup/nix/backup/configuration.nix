@@ -99,7 +99,7 @@
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall = {
-        allowedTCPPorts = [ 22 58846 51820 8112 8384 9100 9134 22048 22000 32400 ];
+        allowedTCPPorts = [ 22 58846 8112 8384 9100 9134 22048 22000 32400 ];
         allowedUDPPorts = [ 51820 22048 22000 ];
         checkReversePath = "loose";
 

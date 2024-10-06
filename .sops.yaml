@@ -2,6 +2,7 @@ keys:
   - &yubikey_125 7CC61516A8AB4A9ADBE66BBBADA18435970F54DD
   - &yubikey_224 6DB61401A51D2CB80E554D1670D700C8B0461769
   - &backup_1 age1lgf6q49nfapdxwd7a9mvs9deh88v8umqh9pl7fd8f5mgqk94kfusqxshjy
+  - &egress age1z365me6n6qyrn43z9rpper2nzurqszcfkpehql3qgwpywx72zchss6aa3h
 creation_rules:
   - path_regex: secrets/[^/]+\.(yml|yaml|json|env|ini)$
     key_groups:
@@ -10,3 +11,4 @@ creation_rules:
       - *yubikey_224
       age:
       - *backup_1
+      - *egress

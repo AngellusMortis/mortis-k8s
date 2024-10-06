@@ -10,51 +10,25 @@
         ../../../../nix/common/mdcheck.nix
         ../../../../nix/common/all.nix
         ../../../../nix/common/grub-theme.nix
-        # ../../../../nix/common/sops.nix
+        ../../../../nix/common/sops.nix
     ];
 
     # console.enable = true;
 
-    # sops.secrets.cf_tunnel = {
-    #     owner = "cloudflared";
-    #     group = "cloudflared";
-    #     # The sops file can be also overwritten per secret...
-    #     sopsFile = ../../secrets/cf-tunnel.json;
-    #     # ... as well as the format
-    #     format = "binary";
-    # };
+    sops.secrets.cf_tunnel = {
+        owner = "cloudflared";
+        group = "cloudflared";
+        # The sops file can be also overwritten per secret...
+        sopsFile = ../../secrets/cf-tunnel.json;
+        # ... as well as the format
+        format = "binary";
+    };
 
-    # sops.secrets.wg_private_key = {
-    #     # restartUnits = [ "home-assistant.service" ];
-    #     sopsFile = ../../secrets/wg.yml;
-    #     format = "yaml";
-    # };
-    # sops.secrets.wg_public_key = {
-    #     # restartUnits = [ "home-assistant.service" ];
-    #     sopsFile = ../../secrets/wg.yml;
-    #     format = "yaml";
-    # };
-    # sops.secrets.wg_endpoint = {
-    #     # restartUnits = [ "home-assistant.service" ];
-    #     sopsFile = ../../secrets/wg.yml;
-    #     format = "yaml";
-    # };
-    # sops.templates."wg0.conf" = {
-    #     content = ''
-    #     [Interface]
-    #     PrivateKey = ${config.sops.placeholder.wg_private_key}
-    #     Address = 10.8.0.112/32
-    #     DNS = 1.1.1.1
-    #     ListenPort = 51820
-    #     Table = off
-
-    #     [Peer]
-    #     PublicKey = ${config.sops.placeholder.wg_public_key}
-    #     AllowedIPs = 0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3
-    #     Endpoint = ${config.sops.placeholder.wg_endpoint}
-    #     '';
-    #     path = "/etc/wireguard/wg0.conf";
-    # };
+    sops.secrets.wg_private_key = {
+        # restartUnits = [ "home-assistant.service" ];
+        sopsFile = ../../secrets/wg.yml;
+        format = "yaml";
+    };
 
     networking.hostName = "egress";
 
@@ -76,9 +50,13 @@
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.swraid.enable = true;
 
+    networking.nat.enable = true;
+    networking.nat.externalInterface = "eno3";
+    networking.nat.internalInterfaces = [ "wg0" ];
+
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall = {
-        allowedTCPPorts = [ 22 51820 ];
+        allowedTCPPorts = [ 22 ];
         allowedUDPPorts = [ 51820 ];
         # checkReversePath = "loose";
 
@@ -91,6 +69,70 @@
         # '';
     };
 
+    networking.wireguard.interfaces = {
+    # "wg0" is the network interface name. You can name the interface arbitrarily.
+        wg0 = {
+            # Determines the IP address and subnet of the server's end of the tunnel interface.
+            ips = [ "10.8.0.10/24" ];
+
+            # The port that WireGuard listens to. Must be accessible by the client.
+            listenPort = 51820;
+
+            # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+            # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+            postSetup = ''
+                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eno3 -j MASQUERADE
+                ${pkgs.iptables}/bin/iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eno3 -j ACCEPT
+
+                # k8s / delugevpn
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno3 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno3 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+                # dc / deluge
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno3 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno3 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+            '';
+
+            # This undoes the above command
+            postShutdown = ''
+                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eno3 -j MASQUERADE
+            '';
+
+            # Path to the private key file.
+            #
+            # Note: The private key can also be included inline via the privateKey option,
+            # but this makes the private key world-readable; thus, using privateKeyFile is
+            # recommended.
+            privateKeyFile = config.sops.secrets.wg_private_key.path;
+
+            peers = [
+                # List of allowed peers.
+                # k8s / delugevpn
+                {
+                    publicKey = "TArn8JV3Z+yAKMMDaiB4v869Pp+1oSqjyqTEIrnXdSg=";
+                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+                    allowedIPs = [ "10.8.0.110/32" ];
+                }
+                # dc / deluge
+                {
+                    publicKey = "tq79/lA5En/jElIe5ONA1mIGwEYq2z4LZr+Ych2cTmQ=";
+                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+                    allowedIPs = [ "10.8.0.112/32" ];
+                }
+            ];
+        };
+    };
+
+    # disable auto-tmux
+    home-manager.users.cbailey.programs.zsh.envExtra = ''
+        MORTIS_USE_TMUX=false
+    '';
+
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
@@ -98,22 +140,19 @@
     ];
 
     services = {
-        # cloudflared = {
-        #     enable = true;
-        #     tunnels = {
-        #         "4ce0b609-4efd-40a2-8421-7256ba534d21" = {
-        #             credentialsFile = config.sops.secrets.cf_tunnel.path;
-        #             default = "http_status:404";
-        #             originRequest.noTLSVerify = true;
-        #             ingress = {
-        #                 "download.dc.mort.is" = "http://localhost:8112";
-        #                 "plex.dc.mort.is" = "https://localhost:32400";
-        #                 "ssh.dc.mort.is" = "ssh://localhost:22";
-        #                 "sync.dc.mort.is" = "http://localhost:8384";
-        #             };
-        #         };
-        #     };
-        # };
+        cloudflared = {
+            enable = true;
+            tunnels = {
+                "23ae6268-e1b3-4fa9-aa74-e382a7d9f17d" = {
+                    credentialsFile = config.sops.secrets.cf_tunnel.path;
+                    default = "http_status:404";
+                    originRequest.noTLSVerify = true;
+                    ingress = {
+                        "ca.mort.is" = "ssh://localhost:22";
+                    };
+                };
+            };
+        };
 
         fail2ban = {
             enable = true;
