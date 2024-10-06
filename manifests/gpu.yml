@@ -6,10 +6,11 @@ spec:
   restartPolicy: OnFailure
   containers:
   - name: nvidia-version-check
-    image: "nvidia/cuda:11.0.3-base-ubuntu20.04"
-    command: ["nvidia-smi"]
+    image: "nvcr.io/nvidia/cuda:12.1.0-base-ubuntu22.04"
+    command: ["sleep", "infinity"]
     resources:
       limits:
         nvidia.com/gpu: "1"
-    nodeSelector:
-        kubernetes.io/hostname: storage-1
+  # runtimeClassName: nvidia
+  nodeSelector:
+      kubernetes.io/hostname: storage-1
