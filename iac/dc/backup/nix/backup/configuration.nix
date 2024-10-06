@@ -23,6 +23,36 @@
         format = "binary";
     };
 
+    sops.secrets.wg_private_key = {
+        # restartUnits = [ "home-assistant.service" ];
+        sopsFile = ../../secrets/wg.yml;
+        format = "yaml";
+    };
+    sops.secrets.wg_public_key = {
+        # restartUnits = [ "home-assistant.service" ];
+        sopsFile = ../../secrets/wg.yml;
+        format = "yaml";
+    };
+    sops.secrets.wg_endpoint = {
+        # restartUnits = [ "home-assistant.service" ];
+        sopsFile = ../../secrets/wg.yml;
+        format = "yaml";
+    };
+    sops.templates."wg0.conf" = {
+        content = ''
+        [Interface]
+        PrivateKey = ${config.sops.placeholder.wg_private_key}
+        Address = 10.8.0.112/32
+        DNS = 1.1.1.1
+
+        [Peer]
+        PublicKey = ${config.sops.placeholder.wg_public_key}
+        AllowedIPs = 0.0.0.0/0
+        Endpoint = ${config.sops.placeholder.wg_endpoint}
+        '';
+        path = "/etc/wireguard/wg0.conf";
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     networking.hostName = "backup-1";
