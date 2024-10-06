@@ -14,6 +14,8 @@
         ../../../../nix/common/mortis-deluge.nix
     ];
 
+    console.enable = true;
+
     sops.secrets.cf_tunnel = {
         owner = "cloudflared";
         group = "cloudflared";
@@ -47,7 +49,7 @@
 
         [Peer]
         PublicKey = ${config.sops.placeholder.wg_public_key}
-        AllowedIPs = 0.0.0.0/0
+        AllowedIPs = 0.0.0.0/1, 128.0.0.0/2, 192.0.0.0/9, 192.128.0.0/11, 192.160.0.0/13, 192.169.0.0/16, 192.170.0.0/15, 192.172.0.0/14, 192.176.0.0/12, 192.192.0.0/10, 193.0.0.0/8, 194.0.0.0/7, 196.0.0.0/6, 200.0.0.0/5, 208.0.0.0/4, 224.0.0.0/3
         Endpoint = ${config.sops.placeholder.wg_endpoint}
         '';
         path = "/etc/wireguard/wg0.conf";
@@ -94,13 +96,28 @@
     };
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
-    networking.firewall.allowedTCPPorts = [ 22 8112 8384 9100 9134 22048 22000 32400 ];
-    networking.firewall.allowedUDPPorts = [ 22048 22000 ];
+    networking.firewall = {
+        allowedTCPPorts = [ 22 8112 8384 9100 9134 22048 22000 32400 ];
+        allowedUDPPorts = [ 22048 22000 ];
+
+        # if packets are still dropped, they will show up in dmesg
+        logReversePathDrops = true;
+        # wireguard trips rpfilter up
+        extraCommands = ''
+            ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN
+            ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN
+        '';
+        extraStopCommands = ''
+            ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 51820 -j RETURN || true
+            ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 51820 -j RETURN || true
+        '';
+    };
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
     environment.systemPackages = with pkgs; [
         zfs
+        wireguard-tools
     ];
 
     services.prometheus.exporters.node.enable = true;
