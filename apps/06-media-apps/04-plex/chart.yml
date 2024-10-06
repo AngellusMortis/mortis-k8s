@@ -86,6 +86,10 @@ spec:
         transcodeOperatingMode: local
         localRelayEnabled: false
         pmsIP: "10.96.93.59"
+      env:
+        NVIDIA_VISIBLE_DEVICES: "all"
+        FFMPEG_HWACCEL: "nvdec"
+        EAE_SUPPORT: "1"
       serviceConfig:
         type: LoadBalancer
         externalTrafficPolicy: Local
