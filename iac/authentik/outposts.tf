@@ -29,7 +29,7 @@ resource "authentik_outpost" "embedded" {
     config = jsonencode({
         "log_level": "info",
         "docker_labels": null,
-        "authentik_host": "https://authentik-server/",
+        "authentik_host": "https://auth.wl.mort.is/",
         "docker_network": null,
         "container_image": null,
         "docker_map_ports": true,
@@ -60,7 +60,7 @@ resource "authentik_outpost" "dc_outpost" {
     config = jsonencode({
         "log_level": "info",
         "docker_labels": null,
-        "authentik_host": "https://authentik-server/",
+        "authentik_host": "https://auth.dc.mort.is/",
         "docker_network": null,
         "container_image": null,
         "docker_map_ports": true,
