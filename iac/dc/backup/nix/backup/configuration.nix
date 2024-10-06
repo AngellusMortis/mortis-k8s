@@ -47,6 +47,7 @@
         Address = 10.8.0.112/32
         DNS = 1.1.1.1
         ListenPort = 51820
+        Table = off
 
         [Peer]
         PublicKey = ${config.sops.placeholder.wg_public_key}
