@@ -1,0 +1,4 @@
+
+provider "null" {}
+
+provider "external" {}

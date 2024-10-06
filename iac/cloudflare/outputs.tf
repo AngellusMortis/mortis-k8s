@@ -1,3 +1,13 @@
+output "ca_tunnel_id" {
+    value = cloudflare_zero_trust_tunnel_cloudflared.ca.id
+    sensitive = false
+}
+
+output "ca_tunnel_secret" {
+    value = cloudflare_zero_trust_tunnel_cloudflared.ca.secret
+    sensitive = true
+}
+
 output "dc_tunnel_id" {
     value = cloudflare_zero_trust_tunnel_cloudflared.dc.id
     sensitive = false

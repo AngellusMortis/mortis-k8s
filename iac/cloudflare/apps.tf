@@ -11,6 +11,12 @@ locals {
             second_subdomain = "ssl"
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
+        "ca" = {
+            name = "Egress SSH"
+            subdomain = "ca"
+            tunnel_id = cloudflare_zero_trust_tunnel_cloudflared.ca.id
+            policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
+        },
         "fr" = {
             name = "Egress SSH"
             subdomain = "fr"
