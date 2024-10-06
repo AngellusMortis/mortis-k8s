@@ -102,6 +102,14 @@
         allowedTCPPorts = [ 22 51820 8112 8384 9100 9134 22048 22000 32400 ];
         allowedUDPPorts = [ 51820 22048 22000 ];
         checkReversePath = "loose";
+
+        extraCommands = ''
+            iptables -t nat -A PREROUTING -p tcp --dport 8112 -j DNAT --to-destination 10.8.0.112:8112
+            iptables -t nat -A POSTROUTING -p tcp -d 10.8.0.112 --dport 8112 -j SNAT --to-source 10.8.0.112
+
+            iptables -t nat -A PREROUTING -p tcp --dport 58846 -j DNAT --to-destination 10.8.0.112:58846
+            iptables -t nat -A POSTROUTING -p tcp -d 10.8.0.112 --dport 58846 -j SNAT --to-source 10.8.0.112
+        '';
     };
 
     # List packages installed in system profile. To search, run:
