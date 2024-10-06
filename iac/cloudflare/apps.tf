@@ -17,12 +17,6 @@ locals {
             tunnel_id = cloudflare_zero_trust_tunnel_cloudflared.ca.id
             policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
         },
-        "fr" = {
-            name = "Egress SSH"
-            subdomain = "fr"
-            tunnel_id = "ac085653-976a-425f-81c9-b40d1dd883f6"
-            policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
-        },
         "longhorn" = {
             name = "Longhorn"
             second_subdomain = "longhorn"
