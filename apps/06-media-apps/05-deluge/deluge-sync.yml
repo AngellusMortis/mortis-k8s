@@ -24,7 +24,7 @@ spec:
         spec:
           containers:
           - name: cleanup
-            image: ghcr.io/angellusmortis/deluge-sync:v1.6.1
+            image: ghcr.io/angellusmortis/deluge-sync:v1.6.2
             imagePullPolicy: IfNotPresent
             command: ["bash"]
             args:
@@ -65,7 +65,7 @@ spec:
         spec:
           containers:
           - name: cleanup
-            image: ghcr.io/angellusmortis/deluge-sync:v1.6.1
+            image: ghcr.io/angellusmortis/deluge-sync:v1.6.2
             imagePullPolicy: IfNotPresent
             command: ["bash"]
             args:
