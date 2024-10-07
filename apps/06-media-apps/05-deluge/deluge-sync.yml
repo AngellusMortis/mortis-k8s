@@ -4,7 +4,7 @@ metadata:
   name: deluge-sync-config
   namespace: media
 data:
-  DELUGE_SYNC_RULES: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00","keep_size": 10200},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00","keep_count": 110},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00","keep_size": 1200},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
+  DELUGE_SYNC_RULES: '[{"host": "blutopia.cc","priority": 10,"min_time": "180:00:00","keep_size": 10440},{"host": "metal-tracker.com","priority": 10,"min_time": "168:00:00"},{"host": "myanonamouse.net","priority": 10,"min_time": "120:00:00"},{"host": "opsfet.ch","priority": 10,"min_time": "168:00:00"},{"host": "flacsfor.me","priority": 10,"min_time": "72:00:00"},{"host": "torrentleech.org","priority": 10,"min_time": "252:00:00","keep_count": 110},{"host": "seedpool.org","priority": 10,"min_time": "252:00:00","keep_size": 1200},{"host": "rptscene.xyz","priority": 10,"min_time": "26:00:00"}]'
   DELUGE_SYNC_LABEL_REMAP: "avistaz.to=permaseed,dns-verify.top=permaseed,exoticaz.to=permaseed,myanonamouse.net=permaseed,opsfet.ch=permaseed,pixelcove.me=permaseed"
   DELUGE_SYNC_HOST_ALIAS_MAP: "tleechreload.org=torrentleech.org"
   DELUGE_SYNC_LABELS: seeding
