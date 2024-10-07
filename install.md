@@ -37,7 +37,7 @@ talosctl apply-config -n 192.168.2.38 --file nodes/storage-1.yml
 talosctl upgrade --image factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.7.7 --preserve -n cluster-8
 
 ## gpu
-talosctl upgrade --image factory.talos.dev/installer/daa836c9267d89003d0314e32d120d49d5c7573f825958e8de13cca6b559b93f:v1.7.7 --preserve -n cluster-1
+talosctl upgrade --image factory.talos.dev/installer/daa836c9267d89003d0314e32d120d49d5c7573f825958e8de13cca6b559b93f:v1.7.7 --preserve -n cluster-3
 
 ## gpu+zfs
 talosctl upgrade --image factory.talos.dev/installer/c0714b30cf4fadeb71f019b1e8c9b0c191052dc49c16a9e3c91c9c643c2fc3e3:v1.8.0 --preserve -n storage-1
