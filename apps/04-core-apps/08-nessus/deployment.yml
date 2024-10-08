@@ -34,13 +34,12 @@ spec:
           failureThreshold: 5
           successThreshold: 1
         readinessProbe:
-          httpGet:
-            path: /
+          tcpSocket:
             port: http
-          initialDelaySeconds: 10
+          initialDelaySeconds: 5
           timeoutSeconds: 1
           periodSeconds: 5
-          failureThreshold: 10
+          failureThreshold: 5
           successThreshold: 1
         resources:
           requests:

@@ -37,6 +37,11 @@ locals {
             second_subdomain = "cd"
             icon = "https://fluxcd.io/favicons/favicon-32x32.png"
         },
+        "nessus" = {
+            name = "Nessus"
+            second_subdomain = "nessus"
+            icon = "https://www.tenable.com/themes/custom/tenable/img/favicons/favicon.ico"
+        },
     }
     home_apps = {
         "birdnet" = {

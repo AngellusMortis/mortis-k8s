@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nessus
+  namespace: nessus
+  labels:
+    app.kubernetes.io/name: nessus
+spec:
+  selector:
+    app.kubernetes.io/name: nessus
+  ports:
+    - name: nessus
+      protocol: TCP
+      port: 8834
+      targetPort: http
+  type: ClusterIP

@@ -188,6 +188,7 @@
                     "network.wl.mort.is" = "192.168.3.225";
                     "prometheus.wl.mort.is" = "192.168.2.225";
                     "ss.wl.mort.is" = "192.168.3.225";
+                    "nessus.wl.mort.is" = "192.168.3.225";
 
                     # secure / home apps
                     "birds.wl.mort.is" = "192.168.2.225";
