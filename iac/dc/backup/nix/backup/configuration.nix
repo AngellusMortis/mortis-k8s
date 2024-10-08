@@ -61,7 +61,7 @@
 
     hardware.graphics = {
         enable = true;
-        extraPackages = with pkgs; [ nvidia-vaapi-driver libva libvdpau-va-gl vaapiVdpau ];
+        # extraPackages = with pkgs; [ nvidia-vaapi-driver libva libvdpau-va-gl vaapiVdpau ];
     };
 
     hardware.nvidia = {
