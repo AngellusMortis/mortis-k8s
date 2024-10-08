@@ -85,7 +85,7 @@ resource "cloudflare_record" "dmarc" {
     zone_id = cloudflare_zone.mortis.id
     name = "_dmarc"
     proxied = false
-    content = "v=DMARC1; p=none; rua=mailto:dmarc@mort.is;"
+    content = "v=DMARC1; p=quarantine;"
     type = "TXT"
     tags = concat(local.tags.all, local.tags.email)
 }
