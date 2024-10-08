@@ -88,3 +88,16 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-apps-nessus
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/04-core-apps/08-nessus
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
