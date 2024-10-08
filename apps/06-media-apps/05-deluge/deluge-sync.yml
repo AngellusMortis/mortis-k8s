@@ -13,12 +13,22 @@ kind: CronJob
 metadata:
   name: deluge-sync
   namespace: media
+  app.kubernetes.io/component: deluge-sync
+  app.kubernetes.io/instance: deluge-vpn
+  app.kubernetes.io/name: deluge-sync
+  app.kubernetes.io/part-of: deluge-vpn
 spec:
   schedule: "*/10 * * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      metadata:
+        labels:
+          app.kubernetes.io/component: deluge-sync
+          app.kubernetes.io/instance: deluge-vpn
+          app.kubernetes.io/name: deluge-sync
+          app.kubernetes.io/part-of: deluge-vpn
       template:
         spec:
           metadata:
@@ -60,12 +70,22 @@ kind: CronJob
 metadata:
   name: deluge-dc-sync
   namespace: media
+  app.kubernetes.io/component: deluge-sync
+  app.kubernetes.io/instance: deluge-vpn
+  app.kubernetes.io/name: deluge-dc-sync
+  app.kubernetes.io/part-of: deluge-vpn
 spec:
   schedule: "*/10 * * * *"
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      metadata:
+      labels:
+        app.kubernetes.io/component: deluge-sync
+        app.kubernetes.io/instance: deluge-vpn
+        app.kubernetes.io/name: deluge-dc-sync
+        app.kubernetes.io/part-of: deluge-vpn
       template:
         spec:
           metadata:
