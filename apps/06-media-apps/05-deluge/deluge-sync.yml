@@ -21,6 +21,12 @@ spec:
     spec:
       template:
         spec:
+          metadata:
+            labels:
+              app.kubernetes.io/component: deluge-sync
+              app.kubernetes.io/instance: deluge-vpn
+              app.kubernetes.io/name: deluge-sync
+              app.kubernetes.io/part-of: deluge-vpn
           containers:
           - name: cleanup
             image: ghcr.io/angellusmortis/deluge-sync:v1.8.0
@@ -62,6 +68,12 @@ spec:
     spec:
       template:
         spec:
+          metadata:
+            labels:
+              app.kubernetes.io/component: deluge-sync
+              app.kubernetes.io/instance: deluge-vpn
+              app.kubernetes.io/name: deluge-dc-sync
+              app.kubernetes.io/part-of: deluge-vpn
           containers:
           - name: cleanup
             image: ghcr.io/angellusmortis/deluge-sync:v1.8.0
