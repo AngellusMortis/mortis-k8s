@@ -34,20 +34,20 @@ spec:
         livenessProbe:
           tcpSocket:
             port: https
-          initialDelaySeconds: 5
+          initialDelaySeconds: 15
           timeoutSeconds: 1
           periodSeconds: 5
-          failureThreshold: 5
+          failureThreshold: 20
           successThreshold: 1
         readinessProbe:
           httpGet:
             path: /
             port: https
             scheme: HTTPS
-          initialDelaySeconds: 60
+          initialDelaySeconds: 30
           timeoutSeconds: 1
           periodSeconds: 5
-          failureThreshold: 5
+          failureThreshold: 20
           successThreshold: 1
         resources:
           requests:
