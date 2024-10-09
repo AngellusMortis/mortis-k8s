@@ -60,7 +60,7 @@ spec:
         - mountPath: /opt/nessus/var/nessus
           name: data
           subPath: var
-        - mountPath: /opt/nessus/etc/nessus
+        - mountPath: /opt/nessus/etc_volume/nessus
           name: data
           subPath: etc
   volumeClaimTemplates:
