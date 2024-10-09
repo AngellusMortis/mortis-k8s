@@ -31,24 +31,24 @@ spec:
         ports:
         - name: https
           containerPort: 8834
-        livenessProbe:
-          tcpSocket:
-            port: https
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
-          periodSeconds: 5
-          failureThreshold: 5
-          successThreshold: 1
-        readinessProbe:
-          httpGet:
-            path: /
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 5
-          timeoutSeconds: 1
-          periodSeconds: 5
-          failureThreshold: 5
-          successThreshold: 1
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: https
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 1
+        #   periodSeconds: 5
+        #   failureThreshold: 5
+        #   successThreshold: 1
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: https
+        #     scheme: HTTPS
+        #   initialDelaySeconds: 5
+        #   timeoutSeconds: 1
+        #   periodSeconds: 5
+        #   failureThreshold: 5
+        #   successThreshold: 1
         resources:
           requests:
             cpu: "200m"
