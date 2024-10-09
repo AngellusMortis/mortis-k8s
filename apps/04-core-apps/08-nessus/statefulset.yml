@@ -57,8 +57,12 @@ spec:
             cpu: "2000m"
             memory: "4000Mi"
         volumeMounts:
-        - mountPath: /opt/nessus
+        - mountPath: /opt/nessus/var/nessus
           name: data
+          subPath: var
+        - mountPath: /opt/nessus/etc/nessus
+          name: data
+          subPath: etc
   volumeClaimTemplates:
   - metadata:
       name: data
