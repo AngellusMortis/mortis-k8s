@@ -12,5 +12,5 @@ spec:
     - name: nessus
       protocol: TCP
       port: 8834
-      targetPort: http
+      targetPort: https
   type: ClusterIP

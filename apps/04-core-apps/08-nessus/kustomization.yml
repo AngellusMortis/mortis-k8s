@@ -1,6 +1,6 @@
 resources:
   - namespace.yml
-  - deployment.yml
+  - statefulset.yml
   - service.yml
   - ingress.yml
   - secrets-sealed.yml
