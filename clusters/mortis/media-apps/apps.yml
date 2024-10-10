@@ -227,20 +227,6 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: media-apps-emulatorjs
-  namespace: flux-system
-spec:
-  targetNamespace: media
-  interval: 10m0s
-  path: ./apps/06-media-apps/18-emulatorjs
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: media-apps-romm
   namespace: flux-system
 spec:
@@ -261,6 +247,20 @@ spec:
   targetNamespace: media
   interval: 10m0s
   path: ./apps/06-media-apps/18-whisparr
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: media-apps-stash
+  namespace: flux-system
+spec:
+  targetNamespace: media
+  interval: 10m0s
+  path: ./apps/06-media-apps/19-stash
   prune: false
   sourceRef:
     kind: GitRepository
