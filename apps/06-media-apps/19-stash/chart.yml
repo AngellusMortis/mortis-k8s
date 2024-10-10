@@ -26,13 +26,6 @@ spec:
     kind: OCIRepository
     name: stash
   values:
-    securityContext:
-      container:
-        PUID: 1000
-        UMASK: "002"
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
     workload:
       main:
         podSpec:
