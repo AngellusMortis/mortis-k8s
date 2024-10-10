@@ -7,6 +7,7 @@ resource "authentik_outpost" "embedded" {
         module.control_apps["crashplan"].provider_id,
         module.control_apps["unifi-network"].provider_id,
         module.control_apps["fluxcd"].provider_id,
+        module.control_apps["nessus"].provider_id,
         module.home_apps["birdnet"].provider_id,
         module.home_apps["home-assistant"].provider_id,
         module.home_apps["paperless"].provider_id,
@@ -23,6 +24,7 @@ resource "authentik_outpost" "embedded" {
         module.media_ingest_apps["fileflows"].provider_id,
         module.media_ingest_apps["autobrr"].provider_id,
         module.media_ingest_apps["lidarr"].provider_id,
+        module.media_ingest_apps["whisparr"].provider_id,
         module.metrics_apps["alert-manager"].provider_id,
         module.metrics_apps["prometheus"].provider_id,
     ]
