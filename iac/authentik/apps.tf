@@ -157,6 +157,12 @@ locals {
             description = "Music Downloader"
             icon = "https://lidarr.audio/img/favicon.ico"
         },
+        "whisparr" = {
+            name = "Whisparr"
+            subdomain = "stuff"
+            description = "Porn Downloader"
+            icon = "https://whisparr.com/logo/256.png"
+        },
     }
     metrics_apps = {
         "alert-manager" = {

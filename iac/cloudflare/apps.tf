@@ -143,6 +143,11 @@ locals {
             second_subdomain = "music"
             icon = "https://lidarr.audio/img/favicon.ico"
         },
+        "whisparr" = {
+            name = "Whisparr"
+            second_subdomain = "stuff"
+            icon = "https://whisparr.com/logo/256.png"
+        },
     }
     metrics_apps = {
         "alerts" = {
