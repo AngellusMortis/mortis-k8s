@@ -25,7 +25,7 @@ locals {
             icon = "https://fluxcd.io/favicons/favicon-32x32.png"
         },
         "nessus" = {
-            name = "Nesus"
+            name = "Nessus"
             subdomain = "nessus"
             description = "Infrastructure Scanner"
             icon = "https://www.tenable.com/themes/custom/tenable/img/favicons/favicon.ico"
