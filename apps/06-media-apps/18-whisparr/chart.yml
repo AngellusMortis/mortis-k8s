@@ -31,7 +31,7 @@ spec:
         podSpec:
           containers:
             main:
-              env:
+              fixedEnv:
                 PGID: "1000"
                 PUID: "1000"
     persistence:
