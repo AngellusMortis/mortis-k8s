@@ -91,6 +91,13 @@ locals {
             description = "File Sync Application"
             icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
+        "stash" = {
+            name = "Stash"
+            group = "Media"
+            subdomain = "stash"
+            description = "Porn Media Player"
+            icon = "https://docs.stashapp.cc/favicon.ico"
+        },
     }
     media_apps = {
         "plex" = {

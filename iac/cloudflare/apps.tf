@@ -85,6 +85,12 @@ locals {
             dns_tags = concat(local.tags.home, local.tags.media)
             second_subdomain = "sync"
         },
+        "stash" = {
+            name = "Stash"
+            icon = "https://docs.stashapp.cc/favicon.ico"
+            dns_tags = concat(local.tags.home, local.tags.media)
+            second_subdomain = "stash"
+        },
     }
     media_apps = {
         "plex" = {

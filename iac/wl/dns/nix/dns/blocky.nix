@@ -202,6 +202,7 @@
                     "index.wl.mort.is" = "192.168.2.225";
                     "movies.wl.mort.is" = "192.168.2.225";
                     "music.wl.mort.is" = "192.168.2.225";
+                    "stash.wl.mort.is" = "192.168.2.225";
                     "stuff.wl.mort.is" = "192.168.2.225";
                     "subs.wl.mort.is" = "192.168.2.225";
                     "sync.wl.mort.is" = "192.168.2.225";
