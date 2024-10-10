@@ -1,3 +1,2 @@
 resources:
   - chart.yml
-  - pvc.yml

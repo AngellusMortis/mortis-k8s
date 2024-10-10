@@ -30,39 +30,27 @@ spec:
       config:
         enabled: true
         mountPath: "/root/.stash"
-        type: pvc
-        existingClaim: stash-data
-        subPath: config
+        size: 1Gi
       cache:
         enabled: true
         mountPath: "/cache"
-        type: pvc
-        existingClaim: stash-data
-        subPath: cache
+        size: 10Gi
       generated:
         enabled: true
         mountPath: "/generated"
-        type: pvc
-        existingClaim: stash-data
-        subPath: generated
+        size: 1Gi
       metadata:
         enabled: true
         mountPath: "/metadata"
-        type: pvc
-        existingClaim: stash-data
-        subPath: metadata
+        size: 10Gi
       blobs:
         enabled: true
         mountPath: "/blobs"
-        type: pvc
-        existingClaim: stash-data
-        subPath: blobs
+        size: 1Gi
       data:
         enabled: true
         mountPath: "/data"
-        type: pvc
-        existingClaim: stash-data
-        subPath: data
+        size: 1Gi
       media:
         enabled: true
         mountPath: /media
