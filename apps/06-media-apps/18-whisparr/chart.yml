@@ -83,7 +83,7 @@ spec:
                   pathType: Prefix
                   overrideService:
                     name: main
-                    port: 10680
+                    port: 6969
         integrations:
           certManager:
             enabled: false
