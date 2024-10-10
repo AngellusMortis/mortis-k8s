@@ -26,34 +26,39 @@ spec:
     kind: OCIRepository
     name: stash
   values:
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              fixedEnv:
+                STASH_CACHE: "/stash/cache"
+                STASH_METADATA: "/stash/metadata"
+                STASH_GENERATED: "/stash/generated"
+                STASH_STASH: "/media/stuff"
+                STASH_BLOBS_PATH: "/stash/blobs"
+                STASH_CONFIG_FILE: "/stash/config.yml"
     persistence:
+      stash:
+        enabled: true
+        mountPath: "/stash"
+        size: 50Gi
       config:
-        enabled: true
-        mountPath: "/root/.stash"
-        size: 1Gi
+        enabled: false
       cache:
-        enabled: true
-        mountPath: "/cache"
-        size: 10Gi
+        enabled: false
       generated:
-        enabled: true
-        mountPath: "/generated"
-        size: 1Gi
+        enabled: false
       metadata:
-        enabled: true
-        mountPath: "/metadata"
-        size: 10Gi
+        enabled: false
       blobs:
-        enabled: true
-        mountPath: "/blobs"
-        size: 1Gi
+        enabled: false
       data:
-        enabled: true
-        mountPath: "/data"
-        size: 1Gi
+        enabled: false
       media:
         enabled: true
-        mountPath: /media
+        mountPath: /media/stuff
+        subPath: stuff
         type: pvc
         existingClaim: nas-media
     ingress:
