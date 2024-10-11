@@ -126,6 +126,7 @@ spec:
         enabled: true
         size: 100Gi
         mountPath: /config
+        accessModes: ["ReadWriteMany"]
       blueprints:
         enabled: true
         type: pvc
