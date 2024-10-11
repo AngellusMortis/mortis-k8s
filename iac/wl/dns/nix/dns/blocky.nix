@@ -198,7 +198,7 @@
                     "vacuum.wl.mort.is" = "192.168.2.225";
 
                     # secure / media apps
-                    "emu.wl.mort.is" = "192.168.2.225";
+                    "games.wl.mort.is" = "192.168.2.225";
                     "index.wl.mort.is" = "192.168.2.225";
                     "movies.wl.mort.is" = "192.168.2.225";
                     "music.wl.mort.is" = "192.168.2.225";
@@ -221,6 +221,7 @@
                     "files.wl.mort.is" = "192.168.3.225";
                     "media.wl.mort.is" = "192.168.3.225";
                     "nas.wl.mort.is" = "192.168.3.235";
+                    "game-nas.wl.mort.is" = "192.168.3.237";
                     "plex.wl.mort.is" = "192.168.3.230";
                     "syncthing.wl.mort.is" = "192.168.3.236";
 

@@ -35,7 +35,7 @@ spec:
           containers:
             main:
               env:
-                ROMM_HOST: "emu.wl.mort.is"
+                ROMM_HOST: "games.wl.mort.is"
                 ENABLE_SCHEDULED_RESCAN: "false"
                 ENABLE_SCHEDULED_UPDATE_SWITCH_TITLEDB: "true"
                 ENABLE_SCHEDULED_UPDATE_MAME_XML: "true"
@@ -65,7 +65,7 @@ spec:
         targetSelector:
           main: main
         annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "emu.wl.mort.is"
+          nginx.ingress.kubernetes.io/upstream-vhost: "games.wl.mort.is"
           nginx.ingress.kubernetes.io/auth-url: |-
               http://ak-outpost-authentik-embedded-outpost.auth.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
           nginx.ingress.kubernetes.io/auth-signin: |-
@@ -79,7 +79,7 @@ spec:
           nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.wl.mort.is"
         ingressClassName:  "nginx-secure"
         hosts:
-          - host: emu.wl.mort.is
+          - host: games.wl.mort.is
             paths:
                 - path: /
                   pathType: Prefix
