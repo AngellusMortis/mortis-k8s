@@ -10,3 +10,16 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: game-servers-smb
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/07-game-servers/02-smb
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

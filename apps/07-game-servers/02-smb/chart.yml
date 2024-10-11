@@ -1,0 +1,47 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: k8s-at-home
+  namespace: games
+spec:
+  interval: 12h
+  url: https://k8s-at-home.com/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: games-apps-smb
+  namespace: games
+spec:
+  releaseName: smb
+  targetNamespace: games
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: samba
+      version: "6.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+  valuesFrom:
+    - kind: Secret
+      name: smb-config
+  values:
+    service:
+      main:
+        enabled: true
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/allow-shared-ip: "storage-192.168.3.237"
+          metallb.universe.tf/loadBalancerIPs: 192.168.3.237
+    persistence:
+      satisfactory:
+        enabled: true
+        existingClaim: satisfactory-config
+        mountPath: /mnt/satisfactory
+    configmap:
+      config:
+        enabled: true
