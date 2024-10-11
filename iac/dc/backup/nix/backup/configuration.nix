@@ -297,6 +297,24 @@
                             params.cleanoutDays = "30";
                         };
                     };
+                    "media-stuff" = {
+                        id = "brro5-yrsu6";
+                        label = "Media - Stuff";
+                        path = "/opt/media/stuff";
+                        devices = [ "sync.wl.mort.is" ];
+                        type = "sendreceive";
+                        ignoreDelete = true;
+                        fsWatcherEnabled = true;
+                        rescanIntervalS = 2592000; # once a month
+                        versioning = {
+                            type = "trashcan";
+                            params.cleanoutDays = "30";
+                        };
+                        ignorePatterns = [
+                            "lost+found"
+                            "**:**"
+                        ];
+                    };
                     "media-television" = {
                         id = "avkrt-rsvhx";
                         label = "Media - Television";
