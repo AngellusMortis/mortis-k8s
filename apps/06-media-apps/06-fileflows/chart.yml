@@ -67,12 +67,15 @@ spec:
               imageSelector: image
               probes:
                 liveness:
+                  enabled: false
                   type: exec
                   command: ["true"]
                 readiness:
+                  enabled: false
                   type: exec
                   command: ["true"]
                 startup:
+                  enabled: false
                   type: exec
                   command: ["true"]
               env:
