@@ -193,8 +193,8 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/upstream-vhost: "boundlexx.wl.mort.is"
-  name: boundlexx
-  namespace: boundlexx-internal
+  name: boundlexx-internal
+  namespace: boundlexx
   labels:
     app.kubernetes.io/component: django
     app.kubernetes.io/instance: boundlexx-live
