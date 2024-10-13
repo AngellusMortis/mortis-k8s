@@ -20,7 +20,7 @@ data:
   # Django settings
   # ------------------------------------------------------------------------------
   # CHANGE THIS FOR PRODUCTION
-  DJANGO_ALLOWED_HOSTS: "django.boundlexx,django.boundlexx.svc.cluster.local,boundlexx.wl.mort.is,api.boundlexx.app"
+  DJANGO_ALLOWED_HOSTS: "boundlexx.wl.mort.is,api.boundlexx.app,django.boundlexx,django.boundlexx.svc.cluster.local"
   DJANGO_SECURE_SSL_REDIRECT: "False"
   TZ: "America/New_York"
 
