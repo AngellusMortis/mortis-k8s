@@ -117,7 +117,7 @@ spec:
                   name: deluge-secrets
             env:
               - name: DELUGE_SYNC_URL
-                value: http://backup-1.dc.mort.is:8112
+                value: http://192.168.52.50:8112
               - name: DELUGE_SYNC_PATH_MAP
                 value: "avistaz.to=/opt/download/p/seed/az,blutopia.cc=/opt/download/p/seed/blu,dns-verify.top=/opt/download/p/seed/lsh,exoticaz.to=/opt/download/p/seed/ez,flacsfor.me=/opt/download/p/seed/red,torrentleech.org=/opt/download/p/seed/tl,rptscene.xyz=/opt/download/p/seed/rpt,metal-tracker.com=/opt/download/p/seed/mt,myanonamouse.net=/opt/download/p/seed/mam,opsfet.ch=/opt/download/p/seed/ops,pixelcove.me=/opt/download/p/seed/pxc,seedpool.org=/opt/download/p/seed/sp"
           restartPolicy: Never
