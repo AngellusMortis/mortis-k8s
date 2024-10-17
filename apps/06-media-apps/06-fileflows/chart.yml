@@ -65,6 +65,7 @@ spec:
               enabled: true
               primary: true
               imageSelector: image
+              runtimeClassName: nvidia
               probes:
                 liveness:
                   enabled: false
