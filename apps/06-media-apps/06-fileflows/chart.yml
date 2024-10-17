@@ -60,12 +60,12 @@ spec:
         type: StatefulSet
         replicas: 2
         podSpec:
+          runtimeClassName: nvidia
           containers:
             node:
               enabled: true
               primary: true
               imageSelector: image
-              runtimeClassName: nvidia
               probes:
                 liveness:
                   enabled: false
