@@ -63,7 +63,7 @@ resource "authentik_outpost" "dc_outpost" {
     config = jsonencode({
         "log_level": "info",
         "docker_labels": null,
-        "authentik_host": "https://auth.dc.mort.is/",
+        "authentik_host": "https://authentik-server.auth.svc.cluster.local/",
         "docker_network": null,
         "container_image": null,
         "docker_map_ports": true,
