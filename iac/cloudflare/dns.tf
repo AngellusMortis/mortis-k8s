@@ -7,6 +7,15 @@ resource "cloudflare_record" "root" {
     tags = concat(local.tags.all, local.tags.unused)
 }
 
+resource "cloudflare_record" "status" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "status"
+    proxied = false
+    content = "stats.uptimerobot.com"
+    type = "CNAME"
+    tags = concat(local.tags.all, local.tags.misc)
+}
+
 resource "cloudflare_record" "vpn" {
     zone_id = cloudflare_zone.mortis.id
     name = "vpn"
