@@ -176,6 +176,14 @@
                     "storage-1.wl.mort.is" = "192.168.2.38";
                     "storage-1" = "192.168.2.38";
 
+                    ## games-1
+                    "games-1-control.wl.mort.is" = "192.168.2.17";
+                    "games-1-control" = "192.168.2.17";
+                    "games-1-media.wl.mort.is" = "192.168.3.59";
+                    "games-1-media" = "192.168.3.59";
+                    "games-1.wl.mort.is" = "192.168.2.17";
+                    "games-1" = "192.168.2.17";
+
                     # k8s services
                     ## secure / control apps
                     "alerts.wl.mort.is" = "192.168.2.225";
