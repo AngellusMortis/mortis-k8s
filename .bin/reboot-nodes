@@ -13,7 +13,7 @@ elif [[ "$nodes" == "control" ]]; then
 elif [[ "$nodes" == "compute" ]]; then
     nodes="cluster-3 cluster-4 cluster-5 cluster-6 cluster-7"
 elif [[ "$nodes" == "nodes" ]]; then
-    nodes="cluster-3 cluster-4 cluster-5 cluster-6 cluster-7 storage-1"
+    nodes="cluster-3 cluster-4 cluster-5 cluster-6 cluster-7 storage-1 games-1"
 fi
 
 echo "Reboot nodes: $nodes"
@@ -28,4 +28,3 @@ for node in $nodes; do
     echo "Re-enabling scheduling on node $node..."
     kubectl uncordon $node
 done
-

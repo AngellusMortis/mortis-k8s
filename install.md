@@ -18,6 +18,8 @@ talosctl apply-config --insecure -n 192.168.2.82 --file nodes/cluster-8.yml
 
 talosctl apply-config --insecure -n 192.168.2.57 --file nodes/storage-1.yml
 talosctl apply-config --insecure -n 192.168.2.38 --file nodes/storage-1.yml
+
+talosctl apply-config --insecure -n 192.168.2.17 --file nodes/games-1.yml
 # 4c4c4544-0052-4310-8042-b4c04f4a4232
 
 # update nodes
@@ -31,6 +33,7 @@ talosctl apply-config -n 192.168.2.29 --file nodes/cluster-7.yml
 talosctl apply-config -n 192.168.2.82 --file nodes/cluster-8.yml
 
 talosctl apply-config -n 192.168.2.38 --file nodes/storage-1.yml
+talosctl apply-config -n 192.168.2.17 --file nodes/games-1.yml
 
 # upgrade
 ## no gpu

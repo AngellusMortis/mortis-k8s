@@ -87,6 +87,13 @@ spec:
                 requests:
                   cpu: 2000m
                   memory: 16Gi
+              nodeSelector:
+                kubernetes.io/hostname: games-1
+              tolerations:
+              - key: "type"
+                operator: "Equal"
+                value: "gamesOnly"
+                effect: "NoSchedule"
 
     securityContext:
       container:

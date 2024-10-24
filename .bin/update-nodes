@@ -29,3 +29,6 @@ fi
 if [[ -z "$NODE" ]] || [[ "$NODE" == "storage-1" ]]; then
     talosctl apply-config -n 192.168.2.38 --file nodes/storage-1.yml
 fi
+if [[ -z "$NODE" ]] || [[ "$NODE" == "games-1" ]]; then
+    talosctl apply-config -n 192.168.2.17 --file nodes/games-1.yml
+fi
