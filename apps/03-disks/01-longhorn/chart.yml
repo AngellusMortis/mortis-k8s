@@ -36,6 +36,7 @@ spec:
     defaultSettings:
       backupTarget: cifs://smb-samba.media.svc.cluster.local/backup/k8s/longhorn
       backupTargetCredentialSecret: backup-secret
+      taintToleration: type=gamesOnly:NoSchedule
     ingress:
       enabled: true
       ingressClassName: nginx-secure
