@@ -45,3 +45,10 @@ spec:
     configmap:
       config:
         enabled: true
+    nodeSelector:
+      kubernetes.io/hostname: games-1
+    tolerations:
+    - key: "type"
+      operator: "Equal"
+      value: "gamesOnly"
+      effect: "PreferNoSchedule"
