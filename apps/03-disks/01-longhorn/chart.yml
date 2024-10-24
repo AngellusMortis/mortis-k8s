@@ -32,11 +32,11 @@ spec:
         - key: "type"
           operator: "Equal"
           value: "gamesOnly"
-          effect: "NoSchedule"
+          effect: "PreferNoSchedule"
     defaultSettings:
       backupTarget: cifs://smb-samba.media.svc.cluster.local/backup/k8s/longhorn
       backupTargetCredentialSecret: backup-secret
-      taintToleration: type=gamesOnly:NoSchedule
+      taintToleration: type=gamesOnly:PreferNoSchedule
     ingress:
       enabled: true
       ingressClassName: nginx-secure

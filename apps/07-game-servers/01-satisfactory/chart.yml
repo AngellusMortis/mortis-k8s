@@ -93,7 +93,7 @@ spec:
           - key: "type"
             operator: "Equal"
             value: "gamesOnly"
-            effect: "NoSchedule"
+            effect: "PreferNoSchedule"
 
     securityContext:
       container:
