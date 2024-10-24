@@ -26,6 +26,13 @@ spec:
         kind: HelmRepository
         name: longhorn
   values:
+    global:
+      # -- Toleration for nodes allowed to run user-deployed components such as Longhorn Manager, Longhorn UI, and Longhorn Driver Deployer.
+      tolerations:
+        - key: "type"
+          operator: "Equal"
+          value: "gamesOnly"
+          effect: "NoSchedule"
     defaultSettings:
       backupTarget: cifs://smb-samba.media.svc.cluster.local/backup/k8s/longhorn
       backupTargetCredentialSecret: backup-secret
