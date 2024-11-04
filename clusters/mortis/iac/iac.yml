@@ -63,7 +63,7 @@ spec:
         key: id_ed25519
   runnerPodTemplate:
     spec:
-      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-16
+      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-17
       initContainers:
         - name: init-perms
           image: alpine:3
@@ -108,7 +108,7 @@ spec:
         key: id_ed25519
   runnerPodTemplate:
     spec:
-      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-16
+      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-17
       initContainers:
         - name: init-perms
           image: alpine:3
@@ -153,7 +153,7 @@ spec:
         key: id_ed25519
   runnerPodTemplate:
     spec:
-      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-16
+      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-17
       initContainers:
         - name: init-perms
           image: alpine:3

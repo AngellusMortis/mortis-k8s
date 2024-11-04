@@ -14,7 +14,7 @@ spec:
     volumeMounts:
     - mountPath: /host
       name: host-root
-  nodeName: storage-1
+  nodeName: cluster-1
   volumes:
   - hostPath:
       path: /

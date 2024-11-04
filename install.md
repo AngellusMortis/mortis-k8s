@@ -37,7 +37,7 @@ talosctl apply-config -n 192.168.2.17 --file nodes/games-1.yml
 
 # upgrade
 ## no gpu
-talosctl upgrade --image factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.8.1 --preserve -n cluster-8
+talosctl upgrade --image factory.talos.dev/installer/613e1592b2da41ae5e265e8789429f22e121aab91cb4deb6bc3c0b6262961245:v1.8.1 --preserve -n cluster-1
 
 ## gpu
 talosctl upgrade --image factory.talos.dev/installer/0a2153a6dc099a371bf2f63d6c3c22d275c876bf6302dd154c5813072924cb3f:v1.8.1 --preserve -n cluster-3
