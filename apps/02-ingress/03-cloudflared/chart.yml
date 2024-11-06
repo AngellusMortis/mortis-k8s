@@ -40,7 +40,7 @@ spec:
   values:
     image:
       repository: cloudflare/cloudflared # {"$imagepolicy": "flux-system:cloudflared-policy:name"}
-      tag: "2024.10.1" # {"$imagepolicy": "flux-system:cloudflared-policy:tag"}
+      tag: "2024.11.0" # {"$imagepolicy": "flux-system:cloudflared-policy:tag"}
     podSecurityContext:
       sysctls:
         - name: net.ipv4.ping_group_range
