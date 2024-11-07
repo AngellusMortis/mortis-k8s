@@ -20,7 +20,7 @@ spec:
               - "-c"
               - "find /downloads/p/transcoded/movies/ -mindepth 1 -type d -ctime +7 -exec rm -rf {} \\;"
             securityContext:
-              runAsUser: 568
+              runAsUser: 1000
               allowPrivilegeEscalation: false
               runAsNonRoot: true
               seccompProfile:
