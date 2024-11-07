@@ -18,7 +18,7 @@ spec:
             command: ["ash"]
             args:
               - "-c"
-              - 'find /downloads/p/transcoded/television/ -mindepth 1 -type d -ctime +7 -exec rm -rf "{}" \\;'
+              - "find /downloads/p/transcoded/television/ -mindepth 1 -ctime +7 -exec rm -rf {} \\;"
             securityContext:
               runAsUser: 1000
               allowPrivilegeEscalation: false
