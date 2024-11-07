@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cleanup-television
+  namespace: media
+spec:
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cleanup
+            image: busybox:latest
+            imagePullPolicy: IfNotPresent
+            command: ["ash"]
+            args:
+              - "-c"
+              - "find /downloads/p/transcoded/television/ -mindepth 1 -type d -ctime +7 -exec rm -rf {} \\;"
+            securityContext:
+              runAsUser: 568
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              seccompProfile:
+                type: "RuntimeDefault"
+              capabilities:
+                drop: ["ALL"]
+            volumeMounts:
+              - name: downloads
+                mountPath: /downloads/p/transcoded
+                subPath: p/transcoded
+          restartPolicy: Never
+          volumes:
+            - name: downloads
+              persistentVolumeClaim:
+                claimName: nas-nvme-download
