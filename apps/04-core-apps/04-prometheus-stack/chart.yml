@@ -255,75 +255,75 @@ spec:
               resources:
                 requests:
                   storage: 100Gi
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: core-apps-loki
-  namespace: monitor
-spec:
-  releaseName: loki
-  targetNamespace: monitor
-  interval: 10m
-  timeout: 15m
-  chart:
-    spec:
-      chart: loki
-      version: "6.*"
-      interval: 5m
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-  values:
-    loki:
-      auth_enabled: false
-      schemaConfig:
-        configs:
-          - from: "2024-04-01"
-            store: tsdb
-            object_store: s3
-            schema: v13
-            index:
-              prefix: loki_index_
-              period: 24h
-    gateway:
-      replicas: 2
-    minio:
-      enabled: true
-      persistence:
-        size: 5Gi
-    limits_config:
-      allow_structured_metadata: true
-      volume_enabled: true
-      retention_period: 336h # 14 days retention
-    monitoring:
-      serviceMonitor:
-        labels:
-          release: prometheus
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: core-apps-promtail
-  namespace: monitor
-spec:
-  releaseName: promtail
-  targetNamespace: monitor
-  interval: 10m
-  timeout: 5m
-  chart:
-    spec:
-      chart: promtail
-      version: "6.*"
-      interval: 5m
-      sourceRef:
-        kind: HelmRepository
-        name: grafana
-  values:
-    serviceMonitor:
-      enabled: true
-      labels:
-        release: prometheus
-    config:
-      clients:
-        - url: http://loki-gateway.monitor/loki/api/v1/push
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: core-apps-loki
+#   namespace: monitor
+# spec:
+#   releaseName: loki
+#   targetNamespace: monitor
+#   interval: 10m
+#   timeout: 15m
+#   chart:
+#     spec:
+#       chart: loki
+#       version: "6.*"
+#       interval: 5m
+#       sourceRef:
+#         kind: HelmRepository
+#         name: grafana
+#   values:
+#     loki:
+#       auth_enabled: false
+#       schemaConfig:
+#         configs:
+#           - from: "2024-04-01"
+#             store: tsdb
+#             object_store: s3
+#             schema: v13
+#             index:
+#               prefix: loki_index_
+#               period: 24h
+#     gateway:
+#       replicas: 2
+#     minio:
+#       enabled: true
+#       persistence:
+#         size: 5Gi
+#     limits_config:
+#       allow_structured_metadata: true
+#       volume_enabled: true
+#       retention_period: 336h # 14 days retention
+#     monitoring:
+#       serviceMonitor:
+#         labels:
+#           release: prometheus
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2
+# kind: HelmRelease
+# metadata:
+#   name: core-apps-promtail
+#   namespace: monitor
+# spec:
+#   releaseName: promtail
+#   targetNamespace: monitor
+#   interval: 10m
+#   timeout: 5m
+#   chart:
+#     spec:
+#       chart: promtail
+#       version: "6.*"
+#       interval: 5m
+#       sourceRef:
+#         kind: HelmRepository
+#         name: grafana
+#   values:
+#     serviceMonitor:
+#       enabled: true
+#       labels:
+#         release: prometheus
+#     config:
+#       clients:
+#         - url: http://loki-gateway.monitor/loki/api/v1/push
