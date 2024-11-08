@@ -40,7 +40,7 @@
         enableCryptodisk = true;
         mirroredBoots = [
             {
-                devices = [ "/dev/disk/by-uuid/F6F6-2EED" ];
+                devices = [ "/dev/disk/by-uuid/DA25-27CD" ];
                 path = "/boot2";
                 efiSysMountPoint = "/boot2/efi";
             }
