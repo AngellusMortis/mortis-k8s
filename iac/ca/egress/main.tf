@@ -1,5 +1,5 @@
 locals {
-    egress_ip = "192.99.233.151"
+    egress_ip = "149.56.241.127"
 }
 
 module "egress_build" {
