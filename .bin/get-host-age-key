@@ -4,4 +4,4 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-ssh $1 "nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'"
+nix-shell -p ssh-to-age --run "ssh-keyscan $1 | ssh-to-age"

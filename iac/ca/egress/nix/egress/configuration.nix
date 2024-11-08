@@ -18,6 +18,7 @@
     sops.secrets.cf_tunnel = {
         owner = "cloudflared";
         group = "cloudflared";
+        restartUnits = [ "cloudflared-tunnel-23ae6268-e1b3-4fa9-aa74-e382a7d9f17d.service" ];
         # The sops file can be also overwritten per secret...
         sopsFile = ../../secrets/cf-tunnel.json;
         # ... as well as the format
@@ -25,7 +26,7 @@
     };
 
     sops.secrets.wg_private_key = {
-        # restartUnits = [ "home-assistant.service" ];
+        restartUnits = [ "wireguard-wg0.service" ];
         sopsFile = ../../secrets/wg.yml;
         format = "yaml";
     };
