@@ -25,11 +25,11 @@
         format = "binary";
     };
 
-    sops.secrets.wg_private_key = {
-        restartUnits = [ "wireguard-wg0.service" ];
-        sopsFile = ../../secrets/wg.yml;
-        format = "yaml";
-    };
+    # sops.secrets.wg_private_key = {
+    #     restartUnits = [ "wireguard-wg0.service" ];
+    #     sopsFile = ../../secrets/wg.yml;
+    #     format = "yaml";
+    # };
 
     networking.hostName = "egress";
 
@@ -53,7 +53,7 @@
 
     networking.nat.enable = true;
     networking.nat.externalInterface = "eno1";
-    networking.nat.internalInterfaces = [ "wg0" ];
+    # networking.nat.internalInterfaces = [ "wg0" ];
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
     networking.firewall = {
@@ -61,64 +61,64 @@
         allowedUDPPorts = [ 11024 22048 51820 ];
     };
 
-    networking.wireguard.interfaces = {
-    # "wg0" is the network interface name. You can name the interface arbitrarily.
-        wg0 = {
-            # Determines the IP address and subnet of the server's end of the tunnel interface.
-            ips = [ "10.8.0.10/24" ];
+    # networking.wireguard.interfaces = {
+    # # "wg0" is the network interface name. You can name the interface arbitrarily.
+    #     wg0 = {
+    #         # Determines the IP address and subnet of the server's end of the tunnel interface.
+    #         ips = [ "10.8.0.10/24" ];
 
-            # The port that WireGuard listens to. Must be accessible by the client.
-            listenPort = 51820;
+    #         # The port that WireGuard listens to. Must be accessible by the client.
+    #         listenPort = 51820;
 
-            # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
-            # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
-            postSetup = ''
-                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
-                ${pkgs.iptables}/bin/iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eno1 -j ACCEPT
+    #         # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+    #         # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+    #         postSetup = ''
+    #             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eno1 -j ACCEPT
 
-                # k8s / delugevpn
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+    #             # k8s / delugevpn
+    #             ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+    #             ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
-                # dc / deluge
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-            '';
+    #             # dc / deluge
+    #             ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+    #             ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+    #             ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+    #         '';
 
-            # This undoes the above command
-            postShutdown = ''
-                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
-            '';
+    #         # This undoes the above command
+    #         postShutdown = ''
+    #             ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
+    #         '';
 
-            # Path to the private key file.
-            #
-            # Note: The private key can also be included inline via the privateKey option,
-            # but this makes the private key world-readable; thus, using privateKeyFile is
-            # recommended.
-            privateKeyFile = config.sops.secrets.wg_private_key.path;
+    #         # Path to the private key file.
+    #         #
+    #         # Note: The private key can also be included inline via the privateKey option,
+    #         # but this makes the private key world-readable; thus, using privateKeyFile is
+    #         # recommended.
+    #         privateKeyFile = config.sops.secrets.wg_private_key.path;
 
-            peers = [
-                # List of allowed peers.
-                # k8s / delugevpn
-                {
-                    publicKey = "TArn8JV3Z+yAKMMDaiB4v869Pp+1oSqjyqTEIrnXdSg=";
-                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-                    allowedIPs = [ "10.8.0.110/32" ];
-                }
-                # dc / deluge
-                {
-                    publicKey = "tq79/lA5En/jElIe5ONA1mIGwEYq2z4LZr+Ych2cTmQ=";
-                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-                    allowedIPs = [ "10.8.0.112/32" ];
-                }
-            ];
-        };
-    };
+    #         peers = [
+    #             # List of allowed peers.
+    #             # k8s / delugevpn
+    #             {
+    #                 publicKey = "TArn8JV3Z+yAKMMDaiB4v869Pp+1oSqjyqTEIrnXdSg=";
+    #                 # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+    #                 allowedIPs = [ "10.8.0.110/32" ];
+    #             }
+    #             # dc / deluge
+    #             {
+    #                 publicKey = "tq79/lA5En/jElIe5ONA1mIGwEYq2z4LZr+Ych2cTmQ=";
+    #                 # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+    #                 allowedIPs = [ "10.8.0.112/32" ];
+    #             }
+    #         ];
+    #     };
+    # };
 
     # disable auto-tmux
     home-manager.users.cbailey.programs.zsh.envExtra = ''
