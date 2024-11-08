@@ -51,7 +51,7 @@
     boot.swraid.enable = true;
 
     networking.nat.enable = true;
-    networking.nat.externalInterface = "eno3";
+    networking.nat.externalInterface = "eno1";
     networking.nat.internalInterfaces = [ "wg0" ];
 
     networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
@@ -72,26 +72,26 @@
             # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
             # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
             postSetup = ''
-                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eno3 -j MASQUERADE
+                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
                 ${pkgs.iptables}/bin/iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eno3 -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -o eno1 -j ACCEPT
 
                 # k8s / delugevpn
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno3 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno3 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 11024 -j DNAT --to-destination 10.8.0.110:11024
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.110 --dport 11024 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # dc / deluge
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno3 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p tcp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno3 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
             # This undoes the above command
             postShutdown = ''
-                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eno3 -j MASQUERADE
+                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eno1 -j MASQUERADE
             '';
 
             # Path to the private key file.
