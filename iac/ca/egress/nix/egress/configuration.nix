@@ -25,11 +25,11 @@
         format = "binary";
     };
 
-    # sops.secrets.wg_private_key = {
-    #     restartUnits = [ "wireguard-wg0.service" ];
-    #     sopsFile = ../../secrets/wg.yml;
-    #     format = "yaml";
-    # };
+    sops.secrets.wg_private_key = {
+        restartUnits = [ "wireguard-wg0.service" ];
+        sopsFile = ../../secrets/wg.yml;
+        format = "yaml";
+    };
 
     networking.hostName = "egress";
 
