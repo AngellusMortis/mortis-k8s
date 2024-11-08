@@ -19,10 +19,11 @@
     sops.secrets.cf_tunnel = {
         owner = "cloudflared";
         group = "cloudflared";
+        restartUnits = [ "cloudflared-tunnel-4ce0b609-4efd-40a2-8421-7256ba534d21.service" ];
         # The sops file can be also overwritten per secret...
         sopsFile = ../../secrets/cf-tunnel.json;
         # ... as well as the format
-        format = "binary";
+        format = "json";
     };
 
     sops.secrets.wg_private_key = {

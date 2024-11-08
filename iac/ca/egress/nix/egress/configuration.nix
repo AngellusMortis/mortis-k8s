@@ -22,7 +22,7 @@
         # The sops file can be also overwritten per secret...
         sopsFile = ../../secrets/cf-tunnel.json;
         # ... as well as the format
-        format = "binary";
+        format = "json";
     };
 
     sops.secrets.wg_private_key = {
