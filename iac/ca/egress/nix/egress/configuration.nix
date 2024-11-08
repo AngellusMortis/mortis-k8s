@@ -13,7 +13,7 @@
         ../../../../nix/common/sops.nix
     ];
 
-    # console.enable = true;
+    console.enable = true;
 
     sops.secrets.cf_tunnel = {
         owner = "cloudflared";
@@ -40,7 +40,7 @@
         enableCryptodisk = true;
         mirroredBoots = [
             {
-                devices = [ "/dev/disk/by-uuid/1190-836B" ];
+                devices = [ "/dev/disk/by-uuid/F6F6-2EED" ];
                 path = "/boot2";
                 efiSysMountPoint = "/boot2/efi";
             }
