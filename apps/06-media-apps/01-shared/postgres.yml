@@ -9,7 +9,7 @@ spec:
   storage:
     size: 50Gi
   postgresql:
-    paramaeters:
+    parameters:
       max_slot_wal_keep_size: "20GB"
   managed:
     roles:
