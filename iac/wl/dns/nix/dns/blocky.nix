@@ -241,6 +241,7 @@
 
                     # game servers
                     "satisfactory.wl.mort.is" = "192.168.3.240";
+                    "minecraft.wl.mort.is" = "192.168.3.241";
 
                     # IoT / NoT devices
                     "awair-1.wl.mort.is" = "192.168.52.93";
