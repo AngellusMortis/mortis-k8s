@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minecraft
+  namespace: games
+  labels:
+    app.kubernetes.io/component: minecraft
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+    app.kubernetes.io/part-of: minecraft
+spec:
+  replicas: 1
+  serviceName: minecraft
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: minecraft
+      app.kubernetes.io/instance: minecraft
+      app.kubernetes.io/name: minecraft
+      app.kubernetes.io/part-of: minecraft
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: minecraft
+        app.kubernetes.io/instance: minecraft
+        app.kubernetes.io/name: minecraft
+        app.kubernetes.io/part-of: minecraft
+    spec:
+      containers:
+      - name: mc
+        image: itzg/minecraft-server:2024.10.2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 25565
+          name: minecraft
+        envFrom:
+          - secretRef:
+              name: minecraft-secrets
+        env:
+          - name: EULA
+            value: "TRUE"
+          - name: MEMORY
+            value: "32G"
+          - name: ENABLE_ROLLING_LOGS
+            value: "true"
+          - name: TZ
+            value: "America/New_York"
+          - name: DIFFICULTY
+            value: "hard"
+          - name: MAX_PLAYERS
+            value: "5"
+          - name: SEED
+            value: "-663835666"
+          - name: ALLOW_FLIGHT
+            value: "TRUE"
+          - name: SERVER_NAME
+            value: "Mortis"
+          - name: MOTD
+            value: "Create Chronicles: Bosses and Beyond"
+          - name: TYPE
+            value: "AUTO_CURSEFORGE"
+          - name: CF_SLUG
+            value: "create-chronicles-bosses-and-beyond"
+          - name: CF_FILE_ID
+            value: "5857259"
+          - name: JVM_XX_OPTS
+            value: "-XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3 -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive"
+        volumeMounts:
+          - mountPath: /data
+            name: data
+        readinessProbe:
+          exec:
+            command:
+              - mc-monitor
+              - status
+              - --host
+              - localhost
+              - --port
+              - "25565"
+          initialDelaySeconds: 120
+          periodSeconds: 5
+          failureThreshold: 18
+        resources:
+          limits:
+            cpu: 16000m
+            memory: 48Gi
+          requests:
+            cpu: 4000m
+            memory: 32Gi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: minecraft-create-chronicles

@@ -1,0 +1,5 @@
+resources:
+  - sts.yml
+  - pvc.yml
+  - service.yml
+  - secrets-sealed.yml

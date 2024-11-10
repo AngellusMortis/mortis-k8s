@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft
+  namespace: games
+  labels:
+    app.kubernetes.io/component: minecraft
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+    app.kubernetes.io/part-of: minecraft
+spec:
+  selector:
+    app.kubernetes.io/name: minecraft
+  externalTrafficPolicy: Local
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "minecraft-192.168.3.241"
+    metallb.universe.tf/loadBalancerIPs: 192.168.3.241
+  ports:
+    - name: minecraft
+      port: 25565
+      targetPort: minecraft
+  type: LoadBalancer
