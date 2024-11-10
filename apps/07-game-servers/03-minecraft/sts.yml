@@ -25,6 +25,13 @@ spec:
         app.kubernetes.io/name: minecraft
         app.kubernetes.io/part-of: minecraft
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: games-1
+      tolerations:
+      - key: "type"
+        operator: "Equal"
+        value: "gamesOnly"
+        effect: "PreferNoSchedule"
       containers:
       - name: mc
         image: itzg/minecraft-server:2024.10.2
