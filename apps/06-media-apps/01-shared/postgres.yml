@@ -8,8 +8,9 @@ spec:
   instances: 3
   storage:
     size: 50Gi
-  paramaeters:
-    max_slot_wal_keep_size: "20GB"
+  postgresql:
+    paramaeters:
+      max_slot_wal_keep_size: "20GB"
   managed:
     roles:
     - name: autobrr
