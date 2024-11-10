@@ -42,6 +42,10 @@ spec:
         enabled: true
         existingClaim: satisfactory-config
         mountPath: /mnt/satisfactory
+      minecraft:
+        enabled: true
+        existingClaim: minecraft-create-chronicles
+        mountPath: /mnt/minecraft/create-chronicles
     configmap:
       config:
         enabled: true
