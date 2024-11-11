@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minecraft
+  namespace: games
+spec:
+  ingressClassName: nginx-insecure
+  tls:
+  - hosts:
+    - mc.wl.mort.is
+  rules:
+  - host: mc.wl.mort.is
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: minecraft
+            port:
+              number: 8100
