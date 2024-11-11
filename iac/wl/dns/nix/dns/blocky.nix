@@ -241,7 +241,8 @@
 
                     # game servers
                     "satisfactory.wl.mort.is" = "192.168.3.240";
-                    "mc.wl.mort.is" = "192.168.3.241";
+                    "mc-srv.wl.mort.is" = "192.168.3.241";
+                    "mc.wl.mort.is" = "192.168.3.225";
 
                     # IoT / NoT devices
                     "awair-1.wl.mort.is" = "192.168.52.93";
@@ -253,6 +254,7 @@
                 };
                 zone = ''
                     $ORIGIN wl.mort.is.
+                    _minecraft._tcp.mc.wl.mort.is. 300 IN SRV 0 5 25565 mc-srv.wl.mort.is.
                 '';
             };
 

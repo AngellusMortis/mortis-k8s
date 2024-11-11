@@ -3,3 +3,4 @@ resources:
   - pvc.yml
   - service.yml
   - secrets-sealed.yml
+  - ingress.yml
