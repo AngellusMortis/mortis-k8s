@@ -14,26 +14,12 @@ metadata:
 spec:
   selector:
     app.kubernetes.io/name: minecraft
-  externalTrafficPolicy: Local
   ports:
     - name: minecraft
       port: 25565
       targetPort: minecraft
-  type: LoadBalancer
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: minecraft-bluemap
-  namespace: games
-  labels:
-    app.kubernetes.io/component: minecraft
-    app.kubernetes.io/instance: minecraft
-    app.kubernetes.io/name: minecraft
-    app.kubernetes.io/part-of: minecraft
-spec:
-  type: ClusterIP
-  ports:
     - name: bluemap
       port: 8100
       targetPort: bluemap
+  externalTrafficPolicy: Local
+  type: LoadBalancer
