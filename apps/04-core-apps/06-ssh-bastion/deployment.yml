@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sshd
-        image: ghcr.io/linuxserver/openssh-server:9.7_p1-r4-ls172 # {"$imagepolicy": "flux-system:ssh-bastion-policy"}
+        image: ghcr.io/linuxserver/openssh-server:9.7_p1-r4-ls173 # {"$imagepolicy": "flux-system:ssh-bastion-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - name: ssh
