@@ -70,16 +70,18 @@ spec:
           # - name: TYPE
           #   value: "AUTO_CURSEFORGE"
           #   # value: "KETTING"
+          # - name: CF_SLUG
+          #   value: "create-chronicles-bosses-and-beyond"
+          # - name: CF_FILE_ID
+          #   value: "5857259"
           - name: TYPE
             value: "CURSEFORGE"
           - name: CF_SERVER_MOD
             value: "/data/Create_Chronicles_SERVER_v2.4.5.zip"
           - name: USE_MODPACK_START_SCRIPT
             value: "false"
-          - name: CF_SLUG
-            value: "create-chronicles-bosses-and-beyond"
-          - name: CF_FILE_ID
-            value: "5857259"
+          - name: VERSION
+            value: "1.20.1"
           - name: "MODS"
             value: "https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.3/BlueMap-5.3-forge-1.20.jar,https://mediafilez.forgecdn.net/files/5320/28/Chunky-1.3.146.jar,https://mediafilez.forgecdn.net/files/5074/609/findme-3.2.1-forge.jar"
           - name: JVM_XX_OPTS
