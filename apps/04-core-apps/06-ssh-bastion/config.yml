@@ -11,6 +11,9 @@ data:
     set -o pipefail
     set -o nounset
 
+    # fix perms on host key
+    chmod 600 /etc/ssh/ssh_host_ed25519_key
+
     # install Cloudflare pubkey
     # Cloudflare ZeroTrust -> Access -> Service Auth -> SSH
     echo "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLRDlK7uqBlq11tmmRm+bbKJuvYmhtu+jyfF22lykP6nxmlcgnPXKAfu3t/dV5VI7hE4uj3DzYI5+BuTPXt6MhY= open-ssh-ca@cloudflareaccess.org" > /etc/ssh/ca.pub
