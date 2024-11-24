@@ -65,11 +65,15 @@ spec:
             value: "Mortis"
           - name: MOTD
             value: "Create Chronicles: Bosses and Beyond"
-          - name: MODPACK_PLATFORM
-            value: "AUTO_CURSEFORGE"
+          # - name: MODPACK_PLATFORM
+          #   value: "AUTO_CURSEFORGE"
+          # - name: TYPE
+          #   value: "AUTO_CURSEFORGE"
+          #   # value: "KETTING"
           - name: TYPE
-            value: "AUTO_CURSEFORGE"
-            # value: "KETTING"
+            value: "CURSEFORGE"
+          - name: CF_SERVER_MOD
+            value: "/data/Create_Chronicles_SERVER_v2.4.5.zip"
           - name: CF_SLUG
             value: "create-chronicles-bosses-and-beyond"
           - name: CF_FILE_ID
