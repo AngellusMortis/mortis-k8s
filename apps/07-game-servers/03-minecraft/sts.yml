@@ -75,15 +75,6 @@ spec:
           #   value: "create-chronicles-bosses-and-beyond"
           # - name: CF_FILE_ID
           #   value: "5857259"
-          # Manual Curseforge
-          # - name: TYPE
-          #   value: "CURSEFORGE"
-          # - name: CF_SERVER_MOD
-          #   value: "/data/Create_Chronicles_SERVER_v2.4.5.zip"
-          # - name: USE_MODPACK_START_SCRIPT
-          #   value: "false"
-          # - name: VERSION
-          #   value: "1.20.1"
           # Custom
           - name: TYPE
             value: CUSTOM
