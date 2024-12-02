@@ -31,7 +31,6 @@ spec:
         runAsUser: 10000
         runAsGroup: 10000
         fsGroup: 10000
-      securityContext:
         allowPrivilegeEscalation: false
       nodeSelector:
         kubernetes.io/hostname: games-1

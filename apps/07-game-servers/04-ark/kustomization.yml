@@ -2,3 +2,4 @@ resources:
   - pvc.yml
   - sts-island.yml
   - service-island.yml
+  - secrets-sealed.yml
