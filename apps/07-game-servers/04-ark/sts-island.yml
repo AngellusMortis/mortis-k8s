@@ -17,8 +17,6 @@ spec:
       app.kubernetes.io/instance: ark
       app.kubernetes.io/name: ark
       app.kubernetes.io/part-of: ark
-  securityContext:
-    runAsNonRoot: true
   template:
     metadata:
       labels:
@@ -27,11 +25,6 @@ spec:
         app.kubernetes.io/name: ark
         app.kubernetes.io/part-of: ark
     spec:
-      securityContext:
-        runAsUser: 10000
-        runAsGroup: 10000
-        fsGroup: 10000
-        allowPrivilegeEscalation: false
       nodeSelector:
         kubernetes.io/hostname: games-1
       tolerations:
@@ -43,6 +36,11 @@ spec:
       - name: ark
         image: sknnr/ark-ascended-server:v1.5.2
         imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsUser: 10000
+          runAsGroup: 10000
+          fsGroup: 10000
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 7777
           name: ark
