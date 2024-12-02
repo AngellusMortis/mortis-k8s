@@ -59,9 +59,13 @@ spec:
           - name: SERVER_MAP
             value: "TheIsland_WP"
           - name: EXTRA_FLAGS
-            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering"
+            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL"
           - name: EXTRA_SETTINGS
             value: "?serverPVE=True"
+          - name: GAME_PORT
+            value: "7777"
+          - name: RCON_PORT
+            value: "27020"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: data
