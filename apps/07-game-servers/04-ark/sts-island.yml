@@ -49,21 +49,17 @@ spec:
           name: rcon
           protocol: TCP
         envFrom:
+          - configMapRef:
+            name: ark-config
           - secretRef:
               name: ark-secrets
         env:
           - name: SESSION_NAME
-            value: "Mortis"
+            value: "Mortis - The Island"
           - name: SERVER_MAP
             value: "TheIsland_WP"
-          - name: EXTRA_FLAGS
-            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME"
-          - name: EXTRA_SETTINGS
-            value: "?serverPVE=True"
           - name: GAME_PORT
             value: "7777"
-          - name: RCON_PORT
-            value: "27020"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: data
