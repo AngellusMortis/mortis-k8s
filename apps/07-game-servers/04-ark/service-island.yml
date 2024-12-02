@@ -21,6 +21,6 @@ spec:
     - name: ark
       port: 7777
       targetPort: ark
-      protocol: udp
+      protocol: UDP
   externalTrafficPolicy: Local
   type: LoadBalancer
