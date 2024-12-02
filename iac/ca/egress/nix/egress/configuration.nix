@@ -88,6 +88,10 @@
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p tcp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
                 ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 22048 -j DNAT --to-destination 10.8.0.112:22048
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+                # dc / deluge
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7777 -j DNAT --to-destination 10.8.0.120:7777
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.120 --dport 7777 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
             # This undoes the above command
