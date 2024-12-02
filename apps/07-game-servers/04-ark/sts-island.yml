@@ -78,7 +78,7 @@ spec:
             memory: 10Gi
         livenessProbe:
           tcpSocket:
-            port: ark
+            port: rcon
           initialDelaySeconds: 60
           timeoutSeconds: 1
           periodSeconds: 5
