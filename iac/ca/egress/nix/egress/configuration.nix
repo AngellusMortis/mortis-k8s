@@ -116,6 +116,12 @@
                     # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
                     allowedIPs = [ "10.8.0.112/32" ];
                 }
+                # k8s / games / ark / island
+                {
+                    publicKey = "kMFtxkgV2kT0JLl+9PM+6NtNAQlaVaGJBEDs6UW0+gw=";
+                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+                    allowedIPs = [ "10.8.0.120/32" ];
+                }
             ];
         };
     };

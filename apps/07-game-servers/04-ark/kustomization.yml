@@ -1,5 +1,7 @@
 resources:
   - pvc.yml
   - sts-island.yml
-  - service-island.yml
+  - wg-secrets-sealed.yml
   - secrets-sealed.yml
+  - service-island.yml
+  - secrets-island-sealed.yml
