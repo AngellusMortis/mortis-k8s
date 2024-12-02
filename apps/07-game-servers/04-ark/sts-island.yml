@@ -88,8 +88,10 @@ spec:
           exec:
             command:
             - rcon
-            - -a127.0.0.1:${RCON_PORT}
-            - -p"${SERVER_ADMIN_PASSWORD}"
+            - -a
+            - 127.0.0.1:${RCON_PORT}
+            - -p
+            - ${SERVER_ADMIN_PASSWORD}
             - listplayers
           initialDelaySeconds: 5
           timeoutSeconds: 1
