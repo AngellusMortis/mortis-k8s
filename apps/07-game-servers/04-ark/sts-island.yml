@@ -36,7 +36,7 @@ spec:
       - name: ark
         image: mschnitzer/asa-linux-server:1.4.0
         imagePullPolicy: IfNotPresent
-        entrypoint: /usr/bin/start_server
+        command: /usr/bin/start_server
         ports:
         - containerPort: 7777
           name: ark
