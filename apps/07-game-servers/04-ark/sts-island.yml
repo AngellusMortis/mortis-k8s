@@ -76,6 +76,35 @@ spec:
           requests:
             cpu: 4000m
             memory: 10Gi
+        liveness:
+          enabled: true
+          tcpSocket:
+            port: ark
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readiness:
+          enabled: true
+          exec:
+            command:
+            - rcon
+            - -a127.0.0.1:${RCON_PORT}
+            - -p"${SERVER_ADMIN_PASSWORD}"
+            - listplayers
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startup:
+          enabled: true
+          exec:
+            command:
+              - sh
+              - -c
+              - test ! -f "${ARK_PATH}/ShooterGame/Saved/test"
       volumes:
       - name: data
         persistentVolumeClaim:
