@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ark-island
+  namespace: games
+  labels:
+    app.kubernetes.io/component: island
+    app.kubernetes.io/instance: ark
+    app.kubernetes.io/name: ark
+    app.kubernetes.io/part-of: ark
+spec:
+  replicas: 1
+  serviceName: ark-island
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: island
+      app.kubernetes.io/instance: ark
+      app.kubernetes.io/name: ark
+      app.kubernetes.io/part-of: ark
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: island
+        app.kubernetes.io/instance: ark
+        app.kubernetes.io/name: ark
+        app.kubernetes.io/part-of: ark
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: games-1
+      tolerations:
+      - key: "type"
+        operator: "Equal"
+        value: "gamesOnly"
+        effect: "PreferNoSchedule"
+      containers:
+      - name: mc
+        image: mschnitzer/asa-linux-server:1.4.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7777
+          name: ark
+        - containerPort: 27020
+          name: rcon
+        envFrom:
+          - secretRef:
+              name: minecraft-secrets
+        env:
+          - name: ASA_START_PARAMS=
+            value: "TheIsland_WP?listen?Port=7777?RCONPort=27020?RCONEnabled=True -WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride="/home/gameserver/cluster-shared" -NoTransferFromFiltering"
+        volumeMounts:
+          - mountPath: /home/gameserver
+            name: data
+        resources:
+          limits:
+            cpu: 6000m
+            memory: 24Gi
+          requests:
+            cpu: 4000m
+            memory: 10Gi
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: ark
