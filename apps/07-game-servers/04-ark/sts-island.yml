@@ -93,7 +93,7 @@ spec:
             - -p
             - ${SERVER_ADMIN_PASSWORD}
             - listplayers
-          initialDelaySeconds: 5
+          initialDelaySeconds: 60
           timeoutSeconds: 1
           periodSeconds: 5
           failureThreshold: 3
