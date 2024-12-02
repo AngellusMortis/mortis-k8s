@@ -50,9 +50,9 @@ spec:
         - containerPort: 27020
           name: rcon
           protocol: TCP
-        # envFrom:
-        #   - secretRef:
-        #       name: minecraft-secrets
+        envFrom:
+          - secretRef:
+              name: ark-secrets
         env:
           - name: SESSION_NAME
             value: "Mortis"
@@ -66,6 +66,7 @@ spec:
           - mountPath: /home/steam/ark
             name: data
         resources:
+          limits:
             cpu: 6000m
             memory: 24Gi
           requests:
