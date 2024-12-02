@@ -79,7 +79,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: rcon
-          initialDelaySeconds: 180
+          initialDelaySeconds: 120
           timeoutSeconds: 1
           periodSeconds: 5
           failureThreshold: 3
@@ -90,7 +90,7 @@ spec:
             - sh
             - -c
             - "rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers"
-          initialDelaySeconds: 180
+          initialDelaySeconds: 150
           timeoutSeconds: 1
           periodSeconds: 5
           failureThreshold: 3
