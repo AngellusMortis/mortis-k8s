@@ -59,7 +59,7 @@ spec:
           - name: SERVER_MAP
             value: "TheIsland_WP"
           - name: EXTRA_FLAGS
-            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL"
+            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin"
           - name: EXTRA_SETTINGS
             value: "?serverPVE=True"
           - name: GAME_PORT
