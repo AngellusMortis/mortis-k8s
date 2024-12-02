@@ -36,3 +36,16 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: game-servers-ark
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/07-game-servers/04-ark
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
