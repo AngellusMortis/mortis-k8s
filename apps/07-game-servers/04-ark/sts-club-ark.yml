@@ -130,7 +130,7 @@ spec:
         - secretRef:
             name: wg-secrets
         - secretRef:
-            name: wg-secrets-ark-se
+            name: wg-secrets-ark-club
         env:
         - name: TZ
           value: "America/New_York"
