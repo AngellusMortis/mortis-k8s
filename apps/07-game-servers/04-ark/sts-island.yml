@@ -43,7 +43,7 @@ spec:
           fsGroup: 10000
           allowPrivilegeEscalation: false
         ports:
-        - containerPort: 7777
+        - containerPort: 7778
           name: ark
           protocol: UDP
         - containerPort: 27020
@@ -60,9 +60,9 @@ spec:
           - name: SERVER_MAP
             value: "TheIsland_WP"
           - name: GAME_PORT
-            value: "7777"
+            value: "7778"
           - name: AUTO_UPDATE
-            value: "true"
+            value: "false"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: server
@@ -142,13 +142,13 @@ spec:
         - name: VPN_TYPE
           value: "wireguard"
         - name: WIREGUARD_ADDRESSES
-          value: "10.8.0.120/32"
+          value: "10.8.0.121/32"
         - name: FIREWALL_DEBUG
           value: "on"
         - name: FIREWALL_INPUT_PORTS
-          value: "8000,7777"
+          value: "8000,7778,27020"
         - name: FIREWALL_VPN_INPUT_PORTS
-          value: "7777"
+          value: "7778"
         resources:
           limits:
             cpu: "4000m"

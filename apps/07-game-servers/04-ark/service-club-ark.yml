@@ -19,7 +19,7 @@ spec:
     app.kubernetes.io/part-of: ark
   ports:
     - name: ark
-      port: 7779
+      port: 7777
       targetPort: ark
       protocol: UDP
   externalTrafficPolicy: Local

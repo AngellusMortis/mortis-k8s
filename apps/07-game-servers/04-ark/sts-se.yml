@@ -43,7 +43,7 @@ spec:
           fsGroup: 10000
           allowPrivilegeEscalation: false
         ports:
-        - containerPort: 7778
+        - containerPort: 7780
           name: ark
           protocol: UDP
         - containerPort: 27020
@@ -60,7 +60,7 @@ spec:
           - name: SERVER_MAP
             value: "ScorchedEarth_WP"
           - name: GAME_PORT
-            value: "7778"
+            value: "7780"
           - name: AUTO_UPDATE
             value: "false"
         volumeMounts:
@@ -142,13 +142,13 @@ spec:
         - name: VPN_TYPE
           value: "wireguard"
         - name: WIREGUARD_ADDRESSES
-          value: "10.8.0.121/32"
+          value: "10.8.0.123/32"
         - name: FIREWALL_DEBUG
           value: "on"
         - name: FIREWALL_INPUT_PORTS
-          value: "8000,7778"
+          value: "8000,7780,27020"
         - name: FIREWALL_VPN_INPUT_PORTS
-          value: "7778"
+          value: "7780"
         resources:
           limits:
             cpu: "4000m"

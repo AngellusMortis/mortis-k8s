@@ -36,14 +36,14 @@ spec:
       - name: ark
         image: sknnr/ark-ascended-server:v1.5.2
         imagePullPolicy: IfNotPresent
-        command: [ "/home/steam/ark/club-ark.sh" ]
+        command: [ "/home/steam/ark/entrypoint.sh" ]
         securityContext:
           runAsUser: 10000
           runAsGroup: 10000
           fsGroup: 10000
           allowPrivilegeEscalation: false
         ports:
-        - containerPort: 7779
+        - containerPort: 7777
           name: ark
           protocol: UDP
         - containerPort: 27020
@@ -60,7 +60,7 @@ spec:
           - name: SERVER_MAP
             value: "BobsMissions_WP"
           - name: GAME_PORT
-            value: "7779"
+            value: "7777"
           - name: AUTO_UPDATE
             value: "true"
         volumeMounts:
@@ -142,13 +142,13 @@ spec:
         - name: VPN_TYPE
           value: "wireguard"
         - name: WIREGUARD_ADDRESSES
-          value: "10.8.0.122/32"
+          value: "10.8.0.120/32"
         - name: FIREWALL_DEBUG
           value: "on"
         - name: FIREWALL_INPUT_PORTS
-          value: "8000,7779"
+          value: "8000,7777,27020"
         - name: FIREWALL_VPN_INPUT_PORTS
-          value: "7779"
+          value: "7777"
         resources:
           limits:
             cpu: "4000m"
