@@ -61,6 +61,8 @@ spec:
             value: "ScorchedEarth_WP"
           - name: GAME_PORT
             value: "7778"
+          - name: AUTO_UPDATE
+            value: "false"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: data
