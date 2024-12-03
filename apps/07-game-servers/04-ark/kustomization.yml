@@ -1,8 +1,11 @@
 resources:
   - pvc.yml
-  - sts-island.yml
   - wg-secrets-sealed.yml
   - config.yml
   - secrets-sealed.yml
+  - sts-island.yml
   - service-island.yml
   - secrets-island-sealed.yml
+  - sts-se.yml
+  - service-se.yml
+  - secrets-se-sealed.yml
