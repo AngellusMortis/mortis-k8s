@@ -50,7 +50,7 @@ spec:
           protocol: TCP
         envFrom:
           - configMapRef:
-              name: ark-config
+              name: ark-config-club
           - secretRef:
               name: ark-secrets
         env:
