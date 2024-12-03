@@ -50,6 +50,10 @@ spec:
         enabled: true
         existingClaim: ark
         mountPath: /mnt/ark
+      ark-club-ark:
+        enabled: true
+        existingClaim: ark-club-ark
+        mountPath: /mnt/ark/club-ark
     configmap:
       config:
         enabled: true
