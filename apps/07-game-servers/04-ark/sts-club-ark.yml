@@ -56,7 +56,7 @@ spec:
               name: ark-secrets
         env:
           - name: SESSION_NAME
-            value: "\"Mortis - Club Ark\""
+            value: "Mortis"
           - name: SERVER_MAP
             value: "BobsMissions_WP"
           - name: GAME_PORT
