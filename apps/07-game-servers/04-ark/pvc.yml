@@ -14,7 +14,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ark-club-ark
+  name: ark-save-data
   namespace: games
 spec:
   storageClassName: longhorn
@@ -22,4 +22,4 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20Gi
+      storage: 100Gi
