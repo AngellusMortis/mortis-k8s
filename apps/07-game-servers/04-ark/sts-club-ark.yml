@@ -155,10 +155,10 @@ spec:
       #   - name: gluetun
       #     mountPath: /gluetun
 
-      # volumes:
-      # - name: data
-      #   persistentVolumeClaim:
-      #     claimName: ark
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: ark
 
   volumeClaimTemplates:
   - metadata:
