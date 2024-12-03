@@ -66,6 +66,8 @@ spec:
         volumeMounts:
           - mountPath: /home/steam/ark
             name: data
+          - mountPath: /home/steam/ark/ShooterGame/Saved
+            name: club-ark-data
         resources:
           limits:
             cpu: 6000m
@@ -159,6 +161,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: ark
+      - name: club-ark-data
+        persistentVolumeClaim:
+          claimName: ark-club-ark
 
   volumeClaimTemplates:
   - metadata:
