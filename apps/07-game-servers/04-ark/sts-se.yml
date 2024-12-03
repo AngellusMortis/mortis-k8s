@@ -36,7 +36,7 @@ spec:
       - name: ark
         image: sknnr/ark-ascended-server:v1.5.2
         imagePullPolicy: IfNotPresent
-        command: /home/steam/ark/entrypoint.sh
+        command: [ "/home/steam/ark/entrypoint.sh" ]
         securityContext:
           runAsUser: 10000
           runAsGroup: 10000
