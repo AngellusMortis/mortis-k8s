@@ -4,19 +4,14 @@ resources:
   - config.yml
   - secrets-sealed.yml
   # Club Ark
-  - config-club-ark.yml
-  - sts-club-ark.yml
-  - service-club-ark.yml
-  - secrets-club-ark-sealed.yml
+  - 00-club-ark-secrets-sealed.yml
+  - 00-club-ark.yml
   # The Island
-  - sts-island.yml
-  - service-island.yml
-  - secrets-island-sealed.yml
+  - 01-island-secrets-sealed.yml
+  - 01-island.yml
   # The Center
-  - sts-center.yml
-  - service-center.yml
-  - secrets-center-sealed.yml
+  - 02-center-secrets-sealed.yml
+  - 02-center.yml
   # Scorched Earth
-  - sts-se.yml
-  - service-se.yml
-  - secrets-se-sealed.yml
+  - 03-se-secrets-sealed.yml
+  - 03-se.yml
