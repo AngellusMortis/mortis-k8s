@@ -38,9 +38,9 @@ spec:
         imagePullPolicy: IfNotPresent
         command: [ "/home/steam/ark/entrypoint.sh" ]
         securityContext:
-          runAsUser: 10000
-          runAsGroup: 10000
-          fsGroup: 10000
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 7778
@@ -70,7 +70,7 @@ spec:
             name: data
           - mountPath: /home/steam/ark/ShooterGame/Saved
             name: data
-            subpath: ScorchedEarth_WP
+            subPath: ScorchedEarth_WP
         resources:
           limits:
             cpu: 6000m
