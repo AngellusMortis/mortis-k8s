@@ -4,6 +4,21 @@ metadata:
   name: ark-config
   namespace: games
 data:
-  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,935528"
+  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/cluster-shared -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,935528,972492,1005639,983782"
   EXTRA_SETTINGS: "?serverPVE=True"
   RCON_PORT: "27020"
+# WC Mods:
+# Club ARK: 1005639
+# Krazy Cosmetics: 972492
+# Dear Jane: 983782
+
+# Seasonal Mods:
+# Love Ascended: 927084
+# Summer Bash: 927091
+# Fear Ascended: 877752
+# Turkey Trial: 927083
+# Winter Wonderland: 927090
+
+# Other Mods:
+# Shiny: 928548
+# Visual Storage: 935528

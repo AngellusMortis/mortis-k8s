@@ -55,7 +55,7 @@ spec:
               name: ark-secrets
         env:
           - name: SESSION_NAME
-            value: "Mortis The Island"
+            value: "MortisTheIsland"
           - name: SERVER_MAP
             value: "TheIsland_WP"
           - name: GAME_PORT
