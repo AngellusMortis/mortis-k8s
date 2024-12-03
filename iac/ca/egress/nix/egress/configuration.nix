@@ -90,15 +90,19 @@
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / club ark
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7777 -j DNAT --to-destination 10.8.0.122:7777
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7777 -j DNAT --to-destination 10.8.0.120:7777
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.120 --dport 7777 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / island
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7778 -j DNAT --to-destination 10.8.0.120:7778
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7778 -j DNAT --to-destination 10.8.0.121:7778
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.121 --dport 7778 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
+                # k8s / games / ark / center
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7779 -j DNAT --to-destination 10.8.0.122:7779
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.122 --dport 7779 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
                 # k8s / games / ark / se
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7780 -j DNAT --to-destination 10.8.0.121:7780
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7780 -j DNAT --to-destination 10.8.0.123:7780
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.123 --dport 7780 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
@@ -139,6 +143,12 @@
                     publicKey = "kMFtxkgV2kT0JLl+9PM+6NtNAQlaVaGJBEDs6UW0+gw=";
                     # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
                     allowedIPs = [ "10.8.0.121/32" ];
+                }
+                # k8s / games / ark / center
+                {
+                    publicKey = "F6tQ3aBLsNAiIVg6NtsvWPoIiQk0O+/UrLsZOWCMXy0=";
+                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+                    allowedIPs = [ "10.8.0.122/32" ];
                 }
                 # k8s / games / ark / se
                 {
