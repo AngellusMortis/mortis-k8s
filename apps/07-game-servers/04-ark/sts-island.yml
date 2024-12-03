@@ -62,7 +62,7 @@ spec:
           - name: GAME_PORT
             value: "7777"
           - name: AUTO_UPDATE
-            value: "false"
+            value: "true"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: server
