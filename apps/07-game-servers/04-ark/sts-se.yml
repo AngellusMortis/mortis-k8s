@@ -73,14 +73,6 @@ spec:
           requests:
             cpu: 4000m
             memory: 10Gi
-        livenessProbe:
-          tcpSocket:
-            port: rcon
-          initialDelaySeconds: 60 # how long it takes rcon port to start listening
-          timeoutSeconds: 1
-          periodSeconds: 5
-          failureThreshold: 3
-          successThreshold: 1
         readinessProbe:
           exec:
             command:

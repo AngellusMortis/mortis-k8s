@@ -60,6 +60,8 @@ spec:
             value: "TheIsland_WP"
           - name: GAME_PORT
             value: "7777"
+          - name: AUTO_UPDATE
+            value: "false"
         volumeMounts:
           - mountPath: /home/steam/ark
             name: data
