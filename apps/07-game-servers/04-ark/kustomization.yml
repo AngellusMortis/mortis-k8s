@@ -17,4 +17,4 @@ resources:
   - 03-se.yml
   # Aberration
   - 04-aberration-secrets-sealed.yml
-  # - 04-aberration.yml
+  - 04-aberration.yml
