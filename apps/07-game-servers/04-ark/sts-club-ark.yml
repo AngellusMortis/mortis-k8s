@@ -65,9 +65,12 @@ spec:
             value: "true"
         volumeMounts:
           - mountPath: /home/steam/ark
+            name: server
+          - mountPath: /home/steam/ark/data
             name: data
           - mountPath: /home/steam/ark/ShooterGame/Saved
-            name: club-ark-data
+            name: data
+            subpath: BobsMissions_WP
         resources:
           limits:
             cpu: 6000m
@@ -158,12 +161,12 @@ spec:
           mountPath: /gluetun
 
       volumes:
-      - name: data
+      - name: server
         persistentVolumeClaim:
           claimName: ark
-      - name: club-ark-data
+      - name: data
         persistentVolumeClaim:
-          claimName: ark-club-ark
+          claimName: ark-save-data
 
   volumeClaimTemplates:
   - metadata:

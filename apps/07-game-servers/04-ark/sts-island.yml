@@ -65,7 +65,12 @@ spec:
             value: "false"
         volumeMounts:
           - mountPath: /home/steam/ark
+            name: server
+          - mountPath: /home/steam/ark/data
             name: data
+          - mountPath: /home/steam/ark/ShooterGame/Saved
+            name: data
+            subpath: TheIsland_WP
         resources:
           limits:
             cpu: 6000m
@@ -156,9 +161,12 @@ spec:
           mountPath: /gluetun
 
       volumes:
-      - name: data
+      - name: server
         persistentVolumeClaim:
           claimName: ark
+      - name: data
+        persistentVolumeClaim:
+          claimName: ark-save-data
 
   volumeClaimTemplates:
   - metadata:
