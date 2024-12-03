@@ -9,3 +9,6 @@ resources:
   - sts-se.yml
   - service-se.yml
   - secrets-se-sealed.yml
+  - sts-club-ark.yml
+  - service-club-ark.yml
+  - secrets-club-ark-sealed.yml
