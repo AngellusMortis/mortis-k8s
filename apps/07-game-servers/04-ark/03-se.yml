@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ark-aberration
+  name: ark-se
   namespace: games
   labels:
-    app.kubernetes.io/component: aberration
+    app.kubernetes.io/component: se
     app.kubernetes.io/instance: ark
     app.kubernetes.io/name: ark
     app.kubernetes.io/part-of: ark
 spec:
   replicas: 1
-  serviceName: ark-aberration
+  serviceName: ark-se
   selector:
     matchLabels:
-      app.kubernetes.io/component: aberration
+      app.kubernetes.io/component: se
       app.kubernetes.io/instance: ark
       app.kubernetes.io/name: ark
       app.kubernetes.io/part-of: ark
   template:
     metadata:
       labels:
-        app.kubernetes.io/component: aberration
+        app.kubernetes.io/component: se
         app.kubernetes.io/instance: ark
         app.kubernetes.io/name: ark
         app.kubernetes.io/part-of: ark
@@ -43,7 +43,7 @@ spec:
           fsGroup: 10000
           allowPrivilegeEscalation: false
         ports:
-        - containerPort: 7784
+        - containerPort: 7783
           name: ark
           protocol: UDP
         - containerPort: 27020
@@ -56,11 +56,11 @@ spec:
               name: ark-secrets
         env:
           - name: SESSION_NAME
-            value: "\"Mortis - Aberration\""
+            value: "\"Mortis - Scorched Earth\""
           - name: SERVER_MAP
-            value: "Aberration_WP"
+            value: "ScorchedEarth_WP"
           - name: GAME_PORT
-            value: "7784"
+            value: "7783"
           - name: AUTO_UPDATE
             value: "false"
         volumeMounts:
@@ -70,7 +70,7 @@ spec:
             name: data
           - mountPath: /home/steam/ark/ShooterGame/Saved
             name: data
-            subPath: Aberration_WP
+            subPath: ScorchedEarth_WP
         resources:
           limits:
             cpu: 6000m
@@ -133,7 +133,7 @@ spec:
         - secretRef:
             name: wg-secrets
         - secretRef:
-            name: wg-secrets-ark-aberration
+            name: wg-secrets-ark-se
         env:
         - name: TZ
           value: "America/New_York"
@@ -142,13 +142,13 @@ spec:
         - name: VPN_TYPE
           value: "wireguard"
         - name: WIREGUARD_ADDRESSES
-          value: "10.8.0.124/32"
+          value: "10.8.0.123/32"
         - name: FIREWALL_DEBUG
           value: "on"
         - name: FIREWALL_INPUT_PORTS
-          value: "8000,7784,27020"
+          value: "8000,7783,27020"
         - name: FIREWALL_VPN_INPUT_PORTS
-          value: "7784"
+          value: "7783"
         resources:
           limits:
             cpu: "4000m"
@@ -184,7 +184,7 @@ metadata:
   name: ark-se
   namespace: games
   labels:
-    app.kubernetes.io/component: aberration
+    app.kubernetes.io/component: se
     app.kubernetes.io/instance: ark
     app.kubernetes.io/name: ark
     app.kubernetes.io/part-of: ark
@@ -193,13 +193,13 @@ metadata:
     metallb.universe.tf/loadBalancerIPs: 192.168.3.242
 spec:
   selector:
-    app.kubernetes.io/component: aberration
+    app.kubernetes.io/component: se
     app.kubernetes.io/instance: ark
     app.kubernetes.io/name: ark
     app.kubernetes.io/part-of: ark
   ports:
     - name: ark
-      port: 7784
+      port: 7783
       targetPort: ark
       protocol: UDP
   externalTrafficPolicy: Local
