@@ -55,7 +55,7 @@ spec:
               name: ark-secrets
         env:
           - name: SESSION_NAME
-            value: "\"Mortis - SE\""
+            value: "\"Mortis - Scorched Earth\""
           - name: SERVER_MAP
             value: "ScorchedEarth_WP"
           - name: GAME_PORT
