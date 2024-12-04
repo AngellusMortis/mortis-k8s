@@ -102,65 +102,65 @@ spec:
         #   failureThreshold: 360
         #   periodSeconds: 10
 
-      # - name: gluetun
-      #   image: ghcr.io/qdm12/gluetun:v3.39.1 # {"$imagepolicy": "flux-system:gluetun-policy"}
-      #   imagePullPolicy: IfNotPresent
-      #   ports:
-      #   - containerPort: 8000
-      #     name: gluetun-control
-      #   securityContext:
-      #     privileged: true
-      #     capabilities:
-      #       add:
-      #       - NET_ADMIN
-      #   livenessProbe:
-      #     tcpSocket:
-      #       port: gluetun-control
-      #     initialDelaySeconds: 3
-      #     timeoutSeconds: 3
-      #     periodSeconds: 5
-      #     failureThreshold: 5
-      #     successThreshold: 1
-      #   readinessProbe:
-      #     httpGet:
-      #       path: "/v1/publicip/ip"
-      #       port: gluetun-control
-      #       scheme: HTTP
-      #     initialDelaySeconds: 3
-      #     timeoutSeconds: 3
-      #     periodSeconds: 5
-      #     failureThreshold: 5
-      #     successThreshold: 1
-      #   envFrom:
-      #   - secretRef:
-      #       name: wg-secrets
-      #   - secretRef:
-      #       name: wg-secrets-ark-club
-      #   env:
-      #   - name: TZ
-      #     value: "America/New_York"
-      #   - name: VPN_SERVICE_PROVIDER
-      #     value: "custom"
-      #   - name: VPN_TYPE
-      #     value: "wireguard"
-      #   - name: WIREGUARD_ADDRESSES
-      #     value: "10.8.0.120/32"
-      #   - name: FIREWALL_DEBUG
-      #     value: "on"
-      #   - name: FIREWALL_INPUT_PORTS
-      #     value: "8000,7780,27020"
-      #   - name: FIREWALL_VPN_INPUT_PORTS
-      #     value: "7780"
-      #   resources:
-      #     limits:
-      #       cpu: "4000m"
-      #       memory: "1024Mi"
-      #     requests:
-      #       cpu: "1000m"
-      #       memory: "256Mi"
-      #   volumeMounts:
-      #   - name: gluetun
-      #     mountPath: /gluetun
+      - name: gluetun
+        image: ghcr.io/qdm12/gluetun:v3.39.1 # {"$imagepolicy": "flux-system:gluetun-policy"}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+          name: gluetun-control
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - NET_ADMIN
+        livenessProbe:
+          tcpSocket:
+            port: gluetun-control
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: "/v1/publicip/ip"
+            port: gluetun-control
+            scheme: HTTP
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+          successThreshold: 1
+        envFrom:
+        - secretRef:
+            name: wg-secrets
+        - secretRef:
+            name: wg-secrets-ark-club
+        env:
+        - name: TZ
+          value: "America/New_York"
+        - name: VPN_SERVICE_PROVIDER
+          value: "custom"
+        - name: VPN_TYPE
+          value: "wireguard"
+        - name: WIREGUARD_ADDRESSES
+          value: "10.8.0.120/32"
+        - name: FIREWALL_DEBUG
+          value: "on"
+        - name: FIREWALL_INPUT_PORTS
+          value: "8000,7780,27020"
+        - name: FIREWALL_VPN_INPUT_PORTS
+          value: "7780"
+        resources:
+          limits:
+            cpu: "4000m"
+            memory: "1024Mi"
+          requests:
+            cpu: "1000m"
+            memory: "256Mi"
+        volumeMounts:
+        - name: gluetun
+          mountPath: /gluetun
 
       volumes:
       - name: server
@@ -191,8 +191,8 @@ metadata:
     app.kubernetes.io/name: ark
     app.kubernetes.io/part-of: ark
   annotations:
-    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
-    metallb.universe.tf/loadBalancerIPs: 192.168.3.243
+    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.242"
+    metallb.universe.tf/loadBalancerIPs: 192.168.3.242
 spec:
   selector:
     app.kubernetes.io/component: club-ark
