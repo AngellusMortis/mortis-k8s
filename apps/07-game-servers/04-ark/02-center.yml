@@ -64,7 +64,7 @@ spec:
           - name: AUTO_UPDATE
             value: "false"
         volumeMounts:
-          - mountPath: /home/steam/ark
+          - mountPath: /home/steam
             name: server
           - mountPath: /home/steam/ark/data
             name: data
