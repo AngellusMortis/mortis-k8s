@@ -66,8 +66,9 @@ spec:
           - name: AUTO_UPDATE
             value: "true"
         volumeMounts:
-          - mountPath: /home/steam
+          - mountPath: /home/steam/ark
             name: server
+            subPath: ark
           - mountPath: /home/steam/ark/data
             name: data
           - mountPath: /home/steam/ark/ShooterGame/Saved
