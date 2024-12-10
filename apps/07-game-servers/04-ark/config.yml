@@ -4,7 +4,7 @@ metadata:
   name: ark-config
   namespace: games
 data:
-  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=939688,951440,953154,927083,928548,935528,947033,930115 -ServerUseEventColors"
+  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -UseDynamicConfig -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,947733,940975,939688,953154,927083,935528,947033,930115 -ServerUseEventColors"
   EXTRA_SETTINGS: "?serverPVE=True"
   RCON_PORT: "27020"
 # WC Mods:
@@ -24,5 +24,6 @@ data:
 # Awesome Spyglass!: 947033
 # Grpyhons: 930115
 # Lily's Tweaker: 939688
-# JVH Blueprint Maker: 951440
 # Auto Engrams!: 953154
+# Automated Dino Wipes: 947733
+# Cybers Structures QoL+: 940975
