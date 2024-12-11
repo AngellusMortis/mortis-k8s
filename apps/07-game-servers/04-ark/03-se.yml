@@ -149,6 +149,8 @@ spec:
           value: "8000,7783,27020"
         - name: FIREWALL_VPN_INPUT_PORTS
           value: "7783"
+        - name: FIREWALL_OUTBOUND_SUBNETS
+          value: "192.168.20.0/23"
         resources:
           limits:
             cpu: "4000m"
