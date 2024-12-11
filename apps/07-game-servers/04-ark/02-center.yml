@@ -84,10 +84,10 @@ spec:
             - sh
             - -c
             - rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers
-          initialDelaySeconds: 90 # how long after the rcon port starts listening the game server is "online"
+          initialDelaySeconds: 60 # how long after the rcon port starts listening the game server is "online"
           timeoutSeconds: 1
           periodSeconds: 5
-          failureThreshold: 7
+          failureThreshold: 30
           successThreshold: 1
         startupProbe:
           exec:
