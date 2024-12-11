@@ -4,7 +4,7 @@ metadata:
   name: ark-config
   namespace: games
 data:
-  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=30 -NoBattlEye -forceuseperfthreads -StasisKeepControllers -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,947733,940975,939688,953154,927083,935528,947033,930115 -ServerUseEventColors"
+  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,947733,940975,939688,953154,927083,935528,947033,930115 -ServerUseEventColors"
   EXTRA_SETTINGS: "?serverPVE=True"
   RCON_PORT: "27020"
 # WC Mods:
