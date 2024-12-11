@@ -74,7 +74,7 @@ spec:
         resources:
           limits:
             cpu: 6000m
-            memory: 24Gi
+            memory: 32Gi
           requests:
             cpu: 4000m
             memory: 10Gi
@@ -84,10 +84,10 @@ spec:
             - sh
             - -c
             - rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers
-          initialDelaySeconds: 30 # how long after the rcon port starts listening the game server is "online"
+          initialDelaySeconds: 120 # Should be about how long it takes for Full Startup in logs
           timeoutSeconds: 1
           periodSeconds: 5
-          failureThreshold: 30
+          failureThreshold: 5
           successThreshold: 1
         startupProbe:
           exec:
