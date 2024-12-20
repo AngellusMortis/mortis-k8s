@@ -110,7 +110,7 @@
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.124 --dport 7784 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / extinction
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7785 -j DNAT --to-destination 10.8.0.125:7784
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7785 -j DNAT --to-destination 10.8.0.125:7785
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.125 --dport 7785 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
