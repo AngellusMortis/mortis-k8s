@@ -108,6 +108,10 @@
                 # k8s / games / ark / aberration
                 ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7784 -j DNAT --to-destination 10.8.0.124:7784
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.124 --dport 7784 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+                # k8s / games / ark / extinction
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7785 -j DNAT --to-destination 10.8.0.125:7784
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.125 --dport 7785 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
             # This undoes the above command
@@ -160,11 +164,17 @@
                     # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
                     allowedIPs = [ "10.8.0.123/32" ];
                 }
-                # k8s / games / ark / se
+                # k8s / games / ark / abberation
                 {
                     publicKey = "LXhkjCzYwiAOdVXosWt5yZ0GqthgxPD5oXuLPmDyOxo=";
                     # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
                     allowedIPs = [ "10.8.0.124/32" ];
+                }
+                # k8s / games / ark / extinction
+                {
+                    publicKey = "A7VdzOnR1duIXgvmUt/UGoYpMQ2vmdI+DeFFY1lm0n0=";
+                    # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+                    allowedIPs = [ "10.8.0.125/32" ];
                 }
             ];
         };

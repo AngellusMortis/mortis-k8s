@@ -18,3 +18,6 @@ resources:
   # Aberration
   - 04-aberration-secrets-sealed.yml
   - 04-aberration.yml
+  # Extinction
+  - 05-extinction-secrets-sealed.yml
+  - 05-extinction.yml
