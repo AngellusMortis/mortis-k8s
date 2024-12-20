@@ -78,7 +78,7 @@ spec:
             cpu: 6000m
             memory: 24Gi
           requests:
-            cpu: 4000m
+            cpu: 3000m
             memory: 10Gi
         readinessProbe:
           exec:
@@ -155,10 +155,10 @@ spec:
           value: "192.168.20.0/23"
         resources:
           limits:
-            cpu: "4000m"
+            cpu: "2000m"
             memory: "1024Mi"
           requests:
-            cpu: "1000m"
+            cpu: "500m"
             memory: "256Mi"
         volumeMounts:
         - name: gluetun
