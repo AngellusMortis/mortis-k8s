@@ -191,8 +191,8 @@ metadata:
     app.kubernetes.io/name: ark
     app.kubernetes.io/part-of: ark
   annotations:
-    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.242"
-    metallb.universe.tf/loadBalancerIPs: 192.168.3.242
+    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
+    metallb.universe.tf/loadBalancerIPs: 192.168.3.243
 spec:
   selector:
     app.kubernetes.io/component: extinction
