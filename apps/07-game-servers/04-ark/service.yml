@@ -20,6 +20,18 @@ spec:
       port: 7780
       targetPort: ark-club-ark
       protocol: UDP
+    - name: ark-center
+      port: 7782
+      targetPort: ark-center
+      protocol: UDP
+    - name: ark-se
+      port: 7783
+      targetPort: ark-se
+      protocol: UDP
+    - name: ark-aberration
+      port: 7784
+      targetPort: ark-aberration
+      protocol: UDP
     - name: ark-extinction
       port: 7785
       targetPort: ark-extinction
