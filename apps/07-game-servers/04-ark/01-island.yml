@@ -44,7 +44,7 @@ spec:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 7781
-          name: ark
+          name: ark-island
           protocol: UDP
         - containerPort: 27020
           name: rcon
