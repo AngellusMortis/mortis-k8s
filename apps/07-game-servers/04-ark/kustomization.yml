@@ -4,6 +4,7 @@ resources:
   - config.yml
   - secrets-sealed.yml
   - service.yml
+  - tunnel.yml
   # Club Ark
   - 00-club-ark-secrets-sealed.yml
   - 00-club-ark.yml
