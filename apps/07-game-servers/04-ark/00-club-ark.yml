@@ -44,7 +44,7 @@ spec:
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 7780
-          name: ark
+          name: ark-club-ark
           protocol: UDP
         - containerPort: 27020
           name: rcon
@@ -181,30 +181,3 @@ spec:
       resources:
         requests:
           storage: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ark-club-ark
-  namespace: games
-  labels:
-    app.kubernetes.io/component: club-ark
-    app.kubernetes.io/instance: ark
-    app.kubernetes.io/name: ark
-    app.kubernetes.io/part-of: ark
-  annotations:
-    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
-spec:
-  loadBalancerIP: 192.168.3.243
-  selector:
-    app.kubernetes.io/component: club-ark
-    app.kubernetes.io/instance: ark
-    app.kubernetes.io/name: ark
-    app.kubernetes.io/part-of: ark
-  ports:
-    - name: ark
-      port: 7780
-      targetPort: ark
-      protocol: UDP
-  externalTrafficPolicy: Cluster
-  type: LoadBalancer

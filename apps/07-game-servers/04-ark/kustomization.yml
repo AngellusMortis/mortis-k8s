@@ -3,6 +3,7 @@ resources:
   - wg-secrets-sealed.yml
   - config.yml
   - secrets-sealed.yml
+  - service.yml
   # Club Ark
   - 00-club-ark-secrets-sealed.yml
   - 00-club-ark.yml
