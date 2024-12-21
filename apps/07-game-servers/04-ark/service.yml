@@ -20,6 +20,10 @@ spec:
       port: 7780
       targetPort: ark-club-ark
       protocol: UDP
+    - name: ark-island
+      port: 7781
+      targetPort: ark-island
+      protocol: UDP
     - name: ark-center
       port: 7782
       targetPort: ark-center
