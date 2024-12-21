@@ -90,8 +90,8 @@
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.112 --dport 22048 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / club ark
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7780 -j DNAT --to-destination 10.8.0.120:7780
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.120 --dport 7780 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7780 -j DNAT --to-destination 192.168.3.243:7780
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 192.168.3.243 --dport 7780 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / island
                 ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7781 -j DNAT --to-destination 10.8.0.121:7781
@@ -110,8 +110,8 @@
                 ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.124 --dport 7784 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
 
                 # k8s / games / ark / extinction
-                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7785 -j DNAT --to-destination 10.8.0.125:7785
-                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 10.8.0.125 --dport 7785 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A PREROUTING -p udp -i eno1 --dport 7785 -j DNAT --to-destination 192.168.3.243:7785
+                ${pkgs.iptables}/bin/iptables -A FORWARD -p udp -d 192.168.3.243 --dport 7785 -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
             '';
 
             # This undoes the above command
@@ -174,7 +174,7 @@
                 {
                     publicKey = "A7VdzOnR1duIXgvmUt/UGoYpMQ2vmdI+DeFFY1lm0n0=";
                     # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
-                    allowedIPs = [ "10.8.0.125/32" ];
+                    allowedIPs = [ "10.8.0.125/32" "192.168.3.243/32" ];
                 }
             ];
         };
