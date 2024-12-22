@@ -67,7 +67,8 @@ spec:
           - mountPath: /home/steam
             name: server
           - mountPath: /home/steam/ark/ShooterGame/Binaries/Win64/ShooterGame
-            name: server/ark/ShooterGame/Binaries/Win64/ShooterGame
+            name: server
+            subPath: ark/ShooterGame/Binaries/Win64/ShooterGame
             readOnly: true
           - mountPath: /home/steam/ark/data
             name: data
