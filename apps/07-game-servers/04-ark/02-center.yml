@@ -66,6 +66,9 @@ spec:
         volumeMounts:
           - mountPath: /home/steam
             name: server
+          - mountPath: /home/steam/ark/ShooterGame/Binaries/Win64/ShooterGame
+            name: data
+            subPath: TheCenter_WP/mods
           - mountPath: /home/steam/ark/data
             name: data
           - mountPath: /home/steam/ark/ShooterGame/Saved
