@@ -54,7 +54,7 @@ spec:
               name: ark-secrets
         env:
           - name: EXTRA_FLAGS
-            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -NoBattlEye -ServerPlatform=ALL -MULTIHOME -mods=1005639"
+            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -NoBattlEye -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=1005639"
           - name: RCON_PORT
             value: "27020"
           - name: SESSION_NAME
