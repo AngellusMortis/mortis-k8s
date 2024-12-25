@@ -46,8 +46,8 @@ spec:
         - containerPort: 7784
           name: ark-aberration
           protocol: UDP
-        - containerPort: 27020
-          name: rcon
+        - containerPort: 27024
+          name: rcon-aberration
           protocol: TCP
         envFrom:
           - configMapRef:
@@ -59,6 +59,8 @@ spec:
             value: "\"Mortis - Aberration\""
           - name: SERVER_MAP
             value: "Aberration_WP"
+          - name: RCON_PORT
+            value: "27024"
           - name: GAME_PORT
             value: "7784"
           - name: AUTO_UPDATE

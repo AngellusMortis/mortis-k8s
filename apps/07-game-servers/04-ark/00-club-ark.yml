@@ -47,7 +47,7 @@ spec:
           name: ark-club-ark
           protocol: UDP
         - containerPort: 27020
-          name: rcon
+          name: rcon-club-ark
           protocol: TCP
         envFrom:
           - secretRef:

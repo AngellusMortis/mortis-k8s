@@ -46,8 +46,8 @@ spec:
         - containerPort: 7783
           name: ark-se
           protocol: UDP
-        - containerPort: 27020
-          name: rcon
+        - containerPort: 27023
+          name: rcon-se
           protocol: TCP
         envFrom:
           - configMapRef:
@@ -59,6 +59,8 @@ spec:
             value: "\"Mortis - Scorched Earth\""
           - name: SERVER_MAP
             value: "ScorchedEarth_WP"
+          - name: RCON_PORT
+            value: "27023"
           - name: GAME_PORT
             value: "7783"
           - name: AUTO_UPDATE

@@ -63,27 +63,27 @@ spec:
   ports:
     - name: ark-club-ark
       port: 27020
-      targetPort: rcon
+      targetPort: rcon-club-ark
       protocol: TCP
     - name: ark-island
       port: 27021
-      targetPort: rcon
+      targetPort: rcon-island
       protocol: TCP
     - name: ark-center
       port: 27022
-      targetPort: rcon
+      targetPort: rcon-center
       protocol: TCP
     - name: ark-se
       port: 27023
-      targetPort: rcon
+      targetPort: rcon-se
       protocol: TCP
     - name: ark-aberration
       port: 27024
-      targetPort: rcon
+      targetPort: rcon-aberration
       protocol: TCP
     - name: ark-extinction
       port: 27025
-      targetPort: rcon
+      targetPort: rcon-extinction
       protocol: TCP
   externalTrafficPolicy: Local
   type: LoadBalancer

@@ -46,8 +46,8 @@ spec:
         - containerPort: 7782
           name: ark-center
           protocol: UDP
-        - containerPort: 27020
-          name: rcon
+        - containerPort: 27022
+          name: rcon-center
           protocol: TCP
         envFrom:
           - configMapRef:
@@ -59,6 +59,8 @@ spec:
             value: "\"Mortis - The Center\""
           - name: SERVER_MAP
             value: "TheCenter_WP"
+          - name: RCON_PORT
+            value: "27022"
           - name: GAME_PORT
             value: "7782"
           - name: AUTO_UPDATE

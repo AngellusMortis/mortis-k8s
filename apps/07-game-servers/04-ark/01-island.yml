@@ -46,8 +46,8 @@ spec:
         - containerPort: 7781
           name: ark-island
           protocol: UDP
-        - containerPort: 27020
-          name: rcon
+        - containerPort: 27021
+          name: rcon-island
           protocol: TCP
         envFrom:
           - configMapRef:
@@ -59,6 +59,8 @@ spec:
             value: "\"Mortis - The Island\""
           - name: SERVER_MAP
             value: "TheIsland_WP"
+          - name: RCON_PORT
+            value: "27021"
           - name: GAME_PORT
             value: "7781"
           - name: AUTO_UPDATE
