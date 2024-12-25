@@ -42,3 +42,48 @@ spec:
       protocol: UDP
   externalTrafficPolicy: Local
   type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ark-rcon
+  namespace: games
+  labels:
+    app.kubernetes.io/instance: ark
+    app.kubernetes.io/name: ark
+    app.kubernetes.io/part-of: ark
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
+spec:
+  loadBalancerIP: 192.168.3.243
+  selector:
+    app.kubernetes.io/instance: ark
+    app.kubernetes.io/name: ark
+    app.kubernetes.io/part-of: ark
+  ports:
+    - name: ark-club-ark
+      port: 27020
+      targetPort: rcon
+      protocol: TCP
+    - name: ark-island
+      port: 27021
+      targetPort: rcon
+      protocol: TCP
+    - name: ark-center
+      port: 27022
+      targetPort: rcon
+      protocol: TCP
+    - name: ark-se
+      port: 27023
+      targetPort: rcon
+      protocol: TCP
+    - name: ark-aberration
+      port: 27024
+      targetPort: rcon
+      protocol: TCP
+    - name: ark-extinction
+      port: 27025
+      targetPort: rcon
+      protocol: TCP
+  externalTrafficPolicy: Local
+  type: LoadBalancer
