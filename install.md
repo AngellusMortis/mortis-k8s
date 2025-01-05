@@ -52,3 +52,11 @@ talosctl upgrade --image factory.talos.dev/installer/c0714b30cf4fadeb71f019b1e8c
 talosctl bootstrap --nodes 192.168.2.70
 kubectl apply -f https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+
+# For Disk Pressure
+
+talosctl reset --wipe-mode all -n cluster-2
+# mount live iso
+# verify disks
+# reinstall
