@@ -4,10 +4,9 @@ metadata:
   name: ark-config
   namespace: games
 data:
-  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=927090,928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,930115 -ServerUseEventColors -DynamicColorset=\"ActualBlack,Cyan,DeepPink,Dino Dark Purple,Mint,Lavender,Dino Light Purple,Dino Light Blue,DragonGreen0,Jade,PineGreen,SpruceGreen,DarkMagenta,Glacial,PowderBlue,Teal,DarkViolet,Red,Green,Light Grey,Light Red,Dark Red,Dino Light Red,Dino Light Green,Dino Medium Green,Dino Albino,NearWhite,Yellow\""
+  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,930115 -ServerUseEventColors"
   EXTRA_SETTINGS: "?serverPVE=True"
 # WC Mods:
-# Dear Jane: 983782
 # Club ARK: 1005639
 
 # Seasonal Mods:
