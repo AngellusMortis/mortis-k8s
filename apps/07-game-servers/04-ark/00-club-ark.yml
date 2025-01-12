@@ -62,7 +62,7 @@ spec:
           - name: ARK_SERVER_WHITELIST
             value: "true"
           - name: ARK_SERVER_RCON_PORT
-            value: 27020
+            value: "27020"
           - name: ARK_SERVER_SESSION_NAME
             value: Mortis - Club Ark
           - name: ARK_SERVER_MAP
