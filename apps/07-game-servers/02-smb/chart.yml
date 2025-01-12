@@ -56,8 +56,8 @@ spec:
         mountPath: /mnt/ark/server-b
       ark-data:
         enabled: true
-        existingClaim: ark-save-data
-        mountPath: /mnt/ark/data-old
+        existingClaim: ark-data
+        mountPath: /mnt/ark/data
       ark-data-old:
         enabled: true
         existingClaim: ark-save-data
