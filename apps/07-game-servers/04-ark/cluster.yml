@@ -1,0 +1,23 @@
+apiVersion: mort.is/v1beta1
+kind: ArkCluster
+metadata:
+  name: ark
+  namespace: games
+spec:
+  server:
+    size: 50Gi
+    persist: true
+    maps: [ "@official" ]
+    gamePortStart: 7780
+    rconPortStart: 27020
+    maxPlayers: 10
+    battleye: false
+    allowedPlatforms: [ ALL ]
+    whitelist: true
+  data:
+    persist: true
+    size: 50Gi
+  runAsUser: 1000
+  runAsGroup: 1000
+  cluster:
+    clusterID: mortis
