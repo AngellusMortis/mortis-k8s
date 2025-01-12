@@ -36,7 +36,7 @@ spec:
       - name: ark
         image: ghcr.io/angellusmortis/ark-server:master
         imagePullPolicy: Always
-        command: [ "/entrypoint.sh" ]
+        command: [ "/entrypoint" ]
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
