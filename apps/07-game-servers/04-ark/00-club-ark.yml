@@ -94,7 +94,7 @@ spec:
             memory: 10Gi
         readinessProbe:
           exec:
-            command: [ arkctl server --host 127.0.0.1 rcon ListPlayers ]
+            command: [ sh, -c, arkctl server --host 127.0.0.1 rcon ListPlayers ]
           initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 5
