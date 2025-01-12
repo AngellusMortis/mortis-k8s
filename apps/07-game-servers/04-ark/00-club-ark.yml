@@ -55,7 +55,7 @@ spec:
         env:
           - name: ARK_SERVER_MAX_PLAYERS
             value: "10"
-          - nmae: ARK_SERVER_CLUSTER_ID
+          - name: ARK_SERVER_CLUSTER_ID
             value: "mortis"
           - name: ARK_SERVER_BATTLEYE
             value: "false"
