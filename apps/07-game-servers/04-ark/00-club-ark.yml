@@ -102,7 +102,7 @@ spec:
           successThreshold: 1
         startupProbe:
           exec:
-            command: [ test -f "/srv/ark/server/ark/ShooterGame/Saved/.started" ]
+            command: [ sh, -c, test -f "/srv/ark/server/ark/ShooterGame/Saved/.started" ]
           initialDelaySeconds: 5
           # 60 minutes to update
           failureThreshold: 360
