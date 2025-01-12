@@ -38,9 +38,9 @@ spec:
         imagePullPolicy: Always
         command: [ "/entrypoint" ]
         securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
-          fsGroup: 1000
+          runAsUser: 10000
+          runAsGroup: 10000
+          fsGroup: 10000
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 7780
@@ -94,7 +94,7 @@ spec:
             memory: 10Gi
         readinessProbe:
           exec:
-            command: [ arkctl server rcon ListPlayers ]
+            command: [ arkctl server --host 127.0.0.1 rcon ListPlayers ]
           initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 5

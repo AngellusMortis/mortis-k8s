@@ -46,14 +46,22 @@ spec:
         enabled: true
         existingClaim: minecraft-create-chronicles
         mountPath: /mnt/minecraft/create-chronicles
-      ark-server:
+      ark-server-a:
         enabled: true
-        existingClaim: ark
-        mountPath: /mnt/ark/server
+        existingClaim: ark-server-a
+        mountPath: /mnt/ark/server-a
+      ark-server-b:
+        enabled: true
+        existingClaim: ark-server-b
+        mountPath: /mnt/ark/server-b
       ark-data:
         enabled: true
         existingClaim: ark-save-data
-        mountPath: /mnt/ark/data
+        mountPath: /mnt/ark/data-old
+      ark-data-old:
+        enabled: true
+        existingClaim: ark-save-data
+        mountPath: /mnt/ark/data-old
     configmap:
       config:
         enabled: true
