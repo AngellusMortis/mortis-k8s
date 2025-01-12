@@ -34,13 +34,13 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: sknnr/ark-ascended-server:v1.5.2
-        imagePullPolicy: IfNotPresent
-        command: [ "/home/steam/ark/entrypoint.sh" ]
+        image: ghcr.io/angellusmortis/ark-server:master
+        imagePullPolicy: Always
+        command: [ "/entrypoint.sh" ]
         securityContext:
-          runAsUser: 10000
-          runAsGroup: 10000
-          fsGroup: 10000
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
           allowPrivilegeEscalation: false
         ports:
         - containerPort: 7780
@@ -53,29 +53,38 @@ spec:
           - secretRef:
               name: ark-secrets
         env:
-          - name: EXTRA_FLAGS
-            value: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -NoBattlEye -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=1005639"
-          - name: RCON_PORT
-            value: "27020"
-          - name: SESSION_NAME
-            value: "\"Mortis - Club Ark\""
-          - name: SERVER_MAP
+          - name: ARK_SERVER_MAX_PLAYERS
+            value: "10"
+          - nmae: ARK_SERVER_CLUSTER_ID
+            value: "mortis"
+          - name: ARK_SERVER_BATTLEYE
+            value: "false"
+          - name: ARK_SERVER_WHITELIST
+            value: "true"
+          - name: ARK_SERVER_RCON_PORT
+            value: 27020
+          - name: ARK_SERVER_SESSION_NAME
+            value: Mortis - Club Ark
+          - name: ARK_SERVER_MAP
             value: "BobsMissions_WP"
-          - name: GAME_PORT
+          - name: ARK_SERVER_GAME_PORT
             value: "7780"
-          - name: AUTO_UPDATE
+          - name: ARK_SERVER_AUTO_UPDATE
             value: "true"
         volumeMounts:
-          - mountPath: /home/steam
+          - mountPath: /srv/ark/server
             name: server
-          - mountPath: /home/steam/ark/ShooterGame/Binaries/Win64/ShooterGame
+          - mountPath: /srv/ark/data
             name: data
-            subPath: BobsMissions_WP/mods
-          - mountPath: /home/steam/ark/data
+          - mountPath: /srv/ark/server/ark/ShooterGame/Saved
             name: data
-          - mountPath: /home/steam/ark/ShooterGame/Saved
+            subPath: maps/BobsMissions_WP/saved
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/ShooterGame
             name: data
-            subPath: BobsMissions_WP
+            subPath: maps/BobsMissions_WP/mods
+          - mountPath: /srv/ark/data/clusters
+            name: data-old
+            subPath: clusters
         resources:
           limits:
             cpu: 6000m
@@ -85,21 +94,15 @@ spec:
             memory: 10Gi
         readinessProbe:
           exec:
-            command:
-            - sh
-            - -c
-            - rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers
-          initialDelaySeconds: 60 # how long after the rcon port starts listening the game server is "online"
+            command: [ arkctl server rcon ListPlayers ]
+          initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 5
           failureThreshold: 5
           successThreshold: 1
         startupProbe:
           exec:
-            command:
-              - sh
-              - -c
-              - test ! -f "${ARK_PATH}/ShooterGame/Saved/SavedArks/${SERVER_MAP}/.pre-setup"
+            command: [ test -f "/srv/ark/server/ark/ShooterGame/Saved/.started" ]
           initialDelaySeconds: 5
           # 60 minutes to update
           failureThreshold: 360
@@ -108,7 +111,10 @@ spec:
       volumes:
       - name: server
         persistentVolumeClaim:
-          claimName: ark
+          claimName: ark-server-a
       - name: data
+        persistentVolumeClaim:
+          claimName: ark-data
+      - name: data-old
         persistentVolumeClaim:
           claimName: ark-save-data
