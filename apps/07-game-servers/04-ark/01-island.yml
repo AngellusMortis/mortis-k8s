@@ -66,6 +66,7 @@ spec:
         volumeMounts:
           - mountPath: /srv/ark/server
             name: server
+            readOnly: true
           - mountPath: /srv/ark/data
             name: data
           - mountPath: /srv/ark/server/ark/ShooterGame/Saved
