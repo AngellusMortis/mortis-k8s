@@ -49,11 +49,11 @@ spec:
       ark-server-a:
         enabled: true
         existingClaim: ark-server-a
-        mountPath: /mnt/ark/server-a
+        mountPath: /mnt/ark/server/a
       ark-server-b:
         enabled: true
         existingClaim: ark-server-b
-        mountPath: /mnt/ark/server-b
+        mountPath: /mnt/ark/server/b
       ark-data:
         enabled: true
         existingClaim: ark-data
@@ -61,7 +61,7 @@ spec:
       ark-data-old:
         enabled: true
         existingClaim: ark-save-data
-        mountPath: /mnt/ark/data-old
+        mountPath: /mnt/ark/data/old
     configmap:
       config:
         enabled: true
