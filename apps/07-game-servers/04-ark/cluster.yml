@@ -14,7 +14,7 @@ spec:
     battleye: false
     allowedPlatforms: [ ALL ]
     whitelist: true
-    storageClass: local-games
+    storageClass: longhorn-games
   data:
     persist: true
     size: 50Gi
