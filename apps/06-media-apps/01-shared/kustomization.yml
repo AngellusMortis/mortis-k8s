@@ -3,4 +3,3 @@ resources:
   - pvc.yml
   - postgres.yml
   - postgres-users-sealed.yml
-  - storage-class.yml

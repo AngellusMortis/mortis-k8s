@@ -1,3 +1,4 @@
 resources:
   - chart.yml
   - config-sealed.yml
+  - storage-class.yml
