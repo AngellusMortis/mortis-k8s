@@ -34,9 +34,9 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: sknnr/ark-ascended-server:v1.5.2
-        imagePullPolicy: IfNotPresent
-        command: [ "/home/steam/ark/entrypoint.sh" ]
+        image: ghcr.io/angellusmortis/ark-server:master
+        imagePullPolicy: Always
+        command: [ "/entrypoint" ]
         securityContext:
           runAsUser: 10000
           runAsGroup: 10000
@@ -55,27 +55,28 @@ spec:
           - secretRef:
               name: ark-secrets
         env:
-          - name: SESSION_NAME
-            value: "\"Mortis - The Island\""
-          - name: SERVER_MAP
+          - name: ARK_SERVER_SESSION_NAME
+            value: "Mortis - The Island"
+          - name: ARK_SERVER_MAP
             value: "TheIsland_WP"
-          - name: RCON_PORT
+          - name: ARK_SERVER_RCON_PORT
             value: "27021"
-          - name: GAME_PORT
+          - name: ARK_SERVER_GAME_PORT
             value: "7781"
-          - name: AUTO_UPDATE
-            value: "false"
         volumeMounts:
-          - mountPath: /home/steam
+          - mountPath: /srv/ark/server
             name: server
-          - mountPath: /home/steam/ark/ShooterGame/Binaries/Win64/ShooterGame
+          - mountPath: /srv/ark/data
             name: data
-            subPath: TheIsland_WP/mods
-          - mountPath: /home/steam/ark/data
+          - mountPath: /srv/ark/server/ark/ShooterGame/Saved
             name: data
-          - mountPath: /home/steam/ark/ShooterGame/Saved
+            subPath: maps/TheIsland_WP/saved
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/ShooterGame
             name: data
-            subPath: TheIsland_WP
+            subPath: maps/TheIsland_WP/mods
+          - mountPath: /srv/ark/data/clusters
+            name: data-old
+            subPath: clusters
         resources:
           limits:
             cpu: 6000m
@@ -85,21 +86,15 @@ spec:
             memory: 10Gi
         readinessProbe:
           exec:
-            command:
-            - sh
-            - -c
-            - rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers
-          initialDelaySeconds: 90 # Should be about how long it takes for Full Startup in logs
-          timeoutSeconds: 1
+            command: [ sh, -c, arkctl server --host 127.0.0.1 rcon ListPlayers ]
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
           periodSeconds: 5
-          failureThreshold: 20
+          failureThreshold: 5
           successThreshold: 1
         startupProbe:
           exec:
-            command:
-              - sh
-              - -c
-              - test ! -f "${ARK_PATH}/ShooterGame/Saved/SavedArks/${SERVER_MAP}/.pre-setup"
+            command: [ sh, -c, test -f "/srv/ark/server/ark/ShooterGame/Saved/.started" ]
           initialDelaySeconds: 5
           # 60 minutes to update
           failureThreshold: 360
@@ -108,7 +103,10 @@ spec:
       volumes:
       - name: server
         persistentVolumeClaim:
-          claimName: ark
+          claimName: ark-server-a
       - name: data
+        persistentVolumeClaim:
+          claimName: ark-data
+      - name: data-old
         persistentVolumeClaim:
           claimName: ark-save-data
