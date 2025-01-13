@@ -1,0 +1,15 @@
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  name: longhorn-games
+parameters:
+  diskSelector: games
+  numberOfReplicas: "1"
+  staleReplicaTimeout: "480"
+  dataLocality: "strict-local"
+provisioner: driver.longhorn.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
