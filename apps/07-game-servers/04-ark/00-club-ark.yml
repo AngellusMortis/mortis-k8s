@@ -82,6 +82,12 @@ spec:
           - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/ShooterGame
             name: data
             subPath: maps/BobsMissions_WP/mods
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersExclusiveJoinList.txt
+            name: data
+            subPath: lists/PlayersExclusiveJoinList.txt
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersJoinNoCheckList.txt
+            name: data
+            subPath: lists/PlayersJoinNoCheckList.txt
           - mountPath: /srv/ark/data/clusters
             name: data-old
             subPath: clusters
