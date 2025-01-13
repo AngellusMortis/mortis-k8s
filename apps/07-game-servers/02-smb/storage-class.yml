@@ -7,6 +7,7 @@ metadata:
   name: longhorn-games
 parameters:
   diskSelector: games
+  nodeSelector: games
   numberOfReplicas: "1"
   staleReplicaTimeout: "480"
   dataLocality: "strict-local"
