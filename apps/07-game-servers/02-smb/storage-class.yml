@@ -13,4 +13,4 @@ parameters:
   dataLocality: "strict-local"
 provisioner: driver.longhorn.io
 reclaimPolicy: Delete
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer

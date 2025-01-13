@@ -18,7 +18,14 @@ spec:
   data:
     persist: true
     size: 50Gi
-  runAsUser: 10000
-  runAsGroup: 10000
   cluster:
     clusterID: mortis
+  runAsUser: 10000
+  runAsGroup: 10000
+  nodeSelector:
+    kubernetes.io/hostname: games-1
+  tolerations:
+    - key: "type"
+      operator: "Equal"
+      value: "gamesOnly"
+      effect: "PreferNoSchedule"
