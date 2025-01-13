@@ -124,5 +124,5 @@ spec:
         persistentVolumeClaim:
           claimName: ark-save-data
       - name: config
-          configMap:
-            name: ark-global-config
+        configMap:
+          name: ark-global-config
