@@ -17,7 +17,7 @@ spec:
     storageClass: longhorn-games
   data:
     persist: true
-    size: 50Gi
+    size: 100Gi
   cluster:
     clusterID: mortis
   runAsUser: 10000
