@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
   - name: debug
-    image: ghcr.io/angellusmortis/ark-server:v0.2.1
+    image: ghcr.io/angellusmortis/ark-server:v0.2.2
     imagePullPolicy: IfNotPresent
     command:
       - sleep

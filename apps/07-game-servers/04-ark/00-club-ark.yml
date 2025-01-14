@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: ghcr.io/angellusmortis/ark-server:v0.2.1
+        image: ghcr.io/angellusmortis/ark-server:v0.2.2
         imagePullPolicy: IfNotPresent
         command: [ "/entrypoint" ]
         securityContext:
@@ -117,7 +117,7 @@ spec:
       volumes:
       - name: server
         persistentVolumeClaim:
-          claimName: ark-server-b
+          claimName: ark-server-a
       - name: data
         persistentVolumeClaim:
           claimName: ark-data
