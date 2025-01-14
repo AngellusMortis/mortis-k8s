@@ -8,20 +8,15 @@ metadata:
 spec:
   containers:
   - name: debug
-    image: dersimn/netutils:ubuntu
+    image: ghcr.io/angellusmortis/ark-server:v0.2.1
     imagePullPolicy: IfNotPresent
     command:
       - sleep
       - infinity
-  #   volumeMounts:
-  #     - name: backup
-  #       mountPath: /mnt/backup
-  #     - name: config
-  #       mountPath: /mnt/config
-  # volumes:
-  #   - name: backup
-  #     persistentVolumeClaim:
-  #       claimName: nas-backup
-  #   - name: config
-  #     persistentVolumeClaim:
-  #       claimName: bazarr-config
+    volumeMounts:
+      - mountPath: /srv/ark/server
+        name: server
+  volumes:
+    - name: server
+      persistentVolumeClaim:
+        claimName: ark-server-b

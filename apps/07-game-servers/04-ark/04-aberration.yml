@@ -34,9 +34,9 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: sknnr/ark-ascended-server:v1.5.2
+        image: ghcr.io/angellusmortis/ark-server:v0.2.1
         imagePullPolicy: IfNotPresent
-        command: [ "/home/steam/ark/entrypoint.sh" ]
+        command: [ "/entrypoint" ]
         securityContext:
           runAsUser: 10000
           runAsGroup: 10000
@@ -55,27 +55,41 @@ spec:
           - secretRef:
               name: ark-secrets
         env:
-          - name: SESSION_NAME
-            value: "\"Mortis - Aberration\""
-          - name: SERVER_MAP
+          - name: ARK_SERVER_SESSION_NAME
+            value: "Mortis - Aberration"
+          - name: ARK_SERVER_MAP
             value: "Aberration_WP"
-          - name: RCON_PORT
+          - name: ARK_SERVER_RCON_PORT
             value: "27024"
-          - name: GAME_PORT
+          - name: ARK_SERVER_GAME_PORT
             value: "7784"
-          - name: AUTO_UPDATE
-            value: "false"
         volumeMounts:
-          - mountPath: /home/steam
+          - mountPath: /srv/ark/server
             name: server
-          - mountPath: /home/steam/ark/ShooterGame/Binaries/Win64/ShooterGame
+            readOnly: true
+          - mountPath: /srv/ark/data
             name: data
-            subPath: Aberration_WP/mods
-          - mountPath: /home/steam/ark/data
+          - mountPath: /srv/ark/server/ark/ShooterGame/Saved
             name: data
-          - mountPath: /home/steam/ark/ShooterGame/Saved
+            subPath: maps/Aberration_WP/saved
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/ShooterGame
             name: data
-            subPath: Aberration_WP
+            subPath: maps/Aberration_WP/mods
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersExclusiveJoinList.txt
+            name: data
+            subPath: lists/PlayersExclusiveJoinList.txt
+          - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersJoinNoCheckList.txt
+            name: data
+            subPath: lists/PlayersJoinNoCheckList.txt
+          - mountPath: /srv/ark/data/clusters
+            name: data-old
+            subPath: clusters
+          - mountPath: /srv/ark/server/ark/ShooterGame/Saved/Config/WindowsServer/Game.ini
+            name: config
+            subPath: Game.ini
+          - mountPath: /srv/ark/data/GameUserSettings.ini
+            name: config
+            subPath: GameUserSettings.ini
         resources:
           limits:
             cpu: 6000m
@@ -85,29 +99,30 @@ spec:
             memory: 10Gi
         readinessProbe:
           exec:
-            command:
-            - sh
-            - -c
-            - rcon -a 127.0.0.1:${RCON_PORT} -p ${SERVER_ADMIN_PASSWORD} listplayers
-          initialDelaySeconds: 90 # Should be about how long it takes for Full Startup in logs
-          timeoutSeconds: 1
+            command: [ sh, -c, arkctl server --host 127.0.0.1 rcon ListPlayers ]
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
           periodSeconds: 5
-          failureThreshold: 20
+          failureThreshold: 3
           successThreshold: 1
         startupProbe:
           exec:
-            command:
-              - sh
-              - -c
-              - test ! -f "${ARK_PATH}/ShooterGame/Saved/SavedArks/${SERVER_MAP}/.pre-setup"
+            command: [ sh, -c, test -f "/srv/ark/server/ark/ShooterGame/Saved/.started" ]
           initialDelaySeconds: 5
           # 60 minutes to update
           failureThreshold: 360
           periodSeconds: 10
+
       volumes:
       - name: server
         persistentVolumeClaim:
-          claimName: ark
+          claimName: ark-server-a
       - name: data
         persistentVolumeClaim:
+          claimName: ark-data
+      - name: data-old
+        persistentVolumeClaim:
           claimName: ark-save-data
+      - name: config
+        configMap:
+          name: ark-global-config
