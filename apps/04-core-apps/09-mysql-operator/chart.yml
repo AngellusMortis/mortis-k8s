@@ -1,0 +1,27 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: mysql-operator
+  namespace: mysql-operator
+spec:
+  interval: 12h
+  url: https://mysql.github.io/mysql-operator
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: core-apps-cloudnative-pg
+  namespace: postgres-operator
+spec:
+  releaseName: operator
+  targetNamespace: mysql-operator
+  interval: 10m
+  timeout: 5m
+  chart:
+    spec:
+      chart: mysql-operator
+      version: "2.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: mysql-operator
