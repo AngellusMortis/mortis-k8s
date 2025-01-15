@@ -64,12 +64,10 @@ kind: Service
 metadata:
   name: cloud-storage
   namespace: games
-  annotations:
-    metallb.universe.tf/loadBalancerIPs: 192.168.2.226
   labels:
     app.kubernetes.io/name: cloud-storage
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: ws
       port: 3000
