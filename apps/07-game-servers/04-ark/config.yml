@@ -12,7 +12,7 @@ data:
   ARK_SERVER_WHITELIST: "true"
   ARK_SERVER_AUTO_UPDATE: "false"
   ARK_SERVER_OPTS: ForceAllowCaveFlyers,GBUsageToForceRestart=22,forceuseperfthreads,ServerUseEventColors
-  ARK_SERVER_MODS: 928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,930115
+  ARK_SERVER_MODS: 928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,1123898,930115
 # WC Mods:
 # Club ARK: 1005639
 
@@ -40,6 +40,7 @@ data:
 # Better Sir-5rM8: 1102356
 # Crafting Skill Potion: 929785
 # Better Horde Mode: 1163881
+# Cloud Storage: 1123898
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -635,3 +636,8 @@ data:
 
     [FixedHelperBot]
     HelperBotRadiusInFoundations=7
+
+    [CloudStorage]
+    ID=mortis
+    Secret="f7tXQu9jCp6rpz8BXfAeii6RcsoFmsgC"
+    URL="ws://cloud-storage:3000"
