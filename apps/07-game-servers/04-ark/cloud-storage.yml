@@ -1,7 +1,7 @@
 apiVersion: mysql.oracle.com/v2
 kind: InnoDBCluster
 metadata:
-  name: cloud-storage
+  name: cloud-storage-db
   namespace: games
 spec:
   secretName: cloud-storage-db
