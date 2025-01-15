@@ -11,7 +11,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: core-apps-cloudnative-pg
-  namespace: postgres-operator
+  namespace: mysql-operator
 spec:
   releaseName: operator
   targetNamespace: mysql-operator
