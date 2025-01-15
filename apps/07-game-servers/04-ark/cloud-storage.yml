@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: cloud-storage-db
   tlsUseSelfSigned: true
-  instances: 2
+  instances: 3
   router:
     instances: 1
   datadirVolumeClaimTemplate:
