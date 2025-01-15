@@ -624,7 +624,7 @@ data:
     BlueprintMakerWeaponsBlacklist=
     BlueprintMakerArmorBlacklist=
     BlueprintMakerSaddleBlacklist=
-    MutatorPulseCost=500
+    MutatorPulseCost=100
     MutatorModeBlacklist=SwapGender,AssignGender,Imprint,FreezeGrowth,BoostGrowth
     TransmutatorModeBlacklist=Aberrant,Tek,Xtreme
     DisableMultiToolDinoChibiMode=true
