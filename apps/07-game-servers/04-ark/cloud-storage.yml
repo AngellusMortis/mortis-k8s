@@ -4,7 +4,7 @@ metadata:
   name: cloud-storage
   namespace: games
 spec:
-  secretName: cloud-storage-secrets
+  secretName: cloud-storage-db
   tlsUseSelfSigned: true
   instances: 2
   router:
