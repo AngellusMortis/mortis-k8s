@@ -5,6 +5,9 @@ resources:
   - config.yml
   - secrets-sealed.yml
   - service.yml
+  # Shared Services
+  - cloud-storage.yml
+  - cloud-storage-secrets-sealed.yml
   # Club Ark
   - 00-club-ark-secrets-sealed.yml
   - 00-club-ark.yml
