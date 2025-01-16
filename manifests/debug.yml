@@ -8,15 +8,15 @@ metadata:
 spec:
   containers:
   - name: debug
-    image: ghcr.io/angellusmortis/ark-server:v0.2.2
+    image: dersimn/netutils:ubuntu
     imagePullPolicy: IfNotPresent
     command:
       - sleep
       - infinity
     volumeMounts:
-      - mountPath: /srv/ark/server
-        name: server
+      - mountPath: /data
+        name: data
   volumes:
-    - name: server
+    - name: data
       persistentVolumeClaim:
-        claimName: ark-server-b
+        claimName: lacc-data
