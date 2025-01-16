@@ -644,7 +644,7 @@ data:
     URL="ws://cloud-storage:3000"
 
     [LACC]
-    URL="ws://lacc-api.games.svc.cluster.local:8080"
+    URL="ws://lacc-api:8080"
     Token=sUYw0mMyGrpxvj5MQAt7pCJtx1VTYJVy
     WelcomeMessage=$playerName$ joined $mapName$
     WelcomeMessageMode=3
