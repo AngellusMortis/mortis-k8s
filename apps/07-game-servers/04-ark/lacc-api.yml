@@ -28,12 +28,12 @@ spec:
       labels:
         app.kubernetes.io/name: lacc-api
     spec:
+      imagePullSecrets:
+      - name: ghcr-login-secret
       containers:
       - name: app
         image: ghcr.io/angellusmortis/lacc-api:v1.2.4
         imagePullPolicy: IfNotPresent
-        imagePullSecrets:
-        - name: ghcr-login-secret
         ports:
         - name: ws
           containerPort: 8080
