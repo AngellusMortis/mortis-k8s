@@ -103,7 +103,7 @@ spec:
         readinessProbe:
           exec:
             command: [ sh, -c, arkctl server --host 127.0.0.1 rcon ListPlayers ]
-          initialDelaySeconds: 10
+          initialDelaySeconds: 20
           timeoutSeconds: 5
           periodSeconds: 5
           failureThreshold: 3
