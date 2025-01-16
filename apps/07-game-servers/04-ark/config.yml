@@ -645,7 +645,7 @@ data:
 
     [LACC]
     URL="ws://lacc-api:8080"
-    Token=sUYw0mMyGrpxvj5MQAt7pCJtx1VTYJVy
+    Token="sUYw0mMyGrpxvj5MQAt7pCJtx1VTYJVy"
     WelcomeMessage=$playerName$ joined $mapName$
     WelcomeMessageMode=3
     DepartMessage=$playerName$ left $mapName$
