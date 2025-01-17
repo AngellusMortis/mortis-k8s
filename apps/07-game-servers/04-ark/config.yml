@@ -633,7 +633,7 @@ data:
     DisableMultiToolDinoChibiMode=true
     DisableVivariumResourceGeneration=false
     DisableVivariumAdvResources=false
-    ItemAggregatorDisableDistribution=true
+    ItemAggregatorDisableDistribution=false
     ItemAggregatorDisableIncubation=true
     VivariumResourceBlacklist=fiber,wood,berry,flower,citronal,longrass,rockarrot,savoroot,meat,keratin,pelt,chitin,pearl,flint,stone,sand,cactus,sap,hide,silk,clay,mutton,salt,oil,sulfur,thatch,mushroom,gem,obsidian,gas,metal,ambergris,cementing,honey,nameless,milk,sparkpowder,narcotic,angler,element,blood,venom,battery,charcoal,PrimalItemResource_Crystal,PrimalItemResource_Crystal_IslesPrimal
 
