@@ -20,8 +20,8 @@ spec:
     size: 100Gi
   cluster:
     clusterID: mortis
-  runAsUser: 10000
-  runAsGroup: 10000
+  runAsUser: 1000
+  runAsGroup: 1000
   nodeSelector:
     kubernetes.io/hostname: games-1
   tolerations:
