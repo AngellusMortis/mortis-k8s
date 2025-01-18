@@ -119,7 +119,7 @@ spec:
       volumes:
       - name: server
         persistentVolumeClaim:
-          claimName: ark-server-b
+          claimName: ark-server-a
       - name: data
         persistentVolumeClaim:
           claimName: ark-data
