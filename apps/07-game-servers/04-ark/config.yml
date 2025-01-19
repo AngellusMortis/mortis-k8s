@@ -654,7 +654,7 @@ data:
     WelcomeMessageMode=3
     DepartMessage=$playerName$ left $mapName$
     DepartMessageMode=2
-    PassSystemMessages=False
+    PassSystemMessages=True
 
     [CustomLevelDistrib]
     MinLevel=1.000000
