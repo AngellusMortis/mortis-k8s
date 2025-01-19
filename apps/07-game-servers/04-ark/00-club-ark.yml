@@ -51,7 +51,7 @@ spec:
           protocol: TCP
         envFrom:
           - secretRef:
-              name: ark-secrets
+              name: ark-cluster-secrets
         env:
           - name: ARK_SERVER_MAX_PLAYERS
             value: "10"
@@ -71,8 +71,6 @@ spec:
             value: "7780"
           - name: ARK_SERVER_AUTO_UPDATE
             value: "false"
-          - name: ARK_SERVER_MODS
-            value: "1056780"
         volumeMounts:
           - mountPath: /srv/ark/server
             name: server

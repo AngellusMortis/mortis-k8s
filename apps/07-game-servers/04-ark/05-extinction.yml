@@ -53,7 +53,7 @@ spec:
           - configMapRef:
               name: ark-config
           - secretRef:
-              name: ark-secrets
+              name: ark-cluster-secrets
         env:
           - name: ARK_SERVER_SESSION_NAME
             value: "Mortis - Extinction"
