@@ -35,7 +35,7 @@ spec:
       containers:
       - name: ark
         image: ghcr.io/angellusmortis/ark-server:master
-        # imagePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent
         imagePullPolicy: Always
         command: [ "/entrypoint" ]
         securityContext:
@@ -65,11 +65,11 @@ spec:
           - name: ARK_SERVER_GAME_PORT
             value: "7781"
         volumeMounts:
-          - mountPath: /srv/ark/data
-            name: data
           - mountPath: /srv/ark/server
             name: server
             readOnly: true
+          - mountPath: /srv/ark/data
+            name: data
           - mountPath: /srv/ark/server/ark/ShooterGame/Saved
             name: data
             subPath: maps/TheIsland_WP/saved
