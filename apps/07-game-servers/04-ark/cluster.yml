@@ -28,6 +28,7 @@ spec:
         app.kubernetes.io/component: operator
         app.kubernetes.io/part-of: ark-operator
     spec:
+      serviceAccountName: ark-operator
       containers:
       - name: app
         image: ghcr.io/angellusmortis/ark-operator:master
