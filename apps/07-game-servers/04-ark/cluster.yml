@@ -30,8 +30,8 @@ spec:
     spec:
       containers:
       - name: app
-        image: ghcr.io/angellusmortis/ark-operator:v0.3.1
-        imagePullPolicy: IfNotPresent
+        image: ghcr.io/angellusmortis/ark-operator:master
+        imagePullPolicy: Always
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
