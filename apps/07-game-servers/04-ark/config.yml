@@ -644,12 +644,10 @@ data:
 
     [CloudStorage]
     ID=mortis
-    Secret="f7tXQu9jCp6rpz8BXfAeii6RcsoFmsgC"
     URL="ws://cloud-storage:3000"
 
     [LACC]
     URL="ws://lacc-api:8080"
-    Token="sUYw0mMyGrpxvj5MQAt7pCJtx1VTYJVy"
     WelcomeMessage=$playerName$ joined $mapName$
     WelcomeMessageMode=3
     DepartMessage=$playerName$ left $mapName$
