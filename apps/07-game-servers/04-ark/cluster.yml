@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: operator
     app.kubernetes.io/part-of: ark-operator
 spec:
@@ -24,14 +24,14 @@ spec:
       labels:
         app.kubernetes.io/name: ark-operator
         app.kubernetes.io/instance: ark-operator
-        app.kubernetes.io/version: v0.3.2
+        app.kubernetes.io/version: v0.3.3
         app.kubernetes.io/component: operator
         app.kubernetes.io/part-of: ark-operator
     spec:
       serviceAccountName: ark-operator
       containers:
       - name: app
-        image: ghcr.io/angellusmortis/ark-operator:v0.3.2
+        image: ghcr.io/angellusmortis/ark-operator:v0.3.3
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsUser: 1000
@@ -78,7 +78,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: service-account
     app.kubernetes.io/part-of: ark-operator
 ---
@@ -89,7 +89,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: cluster-role
     app.kubernetes.io/part-of: ark-operator
 rules:
@@ -119,7 +119,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: cluster-role-binding
     app.kubernetes.io/part-of: ark-operator
 roleRef:
@@ -139,7 +139,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: role
     app.kubernetes.io/part-of: ark-operator
 rules:
@@ -164,7 +164,7 @@ rules:
     resources: [jobs]
     verbs: ["*"]
   - apiGroups: [""]
-    resources: [pods, persistentvolumeclaims]
+    resources: [pods, persistentvolumeclaims, configmaps, secrets]
     verbs: ["*"]
   - apiGroups: [mort.is]
     resources: ["*"]
@@ -178,7 +178,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: role-binding
     app.kubernetes.io/part-of: ark-operator
 roleRef:
@@ -197,7 +197,7 @@ metadata:
   labels:
     app.kubernetes.io/name: arkcluster
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/version: v0.3.2
+    app.kubernetes.io/version: v0.3.3
     app.kubernetes.io/component: cluster
 spec:
   server:
@@ -206,16 +206,50 @@ spec:
     maps: [ "@official" ]
     gamePortStart: 7780
     rconPortStart: 27020
-    # maxPlayers: 10
-    # battleye: false
-    # allowedPlatforms: [ ALL ]
-    # whitelist: true
     storageClass: longhorn-games
   data:
     persist: true
     size: 100Gi
-  # cluster:
-  #   clusterID: mortis
+  globalSettings:
+    sessionNameFormat: "Mortis - {{ map_name }}"
+    maxPlayers: 10
+    clusterID: mortis
+    battleye: false
+    allowedPlatforms: [ ALL ]
+    whitelist: true
+    opts: [ "ForceAllowCaveFlyers" , "GBUsageToForceRestart=22", "forceuseperfthreads", "ServerUseEventColors" ]
+    mods: [ 928548, 1114862, 1121944, 1121958, 947733, 940975, 939688, 953154, 935528, 947033, 928501, 1108923, 1102356, 929785, 1163881, 1123898, 1056780, 1101570, 928708, 930115 ]
+    # WC Mods:
+    # Club ARK: 1005639
+
+    # Seasonal Mods:
+    # Love Ascended: 927084
+    # Summer Bash: 927091
+    # Fear Ascended: 877752
+    # Turkey Trial: 927083
+    # Winter Wonderland: 927090
+
+    # Other Mods:
+    # Shiny: 928548
+    # Visual Storage: 935528
+    # Awesome Spyglass!: 947033
+    # Grpyhons: 930115
+    # Lily's Tweaker: 939688
+    # Auto Engrams!: 953154
+    # Automated Dino Wipes: 947733
+    # Cybers Structures QoL+: 940975
+    # Solo Farm Mod: 928501
+    # Trait Upgrader: 1114862
+    # Illuminating Trait: 1121944
+    # Assorted Traits: 1121958
+    # Neo Ark Ascended: The Reaper: 1108923
+    # Better Sir-5rM8: 1102356
+    # Crafting Skill Potion: 929785
+    # Better Horde Mode: 1163881
+    # Cloud Storage: 1123898
+    # LACC: Lily and Azure's Cluster Chat: 1056780
+    # Sparky: 1101570
+    # Custom Dino Levels: 928708
   runAsUser: 1000
   runAsGroup: 1000
   nodeSelector:

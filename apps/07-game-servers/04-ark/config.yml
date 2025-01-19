@@ -4,8 +4,6 @@ metadata:
   name: ark-config
   namespace: games
 data:
-  EXTRA_FLAGS: "-WinLiveMaxPlayers=10 -clusterid=mortis -ClusterDirOverride=/home/steam/ark/data -NoTransferFromFiltering -ForceAllowCaveFlyers -GBUsageToForceRestart=22 -NoBattlEye -forceuseperfthreads -ServerPlatform=ALL -exclusivejoin -MULTIHOME -mods=928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,930115 -ServerUseEventColors"
-  EXTRA_SETTINGS: "?serverPVE=True"
   ARK_SERVER_MAX_PLAYERS: "10"
   ARK_SERVER_CLUSTER_ID: "mortis"
   ARK_SERVER_BATTLEYE: "false"
