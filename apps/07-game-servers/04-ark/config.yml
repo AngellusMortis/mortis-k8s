@@ -46,7 +46,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ark-global-config
+  name: ark-global-ark-config
   namespace: games
 data:
   Game.ini: |
