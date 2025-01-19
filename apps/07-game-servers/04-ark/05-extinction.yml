@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: ghcr.io/angellusmortis/ark-server:v0.3.3
+        image: ghcr.io/angellusmortis/ark-server:v0.4.0
         imagePullPolicy: IfNotPresent
         command: [ "/entrypoint" ]
         securityContext:
@@ -81,9 +81,6 @@ spec:
           - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersJoinNoCheckList.txt
             name: data
             subPath: lists/PlayersJoinNoCheckList.txt
-          - mountPath: /srv/ark/data/clusters
-            name: data-old
-            subPath: clusters
           - mountPath: /srv/ark/server/ark/ShooterGame/Saved/Config/WindowsServer/Game.ini
             name: config
             subPath: Game.ini
@@ -120,9 +117,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: ark-data
-      - name: data-old
-        persistentVolumeClaim:
-          claimName: ark-save-data
       - name: config
         configMap:
           name: ark-global-ark-config

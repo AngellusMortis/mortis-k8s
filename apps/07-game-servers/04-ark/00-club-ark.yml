@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: ghcr.io/angellusmortis/ark-server:v0.3.3
+        image: ghcr.io/angellusmortis/ark-server:v0.4.0
         imagePullPolicy: IfNotPresent
         command: [ "/entrypoint" ]
         securityContext:
@@ -71,6 +71,8 @@ spec:
             value: "7780"
           - name: ARK_SERVER_AUTO_UPDATE
             value: "false"
+          - name: ARK_SERVER_CLUSTER_MODE
+            value: "true"
         volumeMounts:
           - mountPath: /srv/ark/server
             name: server
@@ -88,9 +90,6 @@ spec:
           - mountPath: /srv/ark/server/ark/ShooterGame/Binaries/Win64/PlayersJoinNoCheckList.txt
             name: data
             subPath: lists/PlayersJoinNoCheckList.txt
-          - mountPath: /srv/ark/data/clusters
-            name: data-old
-            subPath: clusters
         resources:
           limits:
             cpu: 6000m
@@ -121,6 +120,3 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: ark-data
-      - name: data-old
-        persistentVolumeClaim:
-          claimName: ark-save-data
