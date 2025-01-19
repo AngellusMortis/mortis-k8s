@@ -13,6 +13,12 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ark-operator
+      app.kubernetes.io/instance: ark-operator
+      app.kubernetes.io/component: operator
+      app.kubernetes.io/part-of: ark-operator
   template:
     metadata:
       labels:
