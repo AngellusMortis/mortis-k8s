@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: ark
-        image: ghcr.io/angellusmortis/ark-server:v0.2.2
+        image: v0.3.3
         imagePullPolicy: IfNotPresent
         command: [ "/entrypoint" ]
         securityContext:
