@@ -206,16 +206,16 @@ spec:
     maps: [ "@official" ]
     gamePortStart: 7780
     rconPortStart: 27020
-    maxPlayers: 10
-    battleye: false
-    allowedPlatforms: [ ALL ]
-    whitelist: true
+    # maxPlayers: 10
+    # battleye: false
+    # allowedPlatforms: [ ALL ]
+    # whitelist: true
     storageClass: longhorn-games
   data:
     persist: true
     size: 100Gi
-  cluster:
-    clusterID: mortis
+  # cluster:
+  #   clusterID: mortis
   runAsUser: 1000
   runAsGroup: 1000
   nodeSelector:
