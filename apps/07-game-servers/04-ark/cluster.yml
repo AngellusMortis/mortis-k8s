@@ -218,7 +218,7 @@ spec:
     persist: true
     size: 100Gi
   globalSettings:
-    sessionNameFormat: "Mortis - {{ map_name }}"
+    sessionNameFormat: "Mortis - {map_name}"
     maxPlayers: 10
     clusterID: mortis
     battleye: false
