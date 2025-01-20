@@ -4,16 +4,19 @@ metadata:
   name: ark
   namespace: games
   labels:
-    app.kubernetes.io/instance: ark
     app.kubernetes.io/name: ark
-    app.kubernetes.io/part-of: ark
+    app.kubernetes.io/instance: ark
+    app.kubernetes.io/version: v0.6.0
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: ark-operator
+    app.kubernetes.io/managed-by: ark-operator
   annotations:
     metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
 spec:
   loadBalancerIP: 192.168.3.243
   selector:
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/name: ark
+    app.kubernetes.io/component: server
     app.kubernetes.io/part-of: ark
   ports:
     - name: ark-club-ark
@@ -22,15 +25,15 @@ spec:
       protocol: UDP
     - name: ark-island
       port: 7781
-      targetPort: ark-island
+      targetPort: ark-the-island
       protocol: UDP
     - name: ark-center
       port: 7782
-      targetPort: ark-center
+      targetPort: ark-the-center
       protocol: UDP
     - name: ark-se
       port: 7783
-      targetPort: ark-se
+      targetPort: ark-scorched-earth
       protocol: UDP
     - name: ark-aberration
       port: 7784
@@ -49,16 +52,19 @@ metadata:
   name: ark-rcon
   namespace: games
   labels:
+    app.kubernetes.io/name: rcon
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/name: ark
-    app.kubernetes.io/part-of: ark
+    app.kubernetes.io/version: v0.6.0
+    app.kubernetes.io/component: service
+    app.kubernetes.io/part-of: ark-operator
+    app.kubernetes.io/managed-by: ark-operator
   annotations:
     metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
 spec:
   loadBalancerIP: 192.168.3.243
   selector:
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/name: ark
+    app.kubernetes.io/component: server
     app.kubernetes.io/part-of: ark
   ports:
     - name: ark-club-ark
