@@ -45,51 +45,51 @@ spec:
       protocol: UDP
   externalTrafficPolicy: Local
   type: LoadBalancer
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ark-rcon
-  namespace: games
-  labels:
-    app.kubernetes.io/name: rcon
-    app.kubernetes.io/instance: ark
-    app.kubernetes.io/version: v0.6.1
-    app.kubernetes.io/component: service
-    app.kubernetes.io/part-of: ark-operator
-    app.kubernetes.io/managed-by: ark-operator
-  annotations:
-    metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
-spec:
-  loadBalancerIP: 192.168.3.243
-  selector:
-    app.kubernetes.io/instance: ark
-    app.kubernetes.io/component: server
-    app.kubernetes.io/part-of: ark
-  ports:
-    - name: ark-club-ark
-      port: 27020
-      targetPort: rcon-club-ark
-      protocol: TCP
-    - name: ark-island
-      port: 27021
-      targetPort: rcon-island
-      protocol: TCP
-    - name: ark-center
-      port: 27022
-      targetPort: rcon-center
-      protocol: TCP
-    - name: ark-se
-      port: 27023
-      targetPort: rcon-se
-      protocol: TCP
-    - name: ark-aberration
-      port: 27024
-      targetPort: rcon-aberration
-      protocol: TCP
-    - name: ark-extinction
-      port: 27025
-      targetPort: rcon-extinction
-      protocol: TCP
-  externalTrafficPolicy: Local
-  type: LoadBalancer
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: ark-rcon
+#   namespace: games
+#   labels:
+#     app.kubernetes.io/name: rcon
+#     app.kubernetes.io/instance: ark
+#     app.kubernetes.io/version: v0.6.1
+#     app.kubernetes.io/component: service
+#     app.kubernetes.io/part-of: ark-operator
+#     app.kubernetes.io/managed-by: ark-operator
+#   annotations:
+#     metallb.universe.tf/allow-shared-ip: "ark-192.168.3.243"
+# spec:
+#   loadBalancerIP: 192.168.3.243
+#   selector:
+#     app.kubernetes.io/instance: ark
+#     app.kubernetes.io/component: server
+#     app.kubernetes.io/part-of: ark
+#   ports:
+#     - name: ark-club-ark
+#       port: 27020
+#       targetPort: rcon-club-ark
+#       protocol: TCP
+#     - name: ark-island
+#       port: 27021
+#       targetPort: rcon-island
+#       protocol: TCP
+#     - name: ark-center
+#       port: 27022
+#       targetPort: rcon-center
+#       protocol: TCP
+#     - name: ark-se
+#       port: 27023
+#       targetPort: rcon-se
+#       protocol: TCP
+#     - name: ark-aberration
+#       port: 27024
+#       targetPort: rcon-aberration
+#       protocol: TCP
+#     - name: ark-extinction
+#       port: 27025
+#       targetPort: rcon-extinction
+#       protocol: TCP
+#   externalTrafficPolicy: Local
+#   type: LoadBalancer
