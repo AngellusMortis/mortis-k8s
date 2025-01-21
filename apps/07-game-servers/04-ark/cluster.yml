@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: operator
     app.kubernetes.io/part-of: ark-operator
 spec:
@@ -24,14 +24,14 @@ spec:
       labels:
         app.kubernetes.io/name: ark-operator
         app.kubernetes.io/instance: ark-operator
-        app.kubernetes.io/version: v0.7.0
+        app.kubernetes.io/version: v0.7.3
         app.kubernetes.io/component: operator
         app.kubernetes.io/part-of: ark-operator
     spec:
       serviceAccountName: ark-operator
       containers:
       - name: app
-        image: ghcr.io/angellusmortis/ark-operator:v0.7.0
+        image: ghcr.io/angellusmortis/ark-operator:v0.7.3
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsUser: 1000
@@ -45,6 +45,8 @@ spec:
         env:
           - name: ARK_CLUSTER_NAMESPACE
             value: games
+          - name: ARK_OP_LOG_LEVEL
+            value: DEBUG
         resources:
           requests:
             cpu: "200m"
@@ -78,7 +80,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: service-account
     app.kubernetes.io/part-of: ark-operator
 ---
@@ -89,7 +91,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: cluster-role
     app.kubernetes.io/part-of: ark-operator
 rules:
@@ -119,7 +121,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: cluster-role-binding
     app.kubernetes.io/part-of: ark-operator
 roleRef:
@@ -139,7 +141,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: role
     app.kubernetes.io/part-of: ark-operator
 rules:
@@ -178,7 +180,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark-operator
     app.kubernetes.io/instance: ark-operator
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: role-binding
     app.kubernetes.io/part-of: ark-operator
 roleRef:
@@ -197,7 +199,7 @@ metadata:
   labels:
     app.kubernetes.io/name: arkcluster
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/version: v0.7.0
+    app.kubernetes.io/version: v0.7.3
     app.kubernetes.io/component: cluster
 spec:
   server:
