@@ -47,6 +47,8 @@ spec:
             value: games
           - name: ARK_OP_LOG_LEVEL
             value: DEBUG
+          - name: ARK_SERVER_IMAGE_VERSION
+            value: v0.7.3
         resources:
           requests:
             cpu: "200m"
