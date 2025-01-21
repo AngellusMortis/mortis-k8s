@@ -202,7 +202,7 @@ metadata:
 spec:
   server:
     loadBalancerIP: 192.168.3.243
-    gracefulShutdown: 5m
+    gracefulShutdown: 10m
     size: 50Gi
     persist: true
     maps: [ "@official" ]
