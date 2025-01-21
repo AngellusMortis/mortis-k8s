@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ark
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/version: v0.8.2
+    app.kubernetes.io/version: v0.8.3
     app.kubernetes.io/component: service
     app.kubernetes.io/part-of: ark-operator
     app.kubernetes.io/managed-by: ark-operator
@@ -54,7 +54,7 @@ metadata:
   labels:
     app.kubernetes.io/name: rcon
     app.kubernetes.io/instance: ark
-    app.kubernetes.io/version: v0.8.2
+    app.kubernetes.io/version: v0.8.3
     app.kubernetes.io/component: service
     app.kubernetes.io/part-of: ark-operator
     app.kubernetes.io/managed-by: ark-operator
