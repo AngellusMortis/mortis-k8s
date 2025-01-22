@@ -170,7 +170,7 @@ rules:
     resources: [jobs]
     verbs: ["*"]
   - apiGroups: [""]
-    resources: [pods, persistentvolumeclaims, configmaps, secrets]
+    resources: [pods, persistentvolumeclaims, configmaps, secrets, service]
     verbs: ["*"]
   - apiGroups: [mort.is]
     resources: ["*"]
