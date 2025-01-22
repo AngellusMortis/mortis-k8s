@@ -79,11 +79,10 @@ spec:
       value: "gamesOnly"
       effect: "PreferNoSchedule"
 ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: ark-map-envs-Extinction_WP
-#   namespace: games
-# data:
-#   ARK_SERVER_MODS: 928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1123898,1056780,1101570,928708,1163881,930115
-# ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ark-map-envs-extinction
+  namespace: games
+data:
+  ARK_SERVER_MODS: 1163881,928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1123898,1056780,1101570,928708,930115
