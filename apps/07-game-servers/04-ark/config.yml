@@ -720,7 +720,7 @@ data:
   GameUserSettings.ini: |
     [LACC]
     Name=Aberration
-    MapColour=0.78,0.8,0.52
+    MapColour=0.6,0.2,0.8
 ---
 apiVersion: v1
 kind: ConfigMap
