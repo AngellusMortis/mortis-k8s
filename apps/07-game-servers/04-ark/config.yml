@@ -660,3 +660,18 @@ data:
     WantsEqualLevels=False
     WantsRagLevels=True
     WantsHighLevels=False
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ark-map-ark-config-club-ark
+  namespace: games
+data:
+  GameUserSettings.ini: |
+    [LACC]
+    URL="ws://lacc-api:8080"
+    WelcomeMessage=$playerName$ joined $mapName$
+    WelcomeMessageMode=3
+    DepartMessage=$playerName$ left $mapName$
+    DepartMessageMode=2
+    PassSystemMessages=True
