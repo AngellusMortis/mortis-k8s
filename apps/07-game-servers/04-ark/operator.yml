@@ -31,10 +31,10 @@ spec:
       serviceAccountName: ark-operator
       containers:
       - name: app
-        image: ghcr.io/angellusmortis/ark-operator:v0.9.12
-        imagePullPolicy: IfNotPresent
-        # image: ghcr.io/angellusmortis/ark-operator:master
-        # imagePullPolicy: Always
+        # image: ghcr.io/angellusmortis/ark-operator:v0.9.12
+        # imagePullPolicy: IfNotPresent
+        image: ghcr.io/angellusmortis/ark-operator:master
+        imagePullPolicy: Always
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
