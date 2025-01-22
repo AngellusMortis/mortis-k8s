@@ -5,7 +5,6 @@ resources:
   - wg-secrets-sealed.yml
   - config.yml
   - secrets-sealed.yml
-  # - service.yml
   # Shared Services
   - cloud-storage.yml
   - cloud-storage-secrets-sealed.yml
