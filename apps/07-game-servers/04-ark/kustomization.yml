@@ -4,6 +4,7 @@ resources:
   - pvc.yml
   - config.yml
   - secrets-sealed.yml
+  - cluster-secrets-sealed.yml
   # Shared Services
   - cloud-storage.yml
   - cloud-storage-secrets-sealed.yml
