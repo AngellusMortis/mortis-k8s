@@ -1,5 +1,6 @@
 resources:
   - cluster.yml
+  - operator.yml
   - pvc.yml
   - wg-secrets-sealed.yml
   - config.yml
