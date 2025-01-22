@@ -79,14 +79,14 @@ spec:
       operator: "Equal"
       value: "gamesOnly"
       effect: "PreferNoSchedule"
-# ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: ark-map-envs-club-ark
-#   namespace: games
-# data:
-#   ARK_SERVER_MODS: "1056780"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ark-map-envs-club-ark
+  namespace: games
+data:
+  ARK_SERVER_MODS: "1056780"
 ---
 apiVersion: v1
 kind: ConfigMap
