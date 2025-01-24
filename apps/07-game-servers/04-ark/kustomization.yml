@@ -1,6 +1,7 @@
 resources:
   - cluster.yml
   - operator.yml
+  - operator-secrets-sealed.yml
   - pvc.yml
   - config.yml
   - secrets-sealed.yml

@@ -31,10 +31,10 @@ spec:
       serviceAccountName: ark-operator
       containers:
       - name: app
-        image: ghcr.io/angellusmortis/ark-operator:v0.9.15
-        imagePullPolicy: IfNotPresent
-        # image: ghcr.io/angellusmortis/ark-operator:master
-        # imagePullPolicy: Always
+        # image: ghcr.io/angellusmortis/ark-operator:v0.9.15
+        # imagePullPolicy: IfNotPresent
+        image: ghcr.io/angellusmortis/ark-operator:master
+        imagePullPolicy: Always
         securityContext:
           runAsUser: 1000
           runAsGroup: 1000
@@ -44,6 +44,9 @@ spec:
         - containerPort: 8080
           name: http
           protocol: TCP
+        envFrom:
+          - secretRef:
+              name: ark-operator-secrets
         env:
           - name: ARK_CLUSTER_NAMESPACE
             value: games
