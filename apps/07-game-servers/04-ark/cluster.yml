@@ -11,7 +11,7 @@ spec:
   service:
     loadBalancerIP: 192.168.3.243
   server:
-    gracefulShutdown: 10m
+    gracefulShutdown: 30s
     size: 50Gi
     persist: true
     maps: [ "@official" ]
