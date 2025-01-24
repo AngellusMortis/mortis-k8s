@@ -46,7 +46,7 @@ spec:
           protocol: TCP
         envFrom:
           - secretRef:
-              name: ark-operator-secrets
+              name: operator-secrets
         env:
           - name: ARK_CLUSTER_NAMESPACE
             value: games
