@@ -60,7 +60,7 @@ data:
     BabyMatureSpeedMultiplier=35.0
     CropGrowthSpeedMultiplier=4.0
     EggHatchSpeedMultiplier=9.0
-    HairGrowthSpeedMultiplier=0.6999
+    HairGrowthSpeedMultiplier=1
     MatingIntervalMultiplier=0.15
     PerLevelStatsMultiplier_DinoTamed_Add[0]=3.5714285
     PerLevelStatsMultiplier_DinoTamed_Add[8]=3.5714285
