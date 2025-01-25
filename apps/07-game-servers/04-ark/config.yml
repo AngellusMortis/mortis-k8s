@@ -1,55 +1,6 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: ark-config
-  namespace: games
-data:
-  ARK_SERVER_MAX_PLAYERS: "10"
-  ARK_SERVER_CLUSTER_ID: "mortis"
-  ARK_SERVER_BATTLEYE: "false"
-  ARK_SERVER_WHITELIST: "true"
-  ARK_SERVER_AUTO_UPDATE: "false"
-  ARK_SERVER_CLUSTER_MODE: "true"
-  ARK_SERVER_GLOBAL_GUS: /srv/ark/conf/global/GameUserSettings.ini
-  ARK_SERVER_GLOBAL_GAME: /srv/ark/conf/global/Game.ini
-  ARK_SERVER_OPTS: ForceAllowCaveFlyers,GBUsageToForceRestart=22,forceuseperfthreads,ServerUseEventColors
-  ARK_SERVER_MODS: 928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,1102356,929785,1163881,1123898,1056780,1101570,928708,930115
-  ARK_OP_LOG_LEVEL: DEBUG
-# WC Mods:
-# Club ARK: 1005639
-
-# Seasonal Mods:
-# Love Ascended: 927084
-# Summer Bash: 927091
-# Fear Ascended: 877752
-# Turkey Trial: 927083
-# Winter Wonderland: 927090
-
-# Other Mods:
-# Shiny: 928548
-# Visual Storage: 935528
-# Awesome Spyglass!: 947033
-# Grpyhons: 930115
-# Lily's Tweaker: 939688
-# Auto Engrams!: 953154
-# Automated Dino Wipes: 947733
-# Cybers Structures QoL+: 940975
-# Solo Farm Mod: 928501
-# Trait Upgrader: 1114862
-# Illuminating Trait: 1121944
-# Assorted Traits: 1121958
-# Neo Ark Ascended: The Reaper: 1108923
-# Better Sir-5rM8: 1102356
-# Crafting Skill Potion: 929785
-# Better Horde Mode: 1163881
-# Cloud Storage: 1123898
-# LACC: Lily and Azure's Cluster Chat: 1056780
-# Sparky: 1101570
-# Custom Dino Levels: 928708
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
   name: ark-global-ark-config
   namespace: games
 data:
