@@ -160,7 +160,8 @@ spec:
         - name: nas-nvme-download
           mountPath: /downloads
       - name: gluetun
-        image: ghcr.io/qdm12/gluetun:v3.40.0 # {"$imagepolicy": "flux-system:gluetun-policy"}
+        # image: ghcr.io/qdm12/gluetun:v3.40.0 # {"$imagepolicy": "flux-system:gluetun-policy"}
+        image: ghcr.io/qdm12/gluetun:v3.39.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
