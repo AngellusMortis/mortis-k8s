@@ -26,6 +26,7 @@ data:
     ResourceNoReplenishRadiusStructures=0.1
     MaxDifficulty=True
     bAllowUnlimitedRespecs=True
+    bIgnoreStructuresPreventionVolumes=True
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_Campfire_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_StorageBox_Large_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_StorageBox_Small_CS_C",EngramHidden=true)
