@@ -413,4 +413,4 @@ data:
     TemptressEarthquakeBuff=True
     Volcano=True
     WorldBuffs=True
-    JoinDiscord=True
+    JoinDiscord=False
