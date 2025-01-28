@@ -14,7 +14,7 @@ spec:
     gracefulShutdown: 10m
     size: 50Gi
     persist: true
-    maps: [ "@official", "Temptress_WP" ]
+    maps: [ "@official", "Temptress_WP", "Reverence_WP" ]
     gamePortStart: 7780
     rconPortStart: 27020
     storageClass: longhorn-games
@@ -64,7 +64,6 @@ spec:
     # Cloud Storage: 1123898
     # LACC: Lily and Azure's Cluster Chat: 1056780
     # Sparky: 1101570
-    # Custom Dino Levels: 928708
     # Grpyhons: 930115
     # Additions Ascended: Edmontonia: 1136679
     # Additions Ascended: Acrocanthosaurus: 926259
@@ -76,12 +75,14 @@ spec:
     # Temptress Lagoon Reef Beetles: 1123058
     # StorageMS: 958047
     # A Simple Performance Mod (60 fps): 949310
+    # Custom Dino Levels: 928708
 
     # Extinction/Temptress Only Mods:
     # Better Horde Mode: 1163881
 
     # Map Mods:
     # Temptress_WP: 1017342
+    # Reverence_WP: 990449
   runAsUser: 1000
   runAsGroup: 1000
   nodeSelector:
@@ -115,3 +116,11 @@ metadata:
   namespace: games
 data:
   ARK_SERVER_MODS: "1163881,1017342,928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,929785,1123898,1056780,1101570,928708,1136679,926259,927131,914844,916922,1123428,1126149,1123058,958047,949310,930115"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ark-map-envs-reverence
+  namespace: games
+data:
+  ARK_SERVER_MODS: "928548,1114862,1121944,1121958,947733,940975,939688,953154,935528,947033,928501,1108923,929785,1123898,1056780,1101570,928708,1136679,926259,927131,914844,916922,1123428,1126149,1123058,958047,949310,990449,930115"

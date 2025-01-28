@@ -414,3 +414,14 @@ data:
     Volcano=True
     WorldBuffs=True
     JoinDiscord=False
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ark-map-ark-config-reverence
+  namespace: games
+data:
+  GameUserSettings.ini: |
+    [LACC]
+    Name=Reverence
+    MapColour=0.88,0.93,0.93,1
