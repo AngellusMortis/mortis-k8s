@@ -74,7 +74,6 @@ data:
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_MindWipe_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_MiniVault_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_Bookshelf_CS_C",EngramHidden=true)
-    OverrideNamedEngramEntries=(EngramClassName="EngramEntry_CraftingStation_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_Forge_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_WallTorch_CS_C",EngramHidden=true)
     OverrideNamedEngramEntries=(EngramClassName="EngramEntry_DinoMindWipe_CS_C",EngramHidden=true)
