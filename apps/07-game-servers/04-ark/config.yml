@@ -266,8 +266,8 @@ data:
     WipeOnServerStart=False
     WipeSchedule=12:00
     BroadcastWarnings=True
-    WipeBeehives=False
-    WipeNestEggs=False
+    WipeBeehives=True
+    WipeNestEggs=True
     WipeLengthSeconds=60
     WipeCaveDinos=True
     Blacklist=
