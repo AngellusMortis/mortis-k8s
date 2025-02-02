@@ -362,6 +362,33 @@ data:
     [LACC]
     Name=The Center
     MapColour=0.65,0.49,0.24,1
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -373,6 +400,33 @@ data:
     [LACC]
     Name=Scorched Earth
     MapColour=0.8,0.22,0,1
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -384,6 +438,33 @@ data:
     [LACC]
     Name=Aberration
     MapColour=0.6,0.2,0.8,1
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -395,6 +476,33 @@ data:
     [LACC]
     Name=Extinction
     MapColour=0,0.5,0,1
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -413,6 +521,33 @@ data:
     Volcano=True
     WorldBuffs=True
     JoinDiscord=False
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -424,3 +559,30 @@ data:
     [LACC]
     Name=Reverence
     MapColour=0.88,0.93,0.93,1
+
+    [TemptressDino]
+    Phoenix=False
+    Argent=False
+    Desmodus=False
+    IceWyvern=False
+    LightningWyvern=False
+    FireWyvern=False
+    PlasmaWyvern=False
+    PoisonWyvern=False
+    Dragonfly=False
+    Jugbugs=False
+    MiniDragon=False
+    Deinonychus=False
+    Gacha=False
+  Game.ini: |
+    [/script/shootergame.shootergamemode]
+    NPCReplacements=(FromClassName="Griffin_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Basilisk_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpineyLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternLizard_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternBird_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="LanternGoat_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Sheep_Character_BP_Temptress_C",ToClassName="")
+    NPCReplacements=(FromClassName="Gorilla_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="SpiderL_Character_BP_Easy_TL_C",ToClassName="")
+    NPCReplacements=(FromClassName="CrabBoss_Character_BP_Easy_Wild_C",ToClassName="")
