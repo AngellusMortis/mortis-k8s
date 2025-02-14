@@ -44,8 +44,11 @@ spec:
         mountPath: /mnt/satisfactory
       minecraft:
         enabled: true
-        existingClaim: minecraft-create-chronicles
-        mountPath: /mnt/minecraft/create-chronicles
+        type: emptyDir
+      # minecraft:
+      #   enabled: true
+      #   existingClaim: minecraft-create-chronicles
+      #   mountPath: /mnt/minecraft/create-chronicles
       ark-server-a:
         enabled: true
         existingClaim: ark-server-a
@@ -58,10 +61,6 @@ spec:
         enabled: true
         existingClaim: ark-data
         mountPath: /mnt/ark/data
-      ark-data-old:
-        enabled: true
-        existingClaim: ark-save-data
-        mountPath: /mnt/ark/data/old
     configmap:
       config:
         enabled: true
