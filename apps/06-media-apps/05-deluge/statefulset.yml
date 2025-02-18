@@ -129,7 +129,7 @@ spec:
           failureThreshold: 5
           successThreshold: 1
       - name: cross-seed
-        image: ghcr.io/cross-seed/cross-seed:6.10.1 # {"$imagepolicy": "flux-system:cross-seed-policy"}
+        image: ghcr.io/cross-seed/cross-seed:6.11.0 # {"$imagepolicy": "flux-system:cross-seed-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 2468
