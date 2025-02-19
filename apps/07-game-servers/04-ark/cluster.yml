@@ -18,7 +18,7 @@ spec:
     - "@official"
     - "Temptress_WP"
     - "-TheCenter_WP"
-    # - "Reverence_WP" ]
+    # - "Reverence_WP"
     gamePortStart: 7780
     rconPortStart: 27020
     storageClass: longhorn-games
