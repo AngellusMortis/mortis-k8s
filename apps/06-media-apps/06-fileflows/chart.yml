@@ -26,6 +26,10 @@ spec:
     kind: OCIRepository
     name: fileflows
   values:
+    image:
+      repository: docker.io/revenz/fileflows
+      tag: 25.02@sha256:7ec25ccf5fdab69b9c12400bb87030a2124225a2cc9d74504e43e82485c77f42
+      pullPolicy: IfNotPresent
     workload:
       main:
         podSpec:

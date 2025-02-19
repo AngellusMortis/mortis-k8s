@@ -1,0 +1,27 @@
+# kubectl apply -f manifests/ark.yml
+# kubectl delete -f manifests/ark.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug
+spec:
+  containers:
+  - name: debug
+    image: ghcr.io/angellusmortis/ark-server:master
+    imagePullPolicy: Always
+    command:
+      - sleep
+      - infinity
+    env:
+      - name: ARK_OP_LOG_LEVEL
+        value: DEBUG
+      - name: ARK_SERVER_RCON_PASSWORD
+        value: password
+    volumeMounts:
+      - mountPath: /srv/ark/server
+        name: server
+  volumes:
+    - name: server
+      persistentVolumeClaim:
+        claimName: ark-server-b
