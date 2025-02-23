@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: mc
-        image: itzg/minecraft-server:2025.2.1
+        image: itzg/minecraft-server:2025.2.1-java23
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 25565
