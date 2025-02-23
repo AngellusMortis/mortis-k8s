@@ -66,20 +66,20 @@ spec:
           - name: MOTD
             value: "Create Chronicles: Bosses and Beyond"
           # Auto-Curseforge
-          - name: MODPACK_PLATFORM
-            value: "AUTO_CURSEFORGE"
-          - name: TYPE
-            value: "AUTO_CURSEFORGE"
-            # value: "KETTING"
-          - name: CF_SLUG
-            value: "modified-cobblemon-overclocked"
-          - name: CF_FILE_ID
-            value: "6224139"
-          # Custom
+          # - name: MODPACK_PLATFORM
+          #   value: "AUTO_CURSEFORGE"
           # - name: TYPE
-          #   value: CUSTOM
-          # - name: CUSTOM_SERVER
-          #   value: "/data/run.sh"
+          #   value: "AUTO_CURSEFORGE"
+          #   # value: "KETTING"
+          # - name: CF_SLUG
+          #   value: "modified-cobblemon-overclocked"
+          # - name: CF_FILE_ID
+          #   value: "6224139"
+          # Custom
+          - name: TYPE
+            value: CUSTOM
+          - name: CUSTOM_SERVER
+            value: "/data/run.sh"
           - name: "MODS"
             value: "https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.5/bluemap-5.5-neoforge.jar"
           - name: JVM_XX_OPTS
