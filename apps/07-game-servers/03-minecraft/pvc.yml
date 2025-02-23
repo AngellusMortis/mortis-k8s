@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minecraft-create-chronicles
+  name: minecraft-cobblemon-overclocked
   namespace: games
 spec:
   storageClassName: longhorn

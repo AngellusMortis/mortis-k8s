@@ -34,7 +34,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: mc
-        image: itzg/minecraft-server:2024.10.2
+        image: itzg/minecraft-server:2025.2.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 25565
@@ -66,20 +66,20 @@ spec:
           - name: MOTD
             value: "Create Chronicles: Bosses and Beyond"
           # Auto-Curseforge
-          # - name: MODPACK_PLATFORM
-          #   value: "AUTO_CURSEFORGE"
-          # - name: TYPE
-          #   value: "AUTO_CURSEFORGE"
-          #   # value: "KETTING"
-          # - name: CF_SLUG
-          #   value: "create-chronicles-bosses-and-beyond"
-          # - name: CF_FILE_ID
-          #   value: "5857259"
-          # Custom
+          - name: MODPACK_PLATFORM
+            value: "AUTO_CURSEFORGE"
           - name: TYPE
-            value: CUSTOM
-          - name: CUSTOM_SERVER
-            value: "/data/run.sh"
+            value: "AUTO_CURSEFORGE"
+            # value: "KETTING"
+          - name: CF_SLUG
+            value: "modified-cobblemon-overclocked"
+          - name: CF_FILE_ID
+            value: "6224107"
+          # Custom
+          # - name: TYPE
+          #   value: CUSTOM
+          # - name: CUSTOM_SERVER
+          #   value: "/data/run.sh"
           # - name: "MODS"
           #   value: "https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.3/BlueMap-5.3-forge-1.20.jar,https://mediafilez.forgecdn.net/files/5320/28/Chunky-1.3.146.jar,https://mediafilez.forgecdn.net/files/5074/609/findme-3.2.1-forge.jar"
           - name: JVM_XX_OPTS
@@ -109,4 +109,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: minecraft-create-chronicles
+          claimName: minecraft-cobblemon-overclocked
