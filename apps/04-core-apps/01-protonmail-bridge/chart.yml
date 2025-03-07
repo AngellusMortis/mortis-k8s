@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: shenxn/protonmail-bridge # {"$imagepolicy": "flux-system:protonmail-bridge-policy:name"}
-      tag: 3.17.0-build # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
+      tag: 3.18.0-build # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
     env:
       TZ: America/New_York
     service:
