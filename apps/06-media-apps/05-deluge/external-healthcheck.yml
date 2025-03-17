@@ -43,7 +43,7 @@ data:
     set -o nounset
 
     echo "Fetching montior logs"
-    LOG=$(curl -sL -X POST "https://api.uptimerobot.com/v2/getMonitors" -d "api_key=$DELUGE_MONITOR_API_KEY=1&logs_limit=1" | jq -r '.monitors[0].logs[0]')
+    LOG=$(curl -sL -X POST "https://api.uptimerobot.com/v2/getMonitors" -d "api_key=$DELUGE_MONITOR_API_KEY=1&logs_limit=1&logs=1" | jq -r '.monitors[0].logs[0]')
     echo "$LOG"
     STATUS=$(echo "$LOG" | jq -r .type)
     DURATION=$(echo "$LOG" | jq -r .duration)
