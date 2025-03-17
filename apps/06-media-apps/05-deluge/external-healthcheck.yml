@@ -42,8 +42,7 @@ data:
     set -o pipefail
     set -o nounset
 
-    API_KEY=m797649487-3d553fc921f66dabecaf222a
-    LOG=$(curl -sL -X POST "https://api.uptimerobot.com/v2/getMonitors" -d "api_key=m797649487-3d553fc921f66dabecaf222a&logs=1&logs_limit=1" | jq -r '.monitors[0].logs[0]')
+    LOG=$(curl -sL -X POST "https://api.uptimerobot.com/v2/getMonitors" -d "api_key=$API_KEY=1&logs_limit=1" | jq -r '.monitors[0].logs[0]')
     STATUS=$(echo "$LOG" | jq -r .type)
     DURATION=$(echo "$LOG" | jq -r .duration)
 
@@ -81,6 +80,9 @@ spec:
             volumeMounts:
               - name: script
                 mountPath: /script/
+            envFrom:
+              - secretRef:
+                  name: deluge-secrets
           restartPolicy: Never
           volumes:
             - name: script
