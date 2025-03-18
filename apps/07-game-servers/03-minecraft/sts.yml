@@ -66,17 +66,17 @@ spec:
           - name: MOTD
             value: "Cobblemon PLUS"
           # Auto-Curseforge
-          - name: MODPACK_PLATFORM
-            value: "AUTO_CURSEFORGE"
-          - name: CF_SLUG
-            value: "modified-cobblemon-plus"
-          - name: CF_FILE_ID
-            value: "6317842"
+          # - name: MODPACK_PLATFORM
+          #   value: "AUTO_CURSEFORGE"
+          # - name: CF_SLUG
+          #   value: "modified-cobblemon-plus"
+          # - name: CF_FILE_ID
+          #   value: "6317842"
           # Custom
-          # - name: TYPE
-          #   value: CUSTOM
-          # - name: CUSTOM_SERVER
-          #   value: "/data/run.sh"
+          - name: TYPE
+            value: CUSTOM
+          - name: CUSTOM_SERVER
+            value: "/data/run.sh"
           # - name: "MODS"
           #   value: "https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.5/bluemap-5.5-neoforge.jar"
           - name: JVM_XX_OPTS
