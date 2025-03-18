@@ -64,22 +64,19 @@ spec:
           - name: SERVER_NAME
             value: "Mortis"
           - name: MOTD
-            value: "Create Chronicles: Bosses and Beyond"
+            value: "Cobblemon PLUS"
           # Auto-Curseforge
-          # - name: MODPACK_PLATFORM
-          #   value: "AUTO_CURSEFORGE"
-          # - name: TYPE
-          #   value: "AUTO_CURSEFORGE"
-          #   # value: "KETTING"
-          # - name: CF_SLUG
-          #   value: "modified-cobblemon-overclocked"
-          # - name: CF_FILE_ID
-          #   value: "6224139"
+          - name: MODPACK_PLATFORM
+            value: "AUTO_CURSEFORGE"
+          - name: CF_SLUG
+            value: "modified-cobblemon-plus"
+          - name: CF_FILE_ID
+            value: "6310191"
           # Custom
-          - name: TYPE
-            value: CUSTOM
-          - name: CUSTOM_SERVER
-            value: "/data/run.sh"
+          # - name: TYPE
+          #   value: CUSTOM
+          # - name: CUSTOM_SERVER
+          #   value: "/data/run.sh"
           - name: "MODS"
             value: "https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.5/bluemap-5.5-neoforge.jar"
           - name: JVM_XX_OPTS
@@ -109,4 +106,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: minecraft-cobblemon-overclocked
+          claimName: minecraft-cobblemon-plus

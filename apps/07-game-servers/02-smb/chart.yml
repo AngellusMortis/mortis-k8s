@@ -44,8 +44,8 @@ spec:
         mountPath: /mnt/satisfactory
       minecraft:
         enabled: true
-        existingClaim: minecraft-cobblemon-overclocked
-        mountPath: /mnt/minecraft/cobblemon-overclocked
+        existingClaim: minecraft-cobblemon-plus
+        mountPath: /mnt/minecraft/cobblemon-plus
       # minecraft:
       #   enabled: true
       #   existingClaim: minecraft-create-chronicles
