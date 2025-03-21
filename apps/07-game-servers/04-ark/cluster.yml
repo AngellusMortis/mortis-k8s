@@ -18,6 +18,9 @@ spec:
     - "@official"
     - "Temptress_WP"
     - "-TheCenter_WP"
+    - "-Aberration_WP"
+    - "-BobsMissions_WP"
+    - "-TheIsland_WP"
     # - "Reverence_WP"
     gamePortStart: 7780
     rconPortStart: 27020
