@@ -77,3 +77,23 @@ mountOptions:
   - mfsymlinks
   - cache=strict
   - noserverino
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: smb-backup
+provisioner: smb.csi.k8s.io
+parameters:
+  source: //smb-samba.media.svc.cluster.local/backup
+  csi.storage.k8s.io/node-stage-secret-name: smbcreds
+  csi.storage.k8s.io/node-stage-secret-namespace: media
+volumeBindingMode: Immediate
+mountOptions:
+  - dir_mode=0777
+  - file_mode=0777
+  - uid=1000
+  - gid=1000
+  - noperm
+  - mfsymlinks
+  - cache=strict
+  - noserverino
