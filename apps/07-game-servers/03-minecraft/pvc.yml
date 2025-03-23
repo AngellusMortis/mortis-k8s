@@ -10,3 +10,16 @@ spec:
   resources:
     requests:
       storage: 300Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: smb-backup
+  namespace: games
+spec:
+  storageClassName: smb-backup
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

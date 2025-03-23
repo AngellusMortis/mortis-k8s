@@ -86,6 +86,9 @@ spec:
         volumeMounts:
           - mountPath: /data
             name: data
+          - mountPath: /data/simplebackups
+            name: backup
+            subPath: games/minecraft/cobblemon-plus
         readinessProbe:
           exec:
             command:
@@ -109,3 +112,6 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: minecraft-cobblemon-plus
+      - name: backup
+        persistentVolumeClaim:
+          claimName: smb-backup
