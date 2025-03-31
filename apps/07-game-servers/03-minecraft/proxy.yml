@@ -14,6 +14,7 @@ data:
     show-max-players = "5"
     online-mode = true
     force-key-authentication = true
+    player-info-forwarding-mode = "modern"
 
     [servers]
     # Configure your servers here. Each key represents the server's name, and the value
@@ -73,6 +74,8 @@ spec:
             value: https://avatars.githubusercontent.com/u/88593730?s=200&v=4
           - name: REPLACE_ENV_VARIABLES
             value: "true"
+          - name: "JVM_OPTS"
+            value: "-Dvelocity.max-known-packs=750"
           - name: "JVM_XX_OPTS"
             value: "-XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15"
         volumeMounts:
@@ -81,6 +84,11 @@ spec:
         - name: config
           mountPath: /config/velocity.toml
           subPath: velocity.toml
+          readOnly: true
+        - name: forwarding-secret
+          mountPath: /config/forwarding.secret
+          subPath: forwarding.secret
+          readOnly: true
         readinessProbe:
           exec:
             command:
@@ -102,6 +110,12 @@ spec:
             items:
             - key: velocity.toml
               path: velocity.toml
+        - name: forwarding-secret
+          secret:
+            secretName: proxy-secrets
+            items:
+            - key: forwarding.secret
+              path: forwarding.secret
   volumeClaimTemplates:
   - metadata:
       name: data

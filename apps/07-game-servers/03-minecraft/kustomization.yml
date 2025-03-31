@@ -5,3 +5,4 @@ resources:
   - secrets-sealed.yml
   - ingress.yml
   - proxy.yml
+  - proxy-secrets-sealed.yml
