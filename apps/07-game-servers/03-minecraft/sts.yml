@@ -72,8 +72,8 @@ spec:
             value: "modified-cobblemon-plus"
           - name: CF_FILE_ID
             value: "6365236"
-          # - name: CF_EXCLUDE_MODS
-          #   value: "737481"
+          - name: CF_EXCLUDE_MODS
+            value: "737481,1167848"
           # Custom
           # - name: TYPE
           #   value: CUSTOM
