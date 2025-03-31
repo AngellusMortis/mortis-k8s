@@ -10,6 +10,11 @@ metadata:
     app.kubernetes.io/part-of: minecraft
 data:
   velocity.toml: |
+    motd = "Cobblemon PLUS"
+    show-max-players = "5"
+    online-mode = true
+    force-key-authentication = true
+
     [servers]
     # Configure your servers here. Each key represents the server's name, and the value
     # represents the IP address of the server to connect to.
@@ -68,8 +73,6 @@ spec:
             value: https://avatars.githubusercontent.com/u/88593730?s=200&v=4
           - name: REPLACE_ENV_VARIABLES
             value: "true"
-          - name: CFG_MOTD
-            value: "Powered by Docker"
           - name: "JVM_XX_OPTS"
             value: "-XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15"
         volumeMounts:
