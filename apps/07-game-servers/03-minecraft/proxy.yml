@@ -95,7 +95,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: config
+            name: proxy-config
             items:
             - key: config.yml
               path: config.yml
