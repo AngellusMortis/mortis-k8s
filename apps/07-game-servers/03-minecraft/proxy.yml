@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/name: minecraft
     app.kubernetes.io/part-of: minecraft
 data:
-  config.yml: |
+  velocity.toml: |
     [servers]
     # Configure your servers here. Each key represents the server's name, and the value
     # represents the IP address of the server to connect to.
@@ -76,8 +76,8 @@ spec:
         - name: data
           mountPath: /server
         - name: config
-          mountPath: /config/config.yml
-          subPath: config.yml
+          mountPath: /config/velocity.toml
+          subPath: velocity.toml
         readinessProbe:
           exec:
             command:
@@ -97,8 +97,8 @@ spec:
           configMap:
             name: proxy-config
             items:
-            - key: config.yml
-              path: config.yml
+            - key: velocity.toml
+              path: velocity.toml
   volumeClaimTemplates:
   - metadata:
       name: data
