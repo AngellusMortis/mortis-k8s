@@ -4,3 +4,4 @@ resources:
   - service.yml
   - secrets-sealed.yml
   - ingress.yml
+  - proxy.yml
