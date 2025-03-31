@@ -11,7 +11,7 @@ metadata:
 data:
   velocity.toml: |
     motd = "Cobblemon PLUS"
-    show-max-players = "5"
+    show-max-players = 5
     online-mode = true
     force-key-authentication = true
     player-info-forwarding-mode = "modern"
