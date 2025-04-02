@@ -67,7 +67,7 @@ resource "cloudflare_ruleset" "block_foreign" {
 
     rules {
         action = "block"
-        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\")"
+        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\" and ends_with(http.host, \"mc.mort.is\"))"
         description = "Non-US requests"
     }
 }
