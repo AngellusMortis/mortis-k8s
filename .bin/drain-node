@@ -1,5 +1,5 @@
 #!/bin/bash
 
-kubectl drain --ignore-daemonsets --delete-emptydir-data --timeout="600s" $1
+kubectl drain --ignore-daemonsets --delete-emptydir-data --force --timeout="600s" $1
 
 
