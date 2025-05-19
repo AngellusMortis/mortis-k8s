@@ -26,8 +26,6 @@ spec:
     kind: OCIRepository
     name: protonmail-bridge
   values:
-    env:
-      TZ: America/New_York
     persistence:
       config:
         enabled: true
