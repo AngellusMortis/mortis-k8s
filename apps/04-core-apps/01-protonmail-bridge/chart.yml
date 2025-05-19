@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: protonmail-bridge
-  namespace: media
+  namespace: mail
 spec:
   interval: 12h
   url: oci://tccr.io/truecharts/protonmail-bridge
