@@ -1,16 +1,11 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
 metadata:
-  name: protonmail-bridge
+  name: k8s-at-home
   namespace: mail
 spec:
   interval: 12h
-  url: oci://tccr.io/truecharts/protonmail-bridge
-  layerSelector:
-    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
-    operation: extract
-  ref:
-    semver: "16.*"
+  url: https://k8s-at-home.com/charts
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -22,10 +17,33 @@ spec:
   targetNamespace: mail
   interval: 10m
   timeout: 5m
-  chartRef:
-    kind: OCIRepository
-    name: protonmail-bridge
+  chart:
+    spec:
+      chart: protonmail-bridge
+      version: "5.*"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
   values:
+    image:
+      repository: shenxn/protonmail-bridge # {"$imagepolicy": "flux-system:protonmail-bridge-policy:name"}
+      tag: 3.19.0-1@sha256:3717b4441130675dc9131196de9f9c5287d2ea21b138d83b0486429e1737638a # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
+    env:
+      TZ: America/New_York
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
+          smtp:
+            enabled: true
+            protocol: TCP
+            port: 25
+          imap:
+            enabled: true
+            protocol: TCP
+            port: 143
     persistence:
       config:
         enabled: true

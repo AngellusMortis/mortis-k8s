@@ -1,3 +1,4 @@
 resources:
   - namespace.yml
   - chart.yml
+  - service.yml
