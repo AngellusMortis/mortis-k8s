@@ -172,6 +172,14 @@ spec:
           service: https://ingress-nginx-secure-controller.ingress
           originRequest:
             originServerName: autodl.wl.mort.is
+        - hostname: stash.wl.mort.is
+          service: https://ingress-nginx-secure-controller.ingress
+          originRequest:
+            originServerName: stash.wl.mort.is
+        - hostname: cleanup.wl.mort.is
+          service: https://ingress-nginx-secure-controller.ingress
+          originRequest:
+            originServerName: cleanup.wl.mort.is
         # Boundlexx
         - hostname: api.boundlexx.app
           service: http://ingress-nginx-insecure-controller.ingress
