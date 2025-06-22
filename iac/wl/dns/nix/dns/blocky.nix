@@ -215,6 +215,7 @@
                     "subs.wl.mort.is" = "192.168.2.225";
                     "sync.wl.mort.is" = "192.168.2.225";
                     "television.wl.mort.is" = "192.168.2.225";
+                    "cleanup.wl.mort.is" = "192.168.2.225";
 
                     # secure / media ingest apps
                     "autodl.wl.mort.is" = "192.168.2.225";

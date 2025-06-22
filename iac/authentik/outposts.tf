@@ -17,6 +17,7 @@ resource "authentik_outpost" "embedded" {
         module.home_apps["valetudo-ground-floor"].provider_id,
         module.home_apps["syncthing"].provider_id,
         module.home_apps["stash"].provider_id,
+        module.home_apps["maintainerr"].provider_id,
         module.media_ingest_apps["bazarr"].provider_id,
         module.media_ingest_apps["deluge"].provider_id,
         module.media_ingest_apps["radarr"].provider_id,

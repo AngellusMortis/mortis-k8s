@@ -91,6 +91,12 @@ locals {
             dns_tags = concat(local.tags.home, local.tags.media)
             second_subdomain = "stash"
         },
+        "maintainerr" = {
+            name = "Maintainerr"
+            icon = "https://maintainerr.info/favicon.ico"
+            dns_tags = concat(local.tags.home, local.tags.media)
+            second_subdomain = "cleanup"
+        },
     }
     media_apps = {
         "plex" = {

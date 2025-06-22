@@ -98,6 +98,13 @@ locals {
             description = "Porn Media Player"
             icon = "https://docs.stashapp.cc/favicon.ico"
         },
+        "maintainerr" = {
+            name = "Maintainerr"
+            group = "Media"
+            subdomain = "cleanup"
+            description = "Media Cleanup Manager"
+            icon = "https://maintainerr.info/favicon.ico"
+        },
     }
     media_apps = {
         "plex" = {
