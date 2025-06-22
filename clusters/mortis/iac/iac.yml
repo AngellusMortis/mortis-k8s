@@ -14,19 +14,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: dc-backup-nix-builder
-  namespace: flux-system
-spec:
-  storageClassName: longhorn
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 50Gi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
   name: ca-egress-nix-builder
   namespace: flux-system
 spec:
@@ -78,51 +65,6 @@ spec:
         - name: nix
           persistentVolumeClaim:
             claimName: wl-dns-nix-builder
-      volumeMounts:
-        - name: nix
-          mountPath: /nix
----
-apiVersion: infra.contrib.fluxcd.io/v1alpha2
-kind: Terraform
-metadata:
-  name: dc-backup-1
-  namespace: flux-system
-spec:
-  interval: 24h
-  storeReadablePlan: human
-  approvePlan: auto
-  path: ./iac/dc/backup
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  fileMappings:
-    - location: "home"
-      path: ".ssh/id_ed25519"
-      secretRef:
-        name: nixos-builder-key
-        key: id_ed25519
-    - location: "workspace"
-      path: "builder-key"
-      secretRef:
-        name: nixos-builder-key
-        key: id_ed25519
-  runnerPodTemplate:
-    spec:
-      image: ghcr.io/angellusmortis/tf-controller-runner:v0.15.1-nix-17
-      initContainers:
-        - name: init-perms
-          image: alpine:3
-          command:
-          - chown
-          - 65532:65532
-          - /nix
-          volumeMounts:
-          - name: nix
-            mountPath: /nix
-      volumes:
-        - name: nix
-          persistentVolumeClaim:
-            claimName: dc-backup-nix-builder
       volumeMounts:
         - name: nix
           mountPath: /nix
