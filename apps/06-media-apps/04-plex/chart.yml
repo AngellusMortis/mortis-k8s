@@ -65,7 +65,7 @@ spec:
     global:
       plexImage:
         repository: ghcr.io/linuxserver/plex # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
-        tag: 1.41.9.9961-46083195d-ls273 # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
+        tag: 1.41.9.9961-46083195d-ls274 # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
         imagePullPolicy: IfNotPresent
       timezone: America/New_York
       sharedStorage:
