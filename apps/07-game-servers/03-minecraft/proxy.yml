@@ -206,8 +206,8 @@ spec:
             value: "VELOCITY"
           - name: "MEMORY"
             value: "500m"
-          - name: ICON
-            value: https://files.wl.mort.is/41abe164-2b38-48a2-916f-1bf7fb20d174/mortis.png
+        #   - name: ICON
+        #     value: https://files.wl.mort.is/41abe164-2b38-48a2-916f-1bf7fb20d174/mortis.png
           - name: REPLACE_ENV_VARIABLES
             value: "true"
           - name: "JVM_OPTS"
