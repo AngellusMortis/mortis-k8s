@@ -18,7 +18,7 @@ data:
 
     # What should be the MOTD? This gets displayed when the player adds your server to
     # their server list. Only MiniMessage format is accepted.
-    motd = "Cobblemon PLUS"
+    motd = "Create Chronicles: The Endventure"
 
     # What should we display for the maximum number of players? (Velocity does not support a cap
     # on the number of players online.)

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minecraft-cobblemon-plus
+  name: minecraft-endventure
   namespace: games
 spec:
   storageClassName: longhorn
