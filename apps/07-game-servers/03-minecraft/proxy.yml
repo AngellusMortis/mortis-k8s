@@ -57,7 +57,7 @@ data:
     #
     # If your network runs one modpack consistently, consider using ping-passthrough = "mods"
     # instead for a nicer display in the server list.
-    announce-forge = false
+    announce-forge = true
 
     # If enabled (default is false) and the proxy is in online mode, Velocity will kick
     # any existing player who is online if a duplicate connection attempt is made.
@@ -76,7 +76,7 @@ data:
     #                  description and mod list.
     # - "all":         Uses the backend server's response as the proxy response. The Velocity
     #                  configuration is used if no servers could be contacted.
-    ping-passthrough = "DISABLED"
+    ping-passthrough = "mods"
 
     # If not enabled (default is true) player IP addresses will be replaced by <ip address withheld> in logs
     enable-player-address-logging = true
