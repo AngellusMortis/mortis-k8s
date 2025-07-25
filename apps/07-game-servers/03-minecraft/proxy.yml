@@ -225,13 +225,13 @@ spec:
           mountPath: /config/forwarding.secret
           subPath: forwarding.secret
           readOnly: true
-        # readinessProbe:
-        #   exec:
-        #     command:
-        #       - /usr/bin/health.sh
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 5
-        #   failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+              - /usr/bin/health.sh
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 3
         resources:
           requests:
             cpu: "200m"
