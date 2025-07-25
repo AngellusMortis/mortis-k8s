@@ -199,8 +199,8 @@ spec:
         image: ghcr.io/itzg/mc-proxy:java21-2025.6.0
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 25565
-          name: minecraft
+        - containerPort: 22565
+          name: proxy
         env:
           - name: TYPE
             value: "VELOCITY"
