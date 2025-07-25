@@ -38,26 +38,26 @@ spec:
           metallb.universe.tf/allow-shared-ip: "storage-192.168.3.237"
           metallb.universe.tf/loadBalancerIPs: 192.168.3.237
     persistence:
-      satisfactory:
-        enabled: true
-        existingClaim: satisfactory-config
-        mountPath: /mnt/satisfactory
+    #   satisfactory:
+    #     enabled: true
+    #     existingClaim: satisfactory-config
+    #     mountPath: /mnt/satisfactory
       minecraft:
         enabled: true
         existingClaim: minecraft-endventure
         mountPath: /mnt/minecraft/endventure
-      ark-server-a:
-        enabled: true
-        existingClaim: ark-server-a
-        mountPath: /mnt/ark/server/a
-      ark-server-b:
-        enabled: true
-        existingClaim: ark-server-b
-        mountPath: /mnt/ark/server/b
-      ark-data:
-        enabled: true
-        existingClaim: ark-data
-        mountPath: /mnt/ark/data
+    #   ark-server-a:
+    #     enabled: true
+    #     existingClaim: ark-server-a
+    #     mountPath: /mnt/ark/server/a
+    #   ark-server-b:
+    #     enabled: true
+    #     existingClaim: ark-server-b
+    #     mountPath: /mnt/ark/server/b
+    #   ark-data:
+    #     enabled: true
+    #     existingClaim: ark-data
+    #     mountPath: /mnt/ark/data
     configmap:
       config:
         enabled: true
