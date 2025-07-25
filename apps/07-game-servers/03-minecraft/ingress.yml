@@ -16,6 +16,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: minecraft-bluemap
+            name: minecraft
             port:
               number: 8100
