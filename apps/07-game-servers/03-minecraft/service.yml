@@ -16,7 +16,7 @@ spec:
     app.kubernetes.io/name: minecraft
   ports:
     - name: proxy
-      port: 22565
+      port: 25565
       targetPort: proxy
   externalTrafficPolicy: Local
   type: LoadBalancer
