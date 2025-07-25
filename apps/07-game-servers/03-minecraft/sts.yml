@@ -82,6 +82,7 @@ spec:
           - name: "MODS"
             value: |
               https://github.com/BlueMap-Minecraft/BlueMap/releases/download/v5.7/bluemap-5.7-neoforge.jar
+              https://cdn.modrinth.com/data/fALzjamp/versions/LuFhm4eU/Chunky-NeoForge-1.4.23.jar
             # https://cdn.modrinth.com/data/RT18TcxA/versions/fMMrBXPc/neovelocity-neoforge-1.2.4.jar
             # https://repo.spongepowered.org/repository/maven-releases/org/spongepowered/spongeneo/1.21.1-21.1.35-12.0.2-RC2149/spongeneo-1.21.1-21.1.35-12.0.2-RC2149-universal.jar
           - name: JVM_XX_OPTS
