@@ -13,6 +13,56 @@ metadata:
     metallb.universe.tf/loadBalancerIPs: 192.168.3.241
 spec:
   selector:
+    app.kubernetes.io/component: proxy
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+  ports:
+    - name: minecraft
+      port: 25565
+      targetPort: minecraft
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-bluemap
+  namespace: games
+  labels:
+    app.kubernetes.io/component: minecraft
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+    app.kubernetes.io/part-of: minecraft
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "minecraft-192.168.3.241"
+    metallb.universe.tf/loadBalancerIPs: 192.168.3.241
+spec:
+  selector:
+    app.kubernetes.io/component: minecraft
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+  ports:
+    - name: bluemap
+      port: 8100
+      targetPort: bluemap
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minecraft-direct
+  namespace: games
+  labels:
+    app.kubernetes.io/component: minecraft
+    app.kubernetes.io/instance: minecraft
+    app.kubernetes.io/name: minecraft
+    app.kubernetes.io/part-of: minecraft
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "minecraft-192.168.3.242"
+    metallb.universe.tf/loadBalancerIPs: 192.168.3.242
+spec:
+  selector:
     app.kubernetes.io/component: minecraft
     app.kubernetes.io/instance: minecraft
     app.kubernetes.io/name: minecraft
@@ -20,8 +70,5 @@ spec:
     - name: minecraft
       port: 25565
       targetPort: minecraft
-    - name: bluemap
-      port: 8100
-      targetPort: bluemap
   externalTrafficPolicy: Local
   type: LoadBalancer
