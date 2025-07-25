@@ -255,8 +255,8 @@
                 };
                 zone = ''
                     $ORIGIN wl.mort.is.
-                    _minecraft._tcp.mc.wl.mort.is.  IN  SRV 0 5 25565 mc-srv.wl.mort.is.
-                    _minecraft._tcp.mc.             IN  SRV 0 5 25565 mc-srv.wl.mort.is.
+                    _minecraft._tcp.mc.wl.mort.is.  IN  SRV 0 5 25565 mc-server.wl.mort.is.
+                    _minecraft._tcp.mc.             IN  SRV 0 5 25565 mc-server.wl.mort.is.
                 '';
             };
 
