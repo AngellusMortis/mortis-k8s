@@ -44,12 +44,8 @@ spec:
         mountPath: /mnt/satisfactory
       minecraft:
         enabled: true
-        existingClaim: minecraft-cobblemon-plus
-        mountPath: /mnt/minecraft/cobblemon-plus
-      # minecraft:
-      #   enabled: true
-      #   existingClaim: minecraft-create-chronicles
-      #   mountPath: /mnt/minecraft/create-chronicles
+        existingClaim: minecraft-endventure
+        mountPath: /mnt/minecraft/endventure
       ark-server-a:
         enabled: true
         existingClaim: ark-server-a
