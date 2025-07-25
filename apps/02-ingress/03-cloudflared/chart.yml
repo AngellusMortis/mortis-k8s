@@ -180,6 +180,11 @@ spec:
           service: https://ingress-nginx-secure-controller.ingress
           originRequest:
             originServerName: cleanup.wl.mort.is
+        # Games
+        - hostname: mc.wl.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: mc.wl.mort.is
         # Boundlexx
         - hostname: api.boundlexx.app
           service: http://ingress-nginx-insecure-controller.ingress
