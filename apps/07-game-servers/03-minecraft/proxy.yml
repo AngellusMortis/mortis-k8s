@@ -196,7 +196,7 @@ spec:
         effect: "PreferNoSchedule"
       containers:
       - name: proxy
-        image: ghcr.io/itzg/mc-proxy:java21-2025.1.0
+        image: ghcr.io/itzg/mc-proxy:java21-2025.6.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 25565
@@ -206,8 +206,8 @@ spec:
             value: "VELOCITY"
           - name: "MEMORY"
             value: "500m"
-          - name: ICON
-            value: https://avatars.githubusercontent.com/u/88593730?s=200&v=4
+        #   - name: ICON
+        #     value: https://avatars.githubusercontent.com/u/88593730?s=200&v=4
           - name: REPLACE_ENV_VARIABLES
             value: "true"
           - name: "JVM_OPTS"
