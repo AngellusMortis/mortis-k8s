@@ -114,7 +114,7 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: minecraft-cobblemon-plus
+          claimName: minecraft-endventure
       - name: backup
         persistentVolumeClaim:
           claimName: smb-backup
