@@ -93,6 +93,10 @@ spec:
           - mountPath: /data/simplebackups
             name: backup
             subPath: games/minecraft/endventure
+          - name: forwarding-secret
+            mountPath: /data/forwarding.secret
+            subPath: forwarding.secret
+            readOnly: true
         readinessProbe:
           exec:
             command:
@@ -119,3 +123,9 @@ spec:
       - name: backup
         persistentVolumeClaim:
           claimName: smb-backup
+      - name: forwarding-secret
+        secret:
+          secretName: proxy-secrets
+          items:
+          - key: forwarding.secret
+            path: forwarding.secret

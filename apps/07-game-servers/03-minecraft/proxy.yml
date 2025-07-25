@@ -214,6 +214,8 @@ spec:
             value: "-Dvelocity.max-known-packs=750"
           - name: "JVM_XX_OPTS"
             value: "-XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15"
+          - name: "PLUGINS"
+            value: "https://github.com/TCPShield/RealIP/releases/download/2.8.1/TCPShield-2.8.1.jar"
         volumeMounts:
         - name: data
           mountPath: /server
