@@ -10,7 +10,7 @@ parameters:
   nodeSelector: games
   numberOfReplicas: "1"
   staleReplicaTimeout: "480"
-  dataLocality: "strict-local"
+  dataLocality: "best-effort"
 provisioner: driver.longhorn.io
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
