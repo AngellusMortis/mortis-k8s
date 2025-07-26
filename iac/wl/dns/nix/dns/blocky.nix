@@ -242,7 +242,7 @@
 
                     # game servers
                     "satisfactory.wl.mort.is" = "192.168.3.240";
-                    "mc-srv.wl.mort.is" = "192.168.3.241";
+                    "mc-server.wl.mort.is.wl.mort.is" = "192.168.3.241";
                     "mc.wl.mort.is" = "192.168.3.225";
 
                     # IoT / NoT devices
