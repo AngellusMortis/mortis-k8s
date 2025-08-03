@@ -85,6 +85,7 @@ spec:
               https://cdn.modrinth.com/data/fALzjamp/versions/LuFhm4eU/Chunky-NeoForge-1.4.23.jar
               https://cdn.modrinth.com/data/RT18TcxA/versions/fMMrBXPc/neovelocity-neoforge-1.2.4.jar
               https://cdn.modrinth.com/data/s86X568j/versions/Pj0tqKnE/ChunkyBorder-1.2.18.jar
+              https://mediafilez.forgecdn.net/files/6464/161/findme-3.3.3-neoforge.jar
             # https://repo.spongepowered.org/repository/maven-releases/org/spongepowered/spongeneo/1.21.1-21.1.35-12.0.2-RC2149/spongeneo-1.21.1-21.1.35-12.0.2-RC2149-universal.jar
           - name: JVM_XX_OPTS
             value: "-XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3 -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive"
