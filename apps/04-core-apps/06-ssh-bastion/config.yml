@@ -81,6 +81,8 @@ data:
       if [[ -f "/home/$user/work/dotfiles/install.sh" ]]; then
         su - $user -c "/home/$user/work/dotfiles/install.sh" || true
       fi
+
+      su - $user -c "kubectl krew install view-allocations"
     done
 ---
 apiVersion: v1
