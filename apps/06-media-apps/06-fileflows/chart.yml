@@ -58,7 +58,7 @@ spec:
       node:
         enabled: true
         type: StatefulSet
-        replicas: 2
+        replicas: 1
         podSpec:
           runtimeClassName: nvidia
           containers:
