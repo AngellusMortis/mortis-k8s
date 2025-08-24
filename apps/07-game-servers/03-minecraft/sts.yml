@@ -72,8 +72,8 @@ spec:
             value: "create-chronicles-the-endventure"
           - name: CF_FILE_ID
             value: "6875527"
-          # - name: CF_EXCLUDE_MODS
-          #   value: "737481,1167848"
+          - name: CF_EXCLUDE_MODS
+            value: "1263228" # Create Extra Gauges, manually updated
           # Custom
           # - name: TYPE
           #   value: CUSTOM
@@ -85,6 +85,7 @@ spec:
               https://cdn.modrinth.com/data/fALzjamp/versions/LuFhm4eU/Chunky-NeoForge-1.4.23.jar
               https://cdn.modrinth.com/data/RT18TcxA/versions/fMMrBXPc/neovelocity-neoforge-1.2.4.jar
               https://cdn.modrinth.com/data/s86X568j/versions/Pj0tqKnE/ChunkyBorder-1.2.18.jar
+              https://cdn.modrinth.com/data/6YJgomwt/versions/JKwPsWMl/extra_gauges-2.0.4.jar
           - name: JVM_XX_OPTS
             value: "-XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions -XX:+AlwaysActAsServerClassMachine -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+UseNUMA -XX:NmethodSweepActivity=1 -XX:ReservedCodeCacheSize=400M -XX:NonNMethodCodeHeapSize=12M -XX:ProfiledCodeHeapSize=194M -XX:NonProfiledCodeHeapSize=194M -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+UseVectorCmov -XX:+PerfDisableSharedMem -XX:+UseFastUnorderedTimeStamps -XX:+UseCriticalJavaThreadPriority -XX:ThreadPriorityPolicy=1 -XX:AllocatePrefetchStyle=3 -XX:+UseZGC -XX:AllocatePrefetchStyle=1 -XX:-ZProactive"
         volumeMounts:
