@@ -41,7 +41,7 @@ spec:
         livenessProbe:
           tcpSocket:
             port: ssh
-          initialDelaySeconds: 15
+          initialDelaySeconds: 16
           timeoutSeconds: 1
           periodSeconds: 5
           failureThreshold: 5
