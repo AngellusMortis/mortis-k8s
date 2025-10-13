@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
       - name: deluge
-        image: ghcr.io/linuxserver/deluge:2.2.0-r1-ls349 # {"$imagepolicy": "flux-system:deluge-policy"}
+        image: ghcr.io/linuxserver/deluge:2.2.0-r1-ls350 # {"$imagepolicy": "flux-system:deluge-policy"}
         imagePullPolicy: IfNotPresent
         livenessProbe:
           tcpSocket:
