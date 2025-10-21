@@ -6,4 +6,4 @@ metadata:
 spec:
   instances: 3
   storage:
-    size: 500Gi
+    size: 600Gi
