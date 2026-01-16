@@ -5,7 +5,7 @@ metadata:
   namespace: media
 spec:
   interval: 12h
-  url: oci://tccr.io/truecharts/sonarr
+  url: oci://oci.trueforge.org/truecharts/sonarr
   layerSelector:
     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
     operation: extract
