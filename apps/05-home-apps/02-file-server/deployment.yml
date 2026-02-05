@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: files
-        image: nginx:1.29.4 # {"$imagepolicy": "flux-system:file-server-policy"}
+        image: nginx:1.29.5 # {"$imagepolicy": "flux-system:file-server-policy"}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
