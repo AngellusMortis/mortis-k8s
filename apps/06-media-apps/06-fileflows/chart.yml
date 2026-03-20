@@ -10,7 +10,7 @@ spec:
     mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
     operation: extract
   ref:
-    semver: "15.0.*"
+    semver: "16.0.*"
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: docker.io/revenz/fileflows
-      tag: 26.01@sha256:b43aaf5d125e86dca706ae17cb96ba68f294c32c8e83b511f7cbb52722dd4fdf
+      tag: 26.03@sha256:9c74a8ecca60011222ece986efb27a428e55c4d0929ce9346f144b7daefb64b6
       pullPolicy: IfNotPresent
     workload:
       main:
