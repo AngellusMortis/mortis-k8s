@@ -312,12 +312,12 @@ spec:
       for: 5m
       labels:
         severity: critical
-    - alert: HTTPErrors
-      annotations:
-        description: Recent 5xx HTTP errors for Boundlexx.
-        summary: Recent 5xx HTTP errors for Boundlexx.
-      expr: |-
-        sum(irate(django_http_responses_total_by_status_total{namespace="boundlexx", status=~"5.+"}[1m])) > 0.5
-      for: 5m
-      labels:
-        severity: warning
+    # - alert: HTTPErrors
+    #   annotations:
+    #     description: Recent 5xx HTTP errors for Boundlexx.
+    #     summary: Recent 5xx HTTP errors for Boundlexx.
+    #   expr: |-
+    #     sum(irate(django_http_responses_total_by_status_total{namespace="boundlexx", status=~"5.+"}[1m])) > 0.5
+    #   for: 5m
+    #   labels:
+    #     severity: warning
