@@ -1,4 +1,0 @@
-resources:
-  - namespace.yml
-  - chart.yml
-  - oauth-app-sealed.yml
