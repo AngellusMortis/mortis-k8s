@@ -20,7 +20,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: "2025.10.*"
+      version: "2025.12.*"
       interval: 5m
       sourceRef:
         kind: HelmRepository
