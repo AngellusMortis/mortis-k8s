@@ -87,18 +87,12 @@ spec:
       pdb:
         enabled: true
         minAvailable: 1
+      metrics:
+        enabeld: true
+        serviceMonitor:
+          enabled: true
+          labels:
+            release: prometheus
     geoip:
       enabled: false
       updateInterval: 24
-    redis:
-      enabled: true
-      architecture: standalone
-      auth:
-        enabled: true
-      image:
-        registry: docker.io
-        repository: bitnamilegacy/redis
-        tag: 8.2.1-debian-12-r0
-      global:
-        security:
-          allowInsecureImages: true
