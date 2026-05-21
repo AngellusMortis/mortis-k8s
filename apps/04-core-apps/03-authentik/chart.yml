@@ -20,7 +20,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: "2025.2.*"
+      version: "2025.4.*"
       interval: 5m
       sourceRef:
         kind: HelmRepository
@@ -95,7 +95,3 @@ spec:
       architecture: standalone
       auth:
         enabled: true
-      image:
-        registry: docker.io
-        repository: bitnamilegacy/redis
-        tag: 8.2.1-debian-12-r0
