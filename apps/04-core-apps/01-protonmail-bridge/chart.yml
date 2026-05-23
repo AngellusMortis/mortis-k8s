@@ -26,6 +26,9 @@ spec:
     kind: OCIRepository
     name: protonmail-bridge
   values:
+    image:
+      repository: ghcr.io/dancwilliams/protonmail-bridge-docker # {"$imagepolicy": "flux-system:protonmail-bridge-policy:name"}
+      tag: v3.24.2 # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
     persistence:
       config:
         enabled: true

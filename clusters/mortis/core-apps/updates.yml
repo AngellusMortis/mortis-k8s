@@ -17,7 +17,7 @@ spec:
     name: protonmail-bridge
   policy:
     semver:
-      range: "~3.x-0"
+      range: "~3.x"
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
