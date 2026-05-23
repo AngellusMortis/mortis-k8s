@@ -4,7 +4,7 @@ metadata:
   name: protonmail-bridge
   namespace: flux-system
 spec:
-  image: shenxn/protonmail-bridge
+  image: ghcr.io/dancwilliams/protonmail-bridge-docker
   interval: 12h
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
