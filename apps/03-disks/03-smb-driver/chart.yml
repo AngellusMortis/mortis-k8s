@@ -25,3 +25,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: csi-driver-smb
+  values:
+    feature:
+      enableInlineVolume: false
