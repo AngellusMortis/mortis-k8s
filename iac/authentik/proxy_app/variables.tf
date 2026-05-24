@@ -57,6 +57,12 @@ variable "authorization_flow" {
     default = ""
 }
 
+variable "invalidation_flow" {
+    type = string
+    description = "Invalidation flow for the application"
+    default = ""
+}
+
 variable "base_domain" {
     type = string
     description = "Base domain for auth/service"

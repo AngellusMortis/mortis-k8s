@@ -13,6 +13,7 @@ resource "authentik_provider_proxy" "provider" {
     name = "Provider for ${var.name}"
     authentication_flow = var.authentication_flow == "" ? data.authentik_flow.internal_authentication_flow.id : var.authentication_flow
     authorization_flow = var.authorization_flow == "" ? data.authentik_flow.default_provider_authorization_implicit_consent.id : var.authorization_flow
+    invalidation_flow = var.invalidation_flow == "" ? data.authentik_flow.default_provider_invalidation_flow.id : var.invalidation_flow
     mode = "forward_domain"
 
     external_host = "https://auth.${var.base_domain}/"
