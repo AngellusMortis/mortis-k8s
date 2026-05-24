@@ -61,7 +61,7 @@ spec:
   imageRepositoryRef:
     name: cross-seed
   filterTags:
-    pattern: '^(?P<version>\d+)-0-amd64$'
+    pattern: '^(?P<version>\d+)(-0)?-amd64$'
     extract: '$version'
   policy:
     semver:
