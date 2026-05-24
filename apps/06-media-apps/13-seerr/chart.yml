@@ -1,0 +1,41 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: seerr
+  namespace: media
+spec:
+  interval: 12h
+  url: oci://ghcr.io/seerr-team/seerr/seerr-chart
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: media-apps-seerr
+  namespace: media
+spec:
+  releaseName: seerr
+  targetNamespace: media
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: seerr
+  values:
+    ingress:
+      enabled: true
+      ingressClassName:  "nginx-insecure"
+      annotations:
+        nginx.ingress.kubernetes.io/upstream-vhost: "media.wl.mort.is"
+      hosts:
+        - host: media.wl.mort.is
+          paths:
+              - path: /
+                pathType: Prefix
+                overrideService:
+                  name: main
+                  port: 5055

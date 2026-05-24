@@ -171,12 +171,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: media-apps-overseerr
+  name: media-apps-seerr
   namespace: flux-system
 spec:
   targetNamespace: media
   interval: 10m0s
-  path: ./apps/06-media-apps/13-overseerr
+  path: ./apps/06-media-apps/13-seerr
   prune: false
   sourceRef:
     kind: GitRepository

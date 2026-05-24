@@ -114,11 +114,11 @@ locals {
             icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
             create_provider = false
         },
-        "overseer" = {
-            name = "Overseer"
+        "seerr" = {
+            name = "Seerr"
             subdomain = "media"
             description = "Media Requester"
-            icon = "https://overseerr.dev/favicon.ico"
+            icon = "https://seerr.dev/favicon.ico"
             create_provider = false
         },
     }

@@ -108,10 +108,10 @@ locals {
             name = "File Server"
             second_subdomain = "files"
         },
-        "overseer" = {
-            name = "Overseer"
+        "seerr" = {
+            name = "Seerr"
             second_subdomain = "media"
-            icon = "https://overseerr.dev/favicon.ico"
+            icon = "https://seerr.dev/favicon.ico"
         },
     }
     media_ingest_apps = {
