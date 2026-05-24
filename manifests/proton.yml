@@ -1,0 +1,23 @@
+# kubectl apply -f manifests/proton.yml
+# kubectl delete -f manifests/proton.yml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shell
+  namespace: mail
+spec:
+  containers:
+  - name: debug
+    image: ghcr.io/dancwilliams/protonmail-bridge-docker:v3.24.2
+    imagePullPolicy: IfNotPresent
+    command:
+      - sleep
+      - infinity
+    volumeMounts:
+      - mountPath: /root
+        name: root
+  volumes:
+    - name: root
+      persistentVolumeClaim:
+        claimName: protonmail-bridge-config
