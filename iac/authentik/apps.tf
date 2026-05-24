@@ -318,6 +318,8 @@ resource "authentik_provider_oauth2" "cloudflare" {
     client_id = "pMPFCSCQKjZLxMyGY1pucPM8YuyNDAQdfP3EmsOO"
     authentication_flow = data.authentik_flow.external_authentication_flow.id
     authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    invalidation_flow = data.authentik_flow.default_provider_invalidation_flow.id
+
     client_type = "confidential"
     redirect_uris = ["https://mortis.cloudflareaccess.com/cdn-cgi/access/callback"]
 
@@ -346,6 +348,7 @@ resource "authentik_provider_oauth2" "grafana" {
     client_id = "RX9M4KT3JQeNqGrOAxzNaVaErAf6vVLZM6cYQdQE"
     authentication_flow = data.authentik_flow.internal_authentication_flow.id
     authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    invalidation_flow = data.authentik_flow.default_provider_invalidation_flow.id
     client_type = "confidential"
     redirect_uris = ["https://monitor.wl.mort.is/login/generic_oauth"]
 
@@ -382,6 +385,7 @@ resource "authentik_provider_oauth2" "k8s" {
     client_id = "ZExFm1fL1IeMu6474ecOvZcm3bTNSKx45JVqPuI9"
     authentication_flow = data.authentik_flow.external_authentication_flow.id
     authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    invalidation_flow = data.authentik_flow.default_provider_invalidation_flow.id
     client_type = "confidential"
     redirect_uris = [
         "https://k8s.wl.mort.is/oauth2/callback",
