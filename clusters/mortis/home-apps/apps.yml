@@ -59,7 +59,7 @@ metadata:
   name: home-apps-matrix-synapse
   namespace: flux-system
 spec:
-  targetNamespace: default
+  targetNamespace: chat
   interval: 10m0s
   path: ./apps/05-home-apps/05-matrix-synapse
   prune: false
