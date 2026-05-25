@@ -26,10 +26,10 @@ spec:
     kind: OCIRepository
     name: matrix
   values:
-    serverName: matrix.mort.is
+    serverName: matrix.wl.mort.is
     synapse:
       ingress:
-        host: matrix.mort.is
+        host: matrix.wl.mort.is
     matrixAuthenticationService:
       enabled: false
     matrixRTC:
