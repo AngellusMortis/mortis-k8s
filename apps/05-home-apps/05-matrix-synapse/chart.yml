@@ -34,6 +34,12 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "matrix.wl.mort.is"
+      additional:
+        1-custom-config:
+          config: |
+            admin_contact: "mailto:admin@mort.is"
+            allow_public_rooms_over_federation: true
+            serve_server_wellknown: true
     matrixAuthenticationService:
       enabled: false
     matrixRTC:
