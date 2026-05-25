@@ -369,7 +369,7 @@
     services.openssh = {
         enable = true;
         settings = {
-            AcceptEnv = [ "LANG LC_*", "MORTIS_*" ];
+            AcceptEnv = [ "LANG LC_*" "MORTIS_*" ];
             PasswordAuthentication = false;
             KbdInteractiveAuthentication = false;
             PermitRootLogin = "no";
