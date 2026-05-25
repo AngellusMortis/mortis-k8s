@@ -26,6 +26,11 @@ spec:
     kind: OCIRepository
     name: matrix
   values:
+    ingress:
+      annotations:
+        nginx.ingress.kubernetes.io/upstream-vhost: "matrix.wl.mort.is"
+      tlsEnabled: true
+      className: "nginx-insecure"
     serverName: matrix.wl.mort.is
     synapse:
       ingress:
