@@ -30,3 +30,11 @@ spec:
     synapse:
       ingress:
         host: matrix.mort.is
+    matrixAuthenticationService:
+      enabled: false
+    matrixRTC:
+      enabled: false
+    elementWeb:
+      enabled: false
+    wellKnownDelegation:
+      enabled: false
