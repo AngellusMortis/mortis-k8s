@@ -38,3 +38,5 @@ spec:
       enabled: false
     wellKnownDelegation:
       enabled: false
+    elementAdmin:
+      enable: false
