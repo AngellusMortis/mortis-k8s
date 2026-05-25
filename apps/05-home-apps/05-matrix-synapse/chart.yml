@@ -40,7 +40,5 @@ spec:
       enabled: false
     elementWeb:
       enabled: false
-    wellKnownDelegation:
-      enabled: false
     elementAdmin:
       enabled: false
