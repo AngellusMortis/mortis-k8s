@@ -39,4 +39,4 @@ spec:
     wellKnownDelegation:
       enabled: false
     elementAdmin:
-      enable: false
+      enabled: false
