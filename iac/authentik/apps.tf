@@ -98,12 +98,11 @@ locals {
             description = "Porn Media Player"
             icon = "https://docs.stashapp.cc/favicon.ico"
         },
-        "maintainerr" = {
-            name = "Maintainerr"
-            group = "Media"
-            subdomain = "cleanup"
-            description = "Media Cleanup Manager"
-            icon = "https://maintainerr.info/favicon.ico"
+        "matrix-synapse" = {
+            name = "Matrix Synapse"
+            subdomain = "matrix"
+            description = "Chat server"
+            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
         },
     }
     media_apps = {
@@ -177,6 +176,13 @@ locals {
             description = "Porn Downloader"
             icon = "https://whisparr.com/logo/256.png"
         },
+        "maintainerr" = {
+            name = "Maintainerr"
+            group = "Media"
+            subdomain = "cleanup"
+            description = "Media Cleanup Manager"
+            icon = "https://maintainerr.info/favicon.ico"
+        },
     }
     metrics_apps = {
         "alert-manager" = {
@@ -190,32 +196,6 @@ locals {
             subdomain = "prometheus"
             description = "Metric Scraper"
             icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
-        },
-    }
-    dc_apps = {
-        "download-backup" = {
-            name = "Download (Backup)"
-            subdomain = "download"
-            group = "Media"
-            description = "Download Service"
-            icon = "https://deluge-torrent.org/images/deluge_logo.png"
-            user_group = authentik_group.media_ingest.id
-        },
-        "plex-backup" = {
-            name = "Plex (Backup)"
-            subdomain = "plex"
-            group = "Media"
-            description = "Media Streaming Server"
-            icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
-            create_provider = false
-            user_group = authentik_group.media_users.id
-        },
-        "syncthing-backup" = {
-            name = "SyncThing (Backup)"
-            subdomain = "sync"
-            group = "Media"
-            description = "File Sync Application"
-            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
         },
     }
 }
@@ -292,22 +272,6 @@ module "metrics_apps" {
     subdomain = each.value.subdomain
     description = each.value.description
     user_group = authentik_group.admin_users.id
-    create_provider = try(each.value.create_provider, true)
-    path = try(each.value.path, "/")
-}
-
-module "dc_apps" {
-    source = "./proxy_app"
-    for_each = local.dc_apps
-
-    name = each.value.name
-    slug = each.key
-    group = try(each.value.group, "Control")
-    icon = each.value.icon
-    subdomain = each.value.subdomain
-    description = each.value.description
-    user_group = try(each.value.user_group, authentik_group.admin_users.id)
-    base_domain = "dc.mort.is"
     create_provider = try(each.value.create_provider, true)
     path = try(each.value.path, "/")
 }

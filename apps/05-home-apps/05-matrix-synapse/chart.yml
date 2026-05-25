@@ -1,0 +1,32 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: matrix
+  namespace: chat
+spec:
+  interval: 12h
+  url: oci://ghcr.io/element-hq/ess-helm/matrix-stack
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-apps-matrix-synapse
+  namespace: chat
+spec:
+  releaseName: matrix-synapse
+  targetNamespace: chat
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: matrix
+  values:
+    serverName: matrix.mort.is
+    synapse:
+      ingress:
+        host: matrix.mort.is

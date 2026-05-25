@@ -91,11 +91,11 @@ locals {
             dns_tags = concat(local.tags.home, local.tags.media)
             second_subdomain = "stash"
         },
-        "maintainerr" = {
-            name = "Maintainerr"
-            icon = "https://maintainerr.info/favicon.ico"
-            dns_tags = concat(local.tags.home, local.tags.media)
-            second_subdomain = "cleanup"
+        "matrix-synapse" = {
+            name = "Matrix Synapse"
+            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+            dns_tags = concat(local.tags.home)
+            second_subdomain = "matrix"
         },
     }
     media_apps = {
@@ -160,6 +160,11 @@ locals {
             second_subdomain = "stuff"
             icon = "https://whisparr.com/logo/256.png"
         },
+        "maintainerr" = {
+            name = "Maintainerr"
+            icon = "https://maintainerr.info/favicon.ico"
+            second_subdomain = "cleanup"
+        },
     }
     metrics_apps = {
         "alerts" = {
@@ -181,34 +186,6 @@ locals {
             name = "Prometheus"
             second_subdomain = "prometheus"
             icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
-        },
-    }
-    dc_apps = {
-        "ssh-bastion" = {
-            name = "SSH Backup"
-            second_subdomain = "ssh"
-            dns_tags = local.tags.control
-            policies = [cloudflare_zero_trust_access_policy.allow_ssh_users.id]
-        },
-        "deluge" = {
-            name = "Deluge (Backup)"
-            icon = "https://deluge-torrent.org/images/deluge_logo.png"
-            dns_tags = concat(local.tags.media_ingest)
-            second_subdomain = "download"
-            policies = [cloudflare_zero_trust_access_policy.allow_media_ingest_users.id]
-        },
-        "plex" = {
-            name = "Plex (Backup)"
-            icon = "https://www.plex.tv/wp-content/themes/plex/assets/img/favicons/plex-180.png"
-            dns_tags = concat(local.tags.media)
-            second_subdomain = "plex"
-            policies = [cloudflare_zero_trust_access_policy.bypass.id]
-        },
-        "syncthing" = {
-            name = "SyncThing (Backup)"
-            icon = "https://syncthing.net/img/favicons/apple-touch-icon-152x152.png"
-            dns_tags = concat(local.tags.control, local.tags.media)
-            second_subdomain = "sync"
         },
     }
 }
@@ -292,23 +269,6 @@ module "metrics_apps" {
     dns_tags = concat(local.tags.all, local.tags.wl, local.tags.k8s, local.tags.metrics)
     tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
     subdomain = try(each.value.subdomain, "wl")
-    second_subdomain = try(each.value.second_subdomain, null)
-    base_domain = cloudflare_zone.mortis.zone
-    idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
-    policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_admin_users.id])
-}
-
-module "dc_apps" {
-    source = "./access_app"
-    for_each = local.dc_apps
-
-    name = each.value.name
-    icon = try(each.value.icon, null)
-    account_id = local.account_id
-    zone_id = cloudflare_zone.mortis.id
-    dns_tags = concat(local.tags.all, local.tags.dc, each.value.dns_tags)
-    tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.dc.id)
-    subdomain = try(each.value.subdomain, "dc")
     second_subdomain = try(each.value.second_subdomain, null)
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
