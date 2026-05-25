@@ -91,12 +91,6 @@ locals {
             dns_tags = concat(local.tags.home, local.tags.media)
             second_subdomain = "stash"
         },
-        "matrix-synapse" = {
-            name = "Matrix Synapse"
-            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
-            dns_tags = concat(local.tags.home)
-            second_subdomain = "matrix"
-        },
     }
     media_apps = {
         "plex" = {
@@ -112,6 +106,12 @@ locals {
             name = "Seerr"
             second_subdomain = "media"
             icon = "https://seerr.dev/favicon.ico"
+        },
+        "matrix-synapse" = {
+            name = "Matrix Synapse"
+            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+            dns_tags = concat(local.tags.home)
+            second_subdomain = "matrix"
         },
     }
     media_ingest_apps = {

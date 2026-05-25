@@ -98,12 +98,6 @@ locals {
             description = "Porn Media Player"
             icon = "https://docs.stashapp.cc/favicon.ico"
         },
-        "matrix-synapse" = {
-            name = "Matrix Synapse"
-            subdomain = "matrix"
-            description = "Chat server"
-            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
-        },
     }
     media_apps = {
         "plex" = {
@@ -118,6 +112,13 @@ locals {
             subdomain = "media"
             description = "Media Requester"
             icon = "https://seerr.dev/favicon.ico"
+            create_provider = false
+        },
+        "matrix-synapse" = {
+            name = "Matrix Synapse"
+            subdomain = "matrix"
+            description = "Chat server"
+            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
             create_provider = false
         },
     }
