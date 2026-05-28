@@ -57,9 +57,7 @@ resource "authentik_outpost" "chat_outpost" {
     name = "authentik chat outpost"
     type = "proxy"
     service_connection = "318a42a5-e979-441a-b57d-c06e37fa7b7c"  # local k8s cluster integration
-    protocol_providers = [
-        module.chat_apps["matrix-admin"].provider_id,
-    ]
+    protocol_providers = []
     config = jsonencode({
         "log_level": "info",
         "docker_labels": null,

@@ -73,10 +73,4 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "element.chat.mort.is"
     elementAdmin:
-      replicas: 2
-      ingress:
-        host: admin.chat.mort.is
-        tlsEnabled: true
-        className: "nginx-secure"
-        annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "admin.chat.mort.is"
+      enable: false
