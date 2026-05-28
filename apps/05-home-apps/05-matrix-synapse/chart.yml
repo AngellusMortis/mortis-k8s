@@ -37,6 +37,9 @@ spec:
       # logging:
       #   levelOverrides:
       #     synapse.handlers.oidc: DEBUG
+      appservices:
+      - configMap: bridge-signal-mautrix-signal-registration
+        configMapKey: appservice-registration-signal.yaml
       additional:
         0-custom-config:
           config: |
