@@ -64,6 +64,12 @@ spec:
               password_registration_enabled: false
             passwords:
               enabled: true
+            policy:
+              data:
+                admin_users:
+                  - angellus
+                admin_clients:
+                  - 01KSQK86DER6DBYFHT4D7YF26C
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
