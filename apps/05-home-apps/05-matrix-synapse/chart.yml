@@ -73,4 +73,4 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "element.chat.mort.is"
     elementAdmin:
-      enable: false
+      enabled: false
