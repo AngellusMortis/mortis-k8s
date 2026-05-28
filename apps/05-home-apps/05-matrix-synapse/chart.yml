@@ -40,8 +40,11 @@ spec:
             admin_contact: "mailto:admin@mort.is"
             allow_public_rooms_over_federation: true
             serve_server_wellknown: true
+            enable_registration: true
             trusted_key_servers:
             - server_name: matrix.org
+            password_config:
+              enabled: false
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
