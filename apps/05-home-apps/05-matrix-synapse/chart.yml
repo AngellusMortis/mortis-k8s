@@ -62,6 +62,8 @@ spec:
           config: |
             account:
               password_registration_enabled: false
+            passwords:
+              enabled: true
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
