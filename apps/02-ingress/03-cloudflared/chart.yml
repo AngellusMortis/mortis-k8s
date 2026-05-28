@@ -181,6 +181,14 @@ spec:
           originRequest:
             originServerName: cleanup.wl.mort.is
         # Matrix
+        - hostname: chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: chat.mort.is
+        - hostname: auth.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: auth.chat.mort.is
         - hostname: element.chat.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
           originRequest:
@@ -197,10 +205,6 @@ spec:
           service: https://ingress-nginx-insecure-controller.ingress
           originRequest:
             originServerName: mrtc.chat.mort.is
-        - hostname: hookshot.chat.mort.is
-          service: https://ingress-nginx-insecure-controller.ingress
-          originRequest:
-            originServerName: hookshot.chat.mort.is
         - hostname: admin.chat.mort.is
           service: https://ingress-nginx-secure-controller.ingress
           originRequest:

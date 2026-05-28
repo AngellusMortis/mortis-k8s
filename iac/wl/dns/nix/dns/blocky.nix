@@ -91,6 +91,8 @@
                     "chat.mort.is" = "192.168.3.225";
                     "auth.chat.mort.is" = "192.168.3.225";
                     "matrix.chat.mort.is" = "192.168.3.225";
+                    "element.chat.mort.is" = "192.168.3.225";
+                    "hookshot.chat.mort.is" = "192.168.3.225";
                     "mrtc.chat.mort.is" = "192.168.3.225";
                     "admin.chat.mort.is" = "192.168.2.225";
 

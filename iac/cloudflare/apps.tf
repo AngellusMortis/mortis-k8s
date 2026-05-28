@@ -205,6 +205,10 @@ locals {
             name = "Matrix Element"
             second_subdomain = "matrix"
         },
+        "matrix-hookshot" = {
+            name = "Matrix Hookshot"
+            second_subdomain = "hookshot"
+        },
     }
 }
 
