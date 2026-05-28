@@ -13,10 +13,10 @@ spec:
     command:
       - sleep
       - infinity
-  #   volumeMounts:
-  #     - mountPath: /data
-  #       name: data
-  # volumes:
-  #   - name: data
-  #     persistentVolumeClaim:
-  #       claimName: lacc-data
+    volumeMounts:
+      - mountPath: /data
+        name: data
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: data-bridge-slack-mautrix-slack-postgres-0
