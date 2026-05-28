@@ -19,4 +19,4 @@ spec:
   volumes:
     - name: data
       persistentVolumeClaim:
-        claimName: data-bridge-slack-mautrix-slack-postgres-0
+        claimName: data-bridge-meta-mautrix-meta-postgres-0

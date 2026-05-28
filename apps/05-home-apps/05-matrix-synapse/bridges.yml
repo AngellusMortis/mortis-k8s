@@ -79,3 +79,44 @@ spec:
             "@angellus:mort.is": admin
         backfill:
           enabled: true
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: bridge-mautrix-meta
+  namespace: chat
+spec:
+  interval: 12h
+  url: oci://ghcr.io/cyclikal94/matrix-helm-charts/mautrix-meta
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-apps-matrix-bridge-meta
+  namespace: chat
+spec:
+  releaseName: bridge-meta
+  targetNamespace: chat
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: bridge-mautrix-meta
+  values:
+    homeserver:
+      address: http://matrix-synapse-synapse.chat.svc.cluster.local:8008
+      domain: mort.is
+    config:
+      baseExtra: |
+        bridge:
+          permissions:
+            "*": relay
+            "mort.is": user
+            "@angellus:mort.is": admin
+        backfill:
+          enabled: true
