@@ -28,6 +28,7 @@ spec:
   values:
     serverName: chat.mort.is
     synapse:
+      replicas: 2
       ingress:
         host: matrix.chat.mort.is
         tlsEnabled: true
@@ -35,12 +36,16 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "matrix.chat.mort.is"
       additional:
-        1-custom-config:
+        0-custom-config:
           config: |
             admin_contact: "mailto:admin@mort.is"
             allow_public_rooms_over_federation: true
             serve_server_wellknown: true
+        1-custom-config:
+          configSecret: oidc-config
+          configSecretKey: oidc.yml
     matrixAuthenticationService:
+      replicas: 2
       ingress:
         host: account.chat.mort.is
         tlsEnabled: true
@@ -52,6 +57,7 @@ spec:
           config: |
             password_registration_enabled: false
     matrixRTC:
+      replicas: 2
       ingress:
         host: mrtc.chat.mort.is
         tlsEnabled: true
@@ -61,8 +67,15 @@ spec:
       sfu:
         useStunToDiscoverPublicIP: false
     elementWeb:
-      enabled: false
+      replicas: 2
+      ingress:
+        host: chat.mort.is
+        tlsEnabled: true
+        className: "nginx-insecure"
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "chat.mort.is"
     elementAdmin:
+      replicas: 2
       ingress:
         host: admin.chat.mort.is
         tlsEnabled: true
