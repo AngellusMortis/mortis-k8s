@@ -15,7 +15,8 @@ resource "cloudflare_record" "srv_root" {
     data {
         service = "_matrix"
         proto = "_tcp"
-        target = "chat.mort.is"
+        port = 443
+        target = "matrix.chat.mort.is"
     }
     tags = concat(local.tags.all, local.tags.chat, local.tags.k8s)
 }
