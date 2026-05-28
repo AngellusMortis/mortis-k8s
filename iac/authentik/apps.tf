@@ -392,7 +392,7 @@ resource "authentik_provider_oauth2" "matrix" {
 }
 
 resource "authentik_application" "matrix" {
-    name = "Matrix"
+    name = "Matrix OIDC"
     slug = "matrix"
     group = "OIDC Apps"
     protocol_provider = authentik_provider_oauth2.matrix.id
