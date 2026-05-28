@@ -28,7 +28,6 @@ spec:
   values:
     serverName: chat.mort.is
     synapse:
-      replicas: 2
       ingress:
         host: matrix.chat.mort.is
         tlsEnabled: true
