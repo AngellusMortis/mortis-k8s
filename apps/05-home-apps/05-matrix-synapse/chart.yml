@@ -50,6 +50,7 @@ spec:
             password_config:
               enabled: false
     matrixAuthenticationService:
+      replicas: 2
       ingress:
         host: mas.chat.mort.is
         tlsEnabled: true
