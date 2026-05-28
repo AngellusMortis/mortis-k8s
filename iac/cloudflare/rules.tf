@@ -59,15 +59,21 @@ resource "cloudflare_page_rule" "no_cache_plex_dc" {
     }
 }
 
-resource "cloudflare_ruleset" "block_foreign" {
+resource "cloudflare_ruleset" "rules" {
     kind = "zone"
-    name = "Block non-US"
+    name = "Rulesets"
     phase = "http_request_firewall_custom"
     zone_id = cloudflare_zone.mortis.id
 
     rules {
+        action = "skip"
+        expression  = "(http.host eq  \"matrix.wl.mort.is\" or http.host eq \"mrtc.wl.mort.is\" or http.host eq \"hookshot.wl.mort.is\")"
+        description = "Matrix server requests"
+    }
+
+    rules {
         action = "block"
-        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\" and http.host ne \"matrix.wl.mort.is\" and http.host ne \"mrtc.wl.mort.is\" and hookshot.host ne \"matrix.wl.mort.is\" and not ends_with(http.host, \"mc.mort.is\"))"
+        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\" and http.host ne \"matrix.wl.mort.is\" and http.host ne \"mrtc.wl.mort.is\" and http.host ne \"hookshot.wl.mort.is\" and not ends_with(http.host, \"mc.mort.is\"))"
         description = "Non-US requests"
     }
 }
