@@ -25,6 +25,16 @@ resource "cloudflare_record" "wl_root" {
     tags = concat(local.tags.all, local.tags.wl, local.tags.unused)
 }
 
+resource "cloudflare_record" "chat_root" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "chat"
+    proxied = true
+    content = "${cloudflare_zero_trust_tunnel_cloudflared.wl.id}.cfargotunnel.com"
+    type = "CNAME"
+    tags = concat(local.tags.all, local.tags.chat, local.tags.k8s)
+}
+
+
 resource "cloudflare_record" "links" {
     zone_id = cloudflare_zone.mortis.id
     name = "l"
