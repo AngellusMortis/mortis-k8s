@@ -199,7 +199,7 @@ locals {
         },
         "matrix-mas" = {
             name = "Matrix Authentication Service"
-            subdomain = null
+            subdomain = "mas"
             description = "Auth service for Matrix"
         },
         "matrix-rtc" = {
