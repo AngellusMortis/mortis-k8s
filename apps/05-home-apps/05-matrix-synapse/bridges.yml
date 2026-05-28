@@ -36,3 +36,5 @@ spec:
             "*": relay
             "mort.is": user
             "@angellus:mort.is": admin
+        backfill:
+          enable: true
