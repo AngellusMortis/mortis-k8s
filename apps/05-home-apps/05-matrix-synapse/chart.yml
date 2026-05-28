@@ -60,11 +60,11 @@ spec:
     elementWeb:
       replicas: 2
       ingress:
-        host: chat.mort.is
+        host: element.chat.mort.is
         tlsEnabled: true
         className: "nginx-insecure"
         annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "chat.mort.is"
+          nginx.ingress.kubernetes.io/upstream-vhost: "element.chat.mort.is"
     elementAdmin:
       replicas: 2
       ingress:
