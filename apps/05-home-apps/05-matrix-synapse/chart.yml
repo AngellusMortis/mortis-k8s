@@ -26,7 +26,7 @@ spec:
     kind: OCIRepository
     name: matrix
   values:
-    serverName: chat.mort.is
+    serverName: mort.is
     synapse:
       ingress:
         host: matrix.chat.mort.is
@@ -41,6 +41,7 @@ spec:
         0-custom-config:
           config: |
             admin_contact: "mailto:admin@mort.is"
+            allow_public_rooms_over_federation: false
             serve_server_wellknown: true
             enable_registration: false
             suppress_key_server_warning: true
