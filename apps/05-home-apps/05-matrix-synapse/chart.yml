@@ -77,6 +77,6 @@ spec:
       ingress:
         host: admin.chat.mort.is
         tlsEnabled: true
-        className: "nginx-insecure"
+        className: "nginx-secure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "admin.chat.mort.is"
