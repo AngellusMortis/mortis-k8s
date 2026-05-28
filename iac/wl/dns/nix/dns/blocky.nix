@@ -94,6 +94,7 @@
                     "element.chat.mort.is" = "192.168.3.225";
                     "hookshot.chat.mort.is" = "192.168.3.225";
                     "mrtc.chat.mort.is" = "192.168.3.225";
+                    "mas.chat.mort.is" = "192.168.3.225";
                     "admin.chat.mort.is" = "192.168.2.225";
 
                     # k8s servers

@@ -197,6 +197,11 @@ locals {
             name = "Matrix Element"
             second_subdomain = "element"
         },
+        "matrix-mas" = {
+            name = "Matrix Authentication Service"
+            subdomain = null
+            description = "Auth service for Matrix"
+        },
         "matrix-rtc" = {
             name = "Matrix RTC"
             second_subdomain = "mrtc"

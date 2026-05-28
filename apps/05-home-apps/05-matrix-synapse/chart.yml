@@ -49,11 +49,21 @@ spec:
             - server_name: matrix.org
             password_config:
               enabled: false
+    matrixAuthenticationService:
+      ingress:
+        host: mas.chat.mort.is
+        tlsEnabled: true
+        className: "nginx-insecure"
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "mas.chat.mort.is"
+      additional:
+        0-custom-config:
+          config: |
+            account:
+              password_registration_enabled: false
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
-    matrixAuthenticationService:
-      enabled: false
     matrixRTC:
       replicas: 2
       ingress:
