@@ -44,6 +44,8 @@ spec:
         configMapKey: appservice-registration-slack.yaml
       - configMap: bridge-meta-mautrix-meta-registration
         configMapKey: appservice-registration-meta.yaml
+      - configMap: bridge-linkedin-mautrix-linkedin-registration
+        configMapKey: appservice-registration-linkedin.yaml
       additional:
         0-custom-config:
           config: |
