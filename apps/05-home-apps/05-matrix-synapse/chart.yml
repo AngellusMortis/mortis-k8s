@@ -40,21 +40,13 @@ spec:
             admin_contact: "mailto:admin@mort.is"
             allow_public_rooms_over_federation: true
             serve_server_wellknown: true
+            trusted_key_servers:
+            - server_name: matrix.org
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
     matrixAuthenticationService:
-      replicas: 2
-      ingress:
-        host: account.chat.mort.is
-        tlsEnabled: true
-        className: "nginx-insecure"
-        annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "account.chat.mort.is"
-      additional:
-        user-config.yaml:
-          config: |
-            password_registration_enabled: false
+      enabled: false
     matrixRTC:
       replicas: 2
       ingress:
