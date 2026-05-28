@@ -47,6 +47,8 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "account.chat.mort.is"
+      sfu:
+        useStunToDiscoverPublicIP: false
     matrixRTC:
       ingress:
         host: mrtc.chat.mort.is
