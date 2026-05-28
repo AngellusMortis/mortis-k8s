@@ -236,4 +236,6 @@ spec:
         - hostname: l.mort.is
           service: http_status:404
         - hostname: mort.is
-          service: http_status:404
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: mort.is
