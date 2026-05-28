@@ -40,7 +40,8 @@ spec:
             admin_contact: "mailto:admin@mort.is"
             allow_public_rooms_over_federation: true
             serve_server_wellknown: true
-            enable_registration: true
+            enable_registration: false
+            suppress_key_server_warning: true
             trusted_key_servers:
             - server_name: matrix.org
             password_config:
