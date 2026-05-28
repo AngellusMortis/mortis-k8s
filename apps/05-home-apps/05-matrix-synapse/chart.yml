@@ -26,7 +26,7 @@ spec:
     kind: OCIRepository
     name: matrix
   values:
-    serverName: chat.mort.is
+    serverName: mort.is
     synapse:
       ingress:
         host: matrix.chat.mort.is
