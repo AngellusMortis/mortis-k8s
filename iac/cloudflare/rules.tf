@@ -45,51 +45,32 @@ resource "cloudflare_page_rule" "no_cache_plex" {
     }
 }
 
-resource "cloudflare_page_rule" "no_cache_plex_dc" {
-    zone_id = cloudflare_zone.mortis.id
-    target = "plex.dc.${cloudflare_zone.mortis.zone}/*"
-    priority = 3
-    status = "active"
+# resource "cloudflare_ruleset" "rules" {
+#     kind = "zone"
+#     name = "Rulesets"
+#     phase = "http_request_firewall_custom"
+#     zone_id = cloudflare_zone.mortis.id
 
-    actions {
-        cache_level = "bypass"
-        disable_zaraz = true
-        disable_apps = true
-        rocket_loader = "off"
-    }
-}
+#     rules {
+#         action = "skip"
+#         expression  = "(http.host eq  \"matrix.wl.mort.is\" or http.host eq \"mrtc.wl.mort.is\" or http.host eq \"hookshot.wl.mort.is\")"
+#         description = "Matrix server requests"
 
-resource "cloudflare_ruleset" "rules" {
-    kind = "zone"
-    name = "Rulesets"
-    phase = "http_request_firewall_custom"
-    zone_id = cloudflare_zone.mortis.id
+#         logging {
+#             enabled = true
+#         }
 
-    rules {
-        action = "skip"
-        expression  = "(http.host eq  \"matrix.wl.mort.is\" or http.host eq \"mrtc.wl.mort.is\" or http.host eq \"hookshot.wl.mort.is\")"
-        description = "Matrix server requests"
+#         action_parameters {
+#             disable_rum = true
+#         }
+#     }
 
-        logging {
-            enabled = true
-        }
-
-        action_parameters {
-            rulesets = [
-                "customRules",
-                "http_ratelimit",
-                "http_request_firewall_managed",
-                "http_request_sbfm",
-            ]
-        }
-    }
-
-    rules {
-        action = "block"
-        expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\" and http.host ne \"matrix.wl.mort.is\" and http.host ne \"mrtc.wl.mort.is\" and http.host ne \"hookshot.wl.mort.is\" and not ends_with(http.host, \"mc.mort.is\"))"
-        description = "Non-US requests"
-    }
-}
+#     rules {
+#         action = "block"
+#         expression  = "(ip.geoip.country ne \"US\" and http.host ne \"files.wl.mort.is\" and http.host ne \"matrix.wl.mort.is\" and http.host ne \"mrtc.wl.mort.is\" and http.host ne \"hookshot.wl.mort.is\" and not ends_with(http.host, \"mc.mort.is\"))"
+#         description = "Non-US requests"
+#     }
+# }
 
 # resource "cloudflare_ruleset" "managed_cf_ruleset" {
 #     zone_id = cloudflare_zone.mortis.id
