@@ -87,13 +87,12 @@
 
                     "home-control.wl.mort.is" = "192.168.2.12";
 
-                    # dc stuff
-                    "backup-1-ipmi.dc.mort.is" = "192.168.1.25";
-                    "backup-1.dc.mort.is" = "192.168.52.50";
-                    "auth.dc.mort.is" = "192.168.3.225";
-                    "download.dc.mort.is" = "192.168.2.225";
-                    "plex.dc.mort.is" = "192.168.3.225";
-                    "sync.dc.mort.is" = "192.168.2.225";
+                    # chat stuff
+                    "chat.mort.is" = "192.168.3.225";
+                    "auth.chat.mort.is" = "192.168.3.225";
+                    "matrix.chat.mort.is" = "192.168.3.225";
+                    "mrtc.chat.mort.is" = "192.168.3.225";
+                    "admin.chat.mort.is" = "192.168.2.225";
 
                     # k8s servers
                     ## computer cluster / IPMI
