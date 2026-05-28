@@ -107,12 +107,6 @@ locals {
             second_subdomain = "media"
             icon = "https://seerr.dev/favicon.ico"
         },
-        "matrix-synapse" = {
-            name = "Matrix Synapse"
-            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
-            dns_tags = concat(local.tags.home)
-            second_subdomain = "matrix"
-        },
     }
     media_ingest_apps = {
         "bazarr" = {
@@ -186,6 +180,29 @@ locals {
             name = "Prometheus"
             second_subdomain = "prometheus"
             icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
+        },
+    }
+    chat_apps = {
+        "matrix-admin" = {
+            name = "Matrix Admin"
+            second_subdomain = "admin"
+            policies = [cloudflare_zero_trust_access_policy.allow_admin_users.id]
+        },
+        "matrix-element" = {
+            name = "Matrix Element"
+            second_subdomain = null
+        },
+        "matrix-account" = {
+            name = "Matrix Accounts"
+            second_subdomain = "account"
+        },
+        "matrix-rtc" = {
+            name = "Matrix RTC"
+            second_subdomain = "mrtc"
+        },
+        "matrix-synapse" = {
+            name = "Matrix Element"
+            second_subdomain = "matrix"
         },
     }
 }
@@ -273,4 +290,21 @@ module "metrics_apps" {
     base_domain = cloudflare_zone.mortis.zone
     idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
     policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.allow_admin_users.id])
+}
+
+module "chat_apps" {
+    source = "./access_app"
+    for_each = local.chat_apps
+
+    name = each.value.name
+    icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+    account_id = local.account_id
+    zone_id = cloudflare_zone.mortis.id
+    dns_tags = concat(local.tags.all, local.tags.k8s, local.tags.chat)
+    tunnel_id = try(each.value.tunnel_id, cloudflare_zero_trust_tunnel_cloudflared.wl.id)
+    subdomain = "chat"
+    second_subdomain = try(each.value.second_subdomain, null)
+    base_domain = cloudflare_zone.mortis.zone
+    idps = [cloudflare_zero_trust_access_identity_provider.authentik.id]
+    policies = try(each.value.policies, [cloudflare_zero_trust_access_policy.bypass.id])
 }

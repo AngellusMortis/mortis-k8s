@@ -26,14 +26,14 @@ spec:
     kind: OCIRepository
     name: matrix
   values:
-    serverName: matrix.wl.mort.is
+    serverName: chat.mort.is
     synapse:
       ingress:
-        host: matrix.wl.mort.is
+        host: matrix.chat.mort.is
         tlsEnabled: true
         className: "nginx-insecure"
         annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "matrix.wl.mort.is"
+          nginx.ingress.kubernetes.io/upstream-vhost: "matrix.chat.mort.is"
       additional:
         1-custom-config:
           config: |
@@ -41,10 +41,25 @@ spec:
             allow_public_rooms_over_federation: true
             serve_server_wellknown: true
     matrixAuthenticationService:
-      enabled: false
+      ingress:
+        host: account.chat.mort.is
+        tlsEnabled: true
+        className: "nginx-insecure"
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "account.chat.mort.is"
     matrixRTC:
-      enabled: false
+      ingress:
+        host: mrtc.chat.mort.is
+        tlsEnabled: true
+        className: "nginx-insecure"
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "mrtc.chat.mort.is"
     elementWeb:
       enabled: false
     elementAdmin:
-      enabled: false
+      ingress:
+        host: admin.chat.mort.is
+        tlsEnabled: true
+        className: "nginx-insecure"
+        annotations:
+          nginx.ingress.kubernetes.io/upstream-vhost: "admin.chat.mort.is"

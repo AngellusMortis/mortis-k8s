@@ -13,6 +13,7 @@ locals {
         media = ["media"]
         media_ingest = ["media", "media-ingest"]
         metrics = ["control", "metrics"]
+        chat = ["chat"]
 
         email = ["email"]
         misc = ["misc"]

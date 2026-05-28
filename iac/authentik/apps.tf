@@ -114,13 +114,6 @@ locals {
             icon = "https://seerr.dev/favicon.ico"
             create_provider = false
         },
-        "matrix-synapse" = {
-            name = "Matrix Synapse"
-            subdomain = "matrix"
-            description = "Chat server"
-            icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
-            create_provider = false
-        },
     }
     media_ingest_apps = {
         "bazarr" = {
@@ -199,6 +192,24 @@ locals {
             icon = "https://prometheus.io/assets/favicons/android-chrome-192x192.png"
         },
     }
+    chat_apps = {
+        "matrix-element" = {
+            name = "Matrix Element"
+            subdomain = null
+            description = "Web client for Matrix/Element chat"
+        },
+        "matrix-account" = {
+            name = "Matrix Accounts"
+            subdomain = "account"
+            description = "Matrix account server"
+        },
+        "matrix-admin" = {
+            name = "Matrix Admin"
+            subdomain = "admin"
+            description = "Admin interface for Matrix/Element"
+            create_provider = true
+        },
+    }
 }
 
 module "control_apps" {
@@ -274,6 +285,22 @@ module "metrics_apps" {
     description = each.value.description
     user_group = authentik_group.admin_users.id
     create_provider = try(each.value.create_provider, true)
+    path = try(each.value.path, "/")
+}
+
+module "chat_apps" {
+    source = "./proxy_app"
+    for_each = local.chat_apps
+
+    name = each.value.name
+    slug = each.key
+    group = try(each.value.group, "Chat")
+    icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+    subdomain = try(each.value.subdomain, null)
+    base_domain = "chat.mort.is"
+    description = each.value.description
+    user_group = authentik_group.admin_users.id
+    create_provider = try(each.value.create_provider, false)
     path = try(each.value.path, "/")
 }
 

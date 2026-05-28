@@ -180,10 +180,31 @@ spec:
           service: https://ingress-nginx-secure-controller.ingress
           originRequest:
             originServerName: cleanup.wl.mort.is
-        - hostname: matrix.wl.mort.is
+        # Matrix
+        - hostname: chat.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
           originRequest:
-            originServerName: matrix.wl.mort.is
+            originServerName: chat.mort.is
+        - hostname: hookshot.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: hookshot.chat.mort.is
+        - hostname: matrix.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: matrix.chat.mort.is
+        - hostname: mrtc.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: mrtc.chat.mort.is
+        - hostname: hookshot.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: hookshot.chat.mort.is
+        - hostname: admin.chat.mort.is
+          service: https://ingress-nginx-secure-controller.ingress
+          originRequest:
+            originServerName: admin.chat.mort.is
         # Games
         - hostname: mc.wl.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
