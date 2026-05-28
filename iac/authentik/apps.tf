@@ -378,7 +378,7 @@ resource "authentik_provider_oauth2" "matrix" {
 
     client_type = "confidential"
     allowed_redirect_uris = [
-        {matching_mode = "strict", url = "https://matrix.chat.mort.is/_synapse/client/oidc/callback"}
+        {matching_mode = "strict", url = "https://mas.chat.mort.is/upstream/callback/01KSPY73YSY6VT1E431ZNMDC49"}
     ]
     property_mappings = [
         "92b7741f-fde2-457d-a32c-88117620901f", # openid
