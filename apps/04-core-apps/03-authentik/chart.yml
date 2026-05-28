@@ -79,7 +79,7 @@ spec:
         # -- List of ingress hosts
         hosts:
           - auth.wl.mort.is
-          - auth.dc.mort.is
+          - auth.chat.mort.is
     worker:
       autoscaling:
         enabled: true
