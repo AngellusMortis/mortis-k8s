@@ -183,10 +183,6 @@ spec:
         # Matrix
         - hostname: chat.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
-          originRequest:
-            originServerName: chat.mort.is
-        - hostname: mort.is
-          service: https://ingress-nginx-insecure-controller.ingress
           path: \/\.well-known\/matrix.*
           originRequest:
             originServerName: chat.mort.is
