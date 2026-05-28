@@ -28,7 +28,7 @@ spec:
   values:
     homeserver:
       address: http://matrix-synapse-synapse.chat.svc.cluster.local:8008
-      domain: matrix.chat.mort.is
+      domain: mort.is
     config:
       baseExtra: |
         bridge:
