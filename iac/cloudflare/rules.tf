@@ -69,6 +69,16 @@ resource "cloudflare_ruleset" "rules" {
         action = "skip"
         expression  = "(http.host eq  \"matrix.wl.mort.is\" or http.host eq \"mrtc.wl.mort.is\" or http.host eq \"hookshot.wl.mort.is\")"
         description = "Matrix server requests"
+        logging = true
+
+        action_parameters {
+            rulesets = [
+                "customRules",
+                "http_ratelimit",
+                "http_request_firewall_managed",
+                "http_request_sbfm",
+            ]
+        }
     }
 
     rules {
