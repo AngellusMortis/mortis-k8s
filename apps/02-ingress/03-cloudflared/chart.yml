@@ -187,7 +187,7 @@ spec:
             originServerName: chat.mort.is
         - hostname: mort.is
           service: https://ingress-nginx-insecure-controller.ingress
-          path: /.well-known/matrix/.*
+          path: ^/\.well-known/matrix.*
           originRequest:
             originServerName: chat.mort.is
         - hostname: auth.chat.mort.is
