@@ -188,6 +188,11 @@ locals {
             icon = "https://goauthentik.io/img/icon.png"
             second_subdomain = "auth"
         },
+        "matrix-admin" = {
+            name = "Matrix Admin"
+            second_subdomain = "admin"
+            policies = [cloudflare_zero_trust_access_policy.allow_admin_users.id]
+        },
         "matrix-element" = {
             name = "Matrix Element"
             second_subdomain = "element"

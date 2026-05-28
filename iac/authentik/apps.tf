@@ -198,6 +198,12 @@ locals {
             subdomain = null
             description = "Web client for Matrix/Element chat"
         },
+        "matrix-admin" = {
+            name = "Matrix Admin"
+            subdomain = "admin"
+            description = "Admin interface for Matrix/Element"
+            create_provider = true
+        },
     }
 }
 
