@@ -42,7 +42,7 @@ spec:
         configMapKey: appservice-registration-signal.yaml
       - configMap: bridge-slack-mautrix-slack-registration
         configMapKey: appservice-registration-slack.yaml
-      - configMap: bridge-slack-mautrix-meta-registration
+      - configMap: bridge-meta-mautrix-meta-registration
         configMapKey: appservice-registration-meta.yaml
       additional:
         0-custom-config:
