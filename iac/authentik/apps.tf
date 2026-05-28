@@ -371,7 +371,7 @@ resource "authentik_policy_binding" "grafana" {
 }
 
 resource "authentik_provider_oauth2" "matrix" {
-    name = "Matrix"
+    name = "Matrix OIDC"
     client_id = "kgDtzZzXxNghnaecdLMzrMWWRRSP5oukzy8qOMmz"
     authentication_flow = data.authentik_flow.external_authentication_flow.id
     authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
@@ -387,7 +387,7 @@ resource "authentik_provider_oauth2" "matrix" {
 }
 
 resource "authentik_application" "matrix" {
-    name = "Matrix OIDC"
+    name = "Matrix"
     slug = "matrix"
     group = "OIDC Apps"
     protocol_provider = authentik_provider_oauth2.matrix.id
