@@ -198,11 +198,6 @@ locals {
             subdomain = null
             description = "Web client for Matrix/Element chat"
         },
-        "matrix-account" = {
-            name = "Matrix Accounts"
-            subdomain = "account"
-            description = "Matrix account server"
-        },
         "matrix-admin" = {
             name = "Matrix Admin"
             subdomain = "admin"

@@ -183,6 +183,11 @@ locals {
         },
     }
     chat_apps = {
+        "authentik" = {
+            name = "Authentik"
+            icon = "https://goauthentik.io/img/icon.png"
+            second_subdomain = "auth"
+        },
         "matrix-admin" = {
             name = "Matrix Admin"
             second_subdomain = "admin"
@@ -191,10 +196,6 @@ locals {
         "matrix-element" = {
             name = "Matrix Element"
             second_subdomain = null
-        },
-        "matrix-account" = {
-            name = "Matrix Accounts"
-            second_subdomain = "account"
         },
         "matrix-rtc" = {
             name = "Matrix RTC"
