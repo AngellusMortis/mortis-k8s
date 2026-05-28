@@ -7,6 +7,14 @@ resource "cloudflare_record" "root" {
     tags = concat(local.tags.all, local.tags.unused)
 }
 
+resource "cloudflare_record" "srv_root" {
+    zone_id = cloudflare_zone.mortis.id
+    name = "_matrix._tcp.mort.is"
+    content = "chat.mort.is"
+    type = "SRV"
+    tags = concat(local.tags.all, local.tags.chat, local.tags.k8s)
+}
+
 resource "cloudflare_record" "status" {
     zone_id = cloudflare_zone.mortis.id
     name = "status"

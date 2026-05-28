@@ -181,11 +181,11 @@ spec:
           originRequest:
             originServerName: cleanup.wl.mort.is
         # Matrix
-        - hostname: mort.is
+        - hostname: chat.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
           path: \/\.well-known\/matrix.*
           originRequest:
-            originServerName: mort.is
+            originServerName: chat.mort.is
         - hostname: auth.chat.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
           originRequest:
