@@ -28,3 +28,10 @@ spec:
   values:
     homeserver:
       domain: matrix.chat.mort.is
+    config:
+      baseExtra: |
+        bridge:
+          permissions:
+            "*": relay
+            "mort.is": user
+            "@angellus:mort.is": admin
