@@ -33,7 +33,7 @@ spec:
   - mort.is
   - '*.mort.is'
   - '*.wl.mort.is'
-  - '*.dc.mort.is'
+  - '*.chat.mort.is'
 ---
 apiVersion: batch/v1
 kind: CronJob
