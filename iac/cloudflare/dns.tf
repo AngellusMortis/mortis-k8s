@@ -9,9 +9,14 @@ resource "cloudflare_record" "root" {
 
 resource "cloudflare_record" "srv_root" {
     zone_id = cloudflare_zone.mortis.id
-    name = "_matrix._tcp.mort.is"
-    content = "chat.mort.is"
+    name = "_matrix._tcp"
     type = "SRV"
+
+    data {
+        service = "_matrix"
+        proto = "_tcp"
+        target = "chat.mort.is"
+    }
     tags = concat(local.tags.all, local.tags.chat, local.tags.k8s)
 }
 
