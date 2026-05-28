@@ -47,6 +47,10 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "account.chat.mort.is"
+      additional:
+        user-config.yaml:
+          config: |
+            password_registration_enabled: false
     matrixRTC:
       ingress:
         host: mrtc.chat.mort.is

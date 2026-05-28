@@ -375,6 +375,32 @@ resource "authentik_policy_binding" "grafana" {
     order  = 0
 }
 
+resource "authentik_provider_oauth2" "matrix" {
+    name = "Matrix"
+    client_id = "kgDtzZzXxNghnaecdLMzrMWWRRSP5oukzy8qOMmz"
+    authentication_flow = data.authentik_flow.external_authentication_flow.id
+    authorization_flow = data.authentik_flow.default_provider_authorization_implicit_consent.id
+    invalidation_flow = data.authentik_flow.default_provider_invalidation_flow.id
+
+    client_type = "confidential"
+    allowed_redirect_uris = [
+        {matching_mode = "strict", url = "https://matrix.chat.mort.is/_synapse/client/oidc/callback"}
+    ]
+
+    access_token_validity = "minutes=5"
+    signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
+}
+
+resource "authentik_application" "matrix" {
+    name = "Matrix"
+    slug = "matrix"
+    group = "OIDC Apps"
+    protocol_provider = authentik_provider_oauth2.matrix.id
+    meta_icon = "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+    meta_description = "Matrix Auth"
+    policy_engine_mode = "any"
+}
+
 # Kubernetes Dashboard / k8s OIDC
 resource "authentik_provider_oauth2" "k8s" {
     name = "Kubernetes OIDC"

@@ -36,7 +36,7 @@ resource "authentik_application" "application" {
     group = var.group
     protocol_provider = var.create_provider ? authentik_provider_proxy.provider[0].id : null
     meta_icon = var.icon
-    meta_launch_url = "https://${launch_domain}${var.path}"
+    meta_launch_url = "https://${local.launch_domain}${var.path}"
     meta_description = var.description
     open_in_new_tab = true
     policy_engine_mode = "any"
