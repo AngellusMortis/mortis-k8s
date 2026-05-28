@@ -314,13 +314,12 @@ resource "authentik_provider_oauth2" "cloudflare" {
 
     access_token_validity = "minutes=5"
     property_mappings = [
-        "92b7741f-fde2-457d-a32c-88117620901f",
-        "31404244-983e-448d-a848-ced15b0c6f66",
-        "38f6abba-95c2-4032-b5b8-c4834f8db70e",
+        "92b7741f-fde2-457d-a32c-88117620901f", # openid
+        "31404244-983e-448d-a848-ced15b0c6f66", # email
+        "38f6abba-95c2-4032-b5b8-c4834f8db70e", # profile
     ]
     signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
 }
-
 resource "authentik_application" "cloudflare" {
     name = "Cloudflare"
     slug = "cloudflare"
@@ -345,9 +344,9 @@ resource "authentik_provider_oauth2" "grafana" {
 
     access_token_validity = "minutes=5"
     property_mappings = [
-        "92b7741f-fde2-457d-a32c-88117620901f",
-        "31404244-983e-448d-a848-ced15b0c6f66",
-        "38f6abba-95c2-4032-b5b8-c4834f8db70e",
+        "92b7741f-fde2-457d-a32c-88117620901f", # openid
+        "31404244-983e-448d-a848-ced15b0c6f66", # email
+        "38f6abba-95c2-4032-b5b8-c4834f8db70e", # profile
     ]
     signing_key = "f7ca84c2-2ed3-4222-b532-430501ecb657"
 }
@@ -380,6 +379,11 @@ resource "authentik_provider_oauth2" "matrix" {
     client_type = "confidential"
     allowed_redirect_uris = [
         {matching_mode = "strict", url = "https://matrix.chat.mort.is/_synapse/client/oidc/callback"}
+    ]
+    property_mappings = [
+        "92b7741f-fde2-457d-a32c-88117620901f", # openid
+        "31404244-983e-448d-a848-ced15b0c6f66", # email
+        "cb170699-3c73-42de-b0fc-6004816846d7", # profile (public username/short)
     ]
 
     access_token_validity = "minutes=5"

@@ -34,9 +34,9 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "matrix.chat.mort.is"
-      logging:
-        levelOverrides:
-          synapse.handlers.oidc: DEBUG
+      # logging:
+      #   levelOverrides:
+      #     synapse.handlers.oidc: DEBUG
       additional:
         0-custom-config:
           config: |
