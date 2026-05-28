@@ -302,7 +302,7 @@ module "chat_apps" {
     for_each = local.chat_apps
 
     name = each.value.name
-    icon = icon = try(each.value.icon, "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png")
+    icon = try(each.value.icon, "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png")
     account_id = local.account_id
     zone_id = cloudflare_zone.mortis.id
     dns_tags = concat(local.tags.all, local.tags.k8s, local.tags.chat)
