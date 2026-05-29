@@ -4,3 +4,4 @@ resources:
   - postgres.yml
   - chart.yml
   - authentik-secrets-sealed.yml
+  - cert.yml

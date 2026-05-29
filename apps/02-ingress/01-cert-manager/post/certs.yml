@@ -19,6 +19,24 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: cert-wl-mort-is
+  namespace: ingress
+spec:
+  secretName: cert-wl-mort-is
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: wl.mort.is
+  dnsNames:
+  - mort.is
+  - wl.mort.is
+  - '*.wl.mort.is'
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: cert-mort-is
   namespace: ingress
 spec:
@@ -32,8 +50,6 @@ spec:
   dnsNames:
   - mort.is
   - '*.mort.is'
-  - '*.wl.mort.is'
-  - '*.chat.mort.is'
 ---
 apiVersion: batch/v1
 kind: CronJob

@@ -3,3 +3,4 @@ resources:
   - chart.yml
   - config-sealed.yml
   - bridges.yml
+  - cert.yml
