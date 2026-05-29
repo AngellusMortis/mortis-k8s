@@ -74,13 +74,16 @@ spec:
             account:
               password_registration_enabled: false
             passwords:
-              enabled: true
+              enabled: false
             policy:
               data:
                 admin_users:
                   - angellus
                 admin_clients:
                   - 01KSQK86DER6DBYFHT4D7YF26C
+            clients:
+              - client_id: 01KSTYQ876TPXASBSHT7S9J7DA
+                client_auth_method: none
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
@@ -112,4 +115,4 @@ spec:
         className: "nginx-secure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "admin.chat.mort.is"
-        tlsSecret:  cert-chat-mort-is
+        tlsSecret:  cert-chat-mort-i
