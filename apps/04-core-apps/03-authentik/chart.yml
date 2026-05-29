@@ -81,9 +81,11 @@ spec:
           - auth.wl.mort.is
           - auth.chat.mort.is
         tls:
-          - secretName: cert-auth-mort-is
+          - secretName: cert-auth-wl-mort-is
             hosts:
             - auth.wl.mort.is
+          - secretName: cert-auth-chat-mort-is
+            hosts:
             - auth.chat.mort.is
     worker:
       autoscaling:
