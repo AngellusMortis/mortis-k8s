@@ -67,6 +67,7 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "mas.chat.mort.is"
+        tlsSecret:  cert-chat-mort-is
       additional:
         0-custom-config:
           config: |
@@ -91,6 +92,7 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "mrtc.chat.mort.is"
+        tlsSecret:  cert-chat-mort-is
       sfu:
         useStunToDiscoverPublicIP: false
     elementWeb:
@@ -101,6 +103,7 @@ spec:
         className: "nginx-insecure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "element.chat.mort.is"
+        tlsSecret:  cert-chat-mort-is
     elementAdmin:
       replicas: 2
       ingress:
@@ -109,3 +112,4 @@ spec:
         className: "nginx-secure"
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "admin.chat.mort.is"
+        tlsSecret:  cert-chat-mort-is
