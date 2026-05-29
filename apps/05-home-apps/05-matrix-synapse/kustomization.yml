@@ -1,6 +1,7 @@
 resources:
   - namespace.yml
   - chart.yml
-  - config-sealed.yml
+  - oidc-config-sealed.yml
+  - smtp-config-sealed.yml
   - bridges.yml
   - cert.yml

@@ -82,8 +82,11 @@ spec:
                 admin_clients:
                   - 01KSQK86DER6DBYFHT4D7YF26C
         1-custom-config:
-          configSecret: oidc-config
+          configSecret: matrix-config
           configSecretKey: oidc.yml
+        2-custom-config:
+          configSecret: matrix-config
+          configSecretKey: smtp.yml
     matrixRTC:
       replicas: 2
       ingress:
