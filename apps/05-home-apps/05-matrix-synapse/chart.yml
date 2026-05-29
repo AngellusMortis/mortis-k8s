@@ -81,9 +81,6 @@ spec:
                   - angellus
                 admin_clients:
                   - 01KSQK86DER6DBYFHT4D7YF26C
-            clients:
-              - client_id: 01KSTYQ876TPXASBSHT7S9J7DA
-                client_auth_method: none
         1-custom-config:
           configSecret: oidc-config
           configSecretKey: oidc.yml
