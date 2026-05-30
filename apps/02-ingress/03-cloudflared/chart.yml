@@ -210,6 +210,10 @@ spec:
           service: https://ingress-nginx-secure-controller.ingress
           originRequest:
             originServerName: admin.chat.mort.is
+        - hostname: mas.chat.mort.is
+          service: https://ingress-nginx-insecure-controller.ingress
+          originRequest:
+            originServerName: mas.chat.mort.is
         # Games
         - hostname: mc.wl.mort.is
           service: https://ingress-nginx-insecure-controller.ingress
