@@ -70,6 +70,7 @@ spec:
                     Host: localhost
                   initialDelaySeconds: 30
                 readiness:
+                  enabled: false
                   type: http
                   httpHeaders:
                     Host: localhost
