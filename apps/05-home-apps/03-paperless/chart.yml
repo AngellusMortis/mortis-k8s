@@ -62,12 +62,13 @@ spec:
                   initialDelaySeconds: 30
                   timeoutSeconds: 10
                   periodSeconds: 5
-                  failureThreshold: 5
+                  failureThreshold: 10
                   successThreshold: 1
                 startup:
                   type: http
                   httpHeaders:
                     Host: localhost
+                  initialDelaySeconds: 30
                 readiness:
                   type: http
                   httpHeaders:
@@ -75,7 +76,7 @@ spec:
                   initialDelaySeconds: 15
                   timeoutSeconds: 10
                   periodSeconds: 5
-                  failureThreshold: 5
+                  failureThreshold: 10
                   successThreshold: 1
               env:
                 COMPOSE_PROJECT_NAME: paperless
