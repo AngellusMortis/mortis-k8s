@@ -56,29 +56,17 @@ spec:
             main:
               probes:
                 liveness:
-                  type: http
-                  httpHeaders:
-                    Host: localhost
-                  initialDelaySeconds: 30
-                  timeoutSeconds: 10
-                  periodSeconds: 5
-                  failureThreshold: 10
-                  successThreshold: 1
-                startup:
-                  type: http
-                  httpHeaders:
-                    Host: localhost
-                  initialDelaySeconds: 30
+                  enabled: false
+                  type: exec
+                  command: ["true"]
                 readiness:
                   enabled: false
-                  type: http
-                  httpHeaders:
-                    Host: localhost
-                  initialDelaySeconds: 15
-                  timeoutSeconds: 10
-                  periodSeconds: 5
-                  failureThreshold: 10
-                  successThreshold: 1
+                  type: exec
+                  command: ["true"]
+                startup:
+                  enabled: false
+                  type: exec
+                  command: ["true"]
               env:
                 COMPOSE_PROJECT_NAME: paperless
                 PAPERLESS_TIME_ZONE: America/New_York
