@@ -62,7 +62,7 @@ spec:
                 PAPERLESS_CONSUMPTION_DIR: "/usr/src/paperless/consume"
                 PAPERLESS_MEDIA_ROOT: "/usr/src/paperless/media"
                 PAPERLESS_CONSUMER_POLLING: 60
-                PAPERLESS_FILENAME_FORMAT: "{created_year}/{correspondent}/{title}"
+                PAPERLESS_FILENAME_FORMAT: "{{ created_year }}/{{ correspondent }}/{{ title}}"
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
                 USERMAP_UID: "{{ .Values.securityContext.container.PUID }}"
                 USERMAP_GID: "{{ .Values.securityContext.pod.fsGroup }}"
