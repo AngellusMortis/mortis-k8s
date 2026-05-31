@@ -4,3 +4,4 @@ resources:
   - config-sealed.yml
   - bridges.yml
   - cert.yml
+  - notify.yml

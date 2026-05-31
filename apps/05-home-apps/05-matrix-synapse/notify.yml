@@ -1,0 +1,52 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: OCIRepository
+metadata:
+  name: ntfy
+  namespace: chat
+spec:
+  interval: 12h
+  url: oci://ghcr.io/cyclikal94/matrix-helm-charts/ntfy
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-apps-matrix-ntfy
+  namespace: chat
+spec:
+  releaseName: ntfy
+  targetNamespace: chat
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: ntfy
+  values:
+    host: ntfy.chat.mort.is
+    ingress:
+      clusterIssuer: ""
+      tls:
+        enabled: true
+        secretName: cert-chat-mort-is
+    config:
+      extra: |
+        # Allow Matrix server to publish to UnifiedPush topics
+        # See UnifiedPush documentation:
+        # - https://docs.ntfy.sh/config/#example-unifiedpush
+        # - https://docs.ntfy.sh/config/#acl-entries-via-the-config
+        auth-access:
+          - "*:up*:wo"
+
+        # Permit Matrix server to bypass rate limits
+        # See Rate limiting documentation:
+        # - https://docs.ntfy.sh/config/#rate-limiting
+        visitor-request-limit-exempt-hosts: "matrix.chat.mort.is"
+
+        # Indicate that ntfy is running behind a reverse proxy
+        # See Proxy documentation:
+        # - https://docs.ntfy.sh/config/#behind-a-proxy-tls-etc
+        behind-proxy: true
