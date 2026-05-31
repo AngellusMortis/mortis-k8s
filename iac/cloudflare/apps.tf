@@ -214,6 +214,10 @@ locals {
             name = "Matrix Hookshot"
             second_subdomain = "hookshot"
         },
+        "matrix-ntfy" = {
+            name = "Ntfy"
+            second_subdomain = "ntfy"
+        },
     }
 }
 
