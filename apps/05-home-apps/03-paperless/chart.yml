@@ -59,7 +59,7 @@ spec:
                   type: http
                   httpHeaders:
                     Host: localhost
-                  initialDelaySeconds: 5
+                  initialDelaySeconds: 15
                   timeoutSeconds: 10
                   periodSeconds: 5
                   failureThreshold: 5
