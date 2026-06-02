@@ -25,6 +25,32 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: plex
+  postRenderers:
+  - kustomize:
+      patches:
+      - target:
+          kind: Service
+          name: plex-plex-media-server
+        patch: |
+          - op: replace
+            path: /spec/ports
+            value:
+              - name: plex
+                port: 32400
+                protocol: TCP
+                targetPort: plex
+              - protocol: TCP
+                port: 443
+                targetPort: 32400
+                name: plex-https
+              - protocol: TCP
+                port: 80
+                targetPort: 32400
+                name: plex-http
+              - protocol: TCP
+                port: 32499
+                targetPort: 32499
+                name: plex-tcp
   values:
     pms:
       storageClassName: longhorn
@@ -55,3 +81,24 @@ spec:
         metallb.universe.tf/loadBalancerIPs: 192.168.3.230
     nodeSelector:
       kubernetes.io/hostname: storage-1
+    extraVolumeMounts:
+    - name: ssl
+      mountPath: /ssl
+      readOnly: true
+    - name: media
+      mountPath: /media
+    - name: transcode
+      mountPath: /transcode
+    extraVolumes:
+      - name: ssl
+        secret:
+          secretName: cert-plex-wl-mort-is
+          items:
+          - key: keystore.p12
+            path: keystore.p12
+      - name: media
+        persistentVolumeClaim:
+          claimName: nas-media
+      - name: transcode
+        persistentVolumeClaim:
+          claimName: plex-transcode
