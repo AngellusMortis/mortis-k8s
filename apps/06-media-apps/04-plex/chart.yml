@@ -95,6 +95,8 @@ spec:
       annotations:
         nginx.ingress.kubernetes.io/upstream-vhost: "plex.wl.mort.is"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        # nginx.ingress.kubernetes.io/configuration-snippet: |
+        #   more_set_headers "X-Forwarded-For $http_x_forwarded_for";
     service:
       type: LoadBalancer
       port: 32000
