@@ -21,19 +21,19 @@ module "pi_1_deploy" {
 }
 
 
-module "pi_2_build" {
-    source = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
-    attribute = "config.system.build.toplevel"
-    file = "./nix/pi-2"
-    nix_options = {
-        builders = "@${path.cwd}/nix/machines"
-    }
-}
+# module "pi_2_build" {
+#     source = "github.com/nix-community/nixos-anywhere//terraform/nix-build"
+#     attribute = "config.system.build.toplevel"
+#     file = "./nix/pi-2"
+#     nix_options = {
+#         builders = "@${path.cwd}/nix/machines"
+#     }
+# }
 
-module "pi_2_deploy" {
-  source = "github.com/nix-community/nixos-anywhere//terraform/nixos-rebuild"
-  nixos_system = module.pi_2_build.result.out
-  target_host = local.pi_2_ip
-  target_user = "build"
-  ssh_private_key = file("${path.cwd}/builder-key")
-}
+# module "pi_2_deploy" {
+#   source = "github.com/nix-community/nixos-anywhere//terraform/nixos-rebuild"
+#   nixos_system = module.pi_2_build.result.out
+#   target_host = local.pi_2_ip
+#   target_user = "build"
+#   ssh_private_key = file("${path.cwd}/builder-key")
+# }
