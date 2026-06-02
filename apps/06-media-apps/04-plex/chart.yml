@@ -1,11 +1,11 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: clusterplex
+  name: plex
   namespace: media
 spec:
   interval: 12h
-  url: http://pabloromeo.github.io/clusterplex
+  url: https://raw.githubusercontent.com/plexinc/pms-docker/gh-pages
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -19,143 +19,39 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: clusterplex
+      chart: plex
       version: "1.*"
       interval: 5m
       sourceRef:
         kind: HelmRepository
-        name: clusterplex
-  postRenderers:
-    - kustomize:
-        patches:
-          - target:
-              kind: Service
-              name: plex-pms
-            patch: |
-              - op: replace
-                path: /spec/ports
-                value:
-                  - name: plex
-                    port: 32400
-                    protocol: TCP
-                    targetPort: plex
-                  - protocol: TCP
-                    port: 443
-                    targetPort: 32400
-                    name: plex-https
-                  - protocol: TCP
-                    port: 80
-                    targetPort: 32400
-                    name: plex-http
-                  - protocol: TCP
-                    port: 32499
-                    targetPort: 32499
-                    name: plex-tcp
-          - target:
-              kind: Deployment
-              name: plex-pms
-            patch: |
-              - op: replace
-                path: /spec/template/spec/volumes/1
-                value:
-                  name: media
-                  persistentVolumeClaim:
-                    claimName: nas-media
+        name: plex
   values:
-    global:
-      plexImage:
-        repository: ghcr.io/linuxserver/plex # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
-        tag: 1.43.2.10687-563d026ea-ls307 # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
-        imagePullPolicy: IfNotPresent
-      timezone: America/New_York
-      sharedStorage:
-        transcode:
-          size: 500Gi
-        media:
-          storageClass: smb-media
-          size: 1Gi
-        additionalMediaVolumes:
-          p12-cert:
-            enabled: true
-            type: secret
-            name: cert-plex-wl-mort-is
-            mountPath: /ssl
     pms:
-      config:
-        transcoderVerbose: 1
-        transcodeOperatingMode: local
-        localRelayEnabled: false
-        pmsIP: "10.96.93.59"
-      serviceConfig:
-        type: LoadBalancer
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: 192.168.3.230
-      ingressConfig:
-        enabled: true
-        annotations:
-          nginx.ingress.kubernetes.io/upstream-vhost: "plex.wl.mort.is"
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        ingressClassName: nginx-insecure
-        hosts:
-          - host: plex.wl.mort.is
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  name:
-                  port:
-        tls:
-          - hosts:
-              - plex.wl.mort.is
-            secretName: cert-plex-wl-mort-is
-      configVolume:
-        size: 500Gi
+      storageClassName: longhorn
+      configStorage: 500Gi
       resources:
         requests:
           cpu: 4000m
           memory: 3Gi
-          nvidia.com/gpu: 1
         limits:
           cpu: 24000m
           memory: 6Gi
-          nvidia.com/gpu: 1
-      nodeSelector:
-        kubernetes.io/hostname: storage-1
-    orchestrator:
-      prometheusServiceMonitor:
-        enabled: true
-        labels:
-          release: prometheus
-    worker:
-      enabled: false
-      config:
-        replicas: 1
-      env:
-        NVIDIA_VISIBLE_DEVICES: "all"
-        FFMPEG_HWACCEL: "nvdec"
-        EAE_SUPPORT: "1"
-      resources:
-        requests:
-          cpu: 4000m
-          memory: 3Gi
-          nvidia.com/gpu: 1
-        limits:
-          cpu: 24000m
-          memory: 6Gi
-          nvidia.com/gpu: 1
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app.kubernetes.io/name: worker
-                topologyKey: kubernetes.io/hostname
-              weight: 100
-            - podAffinityTerm:
-                labelSelector:
-                  matchLabels:
-                    app.kubernetes.io/name: pms
-                topologyKey: kubernetes.io/hostname
-              weight: 50
+    ingress:
+      enabled: true
+      ingressClassName: nginx-insecure
+      url: plex.wl.mort.is
+      tls:
+        - hosts:
+          - plex.wl.mort.is
+          secretName: cert-plex-wl-mort-is
+      annotations:
+        nginx.ingress.kubernetes.io/upstream-vhost: "plex.wl.mort.is"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    service:
+      type: LoadBalancer
+      port: 32400
+      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: 192.168.3.230
+    nodeSelector:
+      kubernetes.io/hostname: storage-1
