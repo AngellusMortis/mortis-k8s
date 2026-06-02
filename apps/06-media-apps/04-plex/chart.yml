@@ -51,6 +51,19 @@ spec:
                 port: 32499
                 targetPort: 32499
                 name: plex-tcp
+          - op: replace
+            path: /spec/rules
+            value:
+              - host: plex.wl.mort.is
+                http:
+                  paths:
+                  - backend:
+                      service:
+                        name: plex-plex-media-server
+                        port:
+                          number: 443
+                    path: /
+                    pathType: Prefix
   values:
     pms:
       storageClassName: longhorn
