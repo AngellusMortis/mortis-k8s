@@ -72,7 +72,7 @@ spec:
     image:
       registry: index.docker.io
       repository: plexinc/pms-docker # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
-      tag: "1.43.0.10492-121068a07" # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
+      tag: "1.43.2" # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
       sha: ""
       pullPolicy: IfNotPresent
     pms:
@@ -90,9 +90,9 @@ spec:
       ingressClassName: nginx-insecure
       url: plex.wl.mort.is
       tls:
-        - hosts:
-          - plex.wl.mort.is
-          secretName: cert-plex-wl-mort-is
+      - hosts:
+        - plex.wl.mort.is
+        secretName: cert-plex-wl-mort-is
       annotations:
         nginx.ingress.kubernetes.io/upstream-vhost: "plex.wl.mort.is"
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
@@ -110,12 +110,12 @@ spec:
     - name: media
       mountPath: /media
     extraVolumes:
-      - name: ssl
-        secret:
-          secretName: cert-plex-wl-mort-is
-          items:
-          - key: keystore.p12
-            path: keystore.p12
-      - name: media
-        persistentVolumeClaim:
-          claimName: nas-media
+    - name: ssl
+      secret:
+        secretName: cert-plex-wl-mort-is
+        items:
+        - key: keystore.p12
+          path: keystore.p12
+    - name: media
+      persistentVolumeClaim:
+        claimName: nas-media
