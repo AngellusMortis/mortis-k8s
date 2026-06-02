@@ -15,9 +15,12 @@ metadata:
 spec:
   imageRepositoryRef:
     name: plex-media-server
+  filterTags:
+    pattern: '^\d+\.\d+\.\d+\.(?<build>\d+)$'
+    extract: '$build'
   policy:
-    semver:
-      range: '>=1.0.0'
+    numerical:
+      order: asc
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation
