@@ -19,7 +19,7 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: plex
+      chart: plex-media-server
       version: "*"
       interval: 5m
       sourceRef:
