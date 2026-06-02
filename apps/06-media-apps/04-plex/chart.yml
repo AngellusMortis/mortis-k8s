@@ -84,7 +84,6 @@ spec:
     extraVolumeMounts:
     - name: ssl
       mountPath: /ssl
-      readOnly: true
     - name: media
       mountPath: /media
     - name: transcode
