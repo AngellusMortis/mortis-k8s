@@ -20,7 +20,7 @@ spec:
   chart:
     spec:
       chart: plex
-      version: "1.*"
+      version: "*"
       interval: 5m
       sourceRef:
         kind: HelmRepository
