@@ -16,7 +16,7 @@ spec:
   imageRepositoryRef:
     name: plex-media-server
   filterTags:
-    pattern: '^\d+\.\d+\.\d+\.(?<build>\d+)$'
+    pattern: '^\d+\.\d+\.\d+\.(?<build>\d+)-[^-]+$'
     extract: '$build'
   policy:
     numerical:
