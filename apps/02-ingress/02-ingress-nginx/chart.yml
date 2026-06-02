@@ -41,7 +41,7 @@ spec:
         use-geoip2: true
         enable-real-ip: true
         use-forwarded-headers: "true"
-        forwarded-for-header: "CF-Connecting-IP"
+        forwarded-for-header: "X-Forwarded-For"
         proxy-real-ip-cidr: "10.0.0.0/8,192.168.3.0/24"
       ingressClassResource:
         name: nginx-insecure
