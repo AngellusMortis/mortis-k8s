@@ -86,8 +86,8 @@ spec:
       mountPath: /ssl
     - name: media
       mountPath: /media
-    - name: transcode
-      mountPath: /transcode
+    # - name: transcode
+    #   mountPath: /transcode
     extraVolumes:
       - name: ssl
         secret:
@@ -98,6 +98,6 @@ spec:
       - name: media
         persistentVolumeClaim:
           claimName: nas-media
-      - name: transcode
-        persistentVolumeClaim:
-          claimName: plex-transcode
+      # - name: transcode
+      #   persistentVolumeClaim:
+      #     claimName: plex-transcode
