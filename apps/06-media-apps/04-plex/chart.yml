@@ -51,6 +51,10 @@ spec:
                 port: 32499
                 targetPort: 32499
                 name: plex-tcp
+      - target:
+          kind: Ingress
+          name: plex-plex-media-server-ingress
+        patch: |
           - op: replace
             path: /spec/rules
             value:
