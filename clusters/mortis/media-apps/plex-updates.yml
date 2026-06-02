@@ -4,7 +4,7 @@ metadata:
   name: plex-media-server
   namespace: flux-system
 spec:
-  image: ghcr.io/linuxserver/plex
+  image: plexinc/pms-docker
   interval: 12h
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
@@ -15,12 +15,9 @@ metadata:
 spec:
   imageRepositoryRef:
     name: plex-media-server
-  filterTags:
-    pattern: '^.*-ls(?P<lsVersion>\d+)$'
-    extract: '$lsVersion'
   policy:
-    numerical:
-      order: asc
+    semver:
+      range: '>=1.0.0'
 ---
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageUpdateAutomation

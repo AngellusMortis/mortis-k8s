@@ -69,6 +69,12 @@ spec:
                     path: /
                     pathType: Prefix
   values:
+    image:
+      registry: index.docker.io
+      repository: plexinc/pms-docker # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
+      tag: "1.43.0.10492-121068a07" # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
+      sha: ""
+      pullPolicy: IfNotPresent
     pms:
       storageClassName: longhorn
       configStorage: 500Gi
