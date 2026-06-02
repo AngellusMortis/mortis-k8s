@@ -75,7 +75,7 @@ spec:
         nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     service:
       type: LoadBalancer
-      port: 32400
+      port: 443
       externalTrafficPolicy: Local
       annotations:
         metallb.universe.tf/loadBalancerIPs: 192.168.3.230
@@ -86,8 +86,6 @@ spec:
       mountPath: /ssl
     - name: media
       mountPath: /media
-    # - name: transcode
-    #   mountPath: /transcode
     extraVolumes:
       - name: ssl
         secret:
@@ -98,6 +96,3 @@ spec:
       - name: media
         persistentVolumeClaim:
           claimName: nas-media
-      # - name: transcode
-      #   persistentVolumeClaim:
-      #     claimName: plex-transcode
