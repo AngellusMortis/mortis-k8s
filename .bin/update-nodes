@@ -6,10 +6,10 @@ if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-1" ]]; then
     talosctl apply-config -n 192.168.2.50 --file nodes/cluster-1.yml
 fi
 if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-2" ]]; then
-    talosctl apply-config -n 192.168.2.75 --file nodes/cluster-2.yml
+    talosctl apply-config -n 192.168.2.51 --file nodes/cluster-2.yml
 fi
 if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-3" ]]; then
-    talosctl apply-config -n 192.168.2.83 --file nodes/cluster-3.yml
+    talosctl apply-config -n 192.168.2.52 --file nodes/cluster-3.yml
 fi
 if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-4" ]]; then
     talosctl apply-config -n 192.168.2.33 --file nodes/cluster-4.yml
