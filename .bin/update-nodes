@@ -3,7 +3,7 @@
 NODE=${1:-}
 
 if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-1" ]]; then
-    talosctl apply-config -n 192.168.2.70 --file nodes/cluster-1.yml
+    talosctl apply-config -n 192.168.2.50 --file nodes/cluster-1.yml
 fi
 if [[ -z "$NODE" ]] || [[ "$NODE" == "cluster-2" ]]; then
     talosctl apply-config -n 192.168.2.75 --file nodes/cluster-2.yml

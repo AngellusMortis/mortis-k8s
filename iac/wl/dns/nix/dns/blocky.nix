@@ -100,8 +100,8 @@
 
                     # k8s servers
                     ## computer cluster / IPMI
-                    "cluster-1-ipmi.wl.mort.is" = "192.168.1.81";
-                    "cluster-1-ipmi" = "192.168.1.81";
+                    "cluster-1-ipmi.wl.mort.is" = "192.168.1.50";
+                    "cluster-1-ipmi" = "192.168.1.50";
                     "cluster-2-ipmi.wl.mort.is" = "192.168.1.41";
                     "cluster-2-ipmi" = "192.168.1.41";
                     "cluster-3-ipmi.wl.mort.is" = "192.168.1.42";
@@ -118,10 +118,10 @@
                     "cluster-8-ipmi" = "192.168.1.85";
 
                     ## computer cluster / secure
-                    "cluster-1-control.wl.mort.is" = "192.168.2.70";
-                    "cluster-1-control" = "192.168.2.70";
-                    "cluster-1.wl.mort.is" = "192.168.2.70";
-                    "cluster-1" = "192.168.2.70";
+                    "cluster-1-control.wl.mort.is" = "192.168.2.50";
+                    "cluster-1-control" = "192.168.2.50";
+                    "cluster-1.wl.mort.is" = "192.168.2.50";
+                    "cluster-1" = "192.168.2.50";
                     "cluster-2-control.wl.mort.is" = "192.168.2.75";
                     "cluster-2-control" = "192.168.2.75";
                     "cluster-2.wl.mort.is" = "192.168.2.75";
@@ -152,8 +152,8 @@
                     "cluster-8" = "192.168.2.82";
 
                     ## computer cluster / insecure
-                    "cluster-1-media.wl.mort.is" = "192.168.3.71";
-                    "cluster-1-media" = "192.168.3.71";
+                    "cluster-1-media.wl.mort.is" = "192.168.3.50";
+                    "cluster-1-media" = "192.168.3.50";
                     "cluster-2-media.wl.mort.is" = "192.168.3.76";
                     "cluster-2-media" = "192.168.3.76";
                     "cluster-3-media.wl.mort.is" = "192.168.3.84";
