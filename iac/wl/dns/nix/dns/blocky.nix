@@ -102,10 +102,10 @@
                     ## computer cluster / IPMI
                     "cluster-1-ipmi.wl.mort.is" = "192.168.1.50";
                     "cluster-1-ipmi" = "192.168.1.50";
-                    "cluster-2-ipmi.wl.mort.is" = "192.168.1.41";
-                    "cluster-2-ipmi" = "192.168.1.41";
-                    "cluster-3-ipmi.wl.mort.is" = "192.168.1.42";
-                    "cluster-3-ipmi" = "192.168.1.42";
+                    "cluster-2-ipmi.wl.mort.is" = "192.168.1.51";
+                    "cluster-2-ipmi" = "192.168.1.51";
+                    "cluster-3-ipmi.wl.mort.is" = "192.168.1.52";
+                    "cluster-3-ipmi" = "192.168.1.52";
                     "cluster-4-ipmi.wl.mort.is" = "192.168.1.43";
                     "cluster-4-ipmi" = "192.168.1.43";
                     "cluster-5-ipmi.wl.mort.is" = "192.168.1.40";
@@ -122,14 +122,14 @@
                     "cluster-1-control" = "192.168.2.50";
                     "cluster-1.wl.mort.is" = "192.168.2.50";
                     "cluster-1" = "192.168.2.50";
-                    "cluster-2-control.wl.mort.is" = "192.168.2.75";
-                    "cluster-2-control" = "192.168.2.75";
-                    "cluster-2.wl.mort.is" = "192.168.2.75";
-                    "cluster-2" = "192.168.2.75";
-                    "cluster-3-control.wl.mort.is" = "192.168.2.83";
-                    "cluster-3-control" = "192.168.2.83";
-                    "cluster-3.wl.mort.is" = "192.168.2.83";
-                    "cluster-3" = "192.168.2.83";
+                    "cluster-2-control.wl.mort.is" = "192.168.2.51";
+                    "cluster-2-control" = "192.168.2.51";
+                    "cluster-2.wl.mort.is" = "192.168.2.51";
+                    "cluster-2" = "192.168.2.51";
+                    "cluster-3-control.wl.mort.is" = "192.168.2.52";
+                    "cluster-3-control" = "192.168.2.52";
+                    "cluster-3.wl.mort.is" = "192.168.2.52";
+                    "cluster-3" = "192.168.2.52";
                     "cluster-4-control.wl.mort.is" = "192.168.2.33";
                     "cluster-4-control" = "192.168.2.33";
                     "cluster-4.wl.mort.is" = "192.168.2.33";
@@ -154,10 +154,10 @@
                     ## computer cluster / insecure
                     "cluster-1-media.wl.mort.is" = "192.168.3.50";
                     "cluster-1-media" = "192.168.3.50";
-                    "cluster-2-media.wl.mort.is" = "192.168.3.76";
-                    "cluster-2-media" = "192.168.3.76";
-                    "cluster-3-media.wl.mort.is" = "192.168.3.84";
-                    "cluster-3-media" = "192.168.3.84";
+                    "cluster-2-media.wl.mort.is" = "192.168.3.51";
+                    "cluster-2-media" = "192.168.3.51";
+                    "cluster-3-media.wl.mort.is" = "192.168.3.52";
+                    "cluster-3-media" = "192.168.3.52";
                     "cluster-4-media.wl.mort.is" = "192.168.3.34";
                     "cluster-4-media" = "192.168.3.34";
                     "cluster-5-media.wl.mort.is" = "192.168.3.86";
