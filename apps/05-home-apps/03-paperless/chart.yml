@@ -67,6 +67,13 @@ spec:
                   enabled: false
                   type: exec
                   command: ["true"]
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1024Mi
+                requests:
+                  cpu: 100m
+                  memory: 515Mi
               env:
                 COMPOSE_PROJECT_NAME: paperless
                 PAPERLESS_TIME_ZONE: America/New_York
