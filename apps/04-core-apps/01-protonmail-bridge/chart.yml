@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: ghcr.io/dancwilliams/protonmail-bridge-docker # {"$imagepolicy": "flux-system:protonmail-bridge-policy:name"}
-      tag: v3.24.2 # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
+      tag: v3.25.0 # {"$imagepolicy": "flux-system:protonmail-bridge-policy:tag"}
     env:
       TZ: America/New_York
     service:
