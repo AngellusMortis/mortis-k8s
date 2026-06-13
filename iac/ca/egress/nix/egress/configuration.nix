@@ -50,6 +50,7 @@
     boot.loader.efi.canTouchEfiVariables = true;
     boot.loader.efi.efiSysMountPoint = "/boot/efi";
     boot.swraid.enable = true;
+    boot.swraid.mdadmConf = "MAILADDR root@mort.is"
 
     networking.nat.enable = true;
     networking.nat.externalInterface = "eno1";
