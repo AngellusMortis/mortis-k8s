@@ -10,7 +10,7 @@
         ../../common/mdcheck.nix
         ../../common/all.nix
         ../../common/grub-theme.nix
-        ../../nix/common/sops.nix
+        ../../common/sops.nix
     ];
 
     console.enable = true;
