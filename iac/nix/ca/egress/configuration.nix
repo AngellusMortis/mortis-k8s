@@ -27,7 +27,7 @@
 
     sops.secrets.wg_private_key = {
         restartUnits = [ "wireguard-wg0.service" ];
-        sopsFile = ../../secrets/wg.yml;
+        sopsFile = ./secrets/wg.yml;
         format = "yaml";
     };
 
