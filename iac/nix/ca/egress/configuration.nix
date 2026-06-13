@@ -16,8 +16,8 @@
     console.enable = true;
 
     sops.secrets.cf_tunnel = {
-        owner = "cloudflared";
-        group = "cloudflared";
+        owner = "root";
+        group = "root";
         restartUnits = [ "cloudflared-tunnel-23ae6268-e1b3-4fa9-aa74-e382a7d9f17d.service" ];
         # The sops file can be also overwritten per secret...
         sopsFile = ./secrets/cf-tunnel.json;
