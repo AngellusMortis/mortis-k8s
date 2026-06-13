@@ -7,10 +7,10 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ../../../../nix/common/mdcheck.nix
-        ../../../../nix/common/all.nix
-        ../../../../nix/common/grub-theme.nix
-        ../../../../nix/common/sops.nix
+        ../../common/mdcheck.nix
+        ../../common/all.nix
+        ../../common/grub-theme.nix
+        ../../nix/common/sops.nix
     ];
 
     console.enable = true;

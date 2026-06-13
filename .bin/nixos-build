@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+baseDir="$(dirname "$0")"
+
+build="$1"
+command="switch"
+if [[ ! -z "${2+x}" ]]; then
+    if [[ "$2" == "--dry" ]]; then
+        command="build"
+    fi
+fi
+
+NIXOS_CONFIG="$baseDir/iac/nix/$build/configuration.nix" nixos-rebuild $command --upgrade-all --sudo

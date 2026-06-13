@@ -1,4 +1,0 @@
-
-provider "null" {}
-
-provider "external" {}

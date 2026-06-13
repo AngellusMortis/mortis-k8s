@@ -7,9 +7,9 @@
 {
     imports = [
         <nixos-hardware/raspberry-pi/4>
-        ../../../../nix/common/all.nix
-        ../../../../nix/rpi4/hardware-configuration.nix
-        ../../../../nix/rpi4/all.nix
+        ../../common/all.nix
+        ../../rpi4/hardware-configuration.nix
+        ../../rpi4/all.nix
         ../dns/blocky.nix
         ../dns/mysql.nix
     ];
