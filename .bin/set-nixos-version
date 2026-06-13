@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+version="$1"
+
+sudo nix-channel --add https://channels.nixos.org/nixos-${version} nixos
+sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-${version}.tar.gz home-manager
+# no tags
+sudo nix-channel --add https://github.com/Mic92/sops-nix/archive/master.tar.gz sops-nix
+sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
