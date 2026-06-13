@@ -14,4 +14,4 @@ if [[ ! -z "${2+x}" ]]; then
     fi
 fi
 
-NIXOS_CONFIG="$baseDir/iac/nix/$build/configuration.nix" nixos-rebuild $command --upgrade-all --sudo
+NIXOS_CONFIG="$(readlink -f "$baseDir/iac/nix/$build/configuration.nix")" nixos-rebuild $command --upgrade-all --sudo
