@@ -6,8 +6,15 @@ set -o nounset
 
 version="$1"
 
+nix-channel --add https://channels.nixos.org/nixos-${version} nixos
 sudo nix-channel --add https://channels.nixos.org/nixos-${version} nixos
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-${version}.tar.gz home-manager
 sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-${version}.tar.gz home-manager
 # no tags
+nix-channel --add https://github.com/Mic92/sops-nix/archive/master.tar.gz sops-nix
 sudo nix-channel --add https://github.com/Mic92/sops-nix/archive/master.tar.gz sops-nix
+nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
 sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
+
+nix-channel --update
+sudo nix-channel --update
