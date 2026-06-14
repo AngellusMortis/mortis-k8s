@@ -82,8 +82,8 @@
                     # upstream core services
                     "pi-1.wl.mort.is" = "192.168.1.10";
                     "pi-1" = "192.168.1.10";
-                    "pi-2.wl.mort.is" = "192.168.1.12";
-                    "pi-2" = "192.168.1.12";
+                    "pi-2.wl.mort.is" = "192.168.3.12";
+                    "pi-2" = "192.168.3.12";
 
                     "home-control.wl.mort.is" = "192.168.2.12";
 
