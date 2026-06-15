@@ -91,10 +91,6 @@
                 source $pythonDir/site-packages/powerline/bindings/zsh/powerline.zsh
             '';
         };
-
-        # The state version is required and should stay at the version you
-        # originally installed.
-        home.stateVersion = "24.11";
     };
 
 
@@ -215,10 +211,6 @@
                 ];
             };
         };
-
-        # The state version is required and should stay at the version you
-        # originally installed.
-        home.stateVersion = "24.11";
     };
     home-manager.users.root = { pkgs, ... }: {
         home.file = {
@@ -262,10 +254,6 @@
                 ];
             };
         };
-
-        # The state version is required and should stay at the version you
-        # originally installed.
-        home.stateVersion = "24.11";
     };
     security.sudo.extraRules = [
         {

@@ -41,4 +41,10 @@
     #
     # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
     system.stateVersion = "24.11"; # Did you read the comment?
+
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home-manager.users.build.home.stateVersion = "24.11";
+    home-manager.users.root.home.stateVersion = "24.11";
+    home-manager.users.cbailey.home.stateVersion = "24.11";
 }
