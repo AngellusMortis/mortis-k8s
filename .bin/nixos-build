@@ -45,12 +45,6 @@ function parse_args() {
 }
 
 
-command="switch"
-if [[ ! -z "${2+x}" ]]; then
-    if [[ "$2" == "--dry" ]]; then
-        command="build"
-    fi
-fi
-
+parse_args "$@"
 echo "Build ($build) command: $command $extra_args"
 NIXOS_CONFIG="$baseDir/iac/nix/$build/configuration.nix" nixos-rebuild $command --upgrade-all --sudo $extra_args
