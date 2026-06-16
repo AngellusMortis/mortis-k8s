@@ -20,7 +20,7 @@ spec:
   chart:
     spec:
       chart: tf-controller
-      version: "0.15.*"
+      version: "0.16.*"
       interval: 5m
       sourceRef:
         kind: HelmRepository
