@@ -38,6 +38,11 @@ spec:
       replicated:
         mayastor:
           enabled: false
+      rawfile:
+        enabled: false
+      hostpath:
+        enabled: false
+      zfs:
+        enabled: true
     loki:
       enabled: false
-
