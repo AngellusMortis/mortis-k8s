@@ -26,4 +26,3 @@ spec:
     ref: "refs/heads/master"
     path: "clusters/mortis"
     pullSecret: "flux-system"
-g
