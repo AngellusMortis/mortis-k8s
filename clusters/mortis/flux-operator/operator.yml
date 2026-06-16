@@ -52,3 +52,6 @@ spec:
                 paths:
                   - path: /
                     pathType: Prefix
+            tls:
+              - hosts:
+                  - cd.wl.mort.is
