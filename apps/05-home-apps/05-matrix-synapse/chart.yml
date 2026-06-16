@@ -27,6 +27,9 @@ spec:
     name: matrix
   values:
     serverName: mort.is
+    postgres:
+      storage:
+        size: 50Gi
     synapse:
       ingress:
         host: matrix.chat.mort.is
@@ -35,8 +38,6 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/upstream-vhost: "matrix.chat.mort.is"
         tlsSecret:  cert-chat-mort-is
-      storage:
-        size: 50Gi
       # logging:
       #   levelOverrides:
       #     synapse.handlers.oidc: DEBUG
