@@ -38,13 +38,6 @@ spec:
       replicated:
         mayastor:
           enabled: false
-    preUpgradeHook:
-      image:
-        # -- The container image registry URL for the hook job
-        registry: docker.io
-        # -- The container repository for the hook job
-        repo: openebs/kubectl
-        # -- The container image tag for the hook job
-        tag: "1.25.15"
-        # -- The imagePullPolicy for the container
-        pullPolicy: IfNotPresent
+    loki:
+      enabled: false
+
