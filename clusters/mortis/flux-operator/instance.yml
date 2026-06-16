@@ -1,0 +1,28 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: "2.3.x"
+    registry: "ghcr.io/fluxcd"
+  components:
+    - source-controller
+    # - source-watcher # 2.7.0+
+    - kustomize-controller
+    - helm-controller
+    - notification-controller
+    - image-reflector-controller
+    - image-automation-controller
+  cluster:
+    type: kubernetes
+    multitenant: false
+    networkPolicy: true
+    domain: "cluster.local"
+  sync:
+    kind: GitRepository
+    url: https://github.com/AngellusMortis/mortis-k8s.git
+    ref: "refs/heads/master"
+    path: "clusters/mortis"
+    pullSecret: "flux-system"
