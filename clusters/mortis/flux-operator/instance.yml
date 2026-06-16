@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   distribution:
-    version: "2.6.x"
+    version: "2.7.x"
     registry: "ghcr.io/fluxcd"
   components:
     - source-controller
@@ -26,3 +26,4 @@ spec:
     ref: "refs/heads/master"
     path: "clusters/mortis"
     pullSecret: "flux-system"
+g
