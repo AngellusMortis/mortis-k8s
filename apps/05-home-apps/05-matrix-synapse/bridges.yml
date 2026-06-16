@@ -1,4 +1,4 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: bridge-mautrix-signal
@@ -39,7 +39,7 @@ spec:
         backfill:
           enabled: true
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: bridge-mautrix-slack
@@ -80,7 +80,7 @@ spec:
         backfill:
           enabled: true
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: bridge-mautrix-meta
@@ -121,7 +121,7 @@ spec:
         backfill:
           enabled: true
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: bridge-mautrix-linkedin
