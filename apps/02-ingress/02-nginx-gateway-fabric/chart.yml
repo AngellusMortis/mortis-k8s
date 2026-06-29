@@ -15,7 +15,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-gateway
+  name: ingress-ngf-public
   namespace: ingress
 spec:
   releaseName: ngf-public
@@ -46,7 +46,7 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ingress-nginx-gateway
+  name: ingress-ngf-secure
   namespace: ingress
 spec:
   releaseName: ngf-secure
