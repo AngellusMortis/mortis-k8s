@@ -1,0 +1,75 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: nginx-gateway-fabric
+  namespace: ingress
+spec:
+  interval: 12h
+  url: oci://oci.trueforge.org/truecharts/unpoller
+  layerSelector:
+    mediaType: "application/vnd.cncf.helm.chart.content.v1.tar+gzip"
+    operation: extract
+  ref:
+    semver: "12.*"
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx-gateway
+  namespace: ingress
+spec:
+  releaseName: ngf-public
+  targetNamespace: ingress
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: nginx-gateway-fabric
+  values:
+    nginxGateway:
+      gatewayClassName: nginx-public
+      productTelemetry:
+        enable: false
+      autoscaling:
+        enable: true
+        minReplicas: 2
+    nginx:
+      autoscaling:
+        enable: true
+        minReplicas: 2
+    service:
+      externalTrafficPolicy: Local
+      loadBalancerIP: 192.168.3.227
+    certGenerator:
+      enable: false
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ingress-nginx-gateway
+  namespace: ingress
+spec:
+  releaseName: ngf-secure
+  targetNamespace: ingress
+  interval: 10m
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: nginx-gateway-fabric
+  values:
+    nginxGateway:
+      gatewayClassName: nginx-public
+      productTelemetry:
+        enable: false
+      autoscaling:
+        enable: true
+        minReplicas: 2
+    nginx:
+      autoscaling:
+        enable: true
+        minReplicas: 2
+    service:
+      externalTrafficPolicy: Local
+      loadBalancerIP: 192.168.2.227
+    certGenerator:
+      enable: false

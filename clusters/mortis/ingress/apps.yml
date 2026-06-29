@@ -43,6 +43,20 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: ingress-nginx-gateway
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  path: ./apps/02-ingress/02-nginx-gateway-fabric
+  targetNamespace: ingress
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: ingress-cloudflare-tunnel
   namespace: flux-system
 spec:
