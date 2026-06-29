@@ -41,7 +41,9 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 192.168.3.227
     certGenerator:
-      enable: false
+      enable: true
+      serverTLSSecretName: ngf-public-server-tls
+      agentTLSSecretName: ngf-public-agent-tls
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -72,4 +74,6 @@ spec:
       externalTrafficPolicy: Local
       loadBalancerIP: 192.168.2.227
     certGenerator:
-      enable: false
+      enable: true
+      serverTLSSecretName: ngf-secure-server-tls
+      agentTLSSecretName: ngf-secure-agent-tls
