@@ -81,7 +81,7 @@ spec:
                 PAPERLESS_DATA_DIR: "/usr/src/paperless/data"
                 PAPERLESS_CONSUMPTION_DIR: "/usr/src/paperless/consume"
                 PAPERLESS_MEDIA_ROOT: "/usr/src/paperless/media"
-                PAPERLESS_CONSUMER_POLLING: 60
+                PAPERLESS_CONSUMER_POLLING_INTERVAL: 60
                 PAPERLESS_FILENAME_FORMAT: "{{`{{ created_year }}/{{ correspondent }}/{{ title }}`}}"
                 PAPERLESS_CONVERT_MEMORY_LIMIT: 512
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
