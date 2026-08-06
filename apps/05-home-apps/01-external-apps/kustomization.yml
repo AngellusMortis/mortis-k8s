@@ -1,6 +1,6 @@
 resources:
   - ingress.yml
-  - protect-exporter.yml
+  # - protect-exporter.yml
   - unifi-network-backup.yml
   - unpoller.yml
   - unifi-ssh-sealed.yml
