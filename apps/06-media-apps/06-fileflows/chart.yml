@@ -112,7 +112,6 @@ spec:
         enabled: true
         type: vct
         size: 10Gi
-        storageClass: longhorn
         targetSelector:
           node:
             node:
@@ -121,7 +120,6 @@ spec:
         enabled: true
         type: vct
         size: 10Gi
-        storageClass: longhorn
         targetSelector:
           node:
             node:
@@ -130,7 +128,6 @@ spec:
         enabled: true
         type: vct
         size: 500Gi
-        storageClass: longhorn
         targetSelector:
           node:
             node:
