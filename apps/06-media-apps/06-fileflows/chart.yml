@@ -97,18 +97,22 @@ spec:
         enabled: true
         size: 10Gi
         mountPath: /app/Data
+        storageClass: longhorn
       logs:
         enabled: true
         size: 10Gi
         mountPath: /app/Logs
+        storageClass: longhorn
       temp:
         enabled: true
         size: 10Gi
         mountPath: /temp
+        storageClass: longhorn
       node-data:
         enabled: true
         type: vct
         size: 10Gi
+        storageClass: longhorn
         targetSelector:
           node:
             node:
@@ -117,6 +121,7 @@ spec:
         enabled: true
         type: vct
         size: 10Gi
+        storageClass: longhorn
         targetSelector:
           node:
             node:
@@ -125,6 +130,7 @@ spec:
         enabled: true
         type: vct
         size: 500Gi
+        storageClass: longhorn
         targetSelector:
           node:
             node:
