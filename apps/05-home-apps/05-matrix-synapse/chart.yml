@@ -31,6 +31,12 @@ spec:
       storage:
         size: 50Gi
     synapse:
+      resources:
+        requests:
+          memory: 100Mi
+          cpu: 100m
+        limits:
+          memory: 6Gi
       ingress:
         host: matrix.chat.mort.is
         tlsEnabled: true
