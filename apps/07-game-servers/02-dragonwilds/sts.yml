@@ -56,16 +56,18 @@ spec:
             value: Mortis
           - name: DEFAULT_WORLD_NAME
             value: Stuff
+          - name: MAX_PLAYERS
+            value: "10"
         volumeMounts:
           - mountPath: /home/steam/server-files
             name: data
         resources:
           limits:
             cpu: 4000m
-            memory: 16Gi
+            memory: 12Gi
           requests:
             cpu: 1000m
-            memory: 8Gi
+            memory: 6Gi
         securityContext:
           allowPrivilegeEscalation: true
           runAsNonRoot: false
