@@ -17,6 +17,7 @@ spec:
   ports:
     - name: game
       port: 7777
+      protocol: UDP
       targetPort: game
   externalTrafficPolicy: Local
   type: LoadBalancer

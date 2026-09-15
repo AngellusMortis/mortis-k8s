@@ -30,8 +30,9 @@ spec:
         image: indifferentbroccoli/runescape-dragonwilds-server-docker:v1.0.1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 7777
-          name: game
+        - name: game
+          containerPort: 7777
+          protocol: UDP
         envFrom:
           - secretRef:
               name: dragonwilds-secrets
