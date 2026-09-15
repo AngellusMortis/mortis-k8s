@@ -25,6 +25,15 @@ spec:
         app.kubernetes.io/name: dragonwilds
         app.kubernetes.io/part-of: dragonwilds
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: NotIn
+                values:
+                - storage-1
       containers:
       - name: server
         image: indifferentbroccoli/runescape-dragonwilds-server-docker:v1.0.1
