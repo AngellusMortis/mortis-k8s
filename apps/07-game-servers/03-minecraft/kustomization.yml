@@ -1,8 +1,0 @@
-resources:
-  - sts.yml
-  - pvc.yml
-  - service.yml
-  - secrets-sealed.yml
-  - ingress.yml
-  - proxy.yml
-  - proxy-secrets-sealed.yml

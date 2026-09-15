@@ -1,0 +1,5 @@
+resources:
+  - sts.yml
+  - config-sealed.yml
+  - pvc.yml
+  - service.yml
