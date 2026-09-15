@@ -55,7 +55,7 @@ spec:
           - name: SERVER_NAME
             value: Mortis
           - name: DEFAULT_WORLD_NAME
-            value: Stuff
+            value: Mortis
           - name: MAX_PLAYERS
             value: "10"
         volumeMounts:
