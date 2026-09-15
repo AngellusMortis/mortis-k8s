@@ -5,46 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./apps/07-game-servers/01-satisfactory
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: game-servers-smb
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./apps/07-game-servers/02-smb
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: game-servers-minecraft
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./apps/07-game-servers/03-minecraft
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: game-servers-ark
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  path: ./apps/07-game-servers/04-ark
+  path: ./apps/07-game-servers/02-dragonwilds
   prune: false
   sourceRef:
     kind: GitRepository
