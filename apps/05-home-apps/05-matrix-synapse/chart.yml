@@ -97,7 +97,7 @@ spec:
           configSecret: matrix-config
           configSecretKey: smtp.yml
     matrixRTC:
-      replicas: 2
+      replicas: 1
       ingress:
         host: mrtc.chat.mort.is
         tlsEnabled: true
