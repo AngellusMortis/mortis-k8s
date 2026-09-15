@@ -36,6 +36,10 @@ spec:
           - secretRef:
               name: dragonwilds-secrets
         env:
+          - name: PUID
+            value: "1000"
+          - name: PGID
+            value: "1000"
           - name: UPDATE_ON_START
             value: "true"
           - name: SERVER_NAME
@@ -45,18 +49,6 @@ spec:
         volumeMounts:
           - mountPath: /home/steam/server-files
             name: data
-        # readinessProbe:
-        #   exec:
-        #     command:
-        #       - mc-monitor
-        #       - status
-        #       - --host
-        #       - localhost
-        #       - --port
-        #       - "25565"
-        #   initialDelaySeconds: 120
-        #   periodSeconds: 5
-        #   failureThreshold: 18
         resources:
           limits:
             cpu: 4000m
