@@ -38,13 +38,13 @@ spec:
               probes:
                 liveness:
                   type: http
-                  path: /
+                  path: /manifest.json
                 readiness:
                   type: http
-                  path: /
+                  path: /manifest.json
                 startup:
                   type: http
-                  path: /
+                  path: /manifest.json
               fixedEnv:
                 TZ: "America/New_York"
               env: {}
