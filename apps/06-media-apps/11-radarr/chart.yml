@@ -45,8 +45,9 @@ spec:
         enabled: true
         type: pvc
         existingClaim: nas-nvme-download
-        subPath: p
-        mountPath: /downloads/p
+        mountPath: /downloads
+        # subPath: p
+        # mountPath: /downloads/p
       public:
         enabled: true
         type: pvc
