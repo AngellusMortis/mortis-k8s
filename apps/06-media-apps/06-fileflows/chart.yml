@@ -52,44 +52,9 @@ spec:
                 limits:
                   cpu: 1000m
                   memory: 8Gi
-                requests:
-                  cpu: 100m
-                  memory: 2Gi
-      node:
-        enabled: true
-        type: StatefulSet
-        replicas: 1
-        podSpec:
-          runtimeClassName: nvidia
-          containers:
-            node:
-              enabled: true
-              primary: true
-              imageSelector: image
-              probes:
-                liveness:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
-                readiness:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
-                startup:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
-              env:
-                NVIDIA_VISIBLE_DEVICES: all
-                FFNODE: "1"
-                ServerUrl: "http://fileflows.media:10242"
-              resources:
-                limits:
-                  cpu: 10000m
-                  memory: 8Gi
                   nvidia.com/gpu: 1
                 requests:
-                  cpu: 1000m
+                  cpu: 100m
                   memory: 2Gi
                   nvidia.com/gpu: 1
     persistence:
