@@ -72,7 +72,7 @@ spec:
     image:
       registry: index.docker.io
       repository: plexinc/pms-docker # {"$imagepolicy": "flux-system:plex-media-server-policy:name"}
-      tag: "1.43.5.11029-6bf8af3f0" # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
+      tag: "1.43.5.11079-b3b13e506" # {"$imagepolicy": "flux-system:plex-media-server-policy:tag"}
       pullPolicy: IfNotPresent
     pms:
       storageClassName: longhorn
