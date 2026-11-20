@@ -34,17 +34,6 @@ spec:
       main:
         podSpec:
           containers:
-            main:
-              probes:
-                liveness:
-                  type: http
-                  path: /manifest.json
-                readiness:
-                  type: http
-                  path: /manifest.json
-                startup:
-                  type: http
-                  path: /manifest.json
               fixedEnv:
                 TZ: "America/New_York"
               env: {}
