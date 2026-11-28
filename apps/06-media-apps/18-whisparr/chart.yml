@@ -26,14 +26,6 @@ spec:
     kind: OCIRepository
     name: whisparr
   values:
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              fixedEnv:
-                PGID: "1000"
-                PUID: "1000"
     persistence:
       config:
         enabled: true
