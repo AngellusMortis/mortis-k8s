@@ -54,9 +54,6 @@ spec:
         operator:
           # Pin to your current PG major version (e.g., 16) to avoid major upgrade errors
           pgVersion: 16
-          # Place any other former cnpg.main settings here (mode, instances, backups, etc.)
-          backups:
-            enabled: false
     workload:
       main:
         podSpec:
