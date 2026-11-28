@@ -29,6 +29,10 @@ spec:
     - kind: Secret
       name: romm-secrets
   values:
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
     workload:
       main:
         podSpec:
