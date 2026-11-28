@@ -56,7 +56,7 @@ spec:
           pgVersion: 16
           # Place any other former cnpg.main settings here (mode, instances, backups, etc.)
           backups:
-            enabled: true
+            enabled: false
     workload:
       main:
         podSpec:
