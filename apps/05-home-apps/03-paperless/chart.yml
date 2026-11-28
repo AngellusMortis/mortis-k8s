@@ -45,6 +45,8 @@ spec:
       varrun:
         enabled: false
     dependencies:
+      valkey:
+        enabled: true
       postgresql:
         enabled: true
         depconfig:
@@ -96,11 +98,6 @@ spec:
                 PAPERLESS_ENABLE_HTTP_REMOTE_USER: TRUE
                 PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
                 PAPERLESS_OCR_IMAGE_DPI: 300
-                PAPERLESS_REDIS:
-                  secretKeyRef:
-                    expandObjectName: false
-                    name: '{{ printf "%s-%s" .Release.Name "rediscreds" }}'
-                    key: url
                 PAPERLESS_SECRET_KEY:
                   secretKeyRef:
                     expandObjectName: false
