@@ -52,7 +52,6 @@ spec:
           postgresqlDatabase: paperless
           password: "your-password"
         operator:
-          # Pin to your current PG major version (e.g., 16) to avoid major upgrade errors
           pgVersion: 16
     workload:
       main:
@@ -92,8 +91,8 @@ spec:
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
                 USERMAP_UID: "{{ .Values.securityContext.container.PUID }}"
                 USERMAP_GID: "{{ .Values.securityContext.pod.fsGroup }}"
-                PAPERLESS_DBNAME: "{{ .Values.cnpg.main.database }}"
-                PAPERLESS_DBUSER: "{{ .Values.cnpg.main.user }}"
+                PAPERLESS_DBNAME: "{{ .Values.dependencies.postgresql.depconfig.postgresqlDatabase }}"
+                PAPERLESS_DBUSER: "{{ .Values.dependencies.postgresql.depconfig.postgresqlUsername }}"
                 PAPERLESS_DBPORT: "5432"
                 PAPERLESS_WEBSERVER_WORKERS: 2
                 PAPERLESS_ENABLE_HTTP_REMOTE_USER: TRUE
