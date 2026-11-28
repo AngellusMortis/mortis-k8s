@@ -44,11 +44,19 @@ spec:
         mountPath: "/usr/src/paperless/media"
       varrun:
         enabled: false
-    cnpg:
-      main:
+    dependencies:
+      postgresql:
         enabled: true
-        user: paperless
-        database: paperless
+        depconfig:
+          postgresqlUsername: paperless
+          postgresqlDatabase: paperless
+          password: "your-password"
+        operator:
+          # Pin to your current PG major version (e.g., 16) to avoid major upgrade errors
+          pgVersion: 16
+          # Place any other former cnpg.main settings here (mode, instances, backups, etc.)
+          backups:
+            enabled: true
     workload:
       main:
         podSpec:
