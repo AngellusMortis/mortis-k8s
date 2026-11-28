@@ -78,6 +78,7 @@ spec:
                 PAPERLESS_FILENAME_FORMAT: "{{`{{ created_year }}/{{ correspondent }}/{{ title }}`}}"
                 PAPERLESS_CONVERT_MEMORY_LIMIT: 512
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
+                PAPERLESS_ALLOWED_HOSTS: "paperless.wl.mort.is,localhost,127.0.0.1"
                 USERMAP_UID: "568"
                 USERMAP_GID: "568"
                 PAPERLESS_DBPORT: "5432"
