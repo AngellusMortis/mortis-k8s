@@ -91,21 +91,11 @@ spec:
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
                 USERMAP_UID: "{{ .Values.securityContext.container.PUID }}"
                 USERMAP_GID: "{{ .Values.securityContext.pod.fsGroup }}"
-                PAPERLESS_DBNAME: "{{ .Values.dependencies.postgresql.depconfig.postgresqlDatabase }}"
-                PAPERLESS_DBUSER: "{{ .Values.dependencies.postgresql.depconfig.postgresqlUsername }}"
                 PAPERLESS_DBPORT: "5432"
                 PAPERLESS_WEBSERVER_WORKERS: 2
                 PAPERLESS_ENABLE_HTTP_REMOTE_USER: TRUE
                 PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
                 PAPERLESS_OCR_IMAGE_DPI: 300
-                PAPERLESS_DBPASS:
-                  secretKeyRef:
-                    name: cnpg-main-user
-                    key: password
-                PAPERLESS_DBHOST:
-                  secretKeyRef:
-                    name: cnpg-main-urls
-                    key: host
                 PAPERLESS_REDIS:
                   secretKeyRef:
                     expandObjectName: false
