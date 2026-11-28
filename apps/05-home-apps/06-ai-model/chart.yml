@@ -1,0 +1,121 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: ollama
+  namespace: default
+spec:
+  interval: 1h
+  url: https://helm.otwld.com/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ollama-storage-1
+  namespace: default
+spec:
+  releaseName: ollama-storage-1
+  interval: 30m
+  targetNamespace: default
+  install:
+    createNamespace: false
+  chart:
+    spec:
+      chart: ollama
+      version: ">=1.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: ollama
+        namespace: default
+  values:
+    strategy:
+      type: Recreate
+
+    runtimeClassName: nvidia
+
+    nodeSelector:
+      kubernetes.io/hostname: storage-1
+
+    service:
+      type: LoadBalancer
+      loadBalancerIP: 192.168.3.227
+      port: 8080
+      targetPort: 8080
+
+    ollama:
+      gpu:
+        enabled: true
+        type: nvidia
+        number: 1
+        # number: 2
+      models:
+        pull:
+          - qwen3-coder:30b
+          - qwen3.5:35b-a3b
+          - qwen3:4b
+        run:
+          - qwen3-coder:30b
+
+    extraEnv:
+      - name: OLLAMA_NUM_PARALLEL
+        value: "1"
+      - name: OMP_NUM_THREADS
+        value: "22"
+        # value: "8"
+      - name: OLLAMA_FLASH_ATTENTION
+        value: "1"
+      - name: OLLAMA_KV_CACHE_TYPE
+        value: "q8_0"
+      - name: OLLAMA_MAX_LOADED_MODELS
+        value: "2"
+      - name: OLLAMA_CONTEXT_LENGTH
+        value: "65536"
+      # - name: OLLAMA_SCHED_SPREAD
+      #   value: "1"
+
+    extraContainers:
+      - name: auth-proxy
+        image: nginx:alpine
+        ports:
+          - containerPort: 8080
+        env:
+          - name: API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: ollama-auth
+                key: API_KEY
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            cat <<EOF > /etc/nginx/conf.d/default.conf
+            server {
+                listen 8080;
+                client_max_body_size 50M;
+                location / {
+                    if (\$http_authorization != "Bearer ${API_KEY}") {
+                        return 401 '{"error": "Unauthorized"}';
+                    }
+                    proxy_pass http://127.0.0.1:11434;
+                    proxy_set_header Host \$host;
+                    proxy_buffering off;
+                    proxy_read_timeout 600s;
+                    proxy_send_timeout 600s;
+                }
+            }
+            EOF
+            nginx -g "daemon off;"
+
+    resources:
+      requests:
+        cpu: "22"
+        memory: "40Gi"
+        # cpu: "4"
+        # memory: "16Gi"
+      limits:
+        cpu: "44"
+        memory: "80Gi"
+        # cpu: "8"
+        # memory: "24Gi"
+
+    persistentVolume:
+      enabled: true
+      size: 65Gi
