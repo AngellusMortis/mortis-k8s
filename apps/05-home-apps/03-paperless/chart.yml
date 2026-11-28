@@ -70,6 +70,7 @@ spec:
               env:
                 COMPOSE_PROJECT_NAME: paperless
                 PAPERLESS_TIME_ZONE: America/New_York
+                PAPERLESS_PORT: "10140"
                 PAPERLESS_DATA_DIR: "/usr/src/paperless/data"
                 PAPERLESS_CONSUMPTION_DIR: "/usr/src/paperless/consume"
                 PAPERLESS_MEDIA_ROOT: "/usr/src/paperless/media"
