@@ -60,19 +60,6 @@ spec:
         podSpec:
           containers:
             main:
-              probes:
-                liveness:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
-                readiness:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
-                startup:
-                  enabled: false
-                  type: exec
-                  command: ["true"]
               resources:
                 limits:
                   cpu: 1000m
@@ -91,8 +78,8 @@ spec:
                 PAPERLESS_FILENAME_FORMAT: "{{`{{ created_year }}/{{ correspondent }}/{{ title }}`}}"
                 PAPERLESS_CONVERT_MEMORY_LIMIT: 512
                 PAPERLESS_URL: "https://paperless.wl.mort.is"
-                USERMAP_UID: "{{ .Values.securityContext.container.PUID }}"
-                USERMAP_GID: "{{ .Values.securityContext.pod.fsGroup }}"
+                USERMAP_UID: "568"
+                USERMAP_GID: "568"
                 PAPERLESS_DBPORT: "5432"
                 PAPERLESS_WEBSERVER_WORKERS: 2
                 PAPERLESS_ENABLE_HTTP_REMOTE_USER: TRUE
@@ -122,11 +109,8 @@ spec:
         hosts:
           - host: paperless.wl.mort.is
             paths:
-                - path: /
-                  pathType: Prefix
-                  overrideService:
-                    name: main
-                    port: 10140
+              - path: /
+                pathType: Prefix
         integrations:
           certManager:
             enabled: false
